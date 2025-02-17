@@ -5,12 +5,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="resources/css/main.css">
 </head>
 <body>
 	<header>
 		<jsp:include page="/WEB-INF/views/inc/top.jsp" />
 	</header>
-	<article style="height: 700px;">
+	<article>
 	
 	</article>
 	<footer>
