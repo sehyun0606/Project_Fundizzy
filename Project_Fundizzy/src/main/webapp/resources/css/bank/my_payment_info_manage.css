@@ -1,0 +1,112 @@
+@charset "UTF-8";
+
+article {
+	width:35%;
+	text-align: center;
+    margin: 0 auto;
+	padding: 24px 16px 0;
+}
+
+#title {
+	font-size: 32px;
+	font-weight: 700;
+	line-height: 1.35;
+	text-align: left;
+	margin-bottom: 40px;
+}
+
+.subTitle {
+	font-size: 25px;
+	font-weight: 700;
+	padding-left: 20px;
+	text-align: left;
+	margin-bottom: 20px;
+}
+
+#accountInfo {
+	margin-bottom: 20px;
+}
+
+.account, .card {
+	display: inline-block;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+/* 	border: 2px solid #C9A7FF;  */
+	border-radius: 15px;
+	width: 400px;
+	height: 200px;
+/* 	background: linear-gradient(135deg, #F0DBFF, #FAF2FF); */
+	box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.15); 
+	font-weight: 600;
+	color: #444; 
+	text-align: center;
+	padding: 20px;
+	position: relative;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.account {
+	border: 2px solid #C9A7FF;
+	background: linear-gradient(135deg, #F0DBFF, #FAF2FF);
+}
+
+.account::before, .account::before{
+	font-size: 35px;
+	color: #A680FF;
+	margin-bottom: 10px;
+	display: block;
+}
+
+.accountHeader, .cardHeader {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 60px;
+}
+.bankName, .companyName {
+	display: inline-block;
+	font-size: 25px;
+}
+
+.bankName img {
+	width: 30px;
+	vertical-align: bottom;
+}
+
+.delete {
+	font-size: 18px;
+	display: inline-block;
+	opacity: 0.7;
+	cursor: pointer;
+}
+
+.delete:hover {
+	opacity: 1;	
+}
+
+.delete img {
+	width: 18px;
+}
+
+.registDate {
+	position: absolute;
+	bottom: 10px;
+	opacity: 0.7;
+}
+
+.card {
+    border: 2px solid #A0C4FF;
+    background: linear-gradient(135deg, #D3E6FF, #EAF6FF);
+
+}
+
+.companyName img {
+	width: 40px;
+	vertical-align: top;
+}
+
+
+
+
+
