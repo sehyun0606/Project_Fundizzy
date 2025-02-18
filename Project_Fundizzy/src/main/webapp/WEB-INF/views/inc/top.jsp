@@ -90,8 +90,8 @@
         <input type="text" class="search-bar  top-items"  placeholder="검색">
         <div class="log-in top-items">
 	        <div class="auth-links top-items">
-	            <a href="#" class="top-items">로그인</a>
-	            <a href="#" class="top-items">회원가입</a>
+	            <a href="Login" class="top-items">로그인</a>
+	            <a href="SignUp" class="top-items">회원가입</a>
 	        </div>
 	        <a href="#" class="create-project top-items">프로젝트 만들기</a>
         </div>
