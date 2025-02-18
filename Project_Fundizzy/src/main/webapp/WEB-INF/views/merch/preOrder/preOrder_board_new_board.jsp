@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>펀딩새소식-글</title>
-<link rel="stylesheet" type="text/css" href="resources/css/merch/fund_board_new_board.css">
+<link rel="stylesheet" type="text/css" href="resources/css/merch/funding/fund_board_new_board.css">
 </head>
 <body>
 	<header>
@@ -13,12 +13,12 @@
 	</header>
 	<article>
 		<div class="fund-top">
-	        <a href="FundBoardStory" class="story">스토리</a>
-	        <a href="FundBoardNew" class="new">새소식</a>
-	        <a href="FundBoardSupport" class="support">지지서명</a>
-	       	<a href="FundBoardSupporter" class="supporter">서포터</a>
-	        <a href="FundBoardRefund" class="refund">환불·정책</a>
-	        <a href="FundBoardReward" class="reward">리워드정보</a>
+	        <a href="PreOrderBoardStory" class="story">스토리</a>
+	        <a href="PreOrderBoardNew" class="new">새소식</a>
+	        <a href="PreOrderBoardSupport" class="support">지지서명</a>
+	       	<a href="PreOrderBoardSupporter" class="supporter">서포터</a>
+	        <a href="PreOrderBoardRefund" class="refund">환불·정책</a>
+	        <a href="PreOrderBoardReward" class="reward">리워드정보</a>
 	 	</div>
 	    <hr>
     <div class="container">

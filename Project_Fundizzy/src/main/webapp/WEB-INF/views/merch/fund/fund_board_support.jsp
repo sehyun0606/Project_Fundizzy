@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>지지서명</title>
-<link rel="stylesheet" type="text/css" href="resources/css/merch/fund_board_support.css">
+<link rel="stylesheet" type="text/css" href="resources/css/merch/fund/fund_board_support.css">
 </head>
 <body>
 	<header>

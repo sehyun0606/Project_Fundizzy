@@ -4,8 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>참여하는 서포터</title>
-<link rel="stylesheet" type="text/css" href="resources/css/merch/fund_board_supporter.css">
+<title>환불정책</title>
+<link rel="stylesheet" type="text/css" href="resources/css/merch/funding/fund_board_refund.css">
 </head>
 <body>
 	<header>
@@ -13,32 +13,44 @@
 	</header>
 	<article>
 		<div class="fund-top">
-	        <a href="FundBoardStory" class="story">스토리</a>
-	        <a href="FundBoardNew" class="new">새소식</a>
-	        <a href="FundBoardSupport" class="support">지지서명</a>
-	       	<a href="FundBoardSupporter" class="supporter">서포터</a>
-	        <a href="FundBoardRefund" class="refund">환불·정책</a>
-	        <a href="FundBoardReward" class="rewardInfo">리워드정보</a>
+	        <a href="PreOrderBoardStory" class="story">스토리</a>
+	        <a href="PreOrderBoardNew" class="new">새소식</a>
+	        <a href="PreOrderBoardSupport" class="support">지지서명</a>
+	       	<a href="PreOrderBoardSupporter" class="supporter">서포터</a>
+	        <a href="PreOrderBoardRefund" class="refund">환불·정책</a>
+	        <a href="PreOrderBoardReward" class="reward">리워드정보</a>
 	 	</div>
 	    <hr>
-    <div class="container">
+		<div class="container">
 	    <div class="content-left">
-	    	<h3>참여하는 서포터</h3>
-	    	<hr>
-	        <div class="post">
-	            <p>이재영님이 71,212원 예약구매 했어요</p>
-	        </div>
-	        <div class="post">
-	            <p>이재영님이 71,212원 예약구매 했어요</p>
-	        </div>
-	        <div class="post">
-	            <p>이재영님이 71,212원 예약구매 했어요</p>
-	        </div>
-	        <div class="post">
-	            <p>이재영님이 71,212원 예약구매 했어요</p>
-	        </div>
+	    	<h3>환불 / 정책</h3>
+	    	<ul>
+	    		<li>
+	    			프로젝트 종료 전까지 언제든 결제 취소 가능해요.
+	    		</li>
+	    		<li>
+	    			환불은 참여 내역에서 신청할 수 있어요.
+	    		</li>
+	    		<li>
+	    			환불 신청은 리워드 수령 후 7일 이내 가능해요
+	    		</li>
+	    		<li>
+	    			환불 신청 후 메이커와 소통하여 리워드를 발송해주세요.
+	    		</li>
+	    		<li>
+	    			단순변심: 반품비 서포터 부담
+	    		</li>
+	    		<li>
+	    			리워드 품질 하자: 반품비 메이커 부담
+	    		<li>
+	    			환불 정책에 따라 꼼꼼한 확인 절차를 통해 진행돼요.
+	    		</li>
+	    		<li>
+	    			메이커가 리워드 발송 시작 예정일까지 리워드를 발송하지 않을 경우 환불 신청 이후 즉시 결제 취소돼요. (2-5 영업일 소요)
+    			</li>
+	    	</ul>
 	    </div>
-     <div class="content-right">
+   <div class="content-right">
             <div class="purchase-section">
                 <h3>[소재혁명] 빈틈없는 편안함! 고온세척&건조 가능한 반영구 통실리콘 베개</h3>
                 <div class="purchase-content">

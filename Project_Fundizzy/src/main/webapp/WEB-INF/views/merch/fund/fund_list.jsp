@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>메인</title>
-<link rel="stylesheet" type="text/css" href="resources/css/merch/fund_list.css">
+<link rel="stylesheet" type="text/css" href="resources/css/merch/funding/fund_list.css">
 </head>
 <body>
 	<header>
