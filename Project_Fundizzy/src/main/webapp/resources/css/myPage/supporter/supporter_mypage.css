@@ -1,0 +1,311 @@
+/* 기본 스타일 */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+}
+
+
+
+.membership-ad,
+.recent-projects,
+.recommended-products,
+.info-section {
+    width: 800px !important;
+    max-width: 800px !important;
+    min-width: 800px !important;
+   
+}
+
+
+/* 부모 컨테이너 */
+.user-info-container {
+    display: flex; /* 가로 정렬 */
+    align-items: stretch; /* 위쪽 정렬 */
+    gap: 20px; /* 두 영역 사이 간격 */
+}
+/* user-info 영역 */
+.user-info {
+    width: 500px !important;
+    max-width: 500px !important;
+    min-width: 500px !important;
+    display: flex;
+    flex-direction: column;
+}
+
+.point-coupon {
+    width: 200px !important;
+    max-width: 200px !important;
+    min-width: 200px !important;
+    display: flex;
+    flex-direction: column;
+    height: 100px;
+    margin-top: 30px; /* 현재 위치에서 30px 아래로 이동 */
+    margin-left: 20px;
+}
+
+
+
+.dashboard-container {
+    display: flex;
+    width: 100%;
+    height: calc(100vh + 300px); /* 현재 크기에서 300px 증가 */
+    box-sizing: border-box;
+}
+
+
+/* 메인 콘텐츠 (20% 작게) */
+.main-content {
+    flex: 0.8; /* 원래 flex: 1에서 0.8로 줄임 */
+    padding: 16px; /* 20px → 16px (20% 감소) */
+    margin-left: 550px; /* 350px → 280px (20% 감소) */
+    margin-top: 150px; /* 350px → 280px (20% 감소) */
+   
+}
+
+
+
+.menu ul {
+    list-style: none; /* 기본 점 스타일 제거 */
+    padding: 0;
+    margin: 0;
+}
+
+.menu ul li {
+    margin: 10px 0;
+    padding-left: 0; /* 항목 왼쪽 여백 제거 */
+}
+
+.menu ul li a {
+    color: black;
+    text-decoration: none;
+    font-size: 16px;
+    display: block;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.menu ul li a:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* 프로필 섹션 */
+.profile-section {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.profile-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 3px solid white;
+}
+
+.username {
+    margin-top: 10px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.edit-profile {
+    display: inline-block;
+    margin-top: 5px;
+    color: #c85fdf;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+
+
+
+
+.membership-ad {
+	margin-top: 50px;
+    border-radius: 10px;
+    position: relative; /* 이 속성이 필요함 */
+    padding: 3px;
+    background: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    font-weight: bold;
+    
+}
+
+
+
+.ad_button {
+    position: absolute;
+    right: 20px; /* 부모 요소의 우측 끝에 위치 */
+    top: 50%; /* 수직 가운데 정렬 */
+    transform: translateY(-50%); /* 정확히 가운데로 맞추기 */
+    padding: 10px 20px;
+    background-color: #c85fdf;
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    
+}
+
+.ad_button:hover {
+    background-color: #c85fdf;
+}
+
+.left-part {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100px;
+    transform: translateX(400px); /* 강제 이동 */
+      margin-top: 150px; /* 350px → 280px (20% 감소) */
+}
+
+.profile-part, .side-bar {
+	margin-left: 100px;
+    width: 100%; /* 너비를 동일하게 맞춤 */
+    text-align: center; /* 내부 요소도 가운데 정렬 */
+}
+
+
+.profile-part {
+	margin-left: 70px;
+	height: 200px;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 박스 그림자 */
+    display: flex;
+    flex-direction: column; /* 세로 정렬 */
+    align-items: center; /* 가운데 정렬 */
+    gap: 15px; /* 요소 간 간격 */
+    width: 120px; /* 내용에 맞게 크기 조정 */
+    border: 1px solid #ddd; /* 테두리 */
+}
+
+/* 프로필 이미지 스타일 */
+.profile-image img {
+    width: 80px;
+    height: 80px;
+    border-radius: 10%; /* 원형 */
+    border: 3px solid #c85fdf; /* 보라색 테두리 */
+}
+
+/* 프로필 이름 스타일 */
+.profile-name p {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+}
+
+/* 설정 버튼 스타일 */
+.setting_button {
+    background: #c85fdf; /* 보라색 버튼 */
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.setting_button:hover {
+    background: #c85fdf; /* 어두운 보라색 */
+}
+
+
+.user-info {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.point-coupon{
+	background: white;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	
+}
+
+
+
+
+/* .user-stats { */
+/*     display: flex; */
+/*     justify-content: space-around; */
+/*     margin-top: 10px; */
+/* } */
+
+/* user-stats 내부 요소들을 동일한 비율로 정렬 */
+.user-stats {
+    display: flex;
+    justify-content: space-between; /* 요소 간격을 균등하게 배분 */
+    align-items: center;
+    text-align: center;
+}
+
+/* 개별 아이템이 동일한 너비를 가지도록 설정 */
+.user-stats div {
+    flex: 1; /* 모든 요소가 동일한 비율을 가짐 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px; /* 요소 간의 간격 */
+}
+
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-item p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+/* 프로젝트 및 추천 상품 */
+.recent-projects, .user-info ,.recommended-products, .info-section {
+    margin-top: 30px;
+}
+
+
+
+
+h3 {
+    color: #555;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+}
+
+.project-list, .product-list, .info-list {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.project-card, .product-card, .info-card {
+    flex: 1;
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    font-weight: bold;
+}
+
+
+
+.stat-item1,
+.stat-item2,
+.stat-item3,
+.stat-item4 {
+    margin-top: 10px; /* 5px 아래로 이동 */
+}
+
+
+
+
+
