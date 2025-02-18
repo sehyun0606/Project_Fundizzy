@@ -86,7 +86,7 @@
         <div class="menu-item">
         	<span class="menu-title">프로젝트 관리</span>
             <div class="submenu">
-                <div class="submenu-item"><a href="#">서비스 요금</a> <span>작성중</span></div>
+                <div class="submenu-item"><a href="ProjectPlan">서비스 요금</a> <span>작성중</span></div>
                 <div class="submenu-item"><a href="#">프로젝트 정보</a> <span>작성전</span></div>
                 <div class="submenu-item"><a href="#">스토리 작성</a> <span>작성전</span></div>
                 <div class="submenu-item"><a href="#">리워드 설계</a> <span>작성전</span></div>
@@ -96,10 +96,10 @@
         <div class="menu-item">
         	<span class="menu-title">프로젝트 현황</span>
             <div class="submenu">
-                <div class="submenu-item"><a href="#">프로젝트 현황</a> <span>작성중</span></div>
-                <div class="submenu-item"><a href="#">정산 정보</a> <span>작성전</span></div>
-                <div class="submenu-item"><a href="#">정산 내역</a> <span>작성전</span></div>
-                <div class="submenu-item"><a href="#">발송,환불 관리</a> <span>작성전</span></div>
+                <div class="submenu-item"><a href="#">프로젝트 현황</a> </div>
+                <div class="submenu-item"><a href="#">정산 정보</a> </div>
+                <div class="submenu-item"><a href="#">정산 내역</a> </div>
+                <div class="submenu-item"><a href="#">발송,환불 관리</a> </div>
             </div>
         </div>
         <div class="menu-item">

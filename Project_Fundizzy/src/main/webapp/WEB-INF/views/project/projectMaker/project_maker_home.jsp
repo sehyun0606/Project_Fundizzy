@@ -73,16 +73,28 @@
             cursor: pointer;
         }
         .main{
-            padding-top: 2%;
-		    margin-top: 5%;
 		    width: 100%;
-		    border-top: 1px solid #ddd;
         }
+        .top{
+   	        height: 7%;
+		    border-bottom: 1px solid #ddd;
+		    display: flex;
+        }
+        .top-text{
+        	height: 100%;
+		    width: 15%;
+		    display: flex;
+		    justify-content: center;
+		    align-items: center;
+        }
+        
     </style>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/inc/project_maker_side.jsp"></jsp:include>
 	<div class="main">
+		<jsp:include page="/WEB-INF/views/inc/project_maker_top.jsp"></jsp:include>
+		
 	    <div class="container">
 	        <div class="header">프로젝트 관리</div>
 	        <div class="status-box">
