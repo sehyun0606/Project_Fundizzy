@@ -68,7 +68,7 @@
         	color:black;
         	text-decoration: none;
         }
-        button {
+        .side-button {
 			background: #6c5ce7;
             color: white;
             border: none;
@@ -92,13 +92,13 @@
             </div>
         </div>
         <div class="menu-item">
-        	<span class="menu-title">프로젝트 관리 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <button onclick="location.href='ProjectMaker'"> 관리 홈</button>
+        	<span class="menu-title">프로젝트 관리 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <button class="side-button" onclick="location.href='ProjectMaker'"> 관리 홈</button>
             <div class="submenu">
                 <div class="submenu-item"><a href="ProjectPlan">서비스 요금</a> <span>작성중</span></div>
-                <div class="submenu-item"><a href="#">프로젝트 정보</a> <span>작성전</span></div>
-                <div class="submenu-item"><a href="#">스토리 작성</a> <span>작성전</span></div>
-                <div class="submenu-item"><a href="#">리워드 설계</a> <span>작성전</span></div>
-                <div class="submenu-item"><a href="#">메이커 정보</a> <span>작성전</span></div>
+                <div class="submenu-item"><a href="ProjectInfo">프로젝트 정보</a> <span>작성전</span></div>
+                <div class="submenu-item"><a href="ProjectStory">스토리 작성</a> <span>작성전</span></div>
+                <div class="submenu-item"><a href="ProjectReword">리워드 설계</a> <span>작성전</span></div>
+                <div class="submenu-item"><a href="MakerInfo">메이커 정보</a> <span>작성전</span></div>
             </div>
         </div>
         <div class="menu-item">
@@ -125,6 +125,17 @@
 	    $(document).ready(function() {
 	        $(".menu-title").click(function() {
 	            $(this).siblings(".submenu").slideToggle();
+	        });
+	    });
+	    $(document).ready(function() {
+	        function adjustSidebarHeight() {
+	            $(".sidebar").css("height", $("body").height());
+	        }
+	        
+	        adjustSidebarHeight();
+	        
+	        $(window).resize(function() {
+	            adjustSidebarHeight();
 	        });
 	    });
 	</script>
