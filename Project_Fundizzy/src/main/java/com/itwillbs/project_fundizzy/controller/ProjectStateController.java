@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class ProjectStateController {
 	
-	@GetMapping("ShipAndRefund")
-	public String shipAndRefund() {
+	@GetMapping("ShipmentRefund")
+	public String shipmentRefund() {
 		return "project/projectState/shipment_refund";
 	}
 	
