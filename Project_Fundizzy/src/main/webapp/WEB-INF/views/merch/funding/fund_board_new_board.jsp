@@ -3,28 +3,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>펀딩 새소식-글</title>
-	<link rel="stylesheet" type="text/css" href="resources/css/fund_board/style3.css">
+<meta charset="UTF-8">
+<title>펀딩새소식-글</title>
+<link rel="stylesheet" type="text/css" href="resources/css/merch/fund_board_new_board.css">
 </head>
 <body>
-      <div class="fund-top">
-         <button>스토리</button>
-         <button class="new">새소식</button>
-         <button>커뮤니티</button>
-         <button>서포터</button>
-         <button>환불·정책</button>
-         <button>리워드정보</button>
-      </div>
-      <hr>
+	<header>
+		<jsp:include page="/WEB-INF/views/inc/top.jsp" />
+	</header>
+	<article>
+		<div class="fund-top">
+	        <a href="FundBoardStory" class="story">스토리</a>
+	        <a href="FundBoardNew" class="new">새소식</a>
+	        <a href="FundBoardSupport" class="support">지지서명</a>
+	       	<a href="FundBoardSupporter" class="supporter">서포터</a>
+	        <a href="FundBoardRefund" class="refund">환불·정책</a>
+	        <a href="FundBoardReward" class="reward">리워드정보</a>
+	 	</div>
+	    <hr>
     <div class="container">
         <div class="content-left">
             <div class="project-story">
-               <button class="list-btn">&lt; 목록으로 이동</button>
+               <button class="list-btn">목록으로 이동</button>
                 <p>앵콜펀딩 + 1차 펀딩 서포터분들의 리얼리뷰</p>
                 2025.2.12
                 <img src="story.jpg" alt="프로젝트 스토리 이미지">
-                <button>스토리 더보기v</button>
             </div>
             <div class="product-list">
                 <h3>펀딩/프리오더 베스트 프로젝트</h3>
@@ -103,5 +106,9 @@
             </div>
         </div>
     </div>
+	</article>
+	<footer>
+		<jsp:include page="/WEB-INF/views/inc/footer.jsp" />
+	</footer>
 </body>
-</html> 
+</html>
