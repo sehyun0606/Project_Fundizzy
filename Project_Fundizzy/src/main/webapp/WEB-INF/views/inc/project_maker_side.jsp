@@ -68,6 +68,14 @@
         	color:black;
         	text-decoration: none;
         }
+        button {
+			background: #6c5ce7;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+		}
     </style>
 </head>
 
@@ -84,7 +92,7 @@
             </div>
         </div>
         <div class="menu-item">
-        	<span class="menu-title">프로젝트 관리</span>
+        	<span class="menu-title">프로젝트 관리 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <button onclick="location.href='ProjectMaker'"> 관리 홈</button>
             <div class="submenu">
                 <div class="submenu-item"><a href="ProjectPlan">서비스 요금</a> <span>작성중</span></div>
                 <div class="submenu-item"><a href="#">프로젝트 정보</a> <span>작성전</span></div>
