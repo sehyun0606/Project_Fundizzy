@@ -82,7 +82,7 @@
 	        <div class="logo top-items">Fundizzy</div>
 	        <div class="nav-links top-items">
 	            <b><a href="#" class="active top-items">오픈예정</a></b>
-	            <b><a href="#" class="top-items">펀딩</a></b>
+	            <b><a href="FundList" class="top-items">펀딩</a></b>
 	            <b><a href="#" class="top-items">프리오더</a></b>
 	            <b><a href="#" class="top-items">도움말센터</a></b>
 	        </div>

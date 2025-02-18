@@ -3,20 +3,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>펀딩 스토리 </title>
-	<link rel="stylesheet" type="text/css" href="resources/css/fund_board/style.css">
+<meta charset="UTF-8">
+<title>펀딩스토리</title>
+<link rel="stylesheet" type="text/css" href="resources/css/merch/fund_board_story.css">
 </head>
 <body>
-      <div class="fund-top">
-         <button class="story">스토리</button>
-         <button>새소식</button>
-         <button>커뮤니티</button>
-         <button>서포터</button>
-         <button>환불·정책</button>
-         <button>리워드정보</button>
-      </div>
-      <hr>
+	<header>
+		<jsp:include page="/WEB-INF/views/inc/top.jsp" />
+	</header>
+	<article>
+		<div class="fund-top">
+	        <a href="FundBoardStory" class="story">스토리</a>
+	        <a href="FundBoardNew" class="new">새소식</a>
+	        <a href="FundBoardSupport" class="support">지지서명</a>
+	       	<a href="FundBoardSupporter" class="supporter">서포터</a>
+	        <a href="FundBoardRefund" class="refund">환불·정책</a>
+	        <a href="FundBoardReward" class="reward">리워드정보</a>
+	 	</div>
+	    <hr>
     <div class="container">
         <div class="content-left">
             <div class="main-image">
@@ -185,5 +189,9 @@
             </div>
         </div>
     </div>
+	</article>
+	<footer>
+		<jsp:include page="/WEB-INF/views/inc/footer.jsp" />
+	</footer>
 </body>
 </html>
