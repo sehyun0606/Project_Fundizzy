@@ -7,6 +7,18 @@ article {
 	padding: 24px 16px 0;
 }
 
+article input[type=button] {
+	border-radius: 20px;
+	border: 1px solid #C9A7FF;
+	font-size: 18px;
+	background-color: #fff;
+	cursor: pointer;
+}
+
+article input[type=button]:hover {
+	background-color: #C9A7FF;
+}
+
 #title {
 	font-size: 32px;
 	font-weight: 700;
@@ -23,20 +35,18 @@ article {
 	margin-bottom: 20px;
 }
 
-#accountInfo {
+#accountInfoDiv {
 	margin-bottom: 20px;
 }
 
-.account, .card {
+.account, #representAccount, .card, #addAccount, #addCard {
 	display: inline-block;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-/* 	border: 2px solid #C9A7FF;  */
 	border-radius: 15px;
-	width: 400px;
-	height: 200px;
-/* 	background: linear-gradient(135deg, #F0DBFF, #FAF2FF); */
+	width: 300px;
+	height: 150px;
 	box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.15); 
 	font-weight: 600;
 	color: #444; 
@@ -50,9 +60,20 @@ article {
 .account {
 	border: 2px solid #C9A7FF;
 	background: linear-gradient(135deg, #F0DBFF, #FAF2FF);
+	margin-bottom: 10px;
 }
 
-.account::before, .account::before{
+#addAccount {
+	border: 4px dashed #C9A7FF;
+}
+
+#representAccount {
+	border: 2px solid #C9A7FF;
+	background: linear-gradient(135deg, #F2F2FF, #DABFFF, #F2F2FF);
+	margin-bottom: 10px;
+}
+
+.account::before, #representAccount::before{
 	font-size: 35px;
 	color: #A680FF;
 	margin-bottom: 10px;
@@ -62,11 +83,26 @@ article {
 .accountHeader, .cardHeader {
 	display: flex;
 	justify-content: space-between;
-	margin-bottom: 60px;
+	margin-bottom: 30px;
 }
+
+.accountInfo, .cardInfo {
+	font-size: 18px;
+	letter-spacing: 5px;
+	
+}
+
+.registRepresentBtn {
+	margin-top: 15px;
+}
+
+.registRepresentBtn input[type=button]{
+	font-size: 16px;
+}
+
 .bankName, .companyName {
 	display: inline-block;
-	font-size: 25px;
+	font-size: 20px;
 }
 
 .bankName img {
@@ -97,7 +133,7 @@ article {
 
 .card {
     border: 2px solid #A0C4FF;
-    background: linear-gradient(135deg, #D3E6FF, #EAF6FF);
+    background: linear-gradient(135deg, #D3E6FF, #EAF6FF, #B0C4DE);
 
 }
 
@@ -106,7 +142,15 @@ article {
 	vertical-align: top;
 }
 
+#addCard {
+	border: 4px dashed #A0C4FF;
+}
 
+#addAccount img, #addCard img {
+	width: 100px;
+	opacity: 0.5;
+	margin-top: 30px;
+}
 
 
 
