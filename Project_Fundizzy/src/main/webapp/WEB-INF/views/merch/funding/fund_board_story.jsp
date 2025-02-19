@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>펀딩스토리</title>
-<link rel="stylesheet" type="text/css" href="resources/css/merch/fund/fund_board_story.css">
+<link rel="stylesheet" type="text/css" href="resources/css/merch/funding/fund_board_story.css">
 </head>
 <body>
 	<header>
@@ -162,7 +162,7 @@
                 <div class="btn-group">
                    <button class="btn-small">♡찜</button>
                    <button class="btn-small">지지</button>
-                   <button class="purchase-btn">구매하기</button>
+                   <button class="purchase-btn">펀딩하기</button>
                 </div>
             </div>
             <div class="project-info">
@@ -177,14 +177,38 @@
             <div class="reward-selection">
                 <h3>리워드 선택</h3>
                 <div class="reward-list">
-                    <img src="reward1.jpg" alt="리워드 1">
-                    <img src="reward2.jpg" alt="리워드 2">
-                    <img src="reward3.jpg" alt="리워드 3">
+				  	<div class="reward">
+		               <h4>13,900원</h4>
+		               <p>헤어스타일러 외 4종 스타일링 툴</p>
+		               <p>드라이기 + 고속노즐 + 일반노즐 + 스타일링 빗</p>
+		               <hr>
+		               <p>배송비 </p>
+		               <p>발송 시작일</p>
+		               <p>제한 수량</p>
+		            </div>
+				  	<div class="reward">
+		               <h4>13,900원</h4>
+		               <p>헤어스타일러 외 4종 스타일링 툴</p>
+		               <p>드라이기 + 고속노즐 + 일반노즐 + 스타일링 빗</p>
+		               <hr>
+		               <p>배송비 </p>
+		               <p>발송 시작일</p>
+		               <p>제한 수량</p>
+		            </div>
+				  	<div class="reward">
+		               <h4>13,900원</h4>
+		               <p>헤어스타일러 외 4종 스타일링 툴</p>
+		               <p>드라이기 + 고속노즐 + 일반노즐 + 스타일링 빗</p>
+		               <hr>
+		               <p>배송비 </p>
+		               <p>발송 시작일</p>
+		               <p>제한 수량</p>
+		            </div>
                 </div>
                 <div class="btn-group">
                    <button class="btn-small">♡ 찜</button>
                    <button class="btn-small">지지</button>
-                   <button class="purchase-btn">구매하기</button>
+                   <button class="purchase-btn">펀딩하기</button>
                 </div>
             </div>
         </div>

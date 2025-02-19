@@ -4,8 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>지지서명</title>
-<link rel="stylesheet" type="text/css" href="resources/css/merch/fund/fund_board_support.css">
+<title>참여하는 서포터</title>
+<link rel="stylesheet" type="text/css" href="resources/css/merch/funding/fund_board_supporter.css">
 </head>
 <body>
 	<header>
@@ -18,35 +18,27 @@
 	        <a href="FundBoardSupport" class="support">지지서명</a>
 	       	<a href="FundBoardSupporter" class="supporter">서포터</a>
 	        <a href="FundBoardRefund" class="refund">환불·정책</a>
-	        <a href="FundBoardReward" class="reward">리워드정보</a>
+	        <a href="FundBoardReward" class="rewardInfo">리워드정보</a>
 	 	</div>
 	    <hr>
     <div class="container">
 	    <div class="content-left">
-	    	<h3>지지서명 4</h3>
+	    	<h3>참여하는 서포터</h3>
 	    	<hr>
 	        <div class="post">
-	            <h4>정세현</h4>
-	            <p>가격은 대만족, AS까지 기대해보겠습니다.</p>
-	            <p>유용템</p>
+	            <p>이재영님이 71,212원 예약구매 했어요</p>
 	        </div>
 	        <div class="post">
-	            <h4>정세현</h4>
-	            <p>가격은 대만족, AS까지 기대해보겠습니다.</p>
-	            <p>유용템</p>
+	            <p>이재영님이 71,212원 예약구매 했어요</p>
 	        </div>
 	        <div class="post">
-	            <h4>정세현</h4>
-	            <p>가격은 대만족, AS까지 기대해보겠습니다.</p>
-	            <p>유용템</p>
+	            <p>이재영님이 71,212원 예약구매 했어요</p>
 	        </div>
 	        <div class="post">
-	            <h4>정세현</h4>
-	            <p>가격은 대만족, AS까지 기대해보겠습니다.</p>
-	            <p>유용템</p>
+	            <p>이재영님이 71,212원 예약구매 했어요</p>
 	        </div>
 	    </div>
-	    <div class="content-right">
+     <div class="content-right">
             <div class="purchase-section">
                 <h3>[소재혁명] 빈틈없는 편안함! 고온세척&건조 가능한 반영구 통실리콘 베개</h3>
                 <div class="purchase-content">
@@ -58,7 +50,7 @@
                 <div class="btn-group">
                    <button class="btn-small">♡찜</button>
                    <button class="btn-small">지지</button>
-                   <button class="purchase-btn">구매하기</button>
+                   <button class="purchase-btn">펀딩하기</button>
                 </div>
             </div>
             <div class="project-info">
@@ -80,7 +72,7 @@
                 <div class="btn-group">
                    <button class="btn-small">♡ 찜</button>
                    <button class="btn-small">지지</button>
-                   <button class="purchase-btn">구매하기</button>
+                   <button class="purchase-btn">펀딩하기</button>
                 </div>
             </div>
         </div>

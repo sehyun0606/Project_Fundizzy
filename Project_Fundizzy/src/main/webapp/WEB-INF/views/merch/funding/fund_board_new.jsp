@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>펀딩 새소식</title>
-<link rel="stylesheet" type="text/css" href="resources/css/merch/fund/fund_board_new.css">
+<link rel="stylesheet" type="text/css" href="resources/css/merch/funding/fund_board_new.css">
 </head>
 <body>
 	<header>
@@ -65,7 +65,7 @@
 	                <div class="btn-group">
 	                   <button class="btn-small">♡찜</button>
 	                   <button class="btn-small">지지</button>
-	                   <button class="purchase-btn">구매하기</button>
+	                   <button class="purchase-btn">펀딩하기</button>
 	                </div>
 	            </div>
 	            <div class="project-info">
@@ -81,14 +81,11 @@
 	            <div class="reward-selection">
 	                <h3>리워드 선택</h3>
 	                <div class="reward-list">
-	                    <img src="reward1.jpg" alt="리워드 1">
-	                    <img src="reward2.jpg" alt="리워드 2">
-	                    <img src="reward3.jpg" alt="리워드 3">
 	                </div>
 	                <div class="btn-group">
 	                   <button class="btn-small">♡ 찜</button>
 	                   <button class="btn-small">지지</button>
-	                   <button class="purchase-btn">구매하기</button>
+	                   <button class="purchase-btn">펀딩하기</button>
 	                </div>
 	            </div>
 	        </div>

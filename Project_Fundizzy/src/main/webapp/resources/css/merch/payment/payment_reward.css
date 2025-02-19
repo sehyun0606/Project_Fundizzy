@@ -1,0 +1,117 @@
+body {
+	font-family: Arial, sans-serif;
+	background-color: #f8f8f8;
+	margin: 0;
+	padding: 0;
+    background-color: #f5f5f5;
+}
+
+.container {
+    width: 400px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.back {
+    align-self: flex-start;
+    text-align: left;
+    border: none;
+    background-color: white;
+}
+
+.reward-step {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 22px;
+    margin-bottom: 20px;
+}
+
+.step {
+    background-color: #e3ddff;
+    padding: 10px 20px;
+    border-radius: 3px;
+    font-size: 13px;
+ }
+ .step-here{
+	 background-color: #c0b0ff;
+	 padding: 10px 20px;
+	 border-radius: 3px;
+	 font-size: 13px;
+ 
+ }
+
+.arrow {
+    font-size: 16px;
+}
+
+
+.reward-selection-box h2 {
+	margin: 0;
+	font-size: 18px;
+}
+
+hr {
+	border: none;
+	border-top: 1px solid #ddd;
+	margin: 10px 0;
+}
+
+.reward-item {
+	background-color: #f0f0f0;
+	padding: 10px;
+	border-radius: 5px;
+	margin-bottom: 10px;
+}
+
+.reward-item input {
+	margin-right: 10px;
+}
+
+.price {
+	font-weight: bold;
+	display: block;
+}
+
+.reward-title {
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.reward-details {
+	font-size: 12px;
+	color: #555;
+}
+
+.privacy-section {
+	margin-top: 10px;
+}
+
+.privacy-info {
+	font-size: 12px;
+	color: #555;
+	margin-top: 15px;
+	margin-bottom: 16px;
+
+}
+
+.next-button {
+	width: 100%;
+	padding: 10px;
+	background-color: #666;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	margin-top: 30px;
+}
+
+.next-button:hover {
+	background-color: #444;
+}

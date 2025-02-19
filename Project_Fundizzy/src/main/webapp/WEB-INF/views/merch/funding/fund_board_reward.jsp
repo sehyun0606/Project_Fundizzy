@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>환불정책</title>
-<link rel="stylesheet" type="text/css" href="resources/css/merch/fund/fund_board_refund.css">
+<link rel="stylesheet" type="text/css" href="resources/css/merch/funding/fund_board_refund.css">
 </head>
 <body>
 	<header>
@@ -23,32 +23,25 @@
 	    <hr>
 		<div class="container">
 	    <div class="content-left">
-	    	<h3>환불 / 정책</h3>
-	    	<ul>
-	    		<li>
-	    			프로젝트 종료 전까지 언제든 결제 취소 가능해요.
-	    		</li>
-	    		<li>
-	    			환불은 참여 내역에서 신청할 수 있어요.
-	    		</li>
-	    		<li>
-	    			환불 신청은 리워드 수령 후 7일 이내 가능해요
-	    		</li>
-	    		<li>
-	    			환불 신청 후 메이커와 소통하여 리워드를 발송해주세요.
-	    		</li>
-	    		<li>
-	    			단순변심: 반품비 서포터 부담
-	    		</li>
-	    		<li>
-	    			리워드 품질 하자: 반품비 메이커 부담
-	    		<li>
-	    			환불 정책에 따라 꼼꼼한 확인 절차를 통해 진행돼요.
-	    		</li>
-	    		<li>
-	    			메이커가 리워드 발송 시작 예정일까지 리워드를 발송하지 않을 경우 환불 신청 이후 즉시 결제 취소돼요. (2-5 영업일 소요)
-    			</li>
-	    	</ul>
+	    	<h3>리워드 정보 제공 고시</h3>
+	    	<table>
+	    		<tr>
+	    			<td class="bold">모델명</td>
+	    			<td></td>
+	    		</tr>
+	    		<tr>
+	    			<td>제조국</td>
+	    			<td></td>
+	    		</tr>
+	    		<tr>
+	    			<td>크기, 용량</td>
+	    			<td></td>
+	    		</tr>
+	    		<tr>
+	    			<td>기타</td>
+	    			<td>as관련 전화번호</td>
+	    		</tr>
+	    	</table>
 	    </div>
    <div class="content-right">
             <div class="purchase-section">
@@ -62,7 +55,7 @@
                 <div class="btn-group">
                    <button class="btn-small">♡찜</button>
                    <button class="btn-small">지지</button>
-                   <button class="purchase-btn">구매하기</button>
+                   <button class="purchase-btn">펀딩하기</button>
                 </div>
             </div>
             <div class="project-info">
@@ -84,7 +77,7 @@
                 <div class="btn-group">
                    <button class="btn-small">♡ 찜</button>
                    <button class="btn-small">지지</button>
-                   <button class="purchase-btn">구매하기</button>
+                   <button class="purchase-btn">펀딩하기</button>
                 </div>
             </div>
         </div>
