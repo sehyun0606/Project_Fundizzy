@@ -106,8 +106,8 @@
             <div class="submenu">
                 <div class="submenu-item"><a href="#">프로젝트 현황</a> </div>
                 <div class="submenu-item"><a href="#">정산 정보</a> </div>
-                <div class="submenu-item"><a href="#">정산 내역</a> </div>
-                <div class="submenu-item"><a href="#">발송,환불 관리</a> </div>
+                <div class="submenu-item"><a href="SettlementDetail">정산 내역</a> </div>
+                <div class="submenu-item"><a href="ShipAndRefund">발송,환불 관리</a> </div>
             </div>
         </div>
         <div class="menu-item">

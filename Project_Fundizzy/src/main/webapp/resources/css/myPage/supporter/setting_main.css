@@ -1,0 +1,66 @@
+/* 전체 스타일 */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* 설정 페이지 컨테이너 */
+.settings-container {
+    width: 400px;
+    text-align: left;
+}
+
+/* 제목 스타일 */
+.settings-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #000;
+    margin-bottom: 20px;
+}
+
+/* 설정 섹션 스타일 */
+.settings-section {
+    padding: 15px;
+    border-bottom: 1px solid #d030f3;
+    cursor: pointer;
+}
+
+.settings-section h2 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #000;
+    margin: 0;
+}
+
+.settings-section p {
+    font-size: 14px;
+    color: #666;
+    margin: 5px 0 0;
+}
+
+/* 섹션 클릭 시 효과 */
+.settings-section:hover {
+    background-color: #f9f1ff;
+}
+
+/* 회원 탈퇴 스타일 */
+.delete-account {
+    margin-top: 20px;
+    text-align: left;
+}
+
+.delete-account a {
+    font-size: 14px;
+    color: #d030f3;
+    text-decoration: none;
+}
+
+.delete-account a:hover {
+    text-decoration: underline;
+}

@@ -1,0 +1,117 @@
+body {
+    margin: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #ccc;
+}
+
+.nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.search-bar input {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.auth-buttons button {
+    margin-left: 10px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+.project-btn {
+    background-color: purple;
+    color: white;
+}
+
+.main-banner {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+    height: 320px;
+    padding-bottom: 10px;
+}
+
+.banner-box {
+    width: 30%;
+    height: 320px;
+    background-color: #ccc;
+}
+
+.category-nav {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    list-style: none;
+    margin: 20px 0;
+}
+.category-nav button{
+	width: 95px;
+	height: 95px;
+	line-height: 140px;
+	font-size: 0.8em;
+	padding: 5px;
+}
+.category-nav button e-book{
+	padding: 15px;
+}
+
+.filter-nav {
+    display: flex;
+    justify-content: flex-end;
+    margin: 20px;
+}
+#selectall{
+	border-color: white;
+    font-size: 1.0em;
+}
+
+.filter-nav button {
+    margin-left: 10px;
+    font-size: 1.0em;
+    border-color:white;
+    background-color: white;
+}
+
+.product-list {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin: 40px 140px 0px 140px;
+    
+}
+
+.product {
+    width: 23%;
+    margin-bottom: 20px;
+}
+
+.product-img {
+    width: 350px;
+    height: 200px;
+    background-color: #ccc;
+}
+
+.product-info {
+    padding: 2px 0;
+}
+
+.discount {
+    color: purple;
+    font-weight: bold;
+}
+
+.rating {
+    color: #555;
+}

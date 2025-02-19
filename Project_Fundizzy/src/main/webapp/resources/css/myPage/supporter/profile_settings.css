@@ -1,0 +1,156 @@
+/* 전체 스타일 */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* 컨테이너 스타일 */
+.profile-container {
+    width: 450px;
+    text-align: left;
+}
+
+/* 제목 */
+.profile-title {
+    font-size: 22px;
+    font-weight: bold;
+    color: #000;
+    margin-bottom: 20px;
+}
+
+/* 프로필 이미지 영역 */
+.profile-image-section {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.profile-image-placeholder {
+    width: 100px;
+    height: 100px;
+    background-color: #f2f2f2;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.profile-image-placeholder img {
+    width: 50px;
+    height: 50px;
+    opacity: 0.5;
+}
+
+.profile-buttons {
+    margin-top: 10px;
+}
+
+.upload-btn, .delete-btn {
+    background: none;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+    color: #666;
+    margin: 0 5px;
+}
+
+.upload-btn:hover, .delete-btn:hover {
+    color: #d030f3;
+}
+
+/* 관심사 영역 */
+.interest-section {
+    margin-bottom: 20px;
+}
+
+.sub-text {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 10px;
+}
+
+.interest-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.interest-item {
+    font-size: 14px;
+    background: #f8f8f8;
+    padding: 8px 12px;
+    border-radius: 8px;
+    color: #333;
+    cursor: pointer;
+}
+
+.interest-item:hover {
+    background: #d030f3;
+    color: white;
+}
+
+/* 입력 필드 */
+.input-section {
+    margin-bottom: 20px;
+}
+
+.input-group {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.input-group input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+textarea {
+    width: 100%;
+    height: 80px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: none;
+}
+
+/* 버튼 그룹 */
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.cancel-btn {
+    background: #999;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.confirm-btn {
+    background: #d030f3;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.cancel-btn:hover {
+    background: #777;
+}
+
+.confirm-btn:hover {
+    background: #b820d0;
+}

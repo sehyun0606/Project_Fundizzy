@@ -1,0 +1,238 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+}
+/* top바 */
+.fund-top {
+    display: flex;
+    justify-content: center; /* 가로 중앙 정렬 */
+    align-items: center; /* 세로 중앙 정렬 */
+    gap: 15px; /* 버튼 간 간격 */
+    height: 30px; 
+    margin-top: 10px;
+}
+
+.fund-top a{
+    font-size: 16px;
+    color: black;
+    text-decoration: none;
+}
+
+.fund-top button:hover{
+   font-weight: bolder;
+}
+.support{
+   font-weight: bolder;
+}
+
+/* 내용부분 */
+.container {
+    display: flex;
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    gap: 20px;
+}
+
+.content-left, .content-right {
+    flex: 2;
+}
+
+.content-left-under1, .content-left-under2{
+   display: flex;
+}
+
+/* 내용 중 왼쪽부분 */
+.content-left {
+    display: flex;
+    flex-direction: column;
+}
+.content-left h3{
+	margin: 0px;
+}
+
+
+/* 여기부터 오른쪽  */
+.reward-list img {
+    width: 100%;
+    object-fit: cover;
+}
+
+.image-group, .reward-list {
+    display: flex;
+    gap: 10px;
+}
+
+.reward-list img {
+    width: 455px;
+    height: 185px;
+    background-color: #ddd;
+    object-fit: cover;
+
+}
+
+.purchase-section, .reward-selection, .project-info {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.purchase-content{
+   font-size: 14px;
+}
+
+.btn {
+    background-color: #9370db;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+    font-size: 17px;
+}
+
+.btn:hover {
+    background-color: #b08ae6;
+}
+
+.btn-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.btn-small {
+    flex: 1;
+    background-color: #9370db;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+    width: 60px;
+    height: 60px;
+    font-size: 13px;
+}
+.btn-small:hover {
+    background-color: #b08ae6;
+}
+
+.purchase-btn{
+    background-color: #9370db;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    display: block;
+    width: 70%;
+    height: 60px;
+    text-align: center;
+    font-size: 17px;   
+
+}
+.purchase-btn:hover {
+    background-color: #b08ae6;
+}
+
+.btn-midium{
+    flex: 1;
+    background-color: #9370db;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+    float: right;
+   width: auto;
+    padding: 0.5em 0em 0.5em 0em; 
+    white-space: nowrap; /* 내용 줄바꿈 방지 */
+    flex-shrink: 0; /* 내용이 줄어들지 않도록 설정 */
+}
+.btn-midium:hover {
+    background-color: #b08ae6;
+}
+
+.reward-selection .btn {
+    margin-top: 20px;
+}
+
+.project-info h4{
+   margin-top: 0px;
+}
+.company-info {
+    display: flex;
+    align-items: center; /* 세로 정렬 */
+    gap: 10px; /* 버튼과 다른 요소 사이 간격 */
+}
+.reward-selection h3{
+   margin-top: 0px;
+}
+
+
+.reward-list{
+   display: flex;
+   flex-direction: column;
+}
+
+.post {
+    background-color: #fff;
+    margin-bottom: 20px;
+    padding: 12px;
+    border: 1px solid #ccc;
+}
+
+.post h4 {
+
+    margin: 0 0 10px;
+
+}
+
+.post p {
+
+    margin: 5px 0;
+
+    color: #555;
+
+}
+
+.image-group p{
+
+   margin: 1px;
+
+}
+
+.discount {
+
+    color: purple;
+
+    font-weight: bold;
+
+    font-size: 1.0em;
+
+}
+
+.rating {
+
+    color: #555;
+
+    font-size: 0.7em;
+
+}
+
+.name{
+
+   font-size: 0.8em;
+
+}

@@ -83,15 +83,15 @@
 	        <div class="nav-links top-items">
 	            <b><a href="#" class="active top-items">오픈예정</a></b>
 	            <b><a href="FundList" class="top-items">펀딩</a></b>
-	            <b><a href="#" class="top-items">프리오더</a></b>
+	            <b><a href="PreOrderList" class="top-items">프리오더</a></b>
 	            <b><a href="#" class="top-items">도움말센터</a></b>
 	        </div>
     	</div>
         <input type="text" class="search-bar  top-items"  placeholder="검색">
         <div class="log-in top-items">
 	        <div class="auth-links top-items">
-	            <a href="#" class="top-items">로그인</a>
-	            <a href="#" class="top-items">회원가입</a>
+	            <a href="Login" class="top-items">로그인</a>
+	            <a href="SignUp" class="top-items">회원가입</a>
 	        </div>
 	        <a href="#" class="create-project top-items">프로젝트 만들기</a>
         </div>
