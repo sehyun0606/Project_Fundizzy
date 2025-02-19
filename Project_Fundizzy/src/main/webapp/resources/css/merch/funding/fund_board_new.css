@@ -9,15 +9,15 @@ body {
     display: flex;
     justify-content: center; /* 가로 중앙 정렬 */
     align-items: center; /* 세로 중앙 정렬 */
-    gap: 9px; /* 버튼 간 간격 */
+    gap: 15px; /* 버튼 간 간격 */
     height: 30px; 
-    margin-top: 30px;
+    margin-top: 10px;
 }
 
-.fund-top button{
-    border: none;
+.fund-top a{
     font-size: 16px;
-    background-color: none;
+    color: black;
+    text-decoration: none;
 }
 
 .fund-top button:hover{
@@ -49,79 +49,24 @@ body {
 .content-left {
     display: flex;
     flex-direction: column;
-    gap: 20px;
 }
-.project-story .list-btn{
-   border: none;
-   font-size: 15px;
-   background-color: none;
-    color: black;
-    padding: 0px 0px;
-    display: block;
-    text-align: center;
+.content-left h3{
+   margin-top: 5px;
 }
-
-
-.content-left-under {
+.content-left-top {
     display: flex;
-    gap: 10px;
+    justify-content: space-between; /* 양 끝으로 요소들을 배치 */
+    align-items: center; /* 세로 중앙 정렬 */
+    margin-top: 0px;
 }
 
-.content-left-under img {
-    width: 320px;
-    height: 100px;
-    background-color: #ddd;
-    object-fit: cover;
-
-}
-/* 왼-프로젝트 들어갈 자리 */
-.project-story {
-    display: flex;
-    flex-direction: column; 
-    gap: 10px; 
-}
-.project-story p{
-   font-size: 20px;
-   font-weight: bolder;
-   text-align: left;
-}
-.project-story img{
-    width: 650px;
-    height: 1000px;
-    background-color: #ddd;
-    object-fit: cover;
+.content-left-top select {
+ 	border: 0px;
+ 	background-color: none;
+ 	height: 40px;
+ 	font-size: 15px;
 }
 
-.project-story button{
-    background-color: white;
-    color: #c5a3ff;
-    border: 1px solid #c5a3ff;
-    padding: 10px 15px;
-    cursor: pointer;
-    border-radius: 5px;
-    display: block;
-    width: 100%;
-    height: 60px;
-    text-align: center;
-    font-size: 17px;   
-}
-.project-story button:hover{
-   background-color: #e9dbff;
-   
-}
-/* 왼-같이보면 좋은 프로젝트 */
-.image-group{
-   display: flex;
-    align-items: center;
-    gap: 10px; 
-}
-.image-group img{
-    width: 235px;
-    height: 95px;
-    background-color: #ddd;
-    object-fit: cover;
-
-}
 
 /* 여기부터 오른쪽  */
 .reward-list img {
@@ -155,7 +100,7 @@ body {
 }
 
 .btn {
-    background-color: #c5a3ff;
+    background-color: #9370db;
     color: white;
     border: none;
     padding: 10px 15px;
@@ -181,7 +126,7 @@ body {
 
 .btn-small {
     flex: 1;
-    background-color: #c5a3ff;
+    background-color: #9370db;
     color: white;
     border: none;
     padding: 10px;
@@ -197,7 +142,7 @@ body {
 }
 
 .purchase-btn{
-    background-color: #c5a3ff;
+    background-color: #9370db;
     color: white;
     border: none;
     padding: 10px 15px;
@@ -216,7 +161,7 @@ body {
 
 .btn-midium{
     flex: 1;
-    background-color: #c5a3ff;
+    background-color: #9370db;
     color: white;
     border: none;
     cursor: pointer;
@@ -256,8 +201,8 @@ body {
 
 .post {
     background-color: #fff;
-    margin-bottom: 20px;
-    padding: 12px;
+    margin-bottom: 10px;
+    padding: 10px;
     border: 1px solid #ccc;
 }
 

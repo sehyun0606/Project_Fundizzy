@@ -9,21 +9,21 @@ body {
     display: flex;
     justify-content: center; /* 가로 중앙 정렬 */
     align-items: center; /* 세로 중앙 정렬 */
-    gap: 9px; /* 버튼 간 간격 */
+    gap: 15px; /* 버튼 간 간격 */
     height: 30px; 
-    margin-top: 30px;
+    margin-top: 10px;
 }
 
-.fund-top button{
-    border: none;
+.fund-top a{
     font-size: 16px;
-    background-color: none;
+    color: black;
+    text-decoration: none;
 }
 
 .fund-top button:hover{
    font-weight: bolder;
 }
-.story{
+.supporter{
    font-weight: bolder;
 }
 
@@ -49,7 +49,9 @@ body {
 .content-left {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+}
+.content-left h3{
+	margin: 0px;
 }
 /* 왼쪽 - 메인 이미지 */
 .main-image {
@@ -97,8 +99,8 @@ body {
 
 .project-story button{
     background-color: white;
-    color: #c5a3ff;
-    border: 1px solid #c5a3ff;
+    color: #9370db;
+    border: 1px solid #9370db;
     padding: 10px 15px;
     cursor: pointer;
     border-radius: 5px;
@@ -158,7 +160,7 @@ body {
 }
 
 .btn {
-    background-color: #c5a3ff;
+    background-color: #9370db;
     color: white;
     border: none;
     padding: 10px 15px;
@@ -184,7 +186,7 @@ body {
 
 .btn-small {
     flex: 1;
-    background-color: #c5a3ff;
+    background-color: #9370db;
     color: white;
     border: none;
     padding: 10px;
@@ -200,7 +202,7 @@ body {
 }
 
 .purchase-btn{
-    background-color: #c5a3ff;
+    background-color: #9370db;
     color: white;
     border: none;
     padding: 10px 15px;
@@ -219,7 +221,7 @@ body {
 
 .btn-midium{
     flex: 1;
-    background-color: #c5a3ff;
+    background-color: #9370db;
     color: white;
     border: none;
     cursor: pointer;
@@ -259,8 +261,8 @@ body {
 
 .post {
     background-color: #fff;
-    margin-bottom: 20px;
-    padding: 12px;
+    margin-bottom: 12px;
+    padding: 13px;
     border: 1px solid #ccc;
 }
 

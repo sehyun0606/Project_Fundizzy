@@ -9,15 +9,15 @@ body {
     display: flex;
     justify-content: center; /* 가로 중앙 정렬 */
     align-items: center; /* 세로 중앙 정렬 */
-    gap: 9px; /* 버튼 간 간격 */
+    gap: 15px; /* 버튼 간 간격 */
     height: 30px; 
-    margin-top: 30px;
+    margin-top: 10px;
 }
 
-.fund-top button{
-    border: none;
+.fund-top a{
     font-size: 16px;
-    background-color: none;
+    color: black;
+    text-decoration: none;
 }
 
 .fund-top button:hover{
@@ -51,16 +51,20 @@ body {
     flex-direction: column;
 }
 .content-left h3{
-   margin-top: 0px;
+   margin-top: 5px;
 }
 .content-left-top {
     display: flex;
     justify-content: space-between; /* 양 끝으로 요소들을 배치 */
     align-items: center; /* 세로 중앙 정렬 */
+    margin-top: 0px;
 }
 
 .content-left-top select {
-    gap: 10px; /* select 요소 간 간격 */
+ 	border: 0px;
+ 	background-color: none;
+ 	height: 40px;
+ 	font-size: 15px;
 }
 
 
@@ -96,7 +100,7 @@ body {
 }
 
 .btn {
-    background-color: #c5a3ff;
+    background-color: #9370db;
     color: white;
     border: none;
     padding: 10px 15px;
@@ -122,7 +126,7 @@ body {
 
 .btn-small {
     flex: 1;
-    background-color: #c5a3ff;
+    background-color: #9370db;
     color: white;
     border: none;
     padding: 10px;
@@ -138,7 +142,7 @@ body {
 }
 
 .purchase-btn{
-    background-color: #c5a3ff;
+    background-color: #9370db;
     color: white;
     border: none;
     padding: 10px 15px;
@@ -157,7 +161,7 @@ body {
 
 .btn-midium{
     flex: 1;
-    background-color: #c5a3ff;
+    background-color: #9370db;
     color: white;
     border: none;
     cursor: pointer;

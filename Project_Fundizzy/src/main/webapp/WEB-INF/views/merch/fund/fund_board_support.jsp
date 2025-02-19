@@ -3,53 +3,50 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>펀딩 새소식</title>
-	<link rel="stylesheet" type="text/css" href="resources/css/fund_board/style2.css">
+<meta charset="UTF-8">
+<title>지지서명</title>
+<link rel="stylesheet" type="text/css" href="resources/css/merch/fund/fund_board_support.css">
 </head>
 <body>
-      <div class="fund-top">
-         <button>스토리</button>
-         <button class="new">새소식</button>
-         <button>커뮤니티</button>
-         <button>서포터</button>
-         <button>환불·정책</button>
-         <button>리워드정보</button>
-      </div>
-      <hr>
+	<header>
+		<jsp:include page="/WEB-INF/views/inc/top.jsp" />
+	</header>
+	<article>
+		<div class="fund-top">
+	        <a href="FundBoardStory" class="story">스토리</a>
+	        <a href="FundBoardNew" class="new">새소식</a>
+	        <a href="FundBoardSupport" class="support">지지서명</a>
+	       	<a href="FundBoardSupporter" class="supporter">서포터</a>
+	        <a href="FundBoardRefund" class="refund">환불·정책</a>
+	        <a href="FundBoardReward" class="reward">리워드정보</a>
+	 	</div>
+	    <hr>
     <div class="container">
-       <div class="content-left">
-          <div class="content-left-top">
-             <h3>새소식</h3>
-             <select>
-                <option>전체</option>
-                <option>FAQ</option>
-                <option>결제·환불·배송</option>
-             </select>
-          </div>
-          <hr>
-           <div class="post">
-               <h4>리워드 안내</h4>
-               <p>결제 오류 조치 완료 안내</p>
-               <p>3시간 전 | 댓글 1</p>
-           </div>
-           <div class="post">
-               <h4>리워드 안내</h4>
-               <p>결제 오류 조치 완료 안내</p>
-               <p>3시간 전 | 댓글 1</p>
-           </div>
-           <div class="post">
-               <h4>리워드 안내</h4>
-               <p>결제 오류 조치 완료 안내</p>
-               <p>3시간 전 | 댓글 1</p>
-           </div>
-           <div class="post">
-               <h4>리워드 안내</h4>
-               <p>결제 오류 조치 완료 안내</p>
-               <p>3시간 전 | 댓글 1</p>
-           </div>
-       </div>
-      <div class="content-right">
+	    <div class="content-left">
+	    	<h3>지지서명 4</h3>
+	    	<hr>
+	        <div class="post">
+	            <h4>정세현</h4>
+	            <p>가격은 대만족, AS까지 기대해보겠습니다.</p>
+	            <p>유용템</p>
+	        </div>
+	        <div class="post">
+	            <h4>정세현</h4>
+	            <p>가격은 대만족, AS까지 기대해보겠습니다.</p>
+	            <p>유용템</p>
+	        </div>
+	        <div class="post">
+	            <h4>정세현</h4>
+	            <p>가격은 대만족, AS까지 기대해보겠습니다.</p>
+	            <p>유용템</p>
+	        </div>
+	        <div class="post">
+	            <h4>정세현</h4>
+	            <p>가격은 대만족, AS까지 기대해보겠습니다.</p>
+	            <p>유용템</p>
+	        </div>
+	    </div>
+	    <div class="content-right">
             <div class="purchase-section">
                 <h3>[소재혁명] 빈틈없는 편안함! 고온세척&건조 가능한 반영구 통실리콘 베개</h3>
                 <div class="purchase-content">
@@ -60,15 +57,10 @@
                 <p><strong>50,000</strong>원 달성</p>
                 <div class="btn-group">
                    <button class="btn-small">♡찜</button>
-
                    <button class="btn-small">지지</button>
-
                    <button class="purchase-btn">구매하기</button>
-
                 </div>
-
             </div>
-
             <div class="project-info">
                 <div class="company-info">
                    <h4>(주)붐코리아</h4><br>
@@ -78,7 +70,6 @@
                 <p>프로젝트 설명</p>
                    <button class="btn">문의하기</button>
             </div>
-
             <div class="reward-selection">
                 <h3>리워드 선택</h3>
                 <div class="reward-list">
@@ -94,5 +85,9 @@
             </div>
         </div>
     </div>
+	</article>
+	<footer>
+		<jsp:include page="/WEB-INF/views/inc/footer.jsp" />
+	</footer>
 </body>
 </html>
