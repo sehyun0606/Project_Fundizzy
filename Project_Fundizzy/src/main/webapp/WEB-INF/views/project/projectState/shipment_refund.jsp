@@ -7,14 +7,13 @@
 <head>
 <meta charset="UTF-8">
 <title>발송·환불 관리</title>
+<link rel="styleSheet" type="text/css" href="resources/css/projectState/projectStateDefault.css" >
 <link rel="styleSheet" type="text/css" href="resources/css/projectState/shipment_refund.css" >
 </head>
 <body>
-	<div class="main-wrapper">
-		<header>
-			<jsp:include page="/WEB-INF/views/inc/project_maker_side.jsp" />
-		</header>
-		<article>
+	<jsp:include page="/WEB-INF/views/inc/project_maker_side.jsp" />
+	<div class="main">
+		<jsp:include page="/WEB-INF/views/inc/project_maker_top.jsp" />
 			<div class="content">
 				<h1>발송·환불 관리</h1>
 				<h3>서포터 관리</h3>
@@ -186,7 +185,6 @@
 			        </tbody>
 			    </table>
 		    </div>
-		</article>
 	</div>
 	 <script>
         
