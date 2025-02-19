@@ -16,4 +16,13 @@ public class ProjectMakerController {
 	public String projectPlan() {
 		return "project/projectMaker/project_plan";
 	}
+	@GetMapping("ProjectInfo")
+	public String projectInfo() {
+		return "project/projectMaker/project_info";
+	}
+	@GetMapping("ProjectStory")
+	public String projectStory(){
+		
+		return "project/projectMaker/project_story";
+	}
 }
