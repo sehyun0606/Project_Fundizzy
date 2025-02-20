@@ -3,7 +3,7 @@
 
 <style>
 	.top{
-   	        height: 7%;
+   	        height: 70px;
 		    border-bottom: 1px solid #ddd;
 		    display: flex;
 		    margin-bottom: 1%;

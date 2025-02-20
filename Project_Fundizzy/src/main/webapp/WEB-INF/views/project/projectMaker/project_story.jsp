@@ -5,6 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
     <title>스토리 정보</title>
     <style>
         body {
@@ -34,8 +35,21 @@
             margin-top: 5px;
             border: 1px solid #ccc;
             border-radius: 4px;
+            resize: none;
         }
         .image-upload {
+        	width: 150px;
+   			height: 150px;	
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 2px dashed #ccc;
+            padding: 20px;
+            margin-top: 10px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .multi-upload {
         	width: 150px;
    			height: 150px;	
             display: flex;
@@ -82,6 +96,20 @@
         	flex-direction: column;
         	max-width: 150px;
         }
+        .multi-preview{
+	        width: 150px;
+	        height: 150px;
+        }
+        .multi-preview-container{
+        	display: flex;
+        }
+        .multi-preview-wrapper{
+        	margin: 10%;
+        }
+        #editor-container {
+	      	height: 300px;
+	    }
+
     </style>
 </head>
 <body>
@@ -103,32 +131,86 @@
 		        <p id="fileName">0/1</p>
 		    </div>
 	
-	        <label>소개 이미지</label>
-	        <div class="image-upload">
-	            <img src="placeholder.png" alt="소개 이미지">
-	            <p>0/10</p>
-	        </div>
-	
+	       <label>소개 이미지 (다중 파일 업로드)</label>
+		   <div class="file-upload">
+		       <input type="file" id="multiFileInput" accept="image/*" multiple >
+		       <input type="button" class="multi-upload" value="사진 여러 개 추가">
+		       <div class="multi-preview-container" id="multiPreviewContainer"></div>
+		       <p id="multiFileCount">0/10</p>
+		   </div>	
+		   
 	        <label for="summary">프로젝트 요약</label>
-	        <textarea id="summary" rows="3" placeholder="내용 입력"></textarea>
+	        <textarea id="summary"  placeholder="내용 입력"></textarea>
 	        <span class="helper-text">100자 남음</span>
 	
 	        <label for="story">프로젝트 스토리</label>
-	        <div class="toolbar">
-	            <button>굵기</button>
-	            <button>밑줄</button>
-	            <button>색상</button>
-	            <button>양쪽 정렬</button>
-	            <button>목록</button>
-	            <button>이미지</button>
-	        </div>
-	        <textarea id="story" rows="5" placeholder="내용 입력"></textarea>
+	        <div id="toolbar">
+			    <button class="ql-bold"></button>
+			    <button class="ql-italic"></button>
+			    <button class="ql-underline"></button>
+			    <button class="ql-strike"></button>
+			    <select class="ql-header">
+			      <option selected></option>
+			      <option value="1">Header 1</option>
+			      <option value="2">Header 2</option>
+			    </select>
+			    <button class="ql-blockquote"></button>
+			    <button class="ql-code-block"></button>
+			    <button class="ql-link"></button>
+			    <button class="ql-image"></button>
+		  	</div>
+		
+		  <!-- 편집기 -->
+		  <div id="editor-container"></div>
+		  <input id="storyText" type="text" name="project_story">
+
 	
 	        <span class="link">에디터에서 작성된 추천 받기</span>
 	    </div>
     </div>
+     <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
     <script type="text/javascript">
     $(document).ready(function() {
+    	
+    	//스토리 작성 텍스트박스 함수
+    	 var quill = new Quill('#editor-container', {
+    	      modules: {
+    	        toolbar: '#toolbar'
+    	      },
+    	      theme: 'snow'  // 'bubble' 테마도 가능
+    	    });
+		
+    	//작성한 스토리를 hidden에 넣는 코드
+    	 let targetNode = $("#editor-container")[0]; // jQuery 객체에서 DOM 요소 가져오기
+
+        let observer = new MutationObserver(function() {
+            let text = $(".ql-editor").html(); // div 내부 텍스트 가져오기
+            $("#storyText").val(text); // input에 자동 반영
+        });
+			
+        var toolbar = quill.getModule("toolbar");
+        toolbar.addHandler("image", function () {
+          let input = document.createElement("input");
+          input.setAttribute("type", "file");
+          input.setAttribute("accept", "image/*");
+          input.click();
+
+          input.onchange = function () {
+            let file = input.files[0];
+            let reader = new FileReader();
+            reader.onload = function () {
+              let base64Image = reader.result;
+              let range = quill.getSelection();
+              quill.insertEmbed(range.index, "image", base64Image);
+            };
+            reader.readAsDataURL(file);
+          };
+        });
+        let config = { childList: true, subtree: true, characterData: true };
+        observer.observe(targetNode, config);
+    	
+    	let multiFileCount = 0;
+    	
         $(".image-upload").click(function() {
             $("#fileInput").click();
         });
@@ -152,6 +234,51 @@
         $(".preview").click(function(){
         	$("#fileInput").click();
         });	
+        
+        $(".multi-upload").click(function() {
+            $("#multiFileInput").click();
+        });
+        
+        
+        $("#multiFileInput").change(function(event) {
+            let files = event.target.files;
+            let previewContainer = $("#multiPreviewContainer");
+	        multiFileCount += files.length;
+	        $("#multiFileCount").text( multiFileCount + "/10");
+
+            let dataTransfer = new DataTransfer(); // 새로운 파일 목록 생성
+
+            for (let i = 0; i < files.length; i++) {
+                let file = files[i];
+                let reader = new FileReader();
+
+                reader.onload = function(e) {
+                    let imgWrapper = $("<div class='multi-preview-wrapper'></div>");
+                    let img = $("<img class='multi-preview'>").attr("src", e.target.result);
+                    let removeBtn = $("<button class='remove-btn'>&times;</button>");
+					console.log(e.target.result)
+                    // 파일 제거 버튼 클릭 이벤트
+                    removeBtn.click(function() {
+                        imgWrapper.remove(); // 미리보기 삭제
+                        let updatedFiles = Array.from($("#multiFileInput")[0].files).filter(f => f !== file);
+
+                        let newDataTransfer = new DataTransfer();
+                        updatedFiles.forEach(f => newDataTransfer.items.add(f));
+                        $("#multiFileInput")[0].files = newDataTransfer.files; // input 파일 목록 업데이트
+                    });
+
+                    imgWrapper.append(img).append(removeBtn);
+                    previewContainer.append(imgWrapper);
+                };
+
+                reader.readAsDataURL(file);
+                dataTransfer.items.add(file); // 새로운 파일 목록에 추가
+            }
+
+            $("#multiFileInput")[0].files = dataTransfer.files; // 업데이트된 파일 목록 적용
+        });
+	        
+	        
         })
     </script>
 </body>

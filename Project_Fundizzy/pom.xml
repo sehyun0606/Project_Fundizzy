@@ -19,7 +19,7 @@
 		<!-- 스프링의 기본 버전을 속성으로 관리 -->
 <!-- 		<org.springframework-version>3.1.1.RELEASE</org.springframework-version> -->
 		<org.springframework-version>5.3.39</org.springframework-version>
-		<org.aspectj-version>1.6.10</org.aspectj-version>
+		<org.aspectj-version>1.9.22</org.aspectj-version>
 <!-- 		<org.slf4j-version>1.6.6</org.slf4j-version> -->
 		<!-- Log4j2 버전 관리를 위한 속성 추가 -->
 		<log4j2-version>2.24.2</log4j2-version>
