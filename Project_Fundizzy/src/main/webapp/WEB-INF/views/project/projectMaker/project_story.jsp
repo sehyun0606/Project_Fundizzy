@@ -118,7 +118,7 @@
 		<jsp:include page="/WEB-INF/views/inc/project_maker_top.jsp"></jsp:include>
 	    <div class="container" >
 	        <h2>스토리 정보</h2>
-	        
+	        <form id="form">
 	        <label for="title">프로젝트 제목</label>
 	        <input type="text" id="title" placeholder="제목을 입력해 주세요">
 	        <span class="helper-text">40자 남음</span>
@@ -166,6 +166,7 @@
 
 	
 	        <span class="link">에디터에서 작성된 추천 받기</span>
+	        </form>
 	    </div>
     </div>
      <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
@@ -239,44 +240,99 @@
             $("#multiFileInput").click();
         });
         
-        
-        $("#multiFileInput").change(function(event) {
-            let files = event.target.files;
-            let previewContainer = $("#multiPreviewContainer");
-	        multiFileCount += files.length;
-	        $("#multiFileCount").text( multiFileCount + "/10");
+        $(function () {
+            let selectedFiles = [];
 
-            let dataTransfer = new DataTransfer(); // 새로운 파일 목록 생성
+            $("#multiFileInput").on("change", function(event) {
+                let newFiles = Array.from(event.target.files);
+                let dataTransfer = new DataTransfer();
+                let previewContainer = $("#multiPreviewContainer");
 
-            for (let i = 0; i < files.length; i++) {
-                let file = files[i];
-                let reader = new FileReader();
+                newFiles.forEach(file => {
+                    // 중복 방지 (파일 이름과 크기가 같으면 추가 안 함)
+                    if (!selectedFiles.some(f => f.name === file.name && f.size === file.size)) {
+                        selectedFiles.push(file);
+                        dataTransfer.items.add(file);
 
-                reader.onload = function(e) {
-                    let imgWrapper = $("<div class='multi-preview-wrapper'></div>");
-                    let img = $("<img class='multi-preview'>").attr("src", e.target.result);
-                    let removeBtn = $("<button class='remove-btn'>&times;</button>");
-					console.log(e.target.result)
-                    // 파일 제거 버튼 클릭 이벤트
-                    removeBtn.click(function() {
-                        imgWrapper.remove(); // 미리보기 삭제
-                        let updatedFiles = Array.from($("#multiFileInput")[0].files).filter(f => f !== file);
+                        // 이미지 미리보기 추가
+                        let reader = new FileReader();
+                        reader.onload = function(e) {
+                            let imgWrapper = $("<div class='multi-preview-wrapper'></div>");
+                            let img = $("<img class='multi-preview'>").attr("src", e.target.result);
+                            let removeBtn = $("<button class='remove-btn'>&times;</button>");
 
-                        let newDataTransfer = new DataTransfer();
-                        updatedFiles.forEach(f => newDataTransfer.items.add(f));
-                        $("#multiFileInput")[0].files = newDataTransfer.files; // input 파일 목록 업데이트
-                    });
+                            removeBtn.click(function() {
+                                imgWrapper.remove();
+                                selectedFiles = selectedFiles.filter(f => f !== file);
 
-                    imgWrapper.append(img).append(removeBtn);
-                    previewContainer.append(imgWrapper);
-                };
+                                let updatedDataTransfer = new DataTransfer();
+                                selectedFiles.forEach(f => updatedDataTransfer.items.add(f));
+                                $("#multiFileInput")[0].files = updatedDataTransfer.files;
+                            });
 
-                reader.readAsDataURL(file);
-                dataTransfer.items.add(file); // 새로운 파일 목록에 추가
+                            imgWrapper.append(img).append(removeBtn);
+                            previewContainer.append(imgWrapper);
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                });
+
+                $("#multiFileInput")[0].files = dataTransfer.files;
+                updateFileList();
+                console.log(selectedFiles)
+            });
+
+            function updateFileList() {
+                $("#fileList").empty();
+                selectedFiles.forEach((file, index) => {
+                    $("#fileList").append(
+                        `<li>${file.name} <button type="button" class="removeFile" data-index="${index}">삭제</button></li>`
+                    );
+                });
             }
 
-            $("#multiFileInput")[0].files = dataTransfer.files; // 업데이트된 파일 목록 적용
+            $("#fileList").on("click", ".removeFile", function () {
+                let index = $(this).data("index");
+                selectedFiles.splice(index, 1);
+                updateFileList();
+            });
+
+            $("#btnMultipleFile").on("click", function () {
+                submitFormWithFiles();
+            });
+
+            $("#form").on("submit", function (event) {
+                event.preventDefault();
+                submitFormWithFiles();
+            });
+
+            function submitFormWithFiles() {
+                let formData = new FormData($("#form")[0]);
+
+                selectedFiles.forEach(file => {
+                    formData.append("file", file);
+                });
+
+                $("#multiFileInput").remove();
+                let newFileInput = $("<input>").attr({
+                    type: "file",
+                    name: "file",
+                    multiple: true
+                });
+
+                newFileInput[0].files = createFileList(formData.getAll("file"));
+                $("#form").append(newFileInput);
+                $("#form")[0].submit();
+            }
+
+            function createFileList(files) {
+                let dataTransfer = new DataTransfer();
+                files.forEach(file => dataTransfer.items.add(file));
+                return dataTransfer.files;
+            }
         });
+
+      
 	        
 	        
         })
