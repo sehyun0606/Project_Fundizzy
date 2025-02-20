@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wadiz Registration</title>
+    <title>Fundizy Registration</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -165,111 +165,170 @@
         }
         
 /* ---------------------------------------------------------------------- */
-.auth-container {
-	 display: flex;
-	 flex-direction: column;
-	 width: 400px;
-}
-.auth-sections {
-	display: flex;
-	flex-direction: column;
-	width: 400px;
-	margin-bottom: 20px;
-}
-.auth-label {
-  font-size: 16px;
-  margin-bottom: 0px;
-  margin-top: auto;
-}
+		.auth-container {
+			 display: flex;
+			 flex-direction: column;
+			 width: 400px;
+		}
+		.auth-sections {
+			display: flex;
+			flex-direction: column;
+			width: 400px;
+			margin-bottom: 20px;
+		}
+		.auth-label {
+		  font-size: 16px;
+		  margin-bottom: 0px;
+		  margin-top: auto;
+		  color: gray;
+		}
+		
+		.email-wrapper {
+		  display: flex;
+		  align-items: center;
+		  margin-bottom: 15px;
+		}
+		
+		.email-input {
+		  width: 75%;
+		  padding: 10px;
+		  border: 1px solid #dcdcdc;
+		  border-radius: 4px;
+		/*   background-color: #f2f8ff; /* 연한 파란색 배경 */ */
+		  color: #333;
+		}
+		
+		.edit-btn {
+			background-color: mediumpurple;
+		    color: white;
+		    border: none;
+		    border-radius: 4px;
+		    margin-left: 10px;
+		    cursor: pointer;
+		    height: 42px;
+		    width: 70px;
+		    font-size: 10px;
+		}
+		
+		.edit-btn:hover {
+		  background-color: #8e44ad;
+		}
+		
+		.auth-input-wrapper {
+		  display: flex;
+		  align-items: center;
+		  position: relative;
+		  margin-bottom: 5px;
+		}
+		
+		.auth-code-input {
+		  width: 70%;
+		  padding: 10px;
+		  border: 1px solid #dcdcdc;
+		  border-radius: 4px;
+		  padding-right: 50px; /* 타이머를 위한 여백 */
+		}
+		
+		.timer {
+		  position: absolute;
+		  right: 80px;
+		  color: red;
+		  font-size: 12px;
+		}
+		
+		.confirm-btn {
+		 	background-color: mediumpurple;
+		    color: white;
+		    border: none;
+		    border-radius: 4px;
+		    margin-left: 10px;
+		    cursor: pointer;
+		    height: 42px;
+		    width: 70px;
+		}
+		
+		.confirm-btn:hover {
+		  background-color: #8e44ad;
+		}
+		
+		small {
+		   color: #888;
+		   margin-top: auto;
+		}
+		
+		.resend-link {
+			font-size: 10px;
+			color: #555;
+			margin-top: 0px;
+			text-decoration: underline;
+			cursor: pointer;
+			margin-bottom: 20px;
+			margin-left: 120px;
+		}
+		
+		.resend-link:hover {
+		  color: #333;
+		}
 
-.email-wrapper {
-  display: flex;
-  align-items: center;
-  margin-bottom: 15px;
-}
-
-.email-input {
-  width: 75%;
-  padding: 10px;
-  border: 1px solid #dcdcdc;
-  border-radius: 4px;
-/*   background-color: #f2f8ff; /* 연한 파란색 배경 */ */
-  color: #333;
-}
-
-.edit-btn {
-	background-color: mediumpurple;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    margin-left: 10px;
-    cursor: pointer;
-    height: 42px;
-    width: 70px;
-    font-size: 10px;
-}
-
-.edit-btn:hover {
-  background-color: #8e44ad;
-}
-
-.auth-input-wrapper {
-  display: flex;
-  align-items: center;
-  position: relative;
-  margin-bottom: 5px;
-}
-
-.auth-code-input {
-  width: 70%;
-  padding: 10px;
-  border: 1px solid #dcdcdc;
-  border-radius: 4px;
-  padding-right: 50px; /* 타이머를 위한 여백 */
-}
-
-.timer {
-  position: absolute;
-  right: 80px;
-  color: red;
-  font-size: 12px;
-}
-
-.confirm-btn {
- 	background-color: mediumpurple;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    margin-left: 10px;
-    cursor: pointer;
-    height: 42px;
-    width: 70px;
-}
-
-.confirm-btn:hover {
-  background-color: #8e44ad;
-}
-
-small {
-   color: #888;
-   margin-top: auto;
-}
-
-.resend-link {
-	font-size: 10px;
-	color: #555;
-	margin-top: 0px;
-	text-decoration: underline;
-	cursor: pointer;
-	margin-bottom: 20px;
-	margin-left: 120px;
-}
-
-.resend-link:hover {
-  color: #333;
-}
-
-        
+		/* 모달 스타일 */
+		.modal {
+			display: none; /* 기본적으로 숨김 */
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(0, 0, 0, 0.5);
+			justify-content: center;
+			align-items: center;
+		}
+		
+		.modal-content {
+			background-color: white;
+			padding: 20px;
+			border-radius: 10px;
+			width: 300px;
+			text-align: left;
+			position: relative;
+		}
+		
+		ul {
+			list-style: none;
+			padding: 0;
+		}
+		
+		li {
+			margin-bottom: 10px;					
+		}
+		
+		/* 닫기 버튼 (X) 스타일 */
+		.close-btn {
+		  	position: absolute;
+			top: 10px;
+			right: 20px;
+			font-size: 30px;
+			cursor: pointer;
+			margin-top: 15px;
+		}
+		
+		.confirm-btn {
+			background-color: mediumpurple;
+			color: white;
+			padding: 10px 20px;
+			border: none;
+			cursor: pointer;
+			width: 100%;
+			margin-top: 20px;
+			margin-left: 0px;
+		}
+		
+		/* 체크박스와 라벨 간격 조정 */
+		input[type="checkbox"] {
+			margin-right: 10px;
+		}
+		label {
+		  	cursor: pointer; /* 체크박스 클릭 가능하게 */
+		}
         
         
     </style>
@@ -297,7 +356,7 @@ small {
     </div>
 	<hr style="border: 0; height: 1px; background-color: #dcdcdc;">
     <!-- Email Sign-Up -->
-    <form action="SignUP" method="get">
+    <form action="SignUpSuccess" method="get" id="terms-form">
 	    <div class="email-signup">
 		    <div class="auth-container">
 				<label for="email" class="auth-label" style="color: gray;"><b>이메일</b></label>
@@ -307,10 +366,10 @@ small {
 				</div>
 			</div>
 			<div class="auth-sections" id="auth-section" style="display: none;">
-				<label for="auth-code" class="auth-label">인증번호</label>
+				<label for="auth-code" class="auth-label"><b>인증번호</b></label>
 				<div class="auth-input-wrapper">
 				  <input type="text" id="auth-code" placeholder="인증번호 입력" class="auth-code-input">
-				  <span class="timer">2:32</span>
+				  <span class="timer" id="timer">2:32</span>
 				  <button class="confirm-btn">확인</button>
 				</div>
 				<small>인증번호 6자리를 입력하세요.</small>
@@ -344,10 +403,51 @@ small {
 	        <div class="password-input2">
 	            <input type="password" id="confirm-password" placeholder="비밀번호 확인" required disabled />
 	        </div>
-	        <input type="submit" class="submit-btn" value="약관 동의 후 가입 완료하기">
+	        <input type="button" class="submit-btn" id="openModal" value="약관 동의 후 가입 완료하기">
 <!-- 	        <button class="submit-btn">약관 동의 후 가입 완료하기</button> -->
 	    </div>
-    </form>
+	    <!-- 모달 창 -->
+		<div class="modal" id="termsModal">
+		  <div class="modal-content">
+		    <!-- 닫기 버튼 -->
+		    <span class="close-btn" id="closeModal">&times;</span>
+		    <h2 style="margin-left: 0px;">약관확인</h2>
+		    <p style="font-size: 15px;">개별 동의 선택이 가능하며, 필수 항목에 동의하셔야 서비스 이용이 가능합니다.</p>
+		    
+		    <ul>
+		      <li>
+		        <label for="agreeAll"><input type="checkbox" id="agreeAll"> 전체 동의 (서비스 항목 포함)</label>
+		      </li>
+		      <hr>
+		      <li>
+		        <label><input type="checkbox" class="required"> 회원 | 서비스 가입 <span style="color: mediumpurple">(필수)</span></label>
+		      </li>
+		      <hr>
+		      <li>
+		        <label><input type="checkbox" class="required"> 회원가입 약관 <span style="color: mediumpurple">(필수)</span></label>
+		      </li>
+		      <hr>
+		      <li>
+		        <label><input type="checkbox" class="required"> 서포터 이용약관 <span style="color: mediumpurple">(필수)</span></label>
+		      </li>
+		      <hr>
+		      <li>
+		        <label><input type="checkbox" class="required"> 개인정보 수집 및 이용동의 <span style="color: mediumpurple">(필수)</span></label>
+		      </li>
+		      <hr>
+		      <li>
+		        <label><input type="checkbox"> 회원 | 서비스 이벤트 혜택 알림 (선택)</label>
+		      </li>
+		      <hr>
+		      <li>
+		        <label><input type="checkbox" class="required"> 만 14세 이상입니다. <span style="color: mediumpurple">(필수)</span></label>
+		      </li>
+		    </ul>
+		
+		    <input type="submit" class="confirm-btn" value="확인">
+		  </div>
+		</div>
+	</form>
 </div>
 
 <script type="text/javascript">
@@ -356,6 +456,81 @@ small {
 	    document.getElementById('password').disabled = false;
         document.getElementById('confirm-password').disabled = false;
 	}
+	
+	// 타이머 설정
+	let timeLeft = 180; // 3분(180초)
+	let timerInterval;
+
+	function startTimer() {
+	  timerInterval = setInterval(function () {
+	    let minutes = Math.floor(timeLeft / 60);
+	    let seconds = timeLeft % 60;
+	    seconds = seconds < 10 ? '0' + seconds : seconds;
+
+	    document.getElementById('timer').textContent = minutes + ":" + seconds;
+
+	    if (timeLeft > 0) {
+	      timeLeft--;
+	    } else {
+	      clearInterval(timerInterval);
+	      document.getElementById('timer').textContent = "시간초과";
+	    }
+	  }, 1000); // 1초마다 업데이트
+	}
+
+	// 타이머 시작
+	startTimer();
+//--------------------------------------------------------------------------------------------
+	// 모달 열기
+	document.getElementById("openModal").addEventListener("click", function() {
+	  document.getElementById("termsModal").style.display = "flex";
+	});
+
+	// 모달 닫기
+	document.getElementById("closeModal").addEventListener("click", function() {
+	  document.getElementById("termsModal").style.display = "none";
+	});
+
+	// 모달 바깥 클릭 시 닫기
+	window.addEventListener("click", function(event) {
+	  const modal = document.getElementById("termsModal");
+	  if (event.target == modal) {
+	    modal.style.display = "none";
+	  }
+	});
+	
+	// 전체 동의 클릭 시 하위 체크박스 모두 선택/해제
+	document.getElementById("agreeAll").addEventListener("change", function() {
+	  const checkboxes = document.querySelectorAll('.modal-content input[type="checkbox"]');
+	  const isChecked = this.checked; // 전체 동의 체크박스 상태 가져오기
+	  
+	  checkboxes.forEach(function(checkbox) {
+	    checkbox.checked = isChecked; // 전체 동의 체크박스 상태와 동일하게 설정
+	  });
+	});
+	
+	 // 확인 버튼을 눌렀을 때 필수 항목을 체크하는 함수
+    document.getElementById('terms-form').addEventListener('submit', function(event) {
+        event.preventDefault(); // 기본 제출 동작을 막음
+
+        const requiredCheckboxes = document.querySelectorAll('.required');
+        let allChecked = true;
+        
+        requiredCheckboxes.forEach(checkbox => {
+            if (!checkbox.checked) {
+                allChecked = false;
+            }
+        });
+        
+        if (!allChecked) {
+            alert('모든 필수 항목에 동의하셔야 합니다.');
+        } else {
+            alert('가입이 완료되었습니다!');
+            // 실제 가입 로직이 들어갈 부분
+            // 여기서 form을 실제로 제출하고 싶다면 아래 주석을 해제
+            this.submit();
+        }
+    });
 </script>
 </body>
 </html>

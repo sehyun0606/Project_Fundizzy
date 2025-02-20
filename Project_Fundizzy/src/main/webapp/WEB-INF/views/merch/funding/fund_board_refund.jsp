@@ -4,8 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>펀딩새소식-글</title>
-<link rel="stylesheet" type="text/css" href="resources/css/merch/fund/fund_board_new_board.css">
+<title>환불정책</title>
+<link rel="stylesheet" type="text/css" href="resources/css/merch/funding/fund_board_refund.css">
 </head>
 <body>
 	<header>
@@ -21,53 +21,36 @@
 	        <a href="FundBoardReward" class="reward">리워드정보</a>
 	 	</div>
 	    <hr>
-    <div class="container">
-        <div class="content-left">
-            <div class="project-story">
-               <button class="list-btn">목록으로 이동</button>
-                <p>앵콜펀딩 + 1차 펀딩 서포터분들의 리얼리뷰</p>
-                2025.2.12
-                <img src="story.jpg" alt="프로젝트 스토리 이미지">
-            </div>
-            <div class="product-list">
-                <h3>펀딩/프리오더 베스트 프로젝트</h3>
-               <div class="image-group">
-                   <div>
-                       <img src="rec1.jpg" alt="추천 프로젝트 1">
-                       <div class="product-info">
-                         <p class="discount">4,541%달성 </p>
-                         <p class="name">[4차앵콜] 티타늄 텀블러 싱글</p>
-                         <p class="rating">⭐ 4.7(148)</p>
-                     </div>
-                  </div>
-                   <div>
-                       <img src="rec1.jpg" alt="추천 프로젝트 2">
-                       <div class="product-info">
-                         <p class="discount">4,541%달성 </p>
-                         <p class="name">[4차앵콜] 티타늄 텀블러 싱글</p>
-                         <p class="rating">⭐ 4.7(148)</p>
-                     </div>
-                  </div>
-                   <div>
-                       <img src="rec1.jpg" alt="추천 프로젝트 3">
-                       <div class="product-info">
-                         <p class="discount">4,541%달성 </p>
-                         <p class="name">[4차앵콜] 티타늄 텀블러 싱글</p>
-                         <p class="rating">⭐ 4.7(148)</p>
-                     </div>
-                  </div>
-                   <div>
-                       <img src="rec1.jpg" alt="추천 프로젝트 4">
-                       <div class="product-info">
-                         <p class="discount">4,541%달성 </p>
-                         <p class="name">[4차앵콜] 티타늄 텀블러 싱글</p>
-                         <p class="rating">⭐ 4.7(148)</p>
-                     </div>
-                  </div>
-                </div>
-            </div>
-        </div>
-        <div class="content-right">
+		<div class="container">
+	    <div class="content-left">
+	    	<h3>환불 / 정책</h3>
+	    	<ul>
+	    		<li>
+	    			프로젝트 종료 전까지 언제든 결제 취소 가능해요.
+	    		</li>
+	    		<li>
+	    			환불은 참여 내역에서 신청할 수 있어요.
+	    		</li>
+	    		<li>
+	    			환불 신청은 리워드 수령 후 7일 이내 가능해요
+	    		</li>
+	    		<li>
+	    			환불 신청 후 메이커와 소통하여 리워드를 발송해주세요.
+	    		</li>
+	    		<li>
+	    			단순변심: 반품비 서포터 부담
+	    		</li>
+	    		<li>
+	    			리워드 품질 하자: 반품비 메이커 부담
+	    		<li>
+	    			환불 정책에 따라 꼼꼼한 확인 절차를 통해 진행돼요.
+	    		</li>
+	    		<li>
+	    			메이커가 리워드 발송 시작 예정일까지 리워드를 발송하지 않을 경우 환불 신청 이후 즉시 결제 취소돼요. (2-5 영업일 소요)
+    			</li>
+	    	</ul>
+	    </div>
+   <div class="content-right">
             <div class="purchase-section">
                 <h3>[소재혁명] 빈틈없는 편안함! 고온세척&건조 가능한 반영구 통실리콘 베개</h3>
                 <div class="purchase-content">
@@ -79,7 +62,7 @@
                 <div class="btn-group">
                    <button class="btn-small">♡찜</button>
                    <button class="btn-small">지지</button>
-                   <button class="purchase-btn">구매하기</button>
+                   <button class="purchase-btn">펀딩하기</button>
                 </div>
             </div>
             <div class="project-info">
@@ -101,7 +84,7 @@
                 <div class="btn-group">
                    <button class="btn-small">♡ 찜</button>
                    <button class="btn-small">지지</button>
-                   <button class="purchase-btn">구매하기</button>
+                   <button class="purchase-btn">펀딩하기</button>
                 </div>
             </div>
         </div>

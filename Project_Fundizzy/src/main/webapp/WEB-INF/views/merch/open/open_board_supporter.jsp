@@ -50,7 +50,7 @@
                 <div class="btn-group">
                    <button class="btn-small">♡찜</button>
                    <button class="btn-small">지지</button>
-                   <button class="purchase-btn">구매하기</button>
+                   <button class="purchase-btn">예약구매하기</button>
                 </div>
             </div>
             <div class="project-info">
@@ -72,7 +72,7 @@
                 <div class="btn-group">
                    <button class="btn-small">♡ 찜</button>
                    <button class="btn-small">지지</button>
-                   <button class="purchase-btn">구매하기</button>
+                   <button class="purchase-btn">예약구매하기</button>
                 </div>
             </div>
         </div>

@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>푸터</title>
     <style>
-        
         body {
             font-family: Arial, sans-serif;
         }
@@ -34,6 +33,27 @@
         .footer a:hover {
             color: black;
         }
+        
+        #floatingChat {
+		    position: fixed;
+		    bottom: 40px;
+		    right: 40px;
+		    width: 80px;
+		    height: 80px;
+		    background-color:  #C9A7FF;
+		    border-radius: 50%;
+		    display: flex;
+		    align-items: center;
+		    justify-content: center;
+		    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+		    cursor: pointer;
+		    z-index: 1000;
+		}
+		
+		#floatingChat img {
+		    width: 60%;
+		    height: 60%;
+		}
     </style>
 </head>
 <body>
@@ -65,5 +85,13 @@
             </div>
         </div>
     </div>
+    <div id="floatingChat">
+    	<img src="${pageContext.request.contextPath}/resources/images/chattingIcon.png" alt="채팅오픈">
+	</div>
+	<script>
+	    document.getElementById('floatingChat').onclick = function() {
+	        window.open('chat.html', 'chatWindow', 'width=400, height=600, top=200, left=1500, status=no, location=no, menubar=no, toolbar=no');
+	    };
+	</script>
 </body>
 </html>

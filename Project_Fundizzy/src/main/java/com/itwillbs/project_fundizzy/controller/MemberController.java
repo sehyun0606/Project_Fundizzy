@@ -23,20 +23,14 @@ public class MemberController {
 		return "member/sign_up/join_form";
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	@PostMapping("LoginSuccess")
-	public String LoginSuccess(@RequestParam Map<String, String> map, Model model, HttpSession session) {
-		
-		
-		
-		
-		
-		return "";
+	@GetMapping("SignUpSuccess")
+	public String SignUpSuccess() {
+		return "member/sign_up/join_success";
 	}
+	
+	
+	
+	
+	
+	
 }

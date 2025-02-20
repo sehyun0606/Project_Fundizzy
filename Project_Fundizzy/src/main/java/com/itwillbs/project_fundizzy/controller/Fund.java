@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 
 @Controller
-public class Merch {
+public class Fund {
 	
 	@GetMapping("FundList")
 	public String fundList() {
@@ -39,5 +39,17 @@ public class Merch {
 	public String fundBoardReward() {
 		return "merch/funding/fund_board_reward";
 	}
-
+//	확인을 위한 임시 메핑
+	@GetMapping("PaymentReward")
+	public String paymentReward() {
+		return "merch/payment/payment_reward";
+	}
+	@GetMapping("PaymentPay")
+	public String paymentPay() {
+		return "merch/payment/payment_pay";
+	}
+	@GetMapping("PaymentComplete")
+	public String paymentComplete() {
+		return "merch/payment/payment_complete";
+	}
 }

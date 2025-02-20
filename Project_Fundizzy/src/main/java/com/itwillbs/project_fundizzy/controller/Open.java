@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class Open {
 	
-	@GetMapping("OpenList")
-	public String openList() {
-		return "merch/open/open_list";
-	}
+//	@GetMapping("OpenList")
+//	public String openList() {
+//		return "merch/open/open_list";
+//	}
 	@GetMapping("OpenBoardStory")
 	public String openBoardStory() {
 		return "merch/open/open_board_story";
