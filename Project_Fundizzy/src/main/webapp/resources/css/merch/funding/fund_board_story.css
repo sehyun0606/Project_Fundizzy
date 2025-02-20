@@ -50,6 +50,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    
 }
 /* 왼쪽 - 메인 이미지 */
 .main-image {

@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 
 @Controller
-public class Fund {
+public class FundController {
 	
 	@GetMapping("FundList")
 	public String fundList() {

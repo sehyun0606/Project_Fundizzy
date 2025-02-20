@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>결제-결제완료</title>
-<link rel="stylesheet" type="text/css" href="resources/css/merch/payment/payment_reward.css">
+<link rel="stylesheet" type="text/css" href="resources/css/merch/payment/payment_complete.css">
 </head>
 <body>
 	<header>
@@ -34,7 +34,7 @@
 		            <p class="total">총 결제 금액 <span class="price">52,000원</span></p>
 	        	</div>
 	        	<div class="two-button">
-		           <button>홈으로</button>
+		           <button onclick="location.href='http://localhost:8081/project_fundizzy/'">홈으로</button>
 		           <button>마이페이지</button>
 	        	</div>
 	        </div>

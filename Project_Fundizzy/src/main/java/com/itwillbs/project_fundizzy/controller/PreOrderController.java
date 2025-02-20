@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 
 @Controller
-public class PreOrder {
+public class PreOrderController {
 	
 	@GetMapping("PreOrderList")
 	public String preOrderList() {

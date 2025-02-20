@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>환불정책</title>
-<link rel="stylesheet" type="text/css" href="resources/css/merch/funding/fund_board_refund.css">
+<link rel="stylesheet" type="text/css" href="resources/css/merch/funding/fund_board_reward.css">
 </head>
 <body>
 	<header>

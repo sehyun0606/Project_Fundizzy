@@ -59,9 +59,25 @@ body {
 .category-nav button{
 	width: 95px;
 	height: 95px;
-	line-height: 140px;
+	line-height: 153px;
 	font-size: 0.8em;
 	padding: 5px;
+	display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    text-align: center;
+    text-decoration: none;
+    color: #000;
+}
+
+
+.category-nav img {
+    max-width: 50px;
+    height: 69px;
+    margin-bottom: -58px;
 }
 .category-nav button e-book{
 	padding: 15px;

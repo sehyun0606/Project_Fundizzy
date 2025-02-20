@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 
 @Controller
-public class Open {
+public class OpenController {
 	
 //	@GetMapping("OpenList")
 //	public String openList() {

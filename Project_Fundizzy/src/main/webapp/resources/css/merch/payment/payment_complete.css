@@ -5,6 +5,28 @@ body {
 	padding: 0;
     background-color: #f5f5f5;
 }
+.reward-step {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 22px;
+    margin-bottom: 20px;
+}
+
+.step {
+    background-color: #e3ddff;
+    padding: 10px 20px;
+    border-radius: 3px;
+    font-size: 13px;
+ }
+ .step-here{
+	 background-color: #c0b0ff;
+	 padding: 10px 20px;
+	 border-radius: 3px;
+	 font-size: 13px;
+ 
+ }
 
 .container {
     width: 400px;
@@ -24,6 +46,12 @@ body {
 }
 .section-product p {
 	font-size: 14px;
+	margin-top: 14px;
+	margin-bottom: 8px;
+}
+.section-product h4{
+	margin-top: 8px;
+	margin-bottom: 8px;
 }
 .section-price {
     background-color: #f8f8f8;
@@ -31,7 +59,32 @@ body {
     border-radius: 5px;
     width: 100%;
     box-sizing: border-box;
+    margin-bottom: 10px;
+}
+.section-price h4{
+	margin-top: 8px;
+	margin-bottom: 8px;
+}
+.section-price p {
+	font-size: 14px;
+	margin-top: 14px;
+	margin-bottom: 8px;
 }
 .two-button{
 	display: flex;
+}
+.two-button button{
+  	flex: 1;
+    background-color: #9370db;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+	margin-left: 5px;
+    text-align: center;
+    float: right;
+    width: auto;
+    padding: 0.5em 0em 0.5em 0em; 
+    white-space: nowrap; /* 내용 줄바꿈 방지 */
+    flex-shrink: 0; /* 내용이 줄어들지 않도록 설정 */
 }
