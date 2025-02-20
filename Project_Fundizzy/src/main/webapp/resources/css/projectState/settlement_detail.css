@@ -19,6 +19,25 @@
 /* 	font-size: 34px; */
 /* 	font-weight: 700; */
 /* } */
+.notice {
+	border: 1px solid #ddd;
+	width: 800px;
+}
+.notice h3 {
+	border-bottom: 1px solid #ddd;
+}
+.order div {
+	display: inline-block;
+}
+.order div div {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #757575;
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+}
 table {
 /*     width: 1000px; */
     border-collapse: collapse;

@@ -14,6 +14,33 @@
 		<jsp:include page="/WEB-INF/views/inc/project_maker_top.jsp" />
 		<div class="content">
 			<h1>정산 내역</h1>
+			<div class="notice">
+				<h3>정산 안내</h3>
+				<div class="order">
+					<div>
+						<div>1</div>
+						<span>성공 종료</span>
+					</div>
+					<div>
+						<div>2</div>
+						<span>결제</span>
+					</div>
+					<div>
+						<div>3</div>
+						<span>선정산</span>
+					</div>
+					<div>
+						<div>4</div>
+						<span>발송·환불</span>
+					</div>
+					<div>
+						<div>5</div>
+						<span>최종 정산</span>
+					</div>
+				</div>
+			</div>
+			
+			
 			<table>
 				<tr>
 					<th width="400px">프로젝트명</th>
