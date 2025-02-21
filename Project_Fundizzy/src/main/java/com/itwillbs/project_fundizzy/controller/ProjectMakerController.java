@@ -25,4 +25,13 @@ public class ProjectMakerController {
 		
 		return "project/projectMaker/project_story";
 	}
+	@GetMapping("ProjectReward")
+	public String projectReward() {
+		
+		return "project/projectMaker/project_reward";
+	}
+	@GetMapping("MakerInfo")
+	public String makerInfo() {
+		return "project/projectMaker/maker_info";
+	}
 }

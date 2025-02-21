@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>프로젝트 정보</title>
-    <link rel="stylesheet" type="text/css" href="resources/css/projectMaker/project_info.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/projectMaker/project_info.css">
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/inc/project_maker_side.jsp"></jsp:include>

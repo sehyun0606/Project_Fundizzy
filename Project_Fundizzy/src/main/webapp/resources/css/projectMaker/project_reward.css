@@ -1,0 +1,137 @@
+@charset "UTF-8";
+body {
+	font-family: Arial, sans-serif;
+	display: flex;
+}
+.container {
+	width: 50%;
+	margin-left: 10%;
+}
+.main {
+	width:100%;
+}        
+.reward-card {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 20px;
+}
+.button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+ .add-button {
+     background: purple;
+     color: white;
+ }
+ .edit-button {
+     background: #ddd;
+ }
+ .delete-button {
+     background: black;
+     color: white;
+ }
+.title-section{
+ 	display: flex;
+ 	justify-content: space-between;
+}
+.title{
+	margin: 0px;
+}  
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* 모달 창 */
+.modal-content {
+    background: white;
+    margin: 15% auto;
+    padding: 20px;
+    width: 20%;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 10%;
+}
+
+/* 닫기 버튼 */
+.close {
+    float: right;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: red;
+}
+/* 폼 스타일 */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+input, textarea {
+    width: 90%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* input-group: 단위(원, 개)를 오른쪽에 표시 */
+.input-group {
+    display: flex;
+    align-items: center;
+}
+
+.input-group span {
+    margin-left: 10px;
+}
+
+/* 버튼 스타일 */
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.cancel-btn {
+    background: #ddd;
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.submit-btn {
+    background: #a855f7;
+    color: white;
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#rewardDesc{
+	height: 100px;
+	resize: none;
+}
+.text-count{
+	display: flex;
+	color: #bbb;
+}
