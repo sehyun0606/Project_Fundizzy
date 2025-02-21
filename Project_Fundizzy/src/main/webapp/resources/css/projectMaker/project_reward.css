@@ -2,6 +2,7 @@
 body {
 	font-family: Arial, sans-serif;
 	display: flex;
+	margin: 0px;
 }
 .container {
 	width: 50%;
