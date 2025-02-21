@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>발송·환불 관리</title>
-<link rel="styleSheet" type="text/css" href="resources/css/projectState/projectStateDefault.css" >
+<link rel="styleSheet" type="text/css" href="resources/css/projectState/project_state_default.css" >
 <link rel="styleSheet" type="text/css" href="resources/css/projectState/shipment_refund.css" >
 </head>
 <body>
