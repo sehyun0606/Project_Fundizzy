@@ -97,7 +97,7 @@
                 <div class="submenu-item"><a href="ProjectPlan">서비스 요금</a> <span>작성중</span></div>
                 <div class="submenu-item"><a href="ProjectInfo">프로젝트 정보</a> <span>작성전</span></div>
                 <div class="submenu-item"><a href="ProjectStory">스토리 작성</a> <span>작성전</span></div>
-                <div class="submenu-item"><a href="ProjectReword">리워드 설계</a> <span>작성전</span></div>
+                <div class="submenu-item"><a href="ProjectReward">리워드 설계</a> <span>작성전</span></div>
                 <div class="submenu-item"><a href="MakerInfo">메이커 정보</a> <span>작성전</span></div>
             </div>
         </div>
