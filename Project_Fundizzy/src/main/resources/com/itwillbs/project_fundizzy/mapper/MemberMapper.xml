@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itwillbs.project_fundizzy.mapper.MemberMapper">
+
+<!-- 	CREATE TABLE member( -->
+<!-- 	idx primary key not null, -->
+<!-- 	email varchar(30) not null unique, -->
+<!-- 	passwd varchar(20) not null, -->
+<!-- 	phone varchar(15) unique, -->
+<!-- 	address1 varchar(30), -->
+<!-- 	address2 varchar(30), -->
+<!-- 	post_code varchar(8), -->
+<!-- 	nickname varchar(12) not null unique, -->
+<!-- 	profile varchar(50), -->
+<!-- 	introduction text, -->
+<!-- 	interests varchar(50), -->
+<!-- 	reg_date timestamp not null, -->
+<!-- 	member_status varchar(1) not null default('1'), -->
+<!-- 	withdraw_date timestamp, -->
+<!-- 	social_type varchar(20), -->
+<!-- 	login_type varchar(10) not null default('local'), -->
+<!-- 	last_login timestamp, -->
+<!-- 	adult_auth varchar(1) default('N') -->
+<!-- 	); -->
+
+	<insert id="insertMember">
+		INSERT
+		INTO member
+		VALUES (
+			null
+			, #{email}
+			, #{password}
+			, null
+			, null
+			, null
+			, null
+			, #{nickname}
+			, null
+			, null
+			, null
+			, now()
+			, '1'
+			, null
+			, null
+			, 'local'
+			, null
+			, 'N'		
+		)
+	</insert>
+
+<!-- 	CREATE TABLE mail_auth_info( -->
+<!-- 	email varchar(30) not null, -->
+<!-- 	auth_code varchar(6) not null, -->
+<!-- 	member_email_auth varchar(1) not null -->
+<!-- 	); -->
+	
+	<!-- 사용자 인증코드 유/무 조회 -->
+	<select id="selectMailAuthInfo" resultType="map">
+		SELECT *
+		FROM mail_auth_info
+		WHERE email = #{email}
+	</select>
+	
+	<!-- 사용자 인증코드 입력 -->
+	<insert id="insertMailAuthInfo">	
+		INSERT
+		INTO mail_auth_info
+		VALUES (
+			#{email}
+			, #{auth_code}
+			, 'Y'
+		)
+	</insert>
+
+	<!-- 사용자 인증코드 변경 -->
+	<update id="updateMailAuthInfo">
+		UPDATE mail_auth_info
+		SET auth_code = #{auth_code}
+		WHERE email = #{email}
+	</update>
+
+	<!-- 사용자 인증코드 가져오기 -->
+	<select id="selectAuthCode" resultType="String">
+		SELECT auth_code
+		FROM mail_auth_info
+		WHERE email = #{email}
+	</select>
+
+	<select id="selectEmail" resultType="map">
+		SELECT *
+		FROM member
+		WHERE email = #{email}
+	</select>
+
+
+
+</mapper>

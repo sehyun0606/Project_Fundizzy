@@ -5,6 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
     <title>Fundizy Registration</title>
     <style>
         body {
@@ -311,7 +312,7 @@
 			margin-top: 15px;
 		}
 		
-		.confirm-btn {
+		.confirm-btn2 {
 			background-color: mediumpurple;
 			color: white;
 			padding: 10px 20px;
@@ -330,6 +331,18 @@
 		  	cursor: pointer; /* 체크박스 클릭 가능하게 */
 		}
         
+        /* 인증번호 success/fail 메세지 css */
+        .success-message {
+		    color: green;
+		    font-weight: bold;
+	        margin-right: 118px;
+		}
+		
+		.error-message {
+		    color: red;
+		    font-weight: bold;
+	        margin-right: 118px;
+		}
         
     </style>
 </head>
@@ -356,49 +369,32 @@
     </div>
 	<hr style="border: 0; height: 1px; background-color: #dcdcdc;">
     <!-- Email Sign-Up -->
-    <form action="SignUpSuccess" method="get" id="terms-form">
+    <form action="SignUpAction" method="POST" id="terms-form">
 	    <div class="email-signup">
 		    <div class="auth-container">
 				<label for="email" class="auth-label" style="color: gray;"><b>이메일</b></label>
 				<div class="email-wrapper">
-				  <input type="email" id="email" class="email-input" placeholder="이메일을 입력하세요" required>
-				  <button type="button" class="edit-btn" onclick="showAuthInput()">인증하기</button>
+				  <input type="email" id="email" name="email" class="email-input" placeholder="이메일을 입력하세요" required>
+				  <button type="button" id="sendMail" class="edit-btn" onclick="showAuthInput()">인증하기</button>
 				</div>
 			</div>
 			<div class="auth-sections" id="auth-section" style="display: none;">
-				<label for="auth-code" class="auth-label"><b>인증번호</b></label>
+				<label for="auth_code"  class="auth-label"><b>인증번호</b></label>
 				<div class="auth-input-wrapper">
-				  <input type="text" id="auth-code" placeholder="인증번호 입력" class="auth-code-input">
-				  <span class="timer" id="timer">2:32</span>
-				  <button class="confirm-btn">확인</button>
+				  <input type="text" id="auth_code" name="auth_code" placeholder="인증번호 입력" class="auth-code-input">
+				  <span class="timer" id="timer"></span>
+				  <button id="confirmButton" class="confirm-btn">확인</button>
 				</div>
-				<small>인증번호 6자리를 입력하세요.</small>
+				<small id="resultMessage">인증번호 6자리를 입력하세요.</small>
 				<a href="#" class="resend-link">인증번호 다시 보내기</a>
 			</div>
-
-<!-- ----------------------------------------------------------------------------------------------------------------- -->
-<!-- 	        <h3 style="color: gray;">이메일 간편가입</h3> -->
-<!-- 	        <div class="password-input"> -->
-<!-- 	            <input type="email" id="email" placeholder="이메일 계정" required /> -->
-<!-- 	            <button type="button" class="auth-btn" onclick="showAuthInput()">인증하기</button><br> -->
-<!-- 	        </div> -->
-	        
-<!-- 	        <div id="auth-section" style="display: none;"> -->
-<!-- 		        <h3 style="color: gray;">인증번호</h3> -->
-<!-- 		        <div class="auth-input"> -->
-<!-- 		            <input type="email" id="email" placeholder="인증번호 입력" required /> -->
-<!-- 		            <button class="auth-btn" >확인</button><br> -->
-<!-- <!-- 		            <small>인증번호 6자리를 입력하세요.</small> -->
-<!-- 		        </div> -->
-<!-- 			</div> -->
-<!-- ----------------------------------------------------------------------------------------------------------------- -->
 			
 	        <h3 style="color: gray;">닉네임</h3>
-	        <input type="text" class="nickname" placeholder="닉네임 입력" required />
+	        <input type="text" id="nickname" name="nickname" class="nickname" placeholder="닉네임 입력" required disabled/>
 	
 	        <h3 style="color: gray;">비밀번호</h3>
 	        <div class="password-input2">
-	            <input type="password" id="password" placeholder="비밀번호 입력" required disabled />
+	            <input type="password" id="password" name="password" placeholder="비밀번호 입력" required disabled />
 	        </div>
 	        <div class="password-input2">
 	            <input type="password" id="confirm-password" placeholder="비밀번호 확인" required disabled />
@@ -444,93 +440,152 @@
 		      </li>
 		    </ul>
 		
-		    <input type="submit" class="confirm-btn" value="확인">
+		    <input type="submit" class="confirm-btn2" value="확인">
 		  </div>
 		</div>
 	</form>
 </div>
 
-<script type="text/javascript">
-	function showAuthInput() {
-	    document.getElementById('auth-section').style.display = 'block';
-	    document.getElementById('password').disabled = false;
-        document.getElementById('confirm-password').disabled = false;
-	}
+	<script type="text/javascript">
+
+		$("#sendMail").click(function(){
+			let email = $("#email").val();
+			if (email == "") {
+	            alert("이메일을 입력하세요.");
+	            return;
+			} else {
+				// 인증 텍스트박스 display none 해제
+		    	$('#auth-section').css('display', 'block');
+			}
+			// AJAX 요청으로 이메일 전송
+		    $.ajax({
+		        url: 'sendAuthMail',
+		        type: 'GET',
+		        data: {
+		        	email: email
+		        }
+			}).done(function(result){
+				alert("메일 발송 성공!")
+			}).fail(function(){
+				alert("메일 전송 실패!");
+			});
+		});
+		
+		$("#confirmButton").click(function(){
+			let code = $("#auth_code").val();
+			let email = $("#email").val();
+			if(code == ""){
+				alert("인증번호를 입력하세요!");
+				return;
+			}
+			$.ajax({
+				url: 'authCodeCheck',
+				type: 'GET',
+				data: {
+					email : email,
+					code : code
+				}
+			}).done(function(result){
+				if(result.trim() == "true") {
+					console.log("인증성공!");
+					$("#resultMessage").text("인증 성공!").removeClass("error-message").addClass("success-message").show();
+			    	// 닉네임 텍스트박스 disabled 해제
+					$('#nickname').prop('disabled', false);
+			    	// 패스워드 텍스트박스 disabled 해제
+					$('#password').prop('disabled', false);
+			    	// 패스워드 확인 텍스트박스 disabled 해제
+					$('#confirm-password').prop('disabled', false);
+				} else {
+					console.log("인증실패! 다시 입력해주세요");
+					$("#resultMessage").text("인증 실패!").removeClass("success-message").addClass("error-message").show();
+			    	// 닉네임 텍스트박스 disabled
+					$('#nickname').prop('disabled', true);
+			    	// 패스워드 텍스트박스 disabled 
+					$('#password').prop('disabled', true);
+			    	// 패스워드 확인 텍스트박스 disabled 
+					$('#confirm-password').prop('disabled', true);
+				}
+			}).fail(function() {
+				alert("AJEX 요청 오류!");		
+			});
+		});
+		
+		// 타이머 설정
+		let timeLeft = 180; // 3분(180초)
+		let timerInterval;
 	
-	// 타이머 설정
-	let timeLeft = 180; // 3분(180초)
-	let timerInterval;
-
-	function startTimer() {
-	  timerInterval = setInterval(function () {
-	    let minutes = Math.floor(timeLeft / 60);
-	    let seconds = timeLeft % 60;
-	    seconds = seconds < 10 ? '0' + seconds : seconds;
-
-	    document.getElementById('timer').textContent = minutes + ":" + seconds;
-
-	    if (timeLeft > 0) {
-	      timeLeft--;
-	    } else {
-	      clearInterval(timerInterval);
-	      document.getElementById('timer').textContent = "시간초과";
-	    }
-	  }, 1000); // 1초마다 업데이트
-	}
-
-	// 타이머 시작
-	startTimer();
-//--------------------------------------------------------------------------------------------
-	// 모달 열기
-	document.getElementById("openModal").addEventListener("click", function() {
-	  document.getElementById("termsModal").style.display = "flex";
-	});
-
-	// 모달 닫기
-	document.getElementById("closeModal").addEventListener("click", function() {
-	  document.getElementById("termsModal").style.display = "none";
-	});
-
-	// 모달 바깥 클릭 시 닫기
-	window.addEventListener("click", function(event) {
-	  const modal = document.getElementById("termsModal");
-	  if (event.target == modal) {
-	    modal.style.display = "none";
-	  }
-	});
+		function startTimer() {
+		  timerInterval = setInterval(function () {
+		    let minutes = Math.floor(timeLeft / 60);
+		    let seconds = timeLeft % 60;
+		    seconds = seconds < 10 ? '0' + seconds : seconds;
 	
-	// 전체 동의 클릭 시 하위 체크박스 모두 선택/해제
-	document.getElementById("agreeAll").addEventListener("change", function() {
-	  const checkboxes = document.querySelectorAll('.modal-content input[type="checkbox"]');
-	  const isChecked = this.checked; // 전체 동의 체크박스 상태 가져오기
-	  
-	  checkboxes.forEach(function(checkbox) {
-	    checkbox.checked = isChecked; // 전체 동의 체크박스 상태와 동일하게 설정
-	  });
-	});
+		    document.getElementById('timer').textContent = minutes + ":" + seconds;
 	
-	 // 확인 버튼을 눌렀을 때 필수 항목을 체크하는 함수
-    document.getElementById('terms-form').addEventListener('submit', function(event) {
-        event.preventDefault(); // 기본 제출 동작을 막음
-
-        const requiredCheckboxes = document.querySelectorAll('.required');
-        let allChecked = true;
-        
-        requiredCheckboxes.forEach(checkbox => {
-            if (!checkbox.checked) {
-                allChecked = false;
-            }
-        });
-        
-        if (!allChecked) {
-            alert('모든 필수 항목에 동의하셔야 합니다.');
-        } else {
-            alert('가입이 완료되었습니다!');
-            // 실제 가입 로직이 들어갈 부분
-            // 여기서 form을 실제로 제출하고 싶다면 아래 주석을 해제
-            this.submit();
-        }
-    });
-</script>
+		    if (timeLeft > 0) {
+		      timeLeft--;
+		    } else {
+		      clearInterval(timerInterval);
+		      document.getElementById('timer').textContent = "시간초과";
+		    }
+		  }, 1000); // 1초마다 업데이트
+		}
+		// 타이머 시작
+		startTimer();
+		
+	//--------------------------------------------------------------------------------------------
+		// 모달 열기
+		document.getElementById("openModal").addEventListener("click", function() {
+		  document.getElementById("termsModal").style.display = "flex";
+		});
+	
+		// 모달 닫기
+		document.getElementById("closeModal").addEventListener("click", function() {
+		  document.getElementById("termsModal").style.display = "none";
+		});
+	
+		// 모달 바깥 클릭 시 닫기
+		window.addEventListener("click", function(event) {
+		  const modal = document.getElementById("termsModal");
+		  if (event.target == modal) {
+		    modal.style.display = "none";
+		  }
+		});
+		
+		// 전체 동의 클릭 시 하위 체크박스 모두 선택/해제
+		document.getElementById("agreeAll").addEventListener("change", function() {
+		  const checkboxes = document.querySelectorAll('.modal-content input[type="checkbox"]');
+		  const isChecked = this.checked; // 전체 동의 체크박스 상태 가져오기
+		  
+		  checkboxes.forEach(function(checkbox) {
+		    checkbox.checked = isChecked; // 전체 동의 체크박스 상태와 동일하게 설정
+		  });
+		});
+		
+		 // 확인 버튼을 눌렀을 때 필수 항목을 체크하는 함수
+	    document.getElementById('terms-form').addEventListener('submit', function(event) {
+	        event.preventDefault(); // 기본 제출 동작을 막음
+	
+	        const requiredCheckboxes = document.querySelectorAll('.required');
+	        let allChecked = true;
+	        
+	        requiredCheckboxes.forEach(checkbox => {
+	            if (!checkbox.checked) {
+	                allChecked = false;
+	            }
+	        });
+	        
+	        if (!allChecked) {
+	            alert('모든 필수 항목에 동의하셔야 합니다.');
+	        } else {
+	            alert('가입이 완료되었습니다!');
+	            // 여기서 form을 실제로 제출하고 싶다면 아래 주석을 해제
+	            this.submit();
+	        }
+	    });
+	
+		
+	</script>
+	
 </body>
 </html>
