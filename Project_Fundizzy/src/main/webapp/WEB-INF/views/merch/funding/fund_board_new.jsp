@@ -26,9 +26,8 @@
 	          <div class="content-left-top">
 	             <h3>새소식</h3>
 	             <select>
-	                <option>전체</option>
-	                <option>FAQ</option>
-	                <option>결제·환불·배송</option>
+	                <option>최신순</option>
+	                <option>과거순</option>
 	             </select>
 	          </div>
 	          <hr>

@@ -13,7 +13,7 @@
 	</header>
 	<article>
 		 <div class="container">
-			<button class="back">&lt; 스토리로 돌아가기</button>
+			<button class="back" onclick="location.href='PaymentReward'">&lt; 스토리로 돌아가기</button>
 			<div class="reward-step">
 		        <div class="step">리워드 선택</div>
 		        <span class="arrow">→</span>
@@ -73,7 +73,7 @@
 				<input type="checkbox">결제 진행 필수 동의<br>
 				<input type="checkbox">구매조건, 결제 진행 및 결제 대행 서비스 동의(필수)<br>
 				<input type="checkbox">개인정보 제3자 제공 동의 (필수)<br>
-				<button>결제하기</button>
+				<button onclick="location.href='PaymentComplete'">결제하기</button>
 			</div>
 				       
 	    </div>

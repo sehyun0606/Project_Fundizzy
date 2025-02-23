@@ -13,7 +13,7 @@
 	</header>
 	<article>
 		 <div class="container">
-			<button class="back">&lt; 스토리로 돌아가기</button>
+			<button class="back" onclick="location.href='FundBoardStory'">&lt; 스토리로 돌아가기</button>
 			<div class="reward-step">
 		        <div class="step-here">리워드 선택</div>
 		        <span class="arrow">→</span>
@@ -48,7 +48,7 @@
 	                <label><input type="checkbox"> 이름 비공개</label>
 	                <label><input type="checkbox"> 금액 비공개</label>
 	            </div>
-	            <button class="next-button">다음 단계</button>
+	            <button class="next-button" onclick="location.href='PaymentPay'">다음 단계</button>
 	        </div>
 	    </div>
 	</article>
