@@ -1,0 +1,156 @@
+@charset "UTF-8";
+
+article {
+    width: 40%;
+    margin: 0 auto 150px;
+    padding: 24px 16px 0;
+}
+
+#title {
+    color: #9370DB;
+    font-size: 32px;
+    font-weight: 700;
+    text-align: left;
+    margin-bottom: 40px;
+}
+
+#topGroup {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#topGroup input[type=checkbox] {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+#topGroup select {
+    width: 160px;
+    height: 35px;
+    font-size: 22px;
+    border: 1px solid #9370DB;
+    border-radius: 10px;
+    text-align: center;
+}
+
+#topGroup select:focus,
+#topGroup select:active {
+    background-color: white;
+    outline: none;
+    box-shadow: none;
+}
+
+
+#topGroup label {
+    font-size: 22px;
+    margin-right: 5px;
+    padding: 9px 15px 6px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    background-color: #9370DB;
+    color: #fff;
+}
+
+#topGroup input[type="button"] {
+    font-size: 22px;
+    background-color: #9370DB;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+#topGroup label:hover,
+#topGroup input[type="button"]:hover {
+	background-color: #8A2BE2;
+}
+
+#notificationList {
+	height: 800px;
+	overflow-y: auto;
+}
+
+.notification {
+    padding: 15px 20px 15px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 20px;
+}
+
+.notificationHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.notificationTitle {
+    font-size: 25px;
+    font-weight: 600;
+    color: #9370DB;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.notificationTitle::before {
+    content: "👤"; /* 아이콘 추가 */
+    font-size: 26px;
+}
+
+.notificationDate {
+    font-size: 20px;
+    color: #999;
+}
+
+.notificationBody {
+    display: flex;
+    justify-content: space-between;
+    background-color: rgba(192, 192, 192, 0.2);
+	margin-left: 40px;
+	padding: 10px 20px 7px 20px;
+	border-radius: 20px;
+}
+
+.notificationContent {
+    font-size: 20px;
+    color: #333;
+}
+
+.checkbox {
+    display: flex;
+    align-items: center;
+}
+
+input[type="checkbox"] {
+    appearance: none;
+    width: 30px;
+    height: 30px;
+    border: 2px solid #9370DB;
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+}
+
+input[type="checkbox"]:checked {
+    background-color: #9370DB; 
+    border: 2px solid #9370DB;
+}
+
+input[type="checkbox"]:checked::before {
+    content: "✓";
+    display: block;
+    color: white;
+    text-align: center;
+    line-height: 30px;
+}
+
+
+
+
+
