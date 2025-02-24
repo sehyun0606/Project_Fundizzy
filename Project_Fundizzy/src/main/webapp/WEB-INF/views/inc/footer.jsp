@@ -16,8 +16,6 @@
             font-size: 14px;
             color: #666;
             border-top: 1px solid #ddd;
-            margin-top: 20px;
-            
         }
         .footer .footer-links, .footer .company-info {
             display: flex;

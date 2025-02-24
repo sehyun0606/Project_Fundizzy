@@ -12,30 +12,12 @@
 <jsp:include page="/WEB-INF/views/inc/top.jsp"></jsp:include>
 
 
-<div class="dashboard-container">
+<div class="container">
 
-	<div class="left-part">
-		
-		<div class="profile-part"> 
-			<section class="profile-image">
-				<img src="<%= request.getContextPath() %>/resources/images/profile_basic.png" alt="프로필 이미지">
-			</section>
-			
-			<section class="profile-name">
-				 <p>사용자 이름</p>
-			</section>
-			
-			<section class="profile-settings">
-			    <input type="button" class="setting_button" value="내 정보설정" onclick="location.href='SettingMain'">
-			</section>
+	<div >
+		<jsp:include page="/WEB-INF/views/inc/profile_side.jsp"></jsp:include>
 
-		</div>
-		
-		<div class="side-bar"> 	
-			<jsp:include page="/WEB-INF/views/myPage/page/mypage_sidebar.jsp"></jsp:include>
-		</div>
-
-</div>
+	</div>
     
     <!-- 메인 콘텐츠 -->
     <main class="main-content">
@@ -44,39 +26,30 @@
             <p></p>
             
             
-		<section class="membership-ad">
-		    <p>설명할 내용</p>
-		    <input type="button" class="ad_button" value="이동하기">
-		</section>
 
         <div class="user-info-container"> 
 	        <!-- 상단 프로필 정보 -->
 	        <section class="user-info">
 	            <div class="user-stats">
 	                <div class="stat-item1">
+	                	<img class="icon" src="${pageContext.request.contextPath}/resources/images/myPage/free-icon-cart-709782.png">
 	                    <a href="FundingProd">펀딩</a><span>횟수</span>
 	                </div>
 	                <div class="stat-item2">
+	                	<img class="icon2" src="${pageContext.request.contextPath}/resources/images/myPage/free-icon-business-people-8452029.png">
 	                    <a href="SupporterPage">지지서명</a><span>횟수</span>
 	                </div>
 	                <div class="stat-item3">
+	                	<img class="icon" src="${pageContext.request.contextPath}/resources/images/myPage/free-icon-heart-shape-outline-25424.png">
 	                    <a href="SupporterPage">찜한상품</a><span>횟수</span>
 	                </div>
 	                <div class="stat-item4">
+	                	<img class="icon" src="${pageContext.request.contextPath}/resources/images/myPage/free-icon-bell-alarm-7887462.png">
 	                    <a href="SupporterPage">알림설정</a><span>횟수</span>
 	                </div>
 	            </div>    
 	        </section>
 	
-			<section class="point-coupon">
-				<div class="stat-point">
-	      			<p>포인트</p><span></span>
-	            </div>
-	            <div class="stat-">
-	           		<p>쿠폰</p><span></span>
-	            </div>	
-			</section>
-			
 	</div>
 
 

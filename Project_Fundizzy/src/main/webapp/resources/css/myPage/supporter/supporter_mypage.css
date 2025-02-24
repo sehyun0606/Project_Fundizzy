@@ -25,25 +25,7 @@ body {
     align-items: stretch; /* 위쪽 정렬 */
     gap: 20px; /* 두 영역 사이 간격 */
 }
-/* user-info 영역 */
-.user-info {
-    width: 500px !important;
-    max-width: 500px !important;
-    min-width: 500px !important;
-    display: flex;
-    flex-direction: column;
-}
 
-.point-coupon {
-    width: 200px !important;
-    max-width: 200px !important;
-    min-width: 200px !important;
-    display: flex;
-    flex-direction: column;
-    height: 100px;
-    margin-top: 30px; /* 현재 위치에서 30px 아래로 이동 */
-    margin-left: 20px;
-}
 
 
 
@@ -54,16 +36,9 @@ body {
     box-sizing: border-box;
 }
 
-
-/* 메인 콘텐츠 (20% 작게) */
-.main-content {
-    flex: 0.8; /* 원래 flex: 1에서 0.8로 줄임 */
-    padding: 16px; /* 20px → 16px (20% 감소) */
-    margin-left: 550px; /* 350px → 280px (20% 감소) */
-    margin-top: 150px; /* 350px → 280px (20% 감소) */
-   
+.container{
+	display: flex;
 }
-
 
 
 .menu ul {
@@ -121,17 +96,6 @@ body {
 
 
 
-.membership-ad {
-	margin-top: 50px;
-    border-radius: 10px;
-    position: relative; /* 이 속성이 필요함 */
-    padding: 3px;
-    background: #fff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    font-weight: bold;
-    
-}
 
 
 
@@ -219,18 +183,25 @@ body {
     background: white;
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border: 0.5px solid mediumpurple;
+    width: 100%;
 }
 
 .point-coupon{
 	background: white;
     padding: 10px;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border: 0.5px solid mediumpurple;
 	
 }
 
+.icon{
+	width: 30px;
+}
 
+.icon2{
+	width: 50px;
+}
 
 
 /* .user-stats { */
@@ -292,7 +263,7 @@ h3 {
     text-align: center;
     border-radius: 10px;
     background: #fff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border: 0.5px solid mediumpurple;
     font-weight: bold;
 }
 
@@ -305,6 +276,9 @@ h3 {
     margin-top: 10px; /* 5px 아래로 이동 */
 }
 
+.main-content {
+	margin-left: 16vh;
+}
 
 
 
