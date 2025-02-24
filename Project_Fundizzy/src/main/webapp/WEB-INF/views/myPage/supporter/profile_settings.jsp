@@ -9,7 +9,8 @@
 </head>
 
 <body>
-
+<jsp:include page="/WEB-INF/views/inc/top.jsp"></jsp:include>
+<div class="main">
 <div class="profile-container">
     <h1 class="profile-title">프로필 정보 설정</h1>
 
@@ -64,6 +65,6 @@
         <button class="confirm-btn">확인</button>
     </div>
 </div>
-
+</div>
 </body>
 </html>

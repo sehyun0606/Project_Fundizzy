@@ -1,12 +1,7 @@
 /* 전체 스타일 */
 body {
-    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #ffffff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     height: 100vh;
 }
 
@@ -153,4 +148,8 @@ textarea {
 
 .confirm-btn:hover {
     background: #b820d0;
+}
+.main{
+	display: flex;
+	justify-content: center;
 }

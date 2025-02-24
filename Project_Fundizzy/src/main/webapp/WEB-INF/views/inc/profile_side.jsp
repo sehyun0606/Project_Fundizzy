@@ -71,12 +71,25 @@
             border-radius: 5px;
             cursor: pointer;
 		}
+		.settings{
+		margin-left: 13%;
+	    border: 1px solid mediumpurple;
+	    background-color: white;
+	    color: mediumpurple;
+	    border-radius: 15px;
+	    width: 70%;
+		}
+		.settings:hover{
+        	color: white;
+        	background-color: mediumpurple;
+        }
     </style>
 </head>
 
 
     <div class="sidebar">
         <div class="profile-image"></div>
+        <input type="button" class="settings" value="내 정보 설정" onclick="location.href='SettingMain'">
 
        
         <div class="menu-item">
