@@ -4,10 +4,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>펀딩스토리</title>
 <link rel="stylesheet" type="text/css" href="resources/css/merch/funding/fund_board_story.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/merch/fund_board_story.js"></script>
+  <script src="${pageContext.request.contextPath}/resources/js/merch/fund_board_story.js"></script>
+<!--   지지서명 아이콘 관련 script -->
+  <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 </head>
 <body>
 	<header>
@@ -164,8 +168,8 @@
                 <p><strong>139</strong>명 참여</p>
                 <p><strong>50,000</strong>원 달성</p>
                 <div class="btn-group">
-                   <button class="btn-small" id="btn-like">♡찜</button>
-                   <button class="btn-small" id="btn-support">지지</button>
+                   <button class="btn-small" id="btn-like"><i class="fa fa-heart" style="font-size:24px"></i>찜</button>
+                   <button class="btn-small" id="btn-support"><i class='far fa-handshake' style='font-size:24px'></i>지지</button>
                    <button class="purchase-btn" onclick="location.href='PaymentReward'">펀딩하기</button>
                 </div>
             </div>
@@ -210,8 +214,8 @@
 		            </div>
                 </div>
                 <div class="btn-group">
-                   <button class="btn-small" id="btn-like">♡ 찜</button>
-                   <button class="btn-small" id="btn-support">지지</button>
+                   <button class="btn-small" id="btn-like"><i class="fa fa-heart" style="font-size:24px"></i>찜</button>
+                   <button class="btn-small" id="btn-support"><i class='far fa-handshake' style='font-size:24px'></i>지지</button>
                    <button class="purchase-btn" onclick="location.href='PaymentReward'">펀딩하기</button>
                 </div>
             </div>
