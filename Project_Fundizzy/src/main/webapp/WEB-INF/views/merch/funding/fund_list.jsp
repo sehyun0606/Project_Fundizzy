@@ -13,9 +13,14 @@
 	</header>
 	<article>
 	    <div class="main-banner">
-	        <div class="banner-box"></div>
-	        <div class="banner-box"></div>
-	        <div class="banner-box"></div>
+	    	 <div class="slider">
+		        <img src="resources/images/fund/image1.jpg" alt="메인 이미지">
+			    <img id="mainImage" src="resources/images/fund/image2.jpg" alt="메인 이미지">
+		    	<img src="resources/images/fund/image3.jpg" alt="메인 이미지">
+<!-- 				<img src="resources/images/fund/image4.jpg" alt="메인 이미지">  -->
+	<!-- 	    	<img src="resources/images/fund/image5.jpg" alt="메인 이미지"> -->
+	<!-- 	    	<img src="resources/images/fund/image6.jpg" alt="메인 이미지"> -->
+			</div>
 	    </div>
 	
 	    <nav class="category-nav">

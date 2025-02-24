@@ -34,22 +34,22 @@
 	           <div class="post">
 	               <h4>리워드 안내</h4>
 	               <p>결제 오류 조치 완료 안내</p>
-	               <p>3시간 전 | 댓글 1</p>
+	               <p>3시간 전</p>
 	           </div>
 	           <div class="post">
 	               <h4>리워드 안내</h4>
 	               <p>결제 오류 조치 완료 안내</p>
-	               <p>3시간 전 | 댓글 1</p>
+	               <p>3시간 전 </p>
 	           </div>
 	           <div class="post">
 	               <h4>리워드 안내</h4>
 	               <p>결제 오류 조치 완료 안내</p>
-	               <p>3시간 전 | 댓글 1</p>
+	               <p>3시간 전 </p>
 	           </div>
 	           <div class="post">
 	               <h4>리워드 안내</h4>
 	               <p>결제 오류 조치 완료 안내</p>
-	               <p>3시간 전 | 댓글 1</p>
+	               <p>3시간 전 </p>
 	           </div>
 	       </div>
 	      <div class="content-right">

@@ -25,9 +25,11 @@
 	    <hr>
     <div class="container">
         <div class="content-left">
-            <div class="main-image">
-                <img src="image1.jpg" alt="메인 이미지">
-            </div>
+			<div class="main-image">
+			    <img src="resources/images/fund/image1.jpg" alt="메인 이미지">
+			    <img src="resources/images/fund/image2.jpg" alt="메인 이미지">
+			    <img src="resources/images/fund/image3.jpg" alt="메인 이미지">
+			</div>
             <div class="content-left-under">
                  <div class="content-left-under1">
                     <img src="" alt="특별구성">
@@ -216,13 +218,14 @@
         </div>
     </div>
 	</article>
-	<div id="support_modal" class="modal">
+	<div class="support_modal" id="support_modal">
 		<div class="support_content">
+			<input type="hidden" id="sessionUserEmail" value="${sessionScope.sUserEmail }">
 			<div class="top">
-			    <b class="subject">지지서명으로 메이커에게 힘이 되주세요</b>
-			    <button class="x" id="x">x</button>
+			    <b class="subject">지지 서명으로 메이커에게 힘이 돼주세요</b>
+			    <button class="x">x</button>
 			</div>
-			키워드는 최대 3개까지 선택 가능해요.
+			<p>ㆍ키워드는 최대 3개까지 선택 가능해요.</p>
 			<div class="btn-support-list">
 				<button>취향저격</button>
 				<button>삶의질급상승</button>
@@ -230,7 +233,7 @@
 				<button>가성비</button>
 				<button>응원해요</button>
 			</div>
-			<input type="text" placeholder="응원의 글을 남겨주세요"><br>
+			<textarea id="supportContent" placeholder="응원의 글을 남겨주세요"></textarea><br>
 			<button class="support-submit">지지서명하기</button>
 		</div>
 	</div>
