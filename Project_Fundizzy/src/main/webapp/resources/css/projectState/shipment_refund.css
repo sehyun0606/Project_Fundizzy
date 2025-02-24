@@ -23,7 +23,6 @@
     width: 800px;
     border: 1px solid #ddd;
     border-radius: 5px;
-    padding: 20px;
 }
 hr {
     border: 1px solid #ddd;
@@ -31,8 +30,7 @@ hr {
 }
 .section {
     display: flex;
-    padding: 10px;
-/*     margin: 10px; */
+    padding: 20px;
 }
 .title {
     font-weight: bold;
@@ -53,7 +51,7 @@ hr {
 .count {
     font-size: 20px;
     font-weight: bold;
-    margin-top: 5px;
+    margin-top: 8px;
 }
 .count span {
 	font-weight: normal;	
@@ -64,17 +62,17 @@ hr {
     color: #666;
     margin-top: 20px;
 }
-.list-summary {
+.order-summary {
 	font-size: 20px;
 }
-.list-summary > span:nth-of-type(1) {
+.order-summary > span:nth-of-type(1) {
 	font-weight: 700;
 	color: #4d4d4d;
 }
-.list-summary span:nth-of-type(2) {
+.order-summary span:nth-of-type(2) {
 	color: #757575;
 }
-.list-summary span span{
+.order-summary span span{
 	font-size: 24px;
 	font-weight: 700;
 	color: mediumpurple;

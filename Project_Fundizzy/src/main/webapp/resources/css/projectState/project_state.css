@@ -1,6 +1,6 @@
 @charset "UTF-8";
 .state-container {
-	border: 1px solid #ddd;
+/* 	border: 1px solid #ddd; */
 	border-radius: 5px;
 	display: flex;
 	justify-content: space-between;
@@ -8,25 +8,51 @@
 	width: 800px;
 	margin: 25px 0;
 	padding: 20px;
+	background: #fff; /* 배경색 추가 */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05); /* 그림자 추가 */
 }
 .state {
     display: flex;
     flex-direction: column;
     align-items: center;
+     display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    text-align: center;
+    position: relative;
 }
-.state div{
+.subtitle{
 	font-size: 14px;
 	font-weight: 900;
 	color: mediumpurple;
+	padding-bottom: 10px;
 }
-.state > span {
-	display: flex;
-	align-items: baseline;
-	font-size: 24px;
-	font-weight: 100;
+.item-container {
+    display: flex;
+    align-items: center;
+    gap: 4px;
 }
-
-
+.unit {
+	font-size: 18px;
+	font-weight: normal;
+}
+.item{
+	display: inline-block;
+    font-size: 30px;
+    font-weight: 100;
+    letter-spacing: -1px;
+}
+.state:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 60%;
+    width: 1px;
+    background-color: #ddd; /* 세로선 색상 */
+}
 
 
 
