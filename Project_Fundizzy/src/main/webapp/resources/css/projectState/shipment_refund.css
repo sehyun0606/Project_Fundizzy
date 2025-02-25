@@ -31,6 +31,18 @@ hr {
 .section {
     display: flex;
     padding: 20px;
+	position: relative;
+}
+.section:nth-of-type(1)::after {
+	content: '';
+	display: block;
+	width: 95%;
+	height: 1px;
+	background-color: #ddd;
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	transform: translateX(-50%);
 }
 .title {
     font-weight: bold;
@@ -60,34 +72,46 @@ hr {
 .note {
     font-size: 12px;
     color: #666;
-    margin-top: 20px;
+    margin-top: 5px;
+    margin-bottom: 50px;
 }
 .order-summary {
+	padding-bottom: 15px;
 	font-size: 20px;
 }
 .order-summary > span:nth-of-type(1) {
 	font-weight: 700;
 	color: #4d4d4d;
+	border-right: 1px solid #ddd;
+	padding-right: 10px;
 }
 .order-summary span:nth-of-type(2) {
 	color: #757575;
+	letter-spacing: -1.5px;
+	font-size: 18px;
 }
 .order-summary span span{
-	font-size: 24px;
-	font-weight: 700;
+	font-size: 20px;
+	font-weight: 100;
 	color: mediumpurple;
 }
 
 
 /* 주문 내역 테이블 */
 table {
-    width: 100%;
+    width: 1100px;
     border-collapse: collapse;
+    border: none;
 }
 th, td {
-    border: 1px solid #ddd;
-    padding: 10px;
+	font-size: 14px;
+    border-bottom: 1px solid #ddd;
+    padding: 5px;
     text-align: center;
+}
+.list th {
+	background-color: #f7f7f7;
+	padding: 13px;
 }
 input[type=button] {
 	background-color: mediumpurple;
@@ -107,7 +131,10 @@ input[type=button] {
     font-weight: bold;
     font-size: 18px;
 }
-
+.toggle-btn button {
+	all: unset;
+    cursor: pointer;
+}
 
 
 
