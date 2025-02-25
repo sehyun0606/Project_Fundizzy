@@ -47,11 +47,27 @@
 				</div>
 			</div>
 			<h3>펀딩 현황 분석</h3>
-			
+			<div>
+				<canvas id="myChart" width="300" height="100"></canvas>
+			</div>
 		</div>
 	</div>
 </body>
 <script>
+let myCt = document.getElementById('myChart');
+
+let myChart = new Chart(myCt, {
+  type: 'bar',
+  data: {
+    labels: ['2020', '2021', '2022', '2023'],
+    datasets: [
+      {
+        label: 'Dataset',
+        data: [10,20,30,40],
+      }
+    ]
+  },
+});
 </script>
 </html>
 

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -64,39 +65,48 @@
 			</div>
 			
 			<h3>정산 내역</h3>
-			<table>
-				<tr>
-					<th width="40%">프로젝트명</th>
-					<th width="10%">진행률</th>
-					<th width="10%">정산 상태</th>
-					<th width="10%">정산 신청</th>
-					<th width="15%">내역서 받기</th>
-				</tr>
-				<tr>
-					<td>[발받침대] 편안함을 선사하는 2단 쿠션 발받침대</td>
-					<td>130%</td>
-					<td>선정산</td>
-					<td><input type="button" class="btnApplication" value="신청"></td>
-					<td><input type="button" class="btnSettlement" value="선정산 내역서"></td>
-				</tr>
-			</table>
-			<div class="settlement-detail">
-				<h2>선정산 내역서</h2>
-				<div>
-					<h3>프로젝트명 (프로젝트 번호 123456)</h3>
-					<span>[발받침대] 편안함을 선사하는 2단 쿠션 발받침대</span>
-				</div>
-				<div>
-					<h3>선정산 지급액</h3>
-					<span>600,000원</span><br>
-					<span>해당 프로젝트의 선정산금이 지급됩니다.</span>
-				</div>
-				<div>
-					<h3>최종 결제완료 금액</h3>
-					<span>1,000,000원</span><br>
-					<span>배송료 21,000원 포함</span>
-				</div>
-			</div>
+			<c:choose>
+				<c:when test="">
+					아직 프로젝트가 완료되지 않았어요!<br>
+					프로젝트가 종료된 후에 선정산이 가능해요.
+				</c:when>
+				<c:otherwise>
+					<table>
+						<tr>
+							<th width="40%">프로젝트명</th>
+							<th width="10%">진행률</th>
+							<th width="10%">정산 상태</th>
+							<th width="10%">정산 신청</th>
+							<th width="15%">내역서 받기</th>
+						</tr>
+						<tr>
+							<td>[발받침대] 편안함을 선사하는 2단 쿠션 발받침대</td>
+							<td>130%</td>
+							<td>선정산</td>
+							<td><input type="button" class="btnApplication" value="신청"></td>
+							<td><input type="button" class="btnSettlement" value="선정산 내역서">
+							<br><br><input type="button" class="btnSettlement" value="최종정산 내역서"></td>
+						</tr>
+					</table>
+<!-- 					<div class="settlement-detail"> -->
+<!-- 						<h2>선정산 내역서</h2> -->
+<!-- 						<div> -->
+<!-- 							<h3>프로젝트명 (프로젝트 번호 123456)</h3> -->
+<!-- 							<span>[발받침대] 편안함을 선사하는 2단 쿠션 발받침대</span> -->
+<!-- 						</div> -->
+<!-- 						<div> -->
+<!-- 							<h3>선정산 지급액</h3> -->
+<!-- 							<span>600,000원</span><br> -->
+<!-- 							<span>해당 프로젝트의 선정산금이 지급됩니다.</span> -->
+<!-- 						</div> -->
+<!-- 						<div> -->
+<!-- 							<h3>최종 결제완료 금액</h3> -->
+<!-- 							<span>1,000,000원</span><br> -->
+<!-- 							<span>배송료 21,000원 포함</span> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+				</c:otherwise>
+			</c:choose>
 			
 		</div>
 	
