@@ -4,9 +4,11 @@
 	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
@@ -87,7 +89,13 @@
 	<context:component-scan base-package="com.itwillbs.project_fundizzy.service"></context:component-scan>
 	<context:component-scan base-package="com.itwillbs.project_fundizzy.handler"></context:component-scan>
 	<!-- ================================================================================== -->
+	<context:component-scan base-package="com.itwillbs.mvc_board.aop"></context:component-scan>
 	
+	<!-- AOP 오토 프록시(Auto Proxy) 기능을 통해 객체 생성을 위한 태그 추가 -->
+	<!-- 스캔 대상 패키지 내의 객체들만을 대상으로 프록시 객체가 생성됨 -->
+	<!-- 주의! 만약, Controller 클래스들에서도 AOP 사용하려면 servlet-context.xml 파일에 오토프록시 설정 추가 -->
+	<!-- namespaces 탭에서 [aop] 항목 추가 필요 -->
+	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
 	<!-- 
 	애플리케이션 내에서 사용할 데이터(= 속성값)들을 직접 소스코드에 하드코딩하는 대신
 	외부 파일에 속성값들을 저장한 후 스프링 내에서 접근하기 위해
