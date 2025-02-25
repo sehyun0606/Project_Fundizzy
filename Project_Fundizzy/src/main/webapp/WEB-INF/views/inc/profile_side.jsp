@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -20,7 +21,6 @@
 		    margin-bottom: 20px;
 	        width: 25vh;
 		    height: 25vh;
-		    margin-left: 8%;
 		}
 		
 		.number {
@@ -83,20 +83,95 @@
         	color: white;
         	background-color: mediumpurple;
         }
+        
+        .toggle-container {
+            display: inline-flex;
+            align-items: center;
+            background: #e5e7eb;
+            border-radius: 20px;
+            padding: 4px;
+            width: 190px;
+            position: relative;
+            cursor: pointer;
+            margin-left: 10%;
+    		margin-bottom: 10%;
+		}
+
+        /* 라벨 스타일 */
+        .toggle-label {
+            flex: 1;
+            text-align: center;
+            font-size: 14px;
+            color: #555;
+            user-select: none;
+            transition: color 0.3s ease-in-out;
+        }
+
+        /* 실제 체크박스 숨기기 */
+        .toggle-checkbox {
+            display: none;
+        }
+
+        /* 토글 스위치 버튼 */
+        .toggle-slider {
+            position: absolute;
+            left: 4px;
+            width: 50%;
+            height: 24px;
+            background: #222;
+            border-radius: 20px;
+            transition: left 0.3s ease-in-out;
+        }
+
+        .toggle-slider::before {
+            content: "서포터";
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+        }
+		.toggle-checkbox:checked + .toggle-slider::before {
+            content: "메이커";
+        }
+        /* 체크되었을 때(오른쪽 이동) */
+        .toggle-checkbox:checked + .toggle-slider {
+            left: 50%;
+        }
+
+        /* 체크되었을 때 텍스트 스타일 변경 */
+        .toggle-checkbox:checked ~ .supporter {
+            color: #aaa;
+        }
+
+        .toggle-checkbox:not(:checked) ~ .maker {
+            color: #aaa;
+        }
     </style>
 </head>
 
 
     <div class="sidebar">
+    <label class="toggle-container">
+    	<c:if test="${user eq 'maker'}">
+	        <input type="checkbox" class="toggle-checkbox" checked="checked">
+    	</c:if>
+    	<c:if test="${user eq 'supporter' }">
+	        <input type="checkbox" class="toggle-checkbox">
+    	</c:if>
+        <span class="toggle-slider"></span>
+        <span class="toggle-label supporter">서포터</span>
+        <span class="toggle-label maker">메이커</span>
+    </label>
         <div class="profile-image"></div>
         <input type="button" class="settings" value="내 정보 설정" onclick="location.href='SettingMain'">
 
        
         <div class="menu-item">
-        	<span class="menu-title">나의 활동</span>
+        	<span class="menu-title">프로젝트</span>
             <div class="submenu2">
-                <div class="submenu-item2"><a>최근본</a></div>
-                <div class="submenu-item2"><a>알림 신청</a></div>
+                <div class="submenu-item2"><a>프로젝트 정산</a></div>
             </div>
         </div>
         <div class="menu-item">
@@ -117,6 +192,7 @@
 
     <script>
 	    $(document).ready(function() {
+	    	
 	        $(".menu-title").click(function() {
 	            $(this).siblings(".submenu").slideToggle();
 	        });
@@ -131,6 +207,16 @@
 	        $(window).resize(function() {
 	            adjustSidebarHeight();
 	        });
+	        
+	        $(".toggle-checkbox").change(function() {
+                if ($(this).is(":checked")) {
+                    window.location.href = "MakerPage"; 
+                }
+                else {
+                	window.location.href = "SupporterPage";
+                }
+            });
+	        
 	    });
 	</script>
 
