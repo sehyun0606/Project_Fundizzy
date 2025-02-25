@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>결제-리워드 선택</title>
 <link rel="stylesheet" type="text/css" href="resources/css/merch/payment/payment_reward.css">
+<script src="${pageContext.request.contextPath}/resources/js/merch/payment_reward.js"></script>
 </head>
 <body>
 	<header>
@@ -25,10 +26,13 @@
 	            <h2>리워드 선택</h2>
 	            <hr>
 	            <div class="reward-item">
-	                <input type="checkbox">
+	                <input type="checkbox" id="toggleCheckbox">
 	                <span class="price">52,000원</span>
 	                <p class="reward-title">[울트라 얼리버드] 티타늄 세라믹 텀블러 싱글</p>
 	                <p class="reward-details">구성 - 티타늄 세라믹 텀블러 1세트<br>* 실리콘 스트로우 1개, 원터치 스트로우 1개</p>
+	                <div id="grayBox">
+					    체크되었을 때 나타나는 박스
+					</div>
 	            </div>
 	            <div class="reward-item">
 	                <input type="checkbox" >

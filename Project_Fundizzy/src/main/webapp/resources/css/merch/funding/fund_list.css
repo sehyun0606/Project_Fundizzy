@@ -38,16 +38,38 @@ body {
 .main-banner {
     display: flex;
     justify-content: space-around;
-    margin: 20px 0;
+    margin: 20px 0 20px 0;
     height: 320px;
-    padding-bottom: 10px;
+    padding-top: 20px;
+    padding-bottom: 35px;
+/*     position: relative; */
 }
 
-.banner-box {
-    width: 30%;
+.main-banner img {
+    width: 28%;
     height: 320px;
-    background-color: #ccc;
+	margin-top: 10px;
+   
 }
+#mainImage {
+    width: 34%;
+    height: 355px;
+    padding-top: 0px !important; 
+}
+/* 슬라이드 효과 */
+.slider {
+    display: flex;
+    width: 200%; /* 전체 이미지가 가로로 배치되도록 설정 */
+    animation: slide 12s infinite linear; /* 3초마다 이동 */
+}
+
+.slider img {
+    width: 33.33%; /* 한 번에 3개가 보이게 조정 */
+    flex-shrink: 0;
+   	padding-left: 15px;
+   	padding-right: 15px;
+}
+
 
 .category-nav {
     display: flex;

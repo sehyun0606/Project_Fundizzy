@@ -3,30 +3,62 @@ $(function(){
 	$("#btn-like").click(function(){
 		console.log("like")
 	});
-//	지지서명 클릭시
-	$("#btn-support").click(function(){
-		console.log("support")
-		$("#support_modal").css("display","block");
-	});
-//	x누르면 창 닫히도록
-	$("#x").click(function(){
-		location.reload();
-	});
-	//제출버튼
-//	$("#support-submit").click(function(){
-//		id = session.getid();
-//		console.log("id");
-//		let content = $("textarea").val().trim();
-//		let keyword = 
-//		if(content == ""){
-//			alert("응원글을 작성해 주세요.");
-//		}
-//		
-//		if(keyword == null){
-//			alert("키워드를 하나 이상 선택해 주세요.");
-//		}
-//		
+////	지지서명 클릭시
+//	$("#btn-support").click(function(){
+//		console.log("support")
+//		$(".support_modal").css("display","block");
 //	});
+////	x누르면 창 닫히도록
+//	$(".x").click(function(){
+//		location.reload();
+//	});
+
+$(document).ready(function(){
+    console.log("jQuery 로드됨!"); // jQuery가 로드되었는지 확인
+
+    $("#btn-support").click(function(){
+        console.log("btn-support 버튼 클릭됨!"); // 버튼 클릭 이벤트 확인
+        $(".support_modal").css("display", "block");
+    });
+
+    $(".x").click(function(){
+        console.log("모달 닫기 버튼 클릭됨!"); // 닫기 버튼이 눌리는지 확인
+        $(".support_modal").css("display", "none");
+    });
+});
+
+	//제출버튼
+	$(".support-submit").click(function(){
+		let email = $("#sessionUserEmail").val();
+		console.log("email");
+		let supportContent = $("textarea").val().trim();
+//		let keyword = ;
+		if(supportContent == ""){
+			alert("응원글을 작성해 주세요.");
+			return;
+		}
+		
+//		if(!supportKeyword){
+//			alert("키워드를 하나 이상 선택해 주세요.");
+//			return;
+//		}
+		
+		$.ajax({
+			type: "POST",
+			url: "SupportSignature",
+			data: {
+				support_content: supportContent,
+//				support_keyword: supportKeyword
+				
+			}
+		}).done(function(result){
+			alert("응원글 등록이 완료되었습니다.");
+			location.reload(true);
+		}).fail(function(xhr, status, error){
+			alert("응원글 등록에 실패했습니다.\n 다시 시도해주세요.")
+			console.error("AJAX 오류:", status, error);
+		})
+	});
 	
 });
 //웹 페이지가 완전 로드되기전에 실행되는 코드 
