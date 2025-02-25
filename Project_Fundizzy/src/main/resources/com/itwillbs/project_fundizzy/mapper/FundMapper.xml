@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.itwillbs.project_fundizzy.mapper.FundMapper">
+	<insert id="insertSupportSignature">
+		<selectKey keyProperty="support_num" resultType="int" order="BEFORE">
+		    SELECT IFNULL(MAX(support_num), 0)
+		    FROM support
+		</selectKey>
+	 	INSERT INTO support(
+	 		support_num,
+	 		project_code,
+	 		email,
+	 		support_content,
+	 		support_tag,
+	 		support_date
+	 	)VALUES(
+	 		#{support_num} + 1,
+	 		#{project_code},
+	 		#{email},
+	 		#{supportContent},
+	 		#{supportKeyword},
+	 		NOW()
+	 	)
+	</insert>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </mapper>

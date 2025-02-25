@@ -4,10 +4,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>펀딩스토리</title>
 <link rel="stylesheet" type="text/css" href="resources/css/merch/funding/fund_board_story.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- js파일 로드 script -->
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/merch/fund_board_story.js"></script>
+  <script src="${pageContext.request.contextPath}/resources/js/merch/fund_board_story.js"></script>
+<!--   지지서명 아이콘 관련 script -->
+  <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 </head>
 <body>
 	<header>
@@ -25,9 +30,11 @@
 	    <hr>
     <div class="container">
         <div class="content-left">
-            <div class="main-image">
-                <img src="image1.jpg" alt="메인 이미지">
-            </div>
+			<div class="main-image">
+			    <img src="resources/images/fund/image2.jpg" alt="메인 이미지">
+			    <img src="resources/images/fund/image5.jpg" alt="메인 이미지">
+			    <img src="resources/images/fund/image3.jpg" alt="메인 이미지">
+			</div>
             <div class="content-left-under">
                  <div class="content-left-under1">
                     <img src="" alt="특별구성">
@@ -162,8 +169,8 @@
                 <p><strong>139</strong>명 참여</p>
                 <p><strong>50,000</strong>원 달성</p>
                 <div class="btn-group">
-                   <button class="btn-small" id="btn-like">♡찜</button>
-                   <button class="btn-small" id="btn-support">지지</button>
+                   <button class="btn-small" id="btn-like"><i class="fa fa-heart" style="font-size:24px"></i>찜</button>
+                   <button class="btn-small" id="btn-support"><i class='far fa-handshake' style='font-size:24px'></i>지지</button>
                    <button class="purchase-btn" onclick="location.href='PaymentReward'">펀딩하기</button>
                 </div>
             </div>
@@ -208,31 +215,33 @@
 		            </div>
                 </div>
                 <div class="btn-group">
-                   <button class="btn-small" id="btn-like">♡ 찜</button>
-                   <button class="btn-small" id="btn-support">지지</button>
+                   <button class="btn-small" id="btn-like"><i class="fa fa-heart" style="font-size:24px"></i>찜</button>
+                   <button class="btn-small" id="btn-support"><i class='far fa-handshake' style='font-size:24px'></i>지지</button>
                    <button class="purchase-btn" onclick="location.href='PaymentReward'">펀딩하기</button>
                 </div>
             </div>
         </div>
     </div>
 	</article>
-	<div id="support_modal" class="modal">
-		<div class="support_content">
+	<div class="support_modal" id="support_modal">
+		<form action="SupportSignature" method="get" class="support_content">
+			<input type="hidden" id="project_code" value="${ 0000}">
+			<input type="hidden" id="sessionUserEmail" value="${sessionScope.sUserEmail }">
 			<div class="top">
-			    <b class="subject">지지서명으로 메이커에게 힘이 되주세요</b>
-			    <button class="x" id="x">x</button>
+			    <b class="subject">지지 서명으로 메이커에게 힘이 돼주세요</b>
+			    <button class="x">x</button>
 			</div>
-			키워드는 최대 3개까지 선택 가능해요.
+			<p>ㆍ키워드는 최대 3개까지 선택 가능해요.</p>
 			<div class="btn-support-list">
-				<button>취향저격</button>
+				<button value="">취향저격</button>
 				<button>삶의질급상승</button>
 				<button>유용템</button>
 				<button>가성비</button>
 				<button>응원해요</button>
 			</div>
-			<input type="text" placeholder="응원의 글을 남겨주세요"><br>
+			<textarea id="supportContent" placeholder="응원의 글을 남겨주세요"></textarea><br>
 			<button class="support-submit">지지서명하기</button>
-		</div>
+		</form>
 	</div>
 	<footer>
 		<jsp:include page="/WEB-INF/views/inc/footer.jsp" />

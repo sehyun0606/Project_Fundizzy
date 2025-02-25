@@ -1,14 +1,14 @@
 @charset "UTF-8";
 
 article {
-    width: 40%;
+    width: 30%;
     margin: 0 auto 150px;
     padding: 24px 16px 0;
 }
 
 #title {
     color: #9370DB;
-    font-size: 32px;
+    font-size: 27px;
     font-weight: 700;
     text-align: left;
     margin-bottom: 40px;
@@ -28,9 +28,9 @@ article {
 }
 
 #topGroup select {
-    width: 160px;
-    height: 35px;
-    font-size: 22px;
+    width: 130px;
+    height: 30px;
+    font-size: 18px;
     border: 1px solid #9370DB;
     border-radius: 10px;
     text-align: center;
@@ -45,9 +45,8 @@ article {
 
 
 #topGroup label {
-    font-size: 22px;
-    margin-right: 5px;
-    padding: 9px 15px 6px 10px;
+    font-size: 18px;
+    padding: 6px 15px 7px 3px;
     border-radius: 10px;
     cursor: pointer;
     background-color: #9370DB;
@@ -55,7 +54,7 @@ article {
 }
 
 #topGroup input[type="button"] {
-    font-size: 22px;
+    font-size: 18px;
     background-color: #9370DB;
     color: white;
     border: none;
@@ -90,21 +89,21 @@ article {
 }
 
 .notificationTitle {
-    font-size: 25px;
+    font-size: 24px;
     font-weight: 600;
     color: #9370DB;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 3px;
 }
 
 .notificationTitle::before {
     content: "👤"; /* 아이콘 추가 */
-    font-size: 26px;
+    font-size: 24px;
 }
 
 .notificationDate {
-    font-size: 20px;
+    font-size: 16px;
     color: #999;
 }
 
@@ -112,13 +111,14 @@ article {
     display: flex;
     justify-content: space-between;
     background-color: rgba(192, 192, 192, 0.2);
-	margin-left: 40px;
-	padding: 10px 20px 7px 20px;
+	margin-left: 35px;
+	padding: 7px 20px 7px 20px;
 	border-radius: 20px;
 }
 
 .notificationContent {
-    font-size: 20px;
+	line-height: 26px;
+    font-size: 16px;
     color: #333;
 }
 
@@ -129,8 +129,8 @@ article {
 
 input[type="checkbox"] {
     appearance: none;
-    width: 30px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
     border: 2px solid #9370DB;
     border-radius: 4px;
     outline: none;
@@ -143,11 +143,11 @@ input[type="checkbox"]:checked {
 }
 
 input[type="checkbox"]:checked::before {
-    content: "✓";
+    content: "V";
     display: block;
     color: white;
     text-align: center;
-    line-height: 30px;
+    line-height: 20px;
 }
 
 
