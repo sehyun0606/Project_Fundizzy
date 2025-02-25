@@ -111,6 +111,9 @@
             </div>
         </div>
         <div class="menu-item">
+        <span class="menu-title">새소식</span>
+        </div>
+        <div class="menu-item">
         	<span class="menu-title">프로젝트 부스팅</span>
             <div class="submenu2">
                 <div class="submenu-item2"><a>광고</a></div>
