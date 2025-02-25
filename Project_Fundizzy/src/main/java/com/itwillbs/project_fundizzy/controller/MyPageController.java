@@ -31,9 +31,9 @@ public class MyPageController {
 	//펀딩한 상품페이지 - 서포터 메인에서 펀딩 아이콘을 통해 이동
 	//(환불 할수있게 미리 만들기)
 	
-	@GetMapping("FundingProd")
-	public String FundingProd() {
-		return "myPage/supporter/funding_prod";
+	@GetMapping("MemberInfo")
+	public String memberInfo() {
+		return "myPage/supporter/member_info";
 	}
 	
 	
