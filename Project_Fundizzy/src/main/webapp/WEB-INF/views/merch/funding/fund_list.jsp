@@ -6,6 +6,8 @@
 <meta charset="UTF-8">
 <title>메인</title>
 <link rel="stylesheet" type="text/css" href="resources/css/merch/funding/fund_list.css">
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/merch/fund_list.js"></script>
 </head>
 <body>
 	<header>
@@ -13,14 +15,31 @@
 	</header>
 	<article>
 	    <div class="main-banner">
-	    	 <div class="slider">
+	    	 <div class="slide">
 		        <img src="resources/images/fund/image1.jpg" alt="메인 이미지">
-			    <img id="mainImage" src="resources/images/fund/image2.jpg" alt="메인 이미지">
-		    	<img src="resources/images/fund/image3.jpg" alt="메인 이미지">
-<!-- 				<img src="resources/images/fund/image4.jpg" alt="메인 이미지">  -->
-	<!-- 	    	<img src="resources/images/fund/image5.jpg" alt="메인 이미지"> -->
-	<!-- 	    	<img src="resources/images/fund/image6.jpg" alt="메인 이미지"> -->
 			</div>
+			<div class="slide">
+			    <img id="mainImage" src="resources/images/fund/image2.jpg" alt="메인 이미지">
+			</div>
+			<div class="slide">
+		    	<img src="resources/images/fund/image3.jpg" alt="메인 이미지">
+			</div>
+			<div class="slide">
+				<img src="resources/images/fund/image4.jpg" alt="메인 이미지"> 
+			</div>
+			<div class="slide">
+		    	<img src="resources/images/fund/image5.jpg" alt="메인 이미지">
+			</div>
+			<div class="slide">
+		    	<img src="resources/images/fund/image6.jpg" alt="메인 이미지">
+			</div>
+			<div class="slide">
+		    	<img src="resources/images/fund/image7.jpg" alt="메인 이미지">
+			</div>
+				<div class="slide-button">
+			        <button class="prev">&lt;</button>
+				    <button class="next">&gt;</button>
+				</div>
 	    </div>
 	
 	    <nav class="category-nav">
