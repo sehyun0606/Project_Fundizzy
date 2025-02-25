@@ -3,9 +3,11 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
@@ -27,12 +29,20 @@
 	<context:component-scan base-package="com.itwillbs.project_fundizzy.controller" />
 	<!-- 주의! controller 패키지만 명시했으므로 나머지 패키지의 클래스들은 스프링 빈으로 등록되지 못함! -->
 	<!-- 웹과 관련없는 Service 등의 패키지는 root-context.xml 에서 관리하도록 추가로 등록 필요함 -->
-
 	<!-- =========================================================================== -->
 	<!-- servlet-context.xml 과 연결된 스프링 빈에서도 properties 파일 속성 접근하려면 -->
 	<!-- root-context.xml 파일과 별개로 servlet-context.xml 파일에도 설정 추가 필요 -->
 	<context:property-placeholder location="classpath:/config/application.properties" />
 	
+	<!-- 오토 프록시(Auto-Proxy) 기능을 통해 객체 생성을 하기 위한 설정 -->
+	<!-- 
+	root-context.xml 에서 context:component-scan 태그에 service, handler, aop 패키지만 지정되어 있으므로
+	해당 패키지의 클래스들만 오토 프록시 기능이 활성화 된다!
+	따라서, 컨트롤러에서 AOP 기능을 활용하려면 컨트롤러를 관리하는 servlet-context.xml 파일에서
+	해당 컨트롤러의 패키지를 context:component-scan 태그로 등록하고
+	aop:aspectj-autoproxy 태그를 추가하여 오토프록시 활성화 필수!
+	-->
+	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
 	<!-- =========================================================================== -->
 	<!-- 
 	파일 업로드 처리를 위해 form 태그에 enctype="multipart/form-data" 속성을 추가했을 경우
