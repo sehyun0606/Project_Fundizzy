@@ -446,7 +446,7 @@
 		      </li>
 		      <hr>
 		      <li>
-		        <label><input type="checkbox"> 회원 | 서비스 이벤트 혜택 알림 (선택)</label>
+		        <label><input type="checkbox" name="is_receive_notification"> 회원 | 서비스 이벤트 혜택 알림 (선택)</label>
 		      </li>
 		      <hr>
 		      <li>

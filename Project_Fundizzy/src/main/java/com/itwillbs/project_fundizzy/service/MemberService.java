@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.itwillbs.project_fundizzy.mapper.MemberMapper;
 
@@ -11,7 +12,7 @@ import com.itwillbs.project_fundizzy.mapper.MemberMapper;
 public class MemberService {
 	@Autowired
 	private MemberMapper mapper;
-
+	
 	public int insertMember(Map<String, String> member) {
 		return mapper.insertMember(member);
 	}
