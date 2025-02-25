@@ -3,8 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <script>
 
-	alert("${msg}");됨
-	
+	alert("${msg}");
 	<c:choose>
 		<c:when test="${empty targetURL}">
 			history.back();

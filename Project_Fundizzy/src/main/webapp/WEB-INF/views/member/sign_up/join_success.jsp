@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>가입 축하 페이지</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/main.css">
+    <script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
     <style type="text/css">
 		
 		.container {
@@ -50,7 +51,7 @@
 		<jsp:include page="/WEB-INF/views/inc/top.jsp" />
 	</header>
     <div class="container">
-        <h1>콩서비 서포터님 가입을 축하드립니다!</h1>
+        <h1>${nickName} 서포터님 가입을 축하드립니다!</h1>
         <button class="home-button" onclick="window.location.href='./'">홈 화면으로 바로가기</button>
     </div>
     <footer>

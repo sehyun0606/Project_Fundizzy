@@ -60,7 +60,7 @@ public class MemberController {
 		}
 				
 		if(insertCount > 0 ) {
-			return "redirect:/SignUpSuccess";
+			return "redirect:/SignUpSuccess?email=" + member.get("email");
 		} else {
 			model.addAttribute("msg", "회원가입 실패!");
 			return "result/result";
@@ -70,7 +70,13 @@ public class MemberController {
 	
 	// 회원가입 성공 시 회원가입 완료 페이지 이동
 	@GetMapping("SignUpSuccess")
-	public String SignUpSuccess() {
+	public String SignUpSuccess(String email, Model model) {
+		
+		String nickName = (String)memberService.getMemberNickname(email);
+		
+		model.addAttribute("nickName", nickName);
+		
+		
 		return "member/sign_up/join_success";
 	}
 	
@@ -144,7 +150,6 @@ public class MemberController {
 				return "result/result";
 				
 			} else if(dbMember.get("member_status") == "3") { 
-				model.addAttribute("msg", "탈퇴한 회원입니다!");
 				return "result/result";
 				
 			} else {
@@ -153,7 +158,7 @@ public class MemberController {
 				System.out.println("아이디 저장하기 체크박스값 : " + rememberId);
 //				 --------- 쿠키 생성 코드 중복 제거 ----------
 				// 생성/삭제 관계없이 쿠키값을 무조건 로그인 한 아이디로 설정
-				Cookie cookie = new Cookie("rememberId", dbMember.get("email"));
+				Cookie cookie = new Cookie("rememberId", loginInfo.get("email"));
 				
 //				// 쿠키 만료기간은 저장 시 30일, 삭제 시 0 으로 설정
 				if(rememberId != null) {
@@ -164,7 +169,7 @@ public class MemberController {
 				
 				response.addCookie(cookie);
 
-				return "redirect:/";
+				return "main";
 				// ---------------------------------------------------------------------------
 				// [ 특정 페이지 로그인 필수 처리 후 로그인 완료 시 원래 페이지로 이동 처리 ]
 				// - 세션에 저장된 "prevURL" 속성값이 null 이 아닐 경우 해당 주소로 리다이렉트하고
@@ -182,7 +187,6 @@ public class MemberController {
 			
 		}
 	
-		
 		// 로그아웃 비즈니스 로직
 		@GetMapping("MemberLogout")
 		public String MemberLogout(HttpSession session) {

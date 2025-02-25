@@ -87,7 +87,15 @@
 		FROM mail_auth_info
 		WHERE email = #{email}
 	</select>
-
+	
+	<select id="selectNickname" resultType="String">
+		SELECT nickname
+		FROM member
+		WHERE email = #{email}
+	</select>
+	
+	
+	<!-- 사용자 이메일 가져오기 -->
 	<select id="selectEmail" resultType="map">
 		SELECT *
 		FROM member

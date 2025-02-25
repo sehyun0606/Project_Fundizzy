@@ -343,6 +343,18 @@
 		    font-weight: bold;
 	        margin-right: 118px;
 		}
+        /* 기본 입력 필드 스타일 */
+		input {
+		    border: 2px solid #ddd;
+		    padding: 10px;
+		    border-radius: 5px;
+		}
+		
+		/* 포커스 시에도 테두리 색상을 유지 */
+		input:focus {
+		    outline: none; /* 기본 브라우저 outline 제거 */
+		    border: 2px solid; /* 여기서 JS로 설정한 테두리 색상을 유지 */
+		}
         
     </style>
 </head>
@@ -394,11 +406,13 @@
 	
 	        <h3 style="color: gray;">비밀번호</h3>
 	        <div class="password-input2">
-	            <input type="password" id="password" name="password" placeholder="비밀번호 입력" required disabled />
+	            <input type="password" id="password" name="password" placeholder="비밀번호 입력" required  disabled/>
 	        </div>
+	        <div id="checkPasswdResult" style="font-size: 12px;"></div>
 	        <div class="password-input2">
-	            <input type="password" id="confirm-password" placeholder="비밀번호 확인" required disabled />
+	            <input type="password" id="confirm-password" name="password2" placeholder="비밀번호 확인" required  disabled/>
 	        </div>
+	        <div id="checkPasswd2Result" style="font-size: 12px;"></div>
 	        <input type="button" class="submit-btn" id="openModal" value="약관 동의 후 가입 완료하기">
 <!-- 	        <button class="submit-btn">약관 동의 후 가입 완료하기</button> -->
 	    </div>
@@ -447,7 +461,7 @@
 </div>
 
 	<script type="text/javascript">
-
+		// 이메일 보내기 자바 스크립트
 		$("#sendMail").click(function(){
 			let email = $("#email").val();
 			if (email == "") {
@@ -472,6 +486,8 @@
 		});
 		
 		$("#confirmButton").click(function(){
+			event.preventDefault();  // 기본 폼 제출 동작 방지 (submit 방지)
+			
 			let code = $("#auth_code").val();
 			let email = $("#email").val();
 			if(code == ""){
@@ -523,21 +539,125 @@
 		    document.getElementById('timer').textContent = minutes + ":" + seconds;
 	
 		    if (timeLeft > 0) {
-		      timeLeft--;
+		        timeLeft--;
 		    } else {
-		      clearInterval(timerInterval);
-		      document.getElementById('timer').textContent = "시간초과";
+		        clearInterval(timerInterval);
+		        document.getElementById('timer').textContent = "시간초과";
+		        $("#confirmButton").prop('disabled', true);  // 확인 버튼 비활성화
 		    }
+
 		  }, 1000); // 1초마다 업데이트
 		}
 		// 타이머 시작
 		startTimer();
+	//--------------------------------------------------------------------------------------------
+	
+	// 정규표현식
+	
+	$(function() {
+	    let checkPasswdResult = false;
+	    let checkPasswd2Result = false;
+	
+	    $("#password").on("input", function() {
+	        let passwd = $("#password").val();
+	        let msg;
+	        let color;
+	
+	        let lengthRegex = /^[A-Za-z0-9!@#$%]{8,16}$/;
+            let specRegex = /[!@#$%]/;
+            
+	        if(lengthRegex.exec(passwd) && specRegex.exec(passwd)) {
+	            let count = 0;
+	            let engUpperRegex = /[A-Z]/;
+	            let engLowerRegex = /[a-z]/;
+	            let numRegex = /[\d]/;
+	
+	            if(engUpperRegex.exec(passwd)) { count++; } 
+	            if(engLowerRegex.exec(passwd)) { count++; }
+	            if(numRegex.exec(passwd)) { count++; }
+	            if(specRegex.exec(passwd)) { count++; }
+	
+	            switch(count) {
+	                case 4 : 
+// 	                    msg = "안전";
+	                    color = "GREEN";
+	                    checkPasswdResult = true;
+	                    break;
+	                case 3 : 
+// 	                    msg = "보통";
+	                    color = "YELLOW";
+	                    checkPasswdResult = true;
+	                    break;
+	                case 2 : 
+// 	                    msg = "위험";
+	                    color = "ORANGE";
+	                    checkPasswdResult = true;
+	                    break;
+	                case 1 : 
+// 	                    msg = "사용 불가";
+	                    color = "RED";
+	                    checkPasswdResult = false;
+	                    break;
+	            }
+	       		// 유효한 비밀번호일 경우 테두리 초록색으로 설정
+	            $("#password").css("border", "2px solid lightblue");
+	            msg = "";
+	        } else {
+	            $("#password").css("border", "2px solid lightcoral");
+	            msg = "영문자, 숫자, 특수문자(!@#$%) 포함 8~16 필수!";
+	            color = "lightcoral";
+	            checkPasswdResult = false;
+	         	// 유효하지 않은 비밀번호일 경우 테두리 빨간색으로 설정
+	        }
+	
+	        $("#checkPasswdResult").text(msg).css("color", color);
+	        $("#confirm-password").trigger("input");
+	    });
+	
+	    $("#confirm-password").on("input", function() {
+	        let password = $("#password").val();
+	        let password2 = $("#confirm-password").val();
+	
+	        if(password == password2) {
+	            $("#checkPasswd2Result").text("");
+	            $("#confirm-password").css("border", "2px solid lightblue");
+	            checkPasswd2Result = true;
+	        } else {
+	            $("#checkPasswd2Result").text("비밀번호 불일치").css("color", "lightcoral");
+	            checkPasswd2Result = false;
+	        }
+	    });
+	
+	    $("#openModal").on("click", function() {
+	        let passwd = $("#password").val();
+	        let password2 = $("#confirm-password").val();
+			let email = $("#email").val();
+	        
+			if(email == "") {
+				alert("이메일을 입력하세요!");
+	            $("#email").focus();
+			} else if(!checkPasswdResult || passwd === "") {
+	            alert("비밀번호를 확인하세요!");
+	            $("#password").focus();
+	            return false;
+	        } else if(!checkPasswd2Result || password2 === "") {
+	            alert("비밀번호 확인란을 확인하세요!");
+	            $("#confirm-password").focus();
+	            return false;
+	        } else {
+	            $("#termsModal").css("display", "flex");
+	        }
+	        
+	    });
+	});
+
+		
 		
 	//--------------------------------------------------------------------------------------------
 		// 모달 열기
-		document.getElementById("openModal").addEventListener("click", function() {
-		  document.getElementById("termsModal").style.display = "flex";
-		});
+// 		document.getElementById("openModal").addEventListener("click", function() {
+// 		  document.getElementById("termsModal").style.display = "flex";
+// 		});
 	
 		// 모달 닫기
 		document.getElementById("closeModal").addEventListener("click", function() {

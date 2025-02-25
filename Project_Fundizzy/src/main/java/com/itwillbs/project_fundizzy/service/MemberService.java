@@ -31,7 +31,8 @@ public class MemberService {
 		}
 		
 	}
-
+	
+	// 사용자 인증코드 조회
 	public String getAuthCode(Map<String, String> authInfo) {
 		return mapper.selectAuthCode(authInfo);
 	}
@@ -40,6 +41,10 @@ public class MemberService {
 	// 사용자 이메일 조회
 	public Map<String, String> getMember(String email) {
 		return mapper.selectEmail(email);
+	}
+
+	public String getMemberNickname(String email) {
+		return mapper.selectNickname(email);
 	}
 	
 	
