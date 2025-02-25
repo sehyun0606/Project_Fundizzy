@@ -89,7 +89,7 @@
 	<context:component-scan base-package="com.itwillbs.project_fundizzy.service"></context:component-scan>
 	<context:component-scan base-package="com.itwillbs.project_fundizzy.handler"></context:component-scan>
 	<!-- ================================================================================== -->
-	<context:component-scan base-package="com.itwillbs.mvc_board.aop"></context:component-scan>
+	<context:component-scan base-package="com.itwillbs.project_fundizzy.aop"></context:component-scan>
 	
 	<!-- AOP 오토 프록시(Auto Proxy) 기능을 통해 객체 생성을 위한 태그 추가 -->
 	<!-- 스캔 대상 패키지 내의 객체들만을 대상으로 프록시 객체가 생성됨 -->
