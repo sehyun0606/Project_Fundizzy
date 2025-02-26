@@ -1,260 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>프로젝트 리스트</title>
-    <style>
-        body {
-            margin: 0;
-        }
-
-        /* 기존 프로젝트 리스트 스타일 */
-        .project-container {
-            width: 600px;
-            margin: 20px auto;
-            text-align: left;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            border: 0.1px solid mediumpurple;
-        }
-        .project-title {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-        .project-list {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-        .project-box {
-            width: 200px;
-            padding: 10px;
-            background: #f3f3f3;
-            text-align: center;
-            border-radius: 8px;
-        }
-        .project-box .image-placeholder {
-            width: 100%;
-            height: 120px;
-            background: #ccc;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 14px;
-            border-radius: 5px;
-        }
-        .project-box .title-input {
-            margin-top: 10px;
-            font-size: 14px;
-            color: #666;
-        }
-        .project-status {
-            font-size: 12px;
-            color: #999;
-            margin-top: 5px;
-        }
-        .create-project-button {
-            width: 100%;
-            padding: 15px;
-            background: mediumpurple;
-            color: white;
-            font-size: 16px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .create-project-button:hover {
-            background: purple;
-        }
-
-        /* 새로운 UI (오늘 데이터 보기) */
-        .data-container {
-            width: 600px;
-            margin: 20px auto;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            border: 0.1px solid mediumpurple;
-        }
-        .data-header {
-            font-size: 20px;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 10px;
-        }
-        .data-header .refresh-icon {
-            cursor: pointer;
-            font-size: 16px;
-            color: #333;
-        }
-        .data-summary {
-            display: flex;
-            justify-content: space-between;
-            font-size: 14px;
-            color: #666;
-            border-top: 1px solid #eee;
-            padding-top: 10px;
-        }
-
-        /* 새로운 UI (오늘 펀딩·프리오더) */
-        .funding-container {
-            width: 600px;
-            margin: 20px auto;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            border: 0.1px solid mediumpurple;
-        }
-        .funding-title {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 15px;
-        }
-        .funding-box {
-            width: 90%;
-            background: #f8f9fa;
-            padding: 30px;
-            text-align: center;
-            border-radius: 8px;
-            font-size: 14px;
-            color: #666;
-        }
-        .main{
-        	display: flex;
-        	
-        }
-        .main-container{
-        	margin-left: 16vh;
-        }
-        /* 모달 스타일 */
-        .modal {
-            display: none; /* 초기에는 숨김 */
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-        }
-        .modal-content {
-            background: white;
-            width: 550px;
-            padding: 20px;
-            margin: 15% auto;
-            border-radius: 10px;
-            text-align: center;
-            position: relative;
-        }
-        .close {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            font-size: 24px;
-            cursor: pointer;
-            color: #999;
-        }
-        .close:hover {
-            color: black;
-        }
-        .modal-title {
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-        .modal-input {
-            width: 90%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        .modal-button {
-            width: 100%;
-            padding: 10px;
-            background: mediumpurple;
-            color: white;
-            font-size: 16px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .modal-button:hover {
-            background: purple;
-        }
-        .project-type-box {
-		    background: white;
-		    padding: 20px;
-		    border-radius: 10px;
-		    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-		    border: 1px solid #ddd;
-		    margin-bottom: 1%;
-		}
-		
-		.title {
-		    display: block;
-		    font-weight: bold;
-		    margin-bottom: 10px;
-		}
-		
-		.option {
-		    display: flex;
-		    align-items: flex-start;
-		    gap: 10px;
-		    margin-bottom: 10px;
-		}
-		
-		.option input {
-		    display: none;
-		}
-		
-		.option label {
-		    display: flex;
-		    align-items: flex-start;
-		    gap: 10px;
-		    cursor: pointer;
-		}
-		
-		.radio {
-		    width: 16px;
-		    height: 16px;
-		    border: 2px solid #7c3aed;
-		    border-radius: 50%;
-		    position: relative;
-		    display: inline-block;
-		}
-		
-		.option input:checked + label .radio::after {
-		    content: "";
-		    width: 8px;
-		    height: 8px;
-		    background: #7c3aed;
-		    border-radius: 50%;
-		    position: absolute;
-		    top: 50%;
-		    left: 50%;
-		    transform: translate(-50%, -50%);
-		}
-		
-		.option strong {
-		    font-size: 16px;
-		    color: #333;
-		}
-		
-		.option p {
-		    font-size: 14px;
-		    color: #666;
-		    margin: 0;
-		}
-		        
-    </style>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/myPage/maker/maker_mypage.css">
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/inc/top.jsp"></jsp:include>
@@ -262,19 +15,60 @@
 	<jsp:include page="/WEB-INF/views/inc/profile_side.jsp"></jsp:include>
 		<div class="main-container">
 		    <div class="project-container">
-		        <div class="project-title">만든 프로젝트 <span style="color: mediumpurple;">2</span></div>
-		        <div class="project-list">
-		            <div class="project-box">
-		                <div class="image-placeholder">이미지 등록 필요</div>
-		                <div class="title-input">제목을 입력해주세요</div>
-		                <div class="project-status">작성 중</div>
-		            </div>
-		            <div class="project-box">
-		                <div class="image-placeholder">이미지 등록 필요</div>
-		                <div class="title-input">제목을 입력해주세요</div>
-		                <div class="project-status">작성 중</div>
-		            </div>
-		        </div>
+		    	<c:choose>
+		    		<c:when test="${empty projectList}">
+			    		<div class="funding-box">
+				            제작 중인 프로젝트가 없어요. <br>
+				            지금 바로 펀디지에서 새로운 프로젝트를 시작해 보세요.
+			        	</div>
+		    		</c:when>
+		    		<c:otherwise>
+		    			
+			    		<div class="project-title">만든 프로젝트 <span style="color: mediumpurple;">${projectCount}</span></div>
+				        <div class="project-list">
+					        <c:forEach items="${projectList}" var="project">
+			    				<div class="project-box">
+			    					<c:choose>
+			    						<c:when test="${empty project.representative_picture}">
+							                <div class="image-placeholder">이미지 등록 필요</div>
+			    						</c:when>
+			    						<c:otherwise>
+			    							<img src="/resources/upload/${project.representative_picture}">
+			    						</c:otherwise>
+			    					</c:choose>
+			    					<c:choose>
+			    						<c:when test="${empty project.project_title}">
+							                <div class="title-input">
+							                <c:choose>
+							                	<c:when test="${project.common_code eq 'PRO01' }">
+							                		(펀딩)
+							                	</c:when>
+							                	<c:otherwise>
+							                		(프리오더)
+							                	</c:otherwise>
+							                </c:choose>
+							                제목을 입력해주세요</div>
+			    						</c:when>
+			    						<c:otherwise>
+							                <div class="title-input">
+							                <c:choose>
+							                	<c:when test="${project.common_code eq 'PRO01' }">
+							                		(펀딩)
+							                	</c:when>
+							                	<c:otherwise>
+							                		(프리오더)
+							                	</c:otherwise>
+							                </c:choose>
+							                ${project.project_title}</div>
+			    						</c:otherwise>
+			    					</c:choose>
+			    					<div class="title-input"><fmt:formatDate value="${project.project_date}" pattern="yyyy-MM-dd"/></div>
+					                <div class="project-status">작성 중</div>
+				            	</div>
+			    			</c:forEach>
+				        </div>
+		    		</c:otherwise>
+		    	</c:choose>
 		        <button class="create-project-button">프로젝트 만들기</button>
 		    </div>
 		
@@ -322,7 +116,11 @@
 			            </label>
 			        </div>
 			    </div>
-	            <button class="modal-button">프로젝트 생성</button>
+			    <form action="MakeProject" method="POST">
+			    	<input type="hidden" class="common_code" name="common_code">
+			    	<input type="hidden" value="${sessionScope.sId}" name="member_email"> 
+		            <button class="modal-button">프로젝트 생성</button>
+			    </form>
         </div>
     </div>
     <script>
@@ -341,6 +139,24 @@
             $(window).click(function(event) {
                 if ($(event.target).is("#project-modal")) {
                     $("#project-modal").fadeOut();
+                }
+            });
+            // 체크된 라디오 버튼의 ID 값 가져오기
+            function getCheckedRadioId() {
+                return $("input[name='project-type']:checked").attr("id");
+            }
+
+            // 페이지 로드 시 초기 체크된 라디오 버튼 ID 확인
+            var initialCheckedId = getCheckedRadioId();
+            $(".common_code").val("PRO01")
+
+            // 라디오 버튼 변경 시마다 ID 값 출력
+            $("input[name='project-type']").change(function() {
+                var checkedId = getCheckedRadioId();
+                if(checkedId == "funding"){
+                	$(".common_code").val("PRO01")
+                }else{
+                	$(".common_code").val("PRO02")
                 }
             });
         });

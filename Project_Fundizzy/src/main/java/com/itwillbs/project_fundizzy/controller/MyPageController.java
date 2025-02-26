@@ -1,16 +1,22 @@
 package com.itwillbs.project_fundizzy.controller;
 
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.itwillbs.project_fundizzy.service.MypageService;
+import com.itwillbs.project_fundizzy.vo.ProjectListVO;
+
 
 @Controller
 public class MyPageController {
-	
-	// ~250218 장민기
-	//마이페이지 영역 시작
-	
+	@Autowired
+	private MypageService mypageService;
 	// 서포터 메인
 	@GetMapping("SupporterPage")
 	public String SupporterPage(Model model) {
@@ -30,17 +36,25 @@ public class MyPageController {
 		return "myPage/supporter/profile_settings";
 	}
 	
-	//펀딩한 상품페이지 - 서포터 메인에서 펀딩 아이콘을 통해 이동
-	//(환불 할수있게 미리 만들기)
-	
 	@GetMapping("MemberInfo")
 	public String memberInfo() {
 		return "myPage/supporter/member_info";
 	}
 	
+	//메이커페이지 이동
+	//전달하는 파라미터: user값 maker
+	//				프로젝트 리스트
 	@GetMapping("MakerPage")
-	public String makerPage(Model model) {
+	public String makerPage(Model model,HttpSession session) {
+		
+		String id = (String)session.getAttribute("sId");
+		
+		List<ProjectListVO> projectList = mypageService.getMyProjectList(id);
+		
+		model.addAttribute("projectCount", projectList.size());
+		model.addAttribute("projectList", projectList);
 		model.addAttribute("user", "maker");
+		
 		return "myPage/maker/maker_mypage";
 	}
 	

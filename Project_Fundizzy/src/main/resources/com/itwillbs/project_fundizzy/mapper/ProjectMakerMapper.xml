@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itwillbs.project_fundizzy.mapper.ProjectMakerMapper">
+
+	<!--프로젝트 생성 -->
+	<insert id="insertNewProject">
+		INSERT 
+		INTO project_list
+		VALUES (
+			#{project_num},
+			#{common_code},
+			#{project_code},
+			#{member_email},
+			null,
+			0,
+			NOW(),
+			null,
+			'before',
+			null,
+			null,
+			null,
+			null
+		)
+		
+	</insert>
+</mapper>
