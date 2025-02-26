@@ -1,6 +1,7 @@
 package com.itwillbs.project_fundizzy.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 
@@ -12,7 +13,8 @@ public class MyPageController {
 	
 	// 서포터 메인
 	@GetMapping("SupporterPage")
-	public String SupporterPage() {
+	public String SupporterPage(Model model) {
+		model.addAttribute("user","supporter");
 		return "myPage/supporter/supporter_mypage";
 	}
 	
@@ -36,13 +38,10 @@ public class MyPageController {
 		return "myPage/supporter/member_info";
 	}
 	
-	
-	//마이페이지 영역 끝
-	
-	// 판매자 페이지 영역
-	
-	// 판매자 페이지 영역 끝
-	
-	
+	@GetMapping("MakerPage")
+	public String makerPage(Model model) {
+		model.addAttribute("user", "maker");
+		return "myPage/maker/maker_mypage";
+	}
 	
 }

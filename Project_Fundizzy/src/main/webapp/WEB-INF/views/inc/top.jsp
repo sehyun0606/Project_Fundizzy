@@ -99,12 +99,11 @@
 		<!-- 				<a href="MemberJoin">회원가입</a> -->
 					</c:when>
 					<c:otherwise> <%-- 로그인 한 사용자일 경우 --%>
-						<a href="MemberInfo" class="top-items">${sessionScope.sId}</a> 님 | 
+						<a href="SupporterPage" class="top-items">${sessionScope.sId}</a> 님 | 
 						<a href="javascript:void(0)" onclick="logout()">로그아웃</a>
 					</c:otherwise>
 				</c:choose>
 	        </div>
-	        <a href="#" class="create-project top-items">프로젝트 만들기</a>
         </div>
     </div>
     <script type="text/javascript">
