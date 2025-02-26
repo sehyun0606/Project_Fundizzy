@@ -79,8 +79,8 @@
 
 <form action="adminLoginAction" method="post">
 	<div class="login-container">
-	    <input type="text" name="admin_id" placeholder="이메일 입력" required><br>
-	    <input type="password" name="admin_passwd" placeholder="비밀번호 입력" required><br>
+	    <input type="text" name="admin_id" required><br>
+	    <input type="password" name="admin_passwd" required><br>
 	    <button type="submit" class="login-btn email-login">관리자 로그인하기</button>
 	</div>
 </form>
