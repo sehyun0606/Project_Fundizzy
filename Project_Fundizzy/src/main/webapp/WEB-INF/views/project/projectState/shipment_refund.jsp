@@ -125,7 +125,7 @@
 		    </table>
 			<div class="modal-content">
 				<div class="modal-close">x</div>
-				
+				<div></div>
 			</div>
 	    </div>
 	</div>
@@ -143,6 +143,7 @@
 		        if(detail.css("display") != "none") {
 		        	detail.css("display", "table-row");
 		        	img.attr("src", "/resources/images/projectState/arrow_down.png");
+
 		        } else {
 		        	img.attr("src", "/resources/images/projectState/arrow_right.png");
 		        }
@@ -151,16 +152,13 @@
 	    	// 입력 버튼 클릭 시 모달창 생성 
 			$(".ship-info").click(function() {
 // 				e.preventDefault();
-// 				$(".modal").css("display", "block");
 				$(".modal-content").css("display", "block");
 			});
 			
 	        // x 버튼 클릭 시 모달창 닫힘
 			$(".modal-close").click(function() {
-// 				$(".modal").css("display", "none");
 				$(".modal-content").css("display", "none");
 			});
-			
 			
 		});
 		

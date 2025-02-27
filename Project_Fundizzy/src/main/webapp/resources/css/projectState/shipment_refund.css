@@ -127,8 +127,14 @@ input[type=button] {
     display: none; 
     background-color: #f9f9f9;
 }
+.details>th {
+	background: #f7f7f7;
+}
 .details>td {
 	padding: 0;
+}
+.details tr td {
+	padding: 7px;
 }
 .toggle-btn {
     cursor: pointer;
@@ -140,6 +146,12 @@ input[type=button] {
     cursor: pointer;
     padding: 15px;
 }
+.toggle-btn img {
+    transition: transform 0.3s ease-in-out;
+}
+.toggle-btn.active img {
+    transform: rotate(90deg); /* 오른쪽 화살표를 아래 방향으로 회전 */
+}
 .modal-content {
 	z-index: 9000;
 	right: 20px;
@@ -149,7 +161,6 @@ input[type=button] {
 	background-color: white;
 	width: 350px;
 	height: 500px;
-/* 	padding: 40px; */
 	border-radius: 5px;
 	border: 1px solid mediumpurple;
 }
@@ -163,9 +174,6 @@ input[type=button] {
 	top: 10px;
 	right: 10px;
 	cursor: pointer;
-}
-.main {
-	position: relative;
 }
 
 
