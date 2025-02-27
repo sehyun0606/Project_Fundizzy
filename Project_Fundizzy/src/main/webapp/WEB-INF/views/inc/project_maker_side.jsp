@@ -29,6 +29,7 @@
 		
 		.number {
 		    color: #a855f7;
+		    font-size: small;
 		}
 		
 		 .sidebar {
@@ -81,7 +82,7 @@
 
 
     <div class="sidebar">
-        <div class="project-number">프로젝트 번호 <span class="number">000001</span></div>
+        <div class="project-number">프로젝트 번호 <span class="number">${sessionScope.project_code}</span></div>
 
        
         <div class="menu-item">

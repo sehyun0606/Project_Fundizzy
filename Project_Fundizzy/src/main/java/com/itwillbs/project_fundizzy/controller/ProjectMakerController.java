@@ -1,7 +1,12 @@
 package com.itwillbs.project_fundizzy.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,10 +23,35 @@ public class ProjectMakerController {
 	@Autowired
 	private ProjectMakerService projectMakerService;
 	
+	
 	@GetMapping("ProjectMaker")
-	public String projectMaker() {
+	public String projectMaker(HttpSession session, Model model) {
+		String project_code = (String) session.getAttribute("project_code");
+		
+		String projectSetting = projectMakerService.getProjectInfo(project_code);
+		List<Character> settingList = new ArrayList<Character>();
+		if(projectSetting.equals("0")) {
+			System.out.println(settingList);
+			model.addAttribute("settingList",settingList);
+		} else {
+			for(int i = 0; i < projectSetting.length(); i++) {
+				char a = projectSetting.charAt(i);
+				settingList.add(a);
+			}
+			System.out.println(settingList);
+			model.addAttribute("settingList",settingList);
+		}
+		
+		
 		
 		return "project/projectMaker/project_maker_home";
+	}
+	
+	//세션에 프로젝트 코드 저장
+	@PostMapping("ProjectMaker")
+	public String goProjectMaker(String project_code,HttpSession session) {
+		session.setAttribute("project_code", project_code);
+		return "redirect:/ProjectMaker";
 	}
 	
 	//프로젝트 생성
@@ -36,7 +66,7 @@ public class ProjectMakerController {
 		//공통코드 및 프로젝트 코드 작업
 		String common_code = (String) map.get("common_code");
 		String projcet_code = rNum + common_code;
-		map.put("project_code", rNum + projcet_code);
+		map.put("project_code", projcet_code);
 		
 		//insert
 		projectMakerService.makeNewProject(map);

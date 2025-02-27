@@ -9,4 +9,6 @@ public interface ProjectMakerMapper {
 
 	void insertNewProject(Map<String, Object> map);
 
+	String selectProjectInfo(String project_code);
+
 }

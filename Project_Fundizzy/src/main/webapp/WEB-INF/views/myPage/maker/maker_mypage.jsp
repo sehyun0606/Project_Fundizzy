@@ -28,6 +28,9 @@
 				        <div class="project-list">
 					        <c:forEach items="${projectList}" var="project">
 			    				<div class="project-box">
+			    					<form action="ProjectMaker" method="POST">
+				    					<input type="hidden" class="project-code" name="project_code" value="${project.project_code}">
+			    					</form>
 			    					<c:choose>
 			    						<c:when test="${empty project.representative_picture}">
 							                <div class="image-placeholder">이미지 등록 필요</div>
@@ -158,6 +161,11 @@
                 }else{
                 	$(".common_code").val("PRO02")
                 }
+            });
+            
+            //프로젝트 클릭 시 해당 프로젝트메이커로 이동
+            $(".project-box").click(function(){
+            	$(this).find("form").submit();
             });
         });
     </script>

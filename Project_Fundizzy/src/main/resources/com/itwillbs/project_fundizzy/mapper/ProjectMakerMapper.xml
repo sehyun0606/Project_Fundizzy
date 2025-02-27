@@ -16,7 +16,7 @@
 			null,
 			0,
 			NOW(),
-			null,
+			'0',
 			'before',
 			null,
 			null,
@@ -25,4 +25,9 @@
 		)
 		
 	</insert>
+	<select id="selectProjectInfo" resultType="String">
+		SELECT project_setting
+		FROM project_list
+		WHERE project_code = #{project_code}
+	</select>
 </mapper>

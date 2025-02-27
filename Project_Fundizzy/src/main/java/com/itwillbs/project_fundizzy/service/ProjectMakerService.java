@@ -17,4 +17,8 @@ public class ProjectMakerService {
 		makerMapper.insertNewProject(map);
 	}
 
+	public String getProjectInfo(String project_code) {
+		return makerMapper.selectProjectInfo(project_code);
+	}
+
 }
