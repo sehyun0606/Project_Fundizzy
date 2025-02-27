@@ -36,7 +36,6 @@
 		                </div>
 		            </div>
 		        </div>
-<!-- 		        <hr> -->
 		        <div class="section">
 		            <div class="title">환불 상태</div>
 		            <div class="status">
@@ -59,6 +58,10 @@
 	            리워드 발송을 완료하면 발송 정보 입력을 통해 발송 처리를 진행해 주세요.<br>
 	            상태 건수는 발송 받는 기준으로 계산돼요.
 	        </div>
+
+		    <div class="refund-amt">
+	        	<div class="title">환불 가능 금액</div>
+	        </div>
 			
 			<div class="order-summary">
 				<span>목록</span>
@@ -77,7 +80,7 @@
 	                <th width="5%">환불</th>
 	                <th width="3%"></th>
 	            </tr>
-	            <c:forEach var="order" begin="1" end="10">
+	            <c:forEach var="order" begin="1" end="20">
 		            <tr>
 		                <td>${order}</td>
 		                <td>
@@ -87,44 +90,81 @@
 		                </td>
 		                <td>2025-01-01</td>
 		                <td>18,000원</td>
-		                <td><input type="button" value="입력"></td>
+		                <td><input type="button" value="입력" class="ship-info" onclick=""></td>
 		                <td>2025-01-01</td>
 		                <td>배송 완료</td>
 		                <td>010101011</td>
 		                <td>신청</td>
 		                <td class="toggle-btn">
-		                	<button><img src="${pageContext.request.contextPath}/resources/images/projectState/arrow_right.png" style="width: 10px; height: 10px;"></button>
+		                	<button><img src="/resources/images/projectState/arrow_right.png" style="width: 10px; height: 10px;"></button>
 	                	</td>
 		            </tr>
-	            	<c:forEach var="kiki" begin="1" end="3">
-			            <tr class="details">
-			                <td colspan="10">
-			                    <table>
-			                        <tr>
-			                            <th>리워드명</th>
-			                            <th>리워드 금액</th>
-			                            <th>수량</th>
-			                            <th>환불 상태</th>
-			                        </tr>
-			                        <tr>
-			                            <td>스페셜 기프트</td>
-			                            <td>18,000원</td>
-			                            <td>1개</td>
-			                            <td>신청 중</td>
-			                        </tr>
-			                    </table>
-			                </td>
-			            </tr>
-		            </c:forEach>
+		            <tr class="details">
+		                <td colspan="10">
+		                    <table>
+		                        <tr>
+		                            <th width="9%">결제번호</th>
+		                            <th>리워드명</th>
+		                            <th>리워드 금액</th>
+		                            <th>수량</th>
+		                            <th>환불 상태</th>
+		                        </tr>
+            					<c:forEach var="kiki" begin="1" end="3">
+		                        <tr>
+		                            <td>${order}</td>
+		                            <td>스페셜 기프트</td>
+		                            <td>18,000원</td>
+		                            <td>1개</td>
+		                            <td>신청 중</td>
+		                        </tr>
+          				  		</c:forEach>
+		                    </table>
+		                </td>
+		            </tr>
 	            </c:forEach>
 		    </table>
+			<div class="modal-content">
+				<div class="modal-close">x</div>
+				
+			</div>
 	    </div>
 	</div>
+			
 	<script>
-		$("toggle-btn").click(function() {
-			$(this).closest("tr").next(".details").toggle();
+		$(document).ready(function(){
+			
+			// 아코디언 형식으로 주문 상세내역 표시
+	    	$(".toggle-btn button").click(function() {
+				let img = $(this).find("img");
+	    		let detail =  $(this).closest("tr").next(".details");
+		        detail.toggle(); // 다음 .details 행들을 토글
+		        
+		        // 맨 오른쪽 아이콘 변경
+		        if(detail.css("display") != "none") {
+		        	detail.css("display", "table-row");
+		        	img.attr("src", "/resources/images/projectState/arrow_down.png");
+		        } else {
+		        	img.attr("src", "/resources/images/projectState/arrow_right.png");
+		        }
+	    	});
+
+	    	// 입력 버튼 클릭 시 모달창 생성 
+			$(".ship-info").click(function() {
+// 				e.preventDefault();
+// 				$(".modal").css("display", "block");
+				$(".modal-content").css("display", "block");
+			});
+			
+	        // x 버튼 클릭 시 모달창 닫힘
+			$(".modal-close").click(function() {
+// 				$(".modal").css("display", "none");
+				$(".modal-content").css("display", "none");
+			});
+			
 			
 		});
+		
+		
 	</script>
 	
 	

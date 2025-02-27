@@ -122,9 +122,13 @@ input[type=button] {
 	cursor: pointer;
 	color: #fff;
 }
+
 .details {
-    display: none; /* 기본적으로 숨김 */
+    display: none; 
     background-color: #f9f9f9;
+}
+.details>td {
+	padding: 0;
 }
 .toggle-btn {
     cursor: pointer;
@@ -134,11 +138,35 @@ input[type=button] {
 .toggle-btn button {
 	all: unset;
     cursor: pointer;
+    padding: 15px;
 }
-
-
-
-
+.modal-content {
+	z-index: 9000;
+	right: 20px;
+	bottom: 20px;
+	display: none;
+	position: fixed;
+	background-color: white;
+	width: 350px;
+	height: 500px;
+/* 	padding: 40px; */
+	border-radius: 5px;
+	border: 1px solid mediumpurple;
+}
+.modal-close {
+	position: absolute;
+	z-index: 9999;
+	width: 30px;
+	height: 30px;
+	font-size: 20px;
+	text-align: center;
+	top: 10px;
+	right: 10px;
+	cursor: pointer;
+}
+.main {
+	position: relative;
+}
 
 
 
