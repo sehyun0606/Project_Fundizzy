@@ -32,7 +32,7 @@
 	    </div>
 	
 	    <!-- 알림 설정 -->
-	    <div class="settings-section" onclick="location.href='notificationSettings.jsp'">
+	    <div class="settings-section" onclick="location.href='NotificationSetPage'">
 	        <h2>알림 설정</h2>
 	        <p>혜택, 활동 소식 알림 설정</p>
 	    </div>
