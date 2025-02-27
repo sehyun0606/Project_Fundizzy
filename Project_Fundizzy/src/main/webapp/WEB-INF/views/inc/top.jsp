@@ -50,6 +50,7 @@
             display: flex;
             gap: 10px;
             height: min-content;
+            align-items: center;
         }
         .create-project {
             background-color: mediumpurple;
@@ -67,20 +68,29 @@
         }
         .log-in{
         	display: flex;
-        	width: 15%;
+        	width: 400px;
         	justify-content: space-between;
-        	margin-right: 15%;
+        	margin-right: 150px;
         	align-items: center;
         }
         .auth-links a{
         	text-decoration: none;
+        }
+        .bell{
+        	width: 30px;
+        	height: 30px;
+        	color: purple;
+        }
+        .home{
+	        text-decoration: none;
+	   		color: mediumpurple;
         }
     </style>
 </head>
 <body>
     <div class="top-menu top-items">
     	<div class="nav top-items">
-	        <div class="logo top-items">Fundizzy</div>
+	        <div class="logo top-items"><a class="home" href="/">Fundizzy</a></div>
 	        <div class="nav-links top-items">
 	            <b><a href="#" class="active top-items">오픈예정</a></b>
 	            <b><a href="FundList" class="top-items">펀딩</a></b>
@@ -99,6 +109,7 @@
 		<!-- 				<a href="MemberJoin">회원가입</a> -->
 					</c:when>
 					<c:otherwise> <%-- 로그인 한 사용자일 경우 --%>
+					    <a href="NotificationBoard"><img class="bell" src="/resources/images/bell.png"></a>
 						<a href="SupporterPage" class="top-items">${sessionScope.sId}</a> 님 | 
 						<a href="javascript:void(0)" onclick="logout()">로그아웃</a>
 					</c:otherwise>
