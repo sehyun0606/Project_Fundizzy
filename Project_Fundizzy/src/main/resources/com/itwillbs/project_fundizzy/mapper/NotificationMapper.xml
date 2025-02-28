@@ -34,4 +34,18 @@
 			, 'Y'
 		)
 	</insert>
+	
+	<!-- 회원의 알림설정 정보 조회 -->
+	<select id="selectMemberNOTSetInfo" resultType="map">
+		SELECT *
+		FROM notification_set
+		WHERE member_email = #{email}
+	</select>
+	
+	<!-- 회원의 알림설정 옵션 변경 -->
+	<update id="updateNOTSetOption">
+		UPDATE notification_set
+		SET ${option} = #{optionValue}
+		WHERE member_email = #{member_email}
+	</update>
 </mapper>

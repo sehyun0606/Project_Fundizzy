@@ -19,7 +19,7 @@ article {
     text-align: left;
 }
 
-.notifications, .receivingitems {
+.notificationMain, .notifications, .receivingitems {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -57,7 +57,7 @@ article {
     height: 27px;
 }
 
-.switch input {
+.switch .setCheck {
     opacity: 0;
     width: 0;
     height: 0;
@@ -75,6 +75,10 @@ article {
     border-radius: 34px;
 }
 
+.notificationMain .slider {
+	background-color: #CDA4DE;
+}
+
 .slider:before {
     position: absolute;
     content: "";
@@ -87,14 +91,10 @@ article {
     border-radius: 50%;
 }
 
-input:checked + .slider {
+.setCheck:checked + .slider {
     background-color: #9370DB;
 }
 
-input:checked + .slider:before {
-    transform: translateX(20px);
+.setCheck:checked + .slider:before {
+    transform: translateX(23px);
 }
-
-
-
-

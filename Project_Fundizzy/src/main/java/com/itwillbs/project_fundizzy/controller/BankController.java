@@ -12,3 +12,4 @@ public class BankController {
 		return "bank/my_payment_info_manage";
 	}
 }
+ 

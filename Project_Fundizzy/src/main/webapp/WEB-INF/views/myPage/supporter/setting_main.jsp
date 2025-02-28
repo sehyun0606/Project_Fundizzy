@@ -38,7 +38,7 @@
 	    </div>
 	
 	    <!-- 간편 결제 설정 -->
-	    <div class="settings-section" onclick="location.href='paymentSettings.jsp'">
+	    <div class="settings-section" onclick="location.href='ManageMyPaymentInfo'">
 	        <h2>간편결제</h2>
 	        <p>간편결제 설정</p>
 	    </div>

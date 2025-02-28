@@ -18,7 +18,7 @@
 	        <a href="FundBoardSupport" class="support">지지서명</a>
 	       	<a href="FundBoardSupporter" class="supporter">서포터</a>
 	        <a href="FundBoardRefund" class="refund">환불·정책</a>
-	        <a href="FundBoardReward" class="rewardInfo">리워드정보</a>
+	        <a href="FundBoardReward" class="reward">리워드정보</a>
 	 	</div>
 	    <hr>
     <div class="container">

@@ -87,7 +87,7 @@ article{
 .slide-button .prev {
   position: absolute;
   z-index: 9999; /* 가장 앞으로 배치 */
-  bottom: -1em;
+  bottom: 33em;
   left: 38%;
   transform: translate(-50%);
 }
@@ -96,7 +96,7 @@ article{
 .slide-button .next {
   position:absolute;
   z-index:1;
-  bottom:-1em;
+  bottom:33em;
   left:60%;
   transform:translate(-50%);
 }

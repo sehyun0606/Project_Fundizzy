@@ -19,7 +19,7 @@
 		        <img src="resources/images/fund/image1.jpg" alt="메인 이미지">
 			</div>
 			<div class="slide">
-			    <img id="mainImage" src="resources/images/fund/image2.jpg" alt="메인 이미지">
+			    <img src="resources/images/fund/image2.jpg" alt="메인 이미지">
 			</div>
 			<div class="slide">
 		    	<img src="resources/images/fund/image3.jpg" alt="메인 이미지">
@@ -36,12 +36,11 @@
 			<div class="slide">
 		    	<img src="resources/images/fund/image7.jpg" alt="메인 이미지">
 			</div>
-				<div class="slide-button">
-			        <button class="prev">&lt;</button>
-				    <button class="next">&gt;</button>
-				</div>
 	    </div>
-	
+		<div class="slide-button">
+	        <button class="prev">&lt;</button>
+		    <button class="next">&gt;</button>
+		</div>
 	    <nav class="category-nav">
 		    <button><img alt="" src="resources/images/list/all.png">전체</button>
 		    <button><img alt="" src="resources/images/list/electronic.png">테크·가전</button>

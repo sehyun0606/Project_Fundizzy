@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,28 +25,24 @@
 	    <hr>
     <div class="container">
 	    <div class="content-left">
-	    	<h3>지지서명 4</h3>
+	    	<h3>지지서명 -글 개수 출력</h3>
 	    	<hr>
-	        <div class="post">
-	            <h4>정세현</h4>
-	            <p>가격은 대만족, AS까지 기대해보겠습니다.</p>
-	            <p>유용템</p>
-	        </div>
-	        <div class="post">
-	            <h4>정세현</h4>
-	            <p>가격은 대만족, AS까지 기대해보겠습니다.</p>
-	            <p>유용템</p>
-	        </div>
-	        <div class="post">
-	            <h4>정세현</h4>
-	            <p>가격은 대만족, AS까지 기대해보겠습니다.</p>
-	            <p>유용템</p>
-	        </div>
-	        <div class="post">
-	            <h4>정세현</h4>
-	            <p>가격은 대만족, AS까지 기대해보겠습니다.</p>
-	            <p>유용템</p>
-	        </div>
+<!-- 	    	글이 없을 경우엔 등록된 지지서명이 존재하지 않습니다. 글이 있는경우엔 띄우기  -->
+			<c:choose>
+				<c:when test="${empty supportList}">
+					등록된 지지서명이 존재하지 않습니다.
+				</c:when>
+				<c:otherwise>
+					<c:forEach var="support" items="${supportList}">
+				        <div class="support-post">
+				            <h4>${support.email}</h4>
+				            <p>${support.support_content}</p>
+				            <p>${support.support_tag}</p>
+				            <fmt:formatDate value="${support.support_date}" pattern="yyyy-MM-dd"/>
+				        </div>
+					</c:forEach>
+				</c:otherwise>
+			</c:choose>
 	    </div>
 	    <div class="content-right">
             <div class="purchase-section">

@@ -224,22 +224,28 @@
     </div>
 	</article>
 	<div class="support_modal" id="support_modal">
-		<form action="SupportSignature" method="get" class="support_content">
-			<input type="hidden" id="project_code" value="${ 0000}">
-			<input type="hidden" id="sessionUserEmail" value="${sessionScope.sUserEmail }">
+		<form action="SupportSignature" method="POST" class="support_content">
+			<input type="hidden" id="project_code" name="project_code" value="000001">
+			<input type="hidden" id="sessionUserEmail" name="email" value="${sessionScope.sId}">
+			
 			<div class="top">
 			    <b class="subject">지지 서명으로 메이커에게 힘이 돼주세요</b>
-			    <button class="x">x</button>
+			    <button type="button" class="x">x</button>
 			</div>
 			<p>ㆍ키워드는 최대 3개까지 선택 가능해요.</p>
 			<div class="btn-support-list">
-				<button value="">취향저격</button>
-				<button>삶의질급상승</button>
-				<button>유용템</button>
-				<button>가성비</button>
-				<button>응원해요</button>
+				<button type="button" class="like" value="like">취향저격</button>
+				<button type="button" class="life" value="life">삶의질급상승</button>
+				<button type="button" class="useful"  value="useful">유용템</button>
+				<button type="button" class="littleMoney"  value="littleMoney">가성비</button>
+				<button type="button" class="cheerup"  value="cheerup">응원해요</button>
+				<input type="checkbox" class="like-check" name="like" style="display: none;">
+				<input type="checkbox" class="life-check" name="life" style="display: none;">
+				<input type="checkbox" class="useful-check" name="useful" style="display: none;">
+				<input type="checkbox" class="littleMoney-check" name="littleMoney" style="display: none;">
+				<input type="checkbox" class="cheerup-check" name="cheerup" style="display: none;">
 			</div>
-			<textarea id="supportContent" placeholder="응원의 글을 남겨주세요"></textarea><br>
+			<textarea id="supportContent" name="support_content" placeholder="응원의 글을 남겨주세요"></textarea><br>
 			<button class="support-submit">지지서명하기</button>
 		</form>
 	</div>

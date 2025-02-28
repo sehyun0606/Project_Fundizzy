@@ -12,7 +12,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            color: mediumpurple;
+            color: #565656;
         }
         body {
             font-family: Arial, sans-serif;
