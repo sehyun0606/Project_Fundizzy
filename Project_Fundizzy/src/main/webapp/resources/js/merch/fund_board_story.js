@@ -14,53 +14,59 @@ $(function(){
 //	});
 
 $(document).ready(function(){
-    console.log("jQuery 로드됨!"); // jQuery가 로드되었는지 확인
+    console.log("jQuery 로드됨!"); 
 
     $("#btn-support").click(function(){
-        console.log("btn-support 버튼 클릭됨!"); // 버튼 클릭 이벤트 확인
+        console.log("btn-support 버튼 클릭됨!"); 
         $(".support_modal").css("display", "block");
     });
 
     $(".x").click(function(){
-        console.log("모달 닫기 버튼 클릭됨!"); // 닫기 버튼이 눌리는지 확인
+        console.log("모달 닫기 버튼 클릭됨!");
         $(".support_modal").css("display", "none");
     });
 });
+	
+	$(".like").click(function(){
+		$(".like-check").click();
+	});
+	$(".life").click(function(){
+		$(".life-check").click();
+	});
+	$(".useful").click(function(){
+		$(".useful-check").click();
+	});
+	$(".littleMoney").click(function(){
+		$(".littleMoney-check").click();
+	});
+	$(".cheerup").click(function(){
+		$(".cheerup-check").click();
+	});
 
 	//제출버튼
-	$(".support-submit").click(function(){
+	$(".support-submit").click(function(event){
+		let support_keyword = "";
+		
+		$(".selected").each(function() {
+			support_keyword += $(this).val() + " ";
+		});
+		
+		console.log(support_keyword);
+		
+		$("btn-support-list input[type='hidden']").val(support_keyword);
+		
 		let email = $("#sessionUserEmail").val();
-		console.log("email");
+		console.log(email);
 		let supportContent = $("textarea").val().trim();
-//		let keyword = ;
 		if(supportContent == ""){
 			alert("응원글을 작성해 주세요.");
+			 event.preventDefault();
 			return;
 		}
-		
-//		if(!supportKeyword){
-//			alert("키워드를 하나 이상 선택해 주세요.");
-//			return;
-//		}
-		
-		$.ajax({
-			type: "POST",
-			url: "SupportSignature",
-			data: {
-				support_content: supportContent,
-//				support_keyword: supportKeyword
-				
-			}
-		}).done(function(result){
-			alert("응원글 등록이 완료되었습니다.");
-			location.reload(true);
-		}).fail(function(xhr, status, error){
-			alert("응원글 등록에 실패했습니다.\n 다시 시도해주세요.")
-			console.error("AJAX 오류:", status, error);
-		})
 	});
 	
 });
+
 //웹 페이지가 완전 로드되기전에 실행되는 코드 
 // html이 다 로드 된 후 js가 실행되기에 안전함 
  document.addEventListener("DOMContentLoaded", function () { 
@@ -85,6 +91,6 @@ $(document).ready(function(){
 							 alert("키워드는 3개까지 선택할 수 있어요");
 						}
                     }
-                });
+                }); 
             });
         });

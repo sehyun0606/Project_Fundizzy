@@ -3,6 +3,11 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.itwillbs.project_fundizzy.mapper.FundMapper">
+  	<select id="selectSupportList" resultType="map">
+  		SELECT *
+  		FROM support
+  	</select>
+  	
 	<insert id="insertSupportSignature">
 		<selectKey keyProperty="support_num" resultType="int" order="BEFORE">
 		    SELECT IFNULL(MAX(support_num), 0)

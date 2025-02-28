@@ -1,9 +1,18 @@
 package com.itwillbs.project_fundizzy.mapper;
 
-import org.apache.ibatis.annotations.Param;
+import java.util.List;
+import java.util.Map;
 
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+@Mapper
 public interface FundMapper {
+	
+	//지지서명 글 목록 
+	List<Map<String, Object>> selectSupportList();
+	
 	//지지서명 글 등록
-	int insertSupportSignature(@Param("project_code") int project_code, @Param("email")String email, @Param("supportContent") String supportContent, @Param("supportKeyword") String supportKeyword);
+	int insertSupportSignature(@Param("project_code") int project_code, @Param("email")String email, 
+			@Param("supportContent") String supportContent, @Param("supportKeyword") String supportKeyword);
 	
 }

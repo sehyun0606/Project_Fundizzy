@@ -186,7 +186,7 @@ body {
    flex-direction: column;
 }
 
-.post {
+.support-post {
     background-color: #fff;
     margin-bottom: 10px;
     padding: 12px;
@@ -194,13 +194,13 @@ body {
     width: 650px;
 }
 
-.post h4 {
+.support-post h4 {
 
     margin: 0 0 10px;
 
 }
 
-.post p {
+.support-post p {
 
     margin: 5px 0;
 
