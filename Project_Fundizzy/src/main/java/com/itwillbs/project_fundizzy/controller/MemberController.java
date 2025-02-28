@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.project_fundizzy.handler.GenerateRandomCode;
+import com.itwillbs.project_fundizzy.service.Bankservice;
 import com.itwillbs.project_fundizzy.service.MailService;
 import com.itwillbs.project_fundizzy.service.MemberService;
+import com.itwillbs.project_fundizzy.vo.BankToken;
 
 @Controller
 public class MemberController {
@@ -25,6 +27,8 @@ public class MemberController {
 	private MemberService memberService;
 	@Autowired
 	private MailService mailService;
+	@Autowired
+	private Bankservice bankservice;
 	
 	
 	// 로그인 폼으로 이동
@@ -137,7 +141,7 @@ public class MemberController {
 				HttpServletResponse response) {
 			
 			System.out.println("넘어온 로그인 정보 : " + loginInfo);
-			
+
 			Map<String, String> dbMember = memberService.getMember(loginInfo.get("email"));
 			System.out.println("DB에 저장되어있는 멤버 정보 : " + dbMember);
 			
@@ -168,7 +172,11 @@ public class MemberController {
 				}
 				
 				response.addCookie(cookie);
-
+				//2025-02-10 핀테크 엑세스토큰 정보 조회 후 세션에 저장하는 기능
+				
+				BankToken token = bankservice.getBankAccessTokenInfo(dbMember.get("email"));
+				session.setAttribute("token", token);
+				
 				return "main";
 				// ---------------------------------------------------------------------------
 				// [ 특정 페이지 로그인 필수 처리 후 로그인 완료 시 원래 페이지로 이동 처리 ]

@@ -6,11 +6,17 @@
 <head>
 <meta charset="UTF-8">
 <title>결제 정보 관리</title>
+
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bank/my_payment_info_manage.css" />
+<!-- 아이콘 -->
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+<!-- js연결 -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/bank/my_payment_info_manage.js"></script>
 </head>
 <body>
 	<header>
-		<jsp:include page="/WEB-INF/views/inc/top.jsp" />
+		<jsp:include page="/WEB-INF/views/inc/top.jsp"/>
 	</header>
 	<article>
 		<div id="title">
@@ -61,7 +67,18 @@
 					</div>
 				</div>
 				<div id="addAccount">
-					<img alt="계좌등록/추가" src="${pageContext.request.contextPath}/resources/images/bank/plus.png">
+<!-- 				c if써서 계좌가 없으면 id = auth-button, 있으면 id=add_button -->
+					<button 
+						<c:choose>
+							<c:when test="${empty sessionScope.token}">
+								id="auth-button"
+							</c:when>
+							<c:otherwise>
+								id="add_button"
+							</c:otherwise>
+						</c:choose>
+					>+ button<i class='fas fa-plus'></i></button>
+<%-- 					<img alt="계좌등록/추가" src="${pageContext.request.contextPath}/resources/images/bank/plus.png"> --%>
 				</div>
 			</div>
 		</div>
