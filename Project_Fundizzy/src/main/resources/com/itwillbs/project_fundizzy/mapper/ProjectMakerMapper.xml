@@ -30,4 +30,33 @@
 		FROM project_list
 		WHERE project_code = #{project_code}
 	</select>
+	<update id="updateServiceType">
+	    <selectKey keyProperty="last_setting" resultType="String" order="BEFORE">
+	        SELECT project_setting
+	        FROM project_list
+	        WHERE project_code = #{project_code}
+	    </selectKey>
+
+	    UPDATE project_list
+	    SET 
+	        service_type = #{service_type},
+	        project_setting = 
+	        <if test="last_setting == '0'">
+	            '1'
+	        </if>
+	        <if test="last_setting != '0'">
+	            CONCAT(#{last_setting}, '1')
+	        </if>
+	    WHERE project_code = #{project_code}
+</update>
 </mapper>
+
+
+
+
+
+
+
+
+
+

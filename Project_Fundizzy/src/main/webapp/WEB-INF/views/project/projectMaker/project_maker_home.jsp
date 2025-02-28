@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -21,45 +22,113 @@
 	            <span>프로젝트 준비 상태</span>
 	            <button>제출하기</button>
 	        </div>
-	        <c:forEach items="${settingList}" var="list">
-	        	
-	        </c:forEach>
-	        <div class="task">
-	            <div class="task-title">
-	                <div class="progress-bar progress-complete"></div>
-	                서비스 요금 <span class="status">작성 완료</span>
-	            </div>
-	            <button>작성하기</button>
-	        </div>
-	        <div class="task">
-	            <div class="task-title">
-	                <div class="progress-bar progress-incomplete"></div>
-	                프로젝트 정보 <span class="status">작성 전</span>
-	            </div>
-	            <button>작성하기</button>
-	        </div>
-	        <div class="task">
-	            <div class="task-title">
-	                <div class="progress-bar progress-complete"></div>
-	                스토리 작성 <span class="status">작성 중</span>
-	            </div>
-	            <button>작성하기</button>
-	        </div>
-	        <div class="task">
-	            <div class="task-title">
-	                <div class="progress-bar progress-incomplete"></div>
-	                리워드 설계 <span class="status">작성 전</span>
-	            </div>
-	            <button>작성하기</button>
-	        </div>
-	        <div class="task">
-	            <div class="task-title">
-	                <div class="progress-bar progress-incomplete"></div>
-	                메이커 정보 <span class="status">작성 전</span>
-	            </div>
-	            <button>작성하기</button>
-	        </div>
+	        
+	        <c:choose>
+	        	<c:when test="${fn:contains(settingList,1)}">
+			        <div class="task">
+			            <div class="task-title">
+			                <div class="progress-bar progress-complete"></div>
+			                서비스 요금 <span class="status">작성 완료</span>
+			            </div>
+			            <button>수정하기</button>
+			        </div>
+	        	</c:when>
+	        	<c:otherwise>
+			        <div class="task">
+			            <div class="task-title">
+			                <div class="progress-bar progress-incomplete"></div>
+			                서비스 요금 <span class="status">작성 전</span>
+			            </div>
+			            <button>작성하기</button>
+			        </div>
+	        	</c:otherwise>
+	        </c:choose>
+	        
+	        <c:choose>
+	        	<c:when test="${fn:contains(settingList,2)}">
+			        <div class="task">
+			            <div class="task-title">
+			                <div class="progress-bar progress-complete"></div>
+			                프로젝트 정보 <span class="status">작성 완료</span>
+			            </div>
+			            <button>수정하기</button>
+			        </div>
+	        	</c:when>
+	        	<c:otherwise>
+			        <div class="task">
+			            <div class="task-title">
+			                <div class="progress-bar progress-incomplete"></div>
+			                프로젝트 정보 <span class="status">작성 전</span>
+			            </div>
+			            <button>작성하기</button>
+			        </div>
+	        	</c:otherwise>
+	        </c:choose>
+	        
+	        <c:choose>
+	        	<c:when test="${fn:contains(settingList,3)}">
+			        <div class="task">
+			            <div class="task-title">
+			                <div class="progress-bar progress-complete"></div>
+			                스토리 작성 <span class="status">작성 완료</span>
+			            </div>
+			            <button>수정하기</button>
+			        </div>
+	        	</c:when>
+	        	<c:otherwise>
+			        <div class="task">
+			            <div class="task-title">
+			                <div class="progress-bar progress-incomplete"></div>
+			                스토리 작성 <span class="status">작성 전</span>
+			            </div>
+			            <button>작성하기</button>
+			        </div>
+	        	</c:otherwise>
+	        </c:choose>
+	        <c:choose>
+	        	<c:when test="${fn:contains(settingList,4)}">
+	        		<div class="task">
+			            <div class="task-title">
+			                <div class="progress-bar progress-complete"></div>
+			               	 리워드 설계 <span class="status">작성 완료</span>
+			            </div>
+	            		<button>수정하기</button>
+	        		</div>
+	        	</c:when>
+	        	<c:otherwise>
+	        		<div class="task">
+			            <div class="task-title">
+			                <div class="progress-bar progress-incomplete"></div>
+			               	 리워드 설계 <span class="status">작성 전</span>
+			            </div>
+	            		<button>작성하기</button>
+	        		</div>
+	        	</c:otherwise>
+	        </c:choose>
+	        <c:choose>
+	        	<c:when test="${fn:contains(settingList,5)}">
+			        <div class="task">
+			            <div class="task-title">
+			                <div class="progress-bar progress-complete"></div>
+			                메이커 정보 <span class="status">작성 완료</span>
+			            </div>
+			            <button>수정하기</button>
+			        </div>
+	        	</c:when>
+	        	<c:otherwise>
+			        <div class="task">
+			            <div class="task-title">
+			                <div class="progress-bar progress-incomplete"></div>
+			                메이커 정보 <span class="status">작성 전</span>
+			            </div>
+			            <button>작성하기</button>
+			        </div>
+	        	</c:otherwise>
+	        </c:choose>
 	    </div>
     </div>
+    <script>
+    
+    </script>
 </body>
 </html>

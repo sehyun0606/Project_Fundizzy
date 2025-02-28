@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.project_fundizzy.service.ProjectMakerService;
 
@@ -74,6 +75,17 @@ public class ProjectMakerController {
 		System.out.println(map);
 		
 		return "redirect:/MakerPage";
+	}
+	
+	//서비스타입 고를때 실행되는 AJAX
+	@ResponseBody
+	@GetMapping("GetServiceType")
+	public String getServiceType(String service_type, HttpSession session) {
+		String project_code = (String) session.getAttribute("project_code");
+		String result = "TRUE";
+		projectMakerService.updateServceType(service_type, project_code);
+		
+		return result;
 	}
 	
 	
