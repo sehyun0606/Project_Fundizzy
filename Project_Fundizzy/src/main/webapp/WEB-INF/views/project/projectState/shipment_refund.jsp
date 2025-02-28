@@ -90,12 +90,12 @@
 		                </td>
 		                <td>2025-01-01</td>
 		                <td>18,000원</td>
-		                <td><input type="button" value="입력" class="ship-info" onclick=""></td>
+		                <td><input type="button" value="입력" class="shipInfoBtn" onclick=""></td>
 		                <td>2025-01-01</td>
 		                <td>배송 완료</td>
 		                <td>010101011</td>
 		                <td>신청</td>
-		                <td class="toggle-btn">
+		                <td class="toggleBtn">
 		                	<button><img src="/resources/images/projectState/arrow_right.png" style="width: 10px; height: 10px;"></button>
 	                	</td>
 		            </tr>
@@ -103,16 +103,16 @@
 		                <td colspan="10">
 		                    <table>
 		                        <tr>
-		                            <th width="9%">결제번호</th>
-		                            <th>리워드명</th>
-		                            <th>리워드 금액</th>
-		                            <th>수량</th>
-		                            <th>환불 상태</th>
+		                            <th width="5%">결제번호</th>
+		                            <th width="25%">리워드명</th>
+		                            <th width="10%">리워드 금액</th>
+		                            <th width="9%">수량</th>
+		                            <th width="11%">환불 상태</th>
 		                        </tr>
             					<c:forEach var="kiki" begin="1" end="3">
 		                        <tr>
 		                            <td>${order}</td>
-		                            <td>스페셜 기프트</td>
+		                            <td>[발받침대] 편안함을 선사하는 2단 쿠션 발받침대</td>
 		                            <td>18,000원</td>
 		                            <td>1개</td>
 		                            <td>신청 중</td>
@@ -125,7 +125,60 @@
 		    </table>
 			<div class="modal-content">
 				<div class="modal-close">x</div>
-				<div></div>
+				<div class="modal-main">
+					<h3>발송 정보</h3>
+					<c:forEach var="order" begin="1" end="3">
+						<div class="reward-container">
+							<div class="reward-title">[발받침대] 편안함을 선사하는 ${order}단 쿠션 발받침대</div>
+							<div class="reward-qty">
+								<span>수량</span>
+								<span>${order}개</span>
+							</div>
+							<div class="reward-amount">
+								<span>금액</span>
+								<span>${order * 18000}원</span>
+							</div>
+						</div>
+					</c:forEach>
+					<div class="receiver-info">
+						<div class="">
+							<span>결제번호</span>
+							<span>87</span>
+						</div>
+						<div class="">
+							<span>총금액</span>
+							<span>108,000원</span>
+						</div>
+						<div class="">
+							<span>수취인</span>
+							<span>김땡땡</span>
+						</div>
+						<div class="">
+							<span>연락처</span>
+							<span>010-7484-9988</span>
+						</div>
+						<div class="">
+							<span>우편번호</span>
+							<span>73652</span>
+						</div>
+						<div class="">
+							<span>주소</span>
+							<span>부산광역시 부산진구 전포로 어디어디 삼한골든게이트 7층</span>
+						</div>
+						<h4>발송방법</h4>
+						<div>택배</div>
+						<h4>택배사</h4>
+						<select>
+							<option>cj대한통운</option>
+							<option>로젠택배</option>
+							<option>롯데택배</option>
+							<option>한진택배</option>
+							<option>우체국택배</option>
+						</select>
+						<h4>송장번호</h4>
+						<input type="text">
+					</div>
+				</div>
 			</div>
 	    </div>
 	</div>
@@ -134,7 +187,7 @@
 		$(document).ready(function(){
 			
 			// 아코디언 형식으로 주문 상세내역 표시
-	    	$(".toggle-btn button").click(function() {
+	    	$(".toggleBtn button").click(function() {
 				let img = $(this).find("img");
 	    		let detail =  $(this).closest("tr").next(".details");
 		        detail.toggle(); // 다음 .details 행들을 토글
@@ -150,7 +203,7 @@
 	    	});
 
 	    	// 입력 버튼 클릭 시 모달창 생성 
-			$(".ship-info").click(function() {
+			$(".shipInfoBtn").click(function() {
 // 				e.preventDefault();
 				$(".modal-content").css("display", "block");
 			});
