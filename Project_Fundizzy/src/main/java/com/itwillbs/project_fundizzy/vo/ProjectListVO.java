@@ -18,10 +18,15 @@ public class ProjectListVO {
 	private String service_type;
 	private int project_like;
 	private Timestamp project_date;
-	private String project_setting;
 	private String approve_stat;
 	private Timestamp request_approve_date;
 	private Timestamp approved_date;
 	private String project_title;
 	private String representative_picture;
+	private int progress;
+	private String service_config;
+	private String project_info_config;
+	private String story_config;
+	private String reward_config;
+	private String maker_config;
 }

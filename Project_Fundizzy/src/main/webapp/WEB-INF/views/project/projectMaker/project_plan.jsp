@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -94,7 +95,14 @@
                 </ul>
             </div>
             <input class="service-type" type="hidden" value="pro">
-            <button class="select-btn">선택하기</button>
+            <c:choose>
+            	<c:when test="${serviceType eq 'pro'}">
+            		<button class="select-btn">선택됨</button>
+            	</c:when>
+            	<c:otherwise>
+		            <button class="select-btn">선택하기</button>
+            	</c:otherwise>
+            </c:choose>
         </div>
 
         <div class="pricing-card basic">
@@ -110,7 +118,14 @@
                 </ul>
             </div>
             <input class="service-type" type="hidden" value="basic">
-            <button class="select-btn">선택하기</button>
+            <c:choose>
+            	<c:when test="${serviceType eq 'basic'}">
+            		<button class="select-btn">선택됨</button>
+            	</c:when>
+            	<c:otherwise>
+		            <button class="select-btn">선택하기</button>
+            	</c:otherwise>
+            </c:choose>
         </div>
         <div class="default-plan" style="">
 		    <h3 style="margin-bottom: 10px;">기본 서비스 이용료</h3>
@@ -127,6 +142,7 @@
 			//버튼 클릭 시 ajax 활용해서 서비스 등록
 			$(".select-btn").click(function(){
 				let service_type = $(this).parent().children().filter(".service-type").val();
+				let btn = $(this);
 				
 				$.ajax({
 					type : "GET",
@@ -135,7 +151,8 @@
 						service_type
 					}
 				}).done(function(result){
-					$(this).parent().children().filter(".select-btn").text('선택됨')
+					$(".select-btn").text("선택하기");
+					btn.text('선택됨')
 				}).fail(function(){
 					console.log("실패..")
 				})

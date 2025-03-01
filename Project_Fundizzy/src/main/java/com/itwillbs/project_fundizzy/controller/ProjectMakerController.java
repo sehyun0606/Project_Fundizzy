@@ -29,21 +29,9 @@ public class ProjectMakerController {
 	public String projectMaker(HttpSession session, Model model) {
 		String project_code = (String) session.getAttribute("project_code");
 		
-		String projectSetting = projectMakerService.getProjectInfo(project_code);
-		List<Character> settingList = new ArrayList<Character>();
-		if(projectSetting.equals("0")) {
-			System.out.println(settingList);
-			model.addAttribute("settingList",settingList);
-		} else {
-			for(int i = 0; i < projectSetting.length(); i++) {
-				char a = projectSetting.charAt(i);
-				settingList.add(a);
-			}
-			System.out.println(settingList);
-			model.addAttribute("settingList",settingList);
-		}
+		Map<String, String> projectSetting = projectMakerService.getSettingInfo(project_code);
 		
-		
+		model.addAttribute("projectSetting", projectSetting);
 		
 		return "project/projectMaker/project_maker_home";
 	}
@@ -77,6 +65,19 @@ public class ProjectMakerController {
 		return "redirect:/MakerPage";
 	}
 	
+	//서비스 요금 선택
+	@GetMapping("ProjectPlan")
+	public String projectPlan(HttpSession session, Model model) {
+		
+		String projectCode = (String) session.getAttribute("project_code");
+		
+		String serviceType = projectMakerService.getServiceType(projectCode);
+		
+		model.addAttribute("serviceType", serviceType);
+		
+		return "project/projectMaker/project_plan";
+	}
+	
 	//서비스타입 고를때 실행되는 AJAX
 	@ResponseBody
 	@GetMapping("GetServiceType")
@@ -89,10 +90,6 @@ public class ProjectMakerController {
 	}
 	
 	
-	@GetMapping("ProjectPlan")
-	public String projectPlan() {
-		return "project/projectMaker/project_plan";
-	}
 	@GetMapping("ProjectInfo")
 	public String projectInfo() {
 		return "project/projectMaker/project_info";

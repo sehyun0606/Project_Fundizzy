@@ -16,39 +16,38 @@
 			null,
 			0,
 			NOW(),
-			'0',
 			'before',
 			null,
 			null,
 			null,
-			null
+			null,
+			0,
+			'N',
+			'N',
+			'N',
+			'N',
+			'N'
 		)
 		
 	</insert>
-	<select id="selectProjectInfo" resultType="String">
-		SELECT project_setting
+	<select id="selectSettingInfo" resultType="map">
+		 	SELECT service_config, project_info_config, story_config, reward_config, maker_config
+	        FROM project_list
+	        WHERE project_code = #{project_code}
+	</select>
+	
+	<update id="updateServiceType">
+		UPDATE project_list
+		SET service_config = 'Y',
+			service_type = #{service_type}
+		WHERE project_code = #{project_code}
+	</update>
+	
+	<select id="selectServiceType" resultType="String">
+		SELECT service_type
 		FROM project_list
 		WHERE project_code = #{project_code}
 	</select>
-	<update id="updateServiceType">
-	    <selectKey keyProperty="last_setting" resultType="String" order="BEFORE">
-	        SELECT project_setting
-	        FROM project_list
-	        WHERE project_code = #{project_code}
-	    </selectKey>
-
-	    UPDATE project_list
-	    SET 
-	        service_type = #{service_type},
-	        project_setting = 
-	        <if test="last_setting == '0'">
-	            '1'
-	        </if>
-	        <if test="last_setting != '0'">
-	            CONCAT(#{last_setting}, '1')
-	        </if>
-	    WHERE project_code = #{project_code}
-</update>
 </mapper>
 
 
