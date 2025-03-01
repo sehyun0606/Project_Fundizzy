@@ -19,7 +19,7 @@
         }
         .top-menu {
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
             padding: 10px 20px;
             border-bottom: 1px solid #ddd;
@@ -31,59 +31,35 @@
             color: mediumseagreen;
             cursor: pointer;
         }
-        .nav-links {
-            display: flex;
-            gap: 15px;
-        }
-        .nav-links a {
-            text-decoration: none;
-            color: black;
-        }
-        .nav-links a.active {
-            color: mediumpurple;
-        }
-        .search-bar {
-            border: 1px solid mediumpurple;
-            padding: 5px 10px;
-            border-radius: 15px;
-            width: 300px;
-        }
         .auth-links {
             display: flex;
             gap: 10px;
             height: min-content;
         }
-        .create-project {
-            background-color: mediumpurple;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 5px;
+        .auth-links a {
             text-decoration: none;
+            color: black;
         }
-        .nav{
-        	margin-left: 15%;
-        	display: flex;
-        	width: 23%;
-        	justify-content: space-between;
-        	font-size: large;
-        }
-        .log-in{
-        	display: flex;
-        	width: 15%;
-        	justify-content: space-between;
-        	margin-right: 15%;
-        	align-items: center;
-        }
-        .auth-links a{
-        	text-decoration: none;
+        .login-links {
+		    font-size: large;
+		    display: flex;
+		    justify-content: flex-end;
+		    gap: 10px;
+		    margin-right: 20px;
+		    align-items: center;
         }
     </style>
 </head>
 <body>
     <div class="top-menu top-items">
-    	<div class="nav top-items">
-	        <div class="logo top-items" onclick="location.href='./'">Fundizzy</div>
-    	</div>
+        <!-- 로고 div 왼쪽 끝 -->
+        <div class="logo top-items" onclick="location.href='./'">Fundizzy</div>
+
+        <!-- 로그인|회원가입 div 오른쪽 끝 -->
+        <div class="login-links">
+			<a class="login-item" >관리자</a> |
+			<a class="login-item" >${sessionScope.adminId}님</a>
+        </div>
     </div>
 </body>
 </html>

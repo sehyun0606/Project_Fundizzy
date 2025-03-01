@@ -33,7 +33,10 @@ public class MemberController {
 	
 	// 로그인 폼으로 이동
 	@GetMapping("Login")
-	public String Login() {
+	public String Login(HttpSession session) {
+		if(session.getAttribute("adminId") != null) {
+			return "admin/admin_home";
+		}
 		return "member/login/login_form";
 	}
 	
@@ -130,7 +133,7 @@ public class MemberController {
 			return responseData;
 		}
 	
-		
+		// 로그인 비즈니스 로직
 		@PostMapping("LoginSuccess")
 		public String LoginSuccess(
 				@RequestParam Map<String, String> loginInfo,
@@ -176,6 +179,7 @@ public class MemberController {
 				
 				BankToken token = bankservice.getBankAccessTokenInfo(dbMember.get("email"));
 				session.setAttribute("token", token);
+				session.setAttribute("member", dbMember);
 				
 				return "main";
 				// ---------------------------------------------------------------------------

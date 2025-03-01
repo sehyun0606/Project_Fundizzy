@@ -4,9 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Fundizzy</title>
 <link rel="stylesheet" type="text/css" href="resources/css/main.css">
-<link rel="stylesheet" type="text/css" href="resources/css/merch/funding/fund_list.css">
 </head>
 <script>
 // 	document.addEventListener('keydown', function(event) {
@@ -96,5 +95,31 @@
 		<jsp:include page="/WEB-INF/views/inc/footer.jsp" />
 	</footer>
 	
+	<script>
+		let secretCode = "adminpage";  // 관리자 코드
+		let inputSequence = "";  // 사용자가 입력한 시퀀스
+		let adminWindow = null;  // 관리자 페이지 창 객체
+	
+		document.addEventListener('keydown', function(event) {
+		    inputSequence += event.key;
+	
+		    if (inputSequence.includes(secretCode)) {
+		        // "adminpage"가 입력되면 새 창으로 관리자 페이지 열기
+		        if (adminWindow == null || adminWindow.closed) {
+		            adminWindow = window.open('adminPageLoginNoInputUser', '_blank');  // 새 창으로 관리자 페이지 열기
+		        } else {
+		            adminWindow.focus();  // 기존 창으로 포커스 이동
+		        }
+	
+		        // 기본 동작 방지 (페이지 리로드 방지)
+		        event.preventDefault();
+		    }
+	
+		    // 너무 긴 문자열은 초기화
+		    if (inputSequence.length > secretCode.length) {
+		        inputSequence = inputSequence.slice(-secretCode.length);
+		    }
+		});
+    </script>
 </body>
 </html>
