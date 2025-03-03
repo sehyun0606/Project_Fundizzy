@@ -27,7 +27,15 @@ public class ProjectStateController {
 		return "project/projectState/shipment_refund";
 	}
 	
+	@GetMapping("newsList")
+	public String newsList() {
+		return "project/projectState/news_list";
+	}
 
+	@GetMapping("newsBoard")
+	public String newsBoard() {
+		return "project/projectState/news_board";
+	}
 
 	
 }

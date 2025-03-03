@@ -113,7 +113,7 @@ th, td {
 	background-color: #f7f7f7;
 	padding: 13px;
 }
-input[type=button] {
+.shipInfoBtn {
 	background-color: mediumpurple;
 	border: none;
 	border-radius: 5px;
@@ -152,6 +152,14 @@ input[type=button] {
 .toggleBtn.active img {
     transform: rotate(90deg); /* 오른쪽 화살표를 아래 방향으로 회전 */
 }
+.refundInfoBtn {
+	background-color: #fff;
+	border: 1px solid mediumpurple;
+	border-radius: 5px;
+	height: 30px;
+	cursor: pointer;
+	color: mediumpurple;
+}
 .modal-content {
 	z-index: 9000;
 	right: 20px;
@@ -159,11 +167,13 @@ input[type=button] {
 	display: none;
 	position: fixed;
 	background-color: white;
-	width: 350px;
-	height: 700px;
-	padding: 20px;
+	width: 370px;
+	min-height: 500px;
+	max-height: 710px;
+	padding: 10px 20px;
 	border-radius: 5px;
-	border: 1px solid mediumpurple;
+	border: 1px solid #b9b9b9;
+	overflow-y: auto;
 }
 .modal-close {
 	position: absolute;
@@ -177,7 +187,156 @@ input[type=button] {
 	cursor: pointer;
 }
 
+.modal-main {
+    padding: 10px;
+}
 
+h3 {
+    text-align: center;
+    font-size: 20px;
+    margin: 0;
+    margin-bottom: 30px;
+}
+
+.reward-container {
+    margin-bottom: 20px;
+}
+
+.reward-title {
+	font-size: 17px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    letter-spacing: -1px;
+}
+
+.reward-info {
+    display: flex;
+    justify-content: flex-start;
+    font-size: 14px;
+    gap: 15px;
+}
+
+.receiver-container {
+    margin: 30px 0;
+}
+
+.receiver-info {
+    display: flex;
+    justify-content: flex-start;
+    padding: 2px 0;
+    font-size: 14px;
+}
+
+.receiver-info span:nth-of-type(1) {
+	width: 70px;
+	flex-shrink: 0;
+}
+
+.ship-num::-webkit-outer-spin-button, 
+.ship-num::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.ship-num {
+    -moz-appearance: textfield;
+}
+
+h4 {
+	margin: 15px 0 5px 0;
+    font-size: 16px;
+}
+
+.btn-container {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 10px;
+    margin-top: 30px;
+    width: 100%;
+}
+
+.finBtn, .closeBtn, .approveBtn, .refuseBtn {
+	width: 90%;
+    padding: 10px;
+    border: none;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.finBtn {
+    background-color: mediumpurple;
+    color: white;
+}
+.closeBtn {
+    background-color: #ddd;
+    color: #353535;
+}
+.approveBtn {
+    background-color: #60cc60;
+    color: white;
+}
+.refuseBtn {
+    background-color: #d73931;
+    color: white;
+}
+.refund-amount {
+	border-top: 1px solid #ddd;
+}
+.refund-reason {
+	padding-bottom: 20px; 
+	margin-top: 50px;
+}
+.refund-reason h4 {
+	letter-spacing: -1px;
+}
+.refund-reason > div {
+	font-size: 14px;
+}
+.refuse-reason textarea {
+	box-sizing: border-box;
+	width: 80%;
+	height: 100px;
+	resize: none;
+}
+.refuse-reason > div {
+	font-size: 14px;
+	color: #a1a1a1;
+}
+.refund-info {
+	display: flex;
+	justify-content: space-between;
+	font-size: 14px;
+}
+
+/* 전체 스크롤바 스타일 */
+.modal-content::-webkit-scrollbar {
+    width: 8px; /* 스크롤바 너비 */
+    height: 8px; /* 가로 스크롤바 높이 */
+}
+
+/* 스크롤바 트랙 (배경) 스타일 */
+.modal-content::-webkit-scrollbar-track {
+    background: #f5f5f5; /* 트랙의 배경색 */
+    border-radius: 10px; /* 둥근 모서리 */
+}
+
+/* 스크롤바 슬라이더 (thumb) 스타일 */
+.modal-content::-webkit-scrollbar-thumb {
+    background: #ccc; /* 슬라이더의 색상 */
+    border-radius: 10px; /* 둥근 모서리 */
+    border: 2px solid #f5f5f5; /* 슬라이더와 트랙 사이 여백 */
+}
+
+/* 스크롤바 슬라이더에 마우스를 올렸을 때 스타일 */
+.modal-content::-webkit-scrollbar-thumb:hover {
+    background: #999; /* 슬라이더 색상 변화 */
+}
+
+/* 스크롤바 슬라이더를 클릭 중일 때 스타일 */
+.modal-content::-webkit-scrollbar-thumb:active {
+    background: #666; /* 슬라이더 색상 변화 */
+}
 
 
 
