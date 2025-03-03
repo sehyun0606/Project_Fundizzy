@@ -48,6 +48,25 @@
 		FROM project_list
 		WHERE project_code = #{project_code}
 	</select>
+	
+	<insert id="insertProjcetInfo">
+		INSERT
+		INTO projcet_info
+		VALUES (
+			#{project_code},
+			#{category},
+			#{sub_category},
+			#{adult_check},
+			#{representative_email},
+			#{target_amount},
+			#{maker_type},
+			#{registration_card},
+			#{business_number},
+			#{business_name},
+			#{representative_name}
+		)
+		
+	</insert>
 </mapper>
 
 

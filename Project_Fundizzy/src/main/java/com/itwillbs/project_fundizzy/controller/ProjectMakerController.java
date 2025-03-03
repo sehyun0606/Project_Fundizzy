@@ -1,10 +1,16 @@
 package com.itwillbs.project_fundizzy.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
@@ -15,8 +21,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.itwillbs.project_fundizzy.service.ProjectMakerService;
+import com.itwillbs.project_fundizzy.vo.ProjectInfoVO;
 
 @Controller
 public class ProjectMakerController {
@@ -24,6 +32,7 @@ public class ProjectMakerController {
 	@Autowired
 	private ProjectMakerService projectMakerService;
 	
+	private String virtualPath = "/resources/upload";
 	
 	@GetMapping("ProjectMaker")
 	public String projectMaker(HttpSession session, Model model) {
@@ -90,10 +99,61 @@ public class ProjectMakerController {
 	}
 	
 	
+	//프로젝트 정보 입력 폼
 	@GetMapping("ProjectInfo")
 	public String projectInfo() {
 		return "project/projectMaker/project_info";
 	}
+	
+	
+	//프로젝트 정보 업로드
+	@PostMapping("ProjectInfo")
+	public String registProjcetInfo(ProjectInfoVO projectInfo, HttpSession session, Model model) {
+		
+		String projectCode = projectInfo.getProject_code();
+		String realPath = getRealPath(session, virtualPath);
+		//파일 업로드되는 서브 경로
+		String subDir = projectCode + "/registrationCard" ;
+		
+		realPath += subDir;
+		
+		//실제 파일 업로드 경로 생성
+		try {
+			Path path = Paths.get(realPath);
+			Files.createDirectory(path);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		MultipartFile registrationCardImg = projectInfo.getRegistrationCard();
+		
+		projectInfo.setRegistration_card("");
+		
+		String registrationCardName = "";
+		
+		if(!registrationCardImg.getOriginalFilename().equals("")) {
+			registrationCardName = UUID.randomUUID().toString() + "_" + registrationCardImg.getOriginalFilename();
+			projectInfo.setRegistration_card(subDir + "/" + registrationCardName);
+		}
+		projectMakerService.registProjectInfo(projectInfo);
+		
+		try {
+			if(!registrationCardImg.getOriginalFilename().equals("")) {
+				registrationCardImg.transferTo(new File(realPath,registrationCardName));
+			}
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+		
+		return "redirect:/ProjectMaker";
+	}
+	
 	@GetMapping("ProjectStory")
 	public String projectStory(){
 		
@@ -107,5 +167,13 @@ public class ProjectMakerController {
 	@GetMapping("MakerInfo")
 	public String makerInfo() {
 		return "project/projectMaker/maker_info";
+	}
+	
+	
+	
+	//파일 업로드 및 다운로드를 위한 유틸리티 메서드
+	//파일 업로드에 사용될 실제 업로드 디렉토리 경로를 리턴하는 메서드
+	private String getRealPath(HttpSession session, String virturalPath) {
+		return session.getServletContext().getRealPath(virturalPath);
 	}
 }

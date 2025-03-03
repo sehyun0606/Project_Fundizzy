@@ -5,6 +5,8 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.itwillbs.project_fundizzy.vo.ProjectInfoVO;
+
 @Mapper
 public interface ProjectMakerMapper {
 
@@ -17,6 +19,8 @@ public interface ProjectMakerMapper {
 							@Param("project_code") String project_code);
 
 	String selectServiceType(String projectCode);
+
+	void insertProjcetInfo(ProjectInfoVO projectInfo);
 
 
 }

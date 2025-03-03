@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.itwillbs.project_fundizzy.mapper.ProjectMakerMapper;
+import com.itwillbs.project_fundizzy.vo.ProjectInfoVO;
 
 @Service
 public class ProjectMakerService {
@@ -29,6 +30,11 @@ public class ProjectMakerService {
 
 	public String getServiceType(String projectCode) {
 		return makerMapper.selectServiceType(projectCode);
+	}
+	
+	//프로젝트 정보 저장
+	public void registProjectInfo(ProjectInfoVO projectInfo) {
+		makerMapper.insertProjcetInfo(projectInfo);
 	}
 	
 

@@ -14,11 +14,11 @@
 		<jsp:include page="/WEB-INF/views/inc/project_maker_top.jsp"></jsp:include>
 	    <div class="container">
 	        <h1 class="title">프로젝트 정보</h1>
-	        <form>
+	        <form id="info-form" enctype="multipart/form-data" method="POST" action="ProjectInfo">
+	        	<input type="hidden" name="project_code" value="${sessionScope.project_code}">
 	        	<input type="hidden" id="main-category" name="category">
 	        	<input type="hidden" id="sub-category" name="sub_category">
 	        	<input type="hidden" id="adult_check" name="adult_check" value="N">
-	        	<input type="hidden" name="repersentative_email">
 	        	<input type="hidden" id="target_amount" name="target_amount">
 	        	<input type="hidden" id="maker_type" name="maker_type" value="individual">
 	        	<input type="file" id="file2" name="registration_card" style="display: none;">
@@ -28,11 +28,9 @@
 	        	<input type="hidden" id="repersentative_email" name="repersentative_email">
 	        </form>
 	        <!-- 카테고리 선택 -->
-	        <div class="first-label">
-		        <label class="label">카테고리 선택</label> 
-		        <button class="side-button" onclick="location.href='ProjectMaker'"> 제출하기</button>
-	        </div>
-	        <select class="select main-category">
+		    <button class="side-button" id="submit-button" style="margin-left: 90%;"> 제출하기</button>
+	        <label class="label">카테고리 선택</label> 
+	        <select class="select main-category" required="required">
 	            <option value="">카테고리 선택</option>
 	            <option value="electric">전자기기</option>
 	            <option value="furniture">가구</option>
@@ -40,7 +38,7 @@
 	        </select>
 	        
 	        <label class="label">보조 카테고리 선택(선택)</label>
-	        <select class="select sub-category">
+	        <select class="select sub-category" required="required">
 	            <option value="">카테고리 선택</option>
 	            <option value="electric">전자기기</option>
 	            <option value="furniture">가구</option>
@@ -63,24 +61,24 @@
 	        </div>
 	
 	        <!-- 신청폼 -->
-	        <label class="label">신분증</label>
-	        <input type="file" class="input id-card">
+	        <label class="label" >신분증</label>
+	        <input type="file" class="input id-card" required="required">
 	       
 	        <label class="label license"style="display: none;" >사업자 등록 번호</label>
-	        <input type="text"  class="input license-num" placeholder="사업자 등록 번호" style="display: none;">
+	        <input type="text"  class="input license" placeholder="사업자 등록 번호" style="display: none;" required="required">
 	        
 	        <label class="label license"style="display: none;" >상호명</label>
-	        <input type="text"  class="input license-name" placeholder="상호명" style="display: none;">
+	        <input type="text"  class="input license" placeholder="상호명" style="display: none;" required="required">
 	        
 	        <label class="label">대표자명</label>
-	        <input type="text" class="input name" placeholder="대표자명">
+	        <input type="text" class="input name" placeholder="대표자명" required="required">
 	
 	        <label class="label">대표자 이메일</label>
-	        <input type="email" class="input email" placeholder="이메일">
+	        <input type="email" class="input email" placeholder="이메일" required="required">
 	
 	        <!-- 목표 금액 -->
 	        <label class="label">목표 금액</label>
-	        <input type="number" id="amount" class="input" placeholder="최소 50만원 ~ 1억원 사이에서 설정해주세요.">
+	        <input type="number" id="amount" class="input" placeholder="최소 50만원 ~ 1억원 사이에서 설정해주세요." required="required">
 	    </div>
 	</div>
 <script type="text/javascript">
@@ -142,6 +140,71 @@
 	    $("#amount").keyup(function() {
 	        $("#target_amount").val($(this).val());
 	    });
+	    
+	    $("#submit-button").click(function(event){
+	        let isValid = true;
+	        let emptyFields = [];
+
+	        // 필드명 한글 매핑
+	        let fieldNames = {
+	            "category": "카테고리",
+	            "sub_category": "보조 카테고리",
+	            "adult_check": "성인 인증",
+	            "repersentative_email": "대표자 이메일",
+	            "target_amount": "목표 금액",
+	            "maker_type": "메이커 유형",
+	            "repersentative_name": "대표자명",
+	            "registration_card": "신분증 또는 사업자 등록증"
+	        };
+
+
+	        // maker_type이 개인 사업자나 법인 사업자일 때 사업자 등록번호와 상호명 검사 추가
+	        if ($("#maker_type").val() === "sole-proprietor" || $("#maker_type").val() === "proprietor") {
+	            if ($("#business_number").val().trim() === "") {
+	                isValid = false;
+	                emptyFields.push("사업자 등록 번호");
+	            }
+	            if ($("#business_name").val().trim() === "") {
+	                isValid = false;
+	                emptyFields.push("상호명");
+	            }
+	        }
+
+	        // 모든 file input 검사
+	        $(".id-card").each(function() {
+	            if ($(this)[0].files.length === 0) {
+	                isValid = false;
+	                emptyFields.push("파일 업로드 (신분증 또는 사업자 등록증)");
+	            }
+	        });
+
+	        // 모든 text, number, email input 검사
+	        $(".name, input[type='number'], input[type='email']").each(function() {
+	            if ($(this).val().trim() === "") {
+	                let placeholderText = $(this).attr("placeholder");
+	                emptyFields.push(placeholderText || "입력 필드");
+	                isValid = false;
+	            }
+	        });
+
+	        // 모든 select 검사
+	        $("select").each(function() {
+	            if ($(this).val() === "") {
+	                emptyFields.push($(this).prev("label").text() || "선택 필드");
+	                isValid = false;
+	            }
+	        });
+
+	        // 하나라도 비어 있으면 경고창 띄우고 제출 막기
+	        if (!isValid) {
+	            alert("다음 항목을 입력해주세요: \n- " + emptyFields.join("\n- "));
+	            return false; // 폼 제출 중단
+	        }
+
+	        $("#info-form").submit(); // 모든 검사가 통과되면 제출
+	    });
+
+
 	});	
 </script>
 </body>
