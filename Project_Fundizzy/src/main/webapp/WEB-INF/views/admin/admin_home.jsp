@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fundizy 로그인</title>
+    <title>Fundizy 관리자 페이지</title>
     <script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
@@ -151,6 +151,10 @@
 	            <li>게시물 관리</li>
 	            <li>댓글 관리</li>
 	        </ul>
+	        <div class="menu" onclick="location.href='adminLogout'">
+	        	로그아웃
+	        </div>
+	        
 	    </div>
 	    <div class="content">
 	        <div class="box">

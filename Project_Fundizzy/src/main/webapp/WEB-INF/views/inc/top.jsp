@@ -110,7 +110,7 @@
 					</c:when>
 					<c:otherwise> <%-- 로그인 한 사용자일 경우 --%>
 					    <a href="NotificationBoard"><img class="bell" src="/resources/images/bell.png"></a>
-						<a href="SupporterPage" class="top-items">${sessionScope.sId}</a> 님 | 
+						<a href="SupporterPage" class="top-items">${member.nickname}</a> 님 | 
 						<a href="javascript:void(0)" onclick="logout()">로그아웃</a>
 					</c:otherwise>
 				</c:choose>
