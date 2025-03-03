@@ -152,5 +152,96 @@ article input[type=button]:hover {
 	margin-top: 30px;
 }
 
+/* 여기서 부턴 모달창 관련 css */
+.account_modal {
+	margin-top: 10px;
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
 
+.account_content {
+    background-color: #fff;
+    margin: 10% 38%; 
+    padding: 9px;
+    border: 1px solid #888;
+    width: 580px; 
+    height: 340px; 
+    overflow-y: auto;
+    text-align: center;
+}
+.top {
+    display: flex;
+    justify-content: space-between; /* 제목과 버튼을 양쪽 끝으로 정렬 */
+    align-items: center; /* 수직 정렬 */
+    margin-top: 16px;
+    margin-bottom: 12px;
+}
+
+.subject {
+    font-weight: bold;
+    font-size: 25px;
+    text-align: center;
+    margin-left: 21px;
+}
+
+.x {
+    border: none;
+    background-color: white;
+    font-size: 30px;
+    cursor: pointer; /* 버튼 클릭 가능하도록 설정 */
+    margin-bottom: 6px;
+    margin-right: 17px;
+}
+
+/* 안내 문구 스타일 */
+.top b:last-child {
+    font-size: 16px; /* 기본 크기로 유지 */
+    font-weight: normal;
+    display: block; /* 줄바꿈 적용 */
+    margin-top: 5px; /* 제목과 간격 조정 */
+}
+
+.support_content p{
+	text-align: left;
+	padding-left: 20px;
+}
+.account_list_table table{
+	margin-top: 25px;
+	margin-bottom: 25px;
+	margin-left: 25px;
+	margin-right: 25px;
+	border: 1px solid black;
+}
+
+.account_list_table {
+  border-collapse: collapse; /* 테두리가 겹치지 않도록 설정 */
+}
+
+.account_list_table th,
+.account_list_table td {
+  border: 1px solid black;
+}
+
+.support_content #supportContent{
+	margin-bottom: 5px;
+	width: 90%;
+	height: 30px;
+	font-size: 17px;
+	padding: 9px;
+	padding-left: 12px;
+}
+.support_content .support-submit{
+	margin-top: 12px;
+	margin-bottom: 12px;
+	width: 95%;
+	height: 50px;
+	font-size: 17px;
+}
 

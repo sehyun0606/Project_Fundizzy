@@ -306,3 +306,122 @@ body {
    font-size: 0.8em;
 
 }
+/* 여기서 부턴 모달창 관련 css */
+.support_modal {
+	margin-top: 10px;
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.support_content {
+    background-color: #fff;
+    margin: 10% 38%; 
+    padding: 9px;
+    border: 1px solid #888;
+    width: 580px; 
+    height: 340px; 
+    overflow-y: auto;
+    text-align: center;
+}
+.top {
+    display: flex;
+    justify-content: space-between; /* 제목과 버튼을 양쪽 끝으로 정렬 */
+    align-items: center; /* 수직 정렬 */
+    margin-top: 16px;
+    margin-bottom: 12px;
+}
+
+.subject {
+    font-weight: bold;
+    font-size: 25px;
+    text-align: center;
+    margin-left: 21px;
+}
+
+.x {
+    border: none;
+    background-color: white;
+    font-size: 30px;
+    cursor: pointer; /* 버튼 클릭 가능하도록 설정 */
+    margin-bottom: 6px;
+    margin-right: 17px;
+}
+
+/* 안내 문구 스타일 */
+.top b:last-child {
+    font-size: 16px; /* 기본 크기로 유지 */
+    font-weight: normal;
+    display: block; /* 줄바꿈 적용 */
+    margin-top: 5px; /* 제목과 간격 조정 */
+}
+
+
+.support_content > .keyword-info {
+    font-size: 14px;      /* 글자 크기 */
+    color: #555;         /* 글자 색상 */
+    margin-bottom: 10px; /* 아래쪽 여백 */
+    display: block;      /* 블록 요소로 변경 */
+}
+.support_content p{
+	text-align: left;
+	padding-left: 20px;
+}
+.btn-support-list{
+	margin-top: 25px;
+	margin-bottom: 25px;
+}
+.btn-support-list button{
+	border: 1px solid black;
+	background-color: white;
+	font-size: 17px;
+	border-radius: 5px;
+	padding: 7px 14px; /* 내부 여백 추가 (가독성 향상) */
+	margin-left: 2px;
+	margin-right: 2px;
+    cursor: pointer; /* 버튼 클릭 가능하도록 설정 */
+    transition: border 0.2s ease-in-out;
+}
+.btn-support-list button:hover{
+	background-color: #e2c8ff;
+	border: none;
+}
+.btn-support-list button.selected {
+    border: 1px solid #bb7dff;
+  	color: #bb7dff;
+}
+/* .support_content div { */
+/* 	text-align: center; */
+/* 	margin-bottom: 10px; */
+/* } */
+
+.support_content #supportContent{
+	margin-bottom: 5px;
+	width: 90%;
+	height: 30px;
+	font-size: 17px;
+	padding: 9px;
+	padding-left: 12px;
+}
+.support_content .support-submit{
+	margin-top: 12px;
+	margin-bottom: 12px;
+	width: 95%;
+	height: 50px;
+	font-size: 17px;
+}
+.support-submit{
+	background-color: #9370db;
+    color: white;
+    border: none;
+    padding: 13px 15px 13px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+	
+}

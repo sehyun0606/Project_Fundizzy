@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <!-- js파일 로드 script -->
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-  <script src="${pageContext.request.contextPath}/resources/js/merch/fund_board_story.js"></script>
+  <script src="${pageContext.request.contextPath}/resources/js/merch/funding/fund_board_story.js"></script>
 <!--   지지서명 아이콘 관련 script -->
   <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 </head>
@@ -225,7 +225,7 @@
 	</article>
 	<div class="support_modal" id="support_modal">
 		<form action="SupportSignature" method="POST" class="support_content">
-			<input type="hidden" id="project_code" name="project_code" value="000001">
+			<input type="hidden" id="project_code" name="project_code" value="83652PRO01">
 			<input type="hidden" id="sessionUserEmail" name="email" value="${sessionScope.sId}">
 			
 			<div class="top">

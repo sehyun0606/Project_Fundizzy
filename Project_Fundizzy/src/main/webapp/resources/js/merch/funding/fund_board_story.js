@@ -3,15 +3,6 @@ $(function(){
 	$("#btn-like").click(function(){
 		console.log("like")
 	});
-////	지지서명 클릭시
-//	$("#btn-support").click(function(){
-//		console.log("support")
-//		$(".support_modal").css("display","block");
-//	});
-////	x누르면 창 닫히도록
-//	$(".x").click(function(){
-//		location.reload();
-//	});
 
 $(document).ready(function(){
     console.log("jQuery 로드됨!"); 

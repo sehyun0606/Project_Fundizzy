@@ -6,6 +6,9 @@
 <meta charset="UTF-8">
 <title>환불정책</title>
 <link rel="stylesheet" type="text/css" href="resources/css/merch/funding/fund_board_refund.css">
+<!-- js파일 로드 script -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script src="${pageContext.request.contextPath}/resources/js/merch/funding/fund_board_refund.js"></script>
 </head>
 <body>
 	<header>
@@ -59,10 +62,10 @@
                 </div>
                 <p><strong>139</strong>명 참여</p>
                 <p><strong>50,000</strong>원 달성</p>
-                <div class="btn-group">
-                   <button class="btn-small">♡찜</button>
-                   <button class="btn-small">지지</button>
-                   <button class="purchase-btn">펀딩하기</button>
+ 				<div class="btn-group">
+                   <button class="btn-small" id="btn-like"><i class="fa fa-heart" style="font-size:24px"></i>찜</button>
+                   <button class="btn-small" id="btn-support"><i class='far fa-handshake' style='font-size:24px'></i>지지</button>
+                   <button class="purchase-btn" onclick="location.href='PaymentReward'">펀딩하기</button>
                 </div>
             </div>
             <div class="project-info">
@@ -81,10 +84,10 @@
                     <img src="reward2.jpg" alt="리워드 2">
                     <img src="reward3.jpg" alt="리워드 3">
                 </div>
-                <div class="btn-group">
-                   <button class="btn-small">♡ 찜</button>
-                   <button class="btn-small">지지</button>
-                   <button class="purchase-btn">펀딩하기</button>
+  				<div class="btn-group">
+                   <button class="btn-small" id="btn-like"><i class="fa fa-heart" style="font-size:24px"></i>찜</button>
+                   <button class="btn-small" id="btn-support"><i class='far fa-handshake' style='font-size:24px'></i>지지</button>
+                   <button class="purchase-btn" onclick="location.href='PaymentReward'">펀딩하기</button>
                 </div>
             </div>
         </div>

@@ -34,6 +34,10 @@ public class Bankservice {
 	public BankToken getBankAccessTokenInfo(String email) {
 		return mapper.selectTokenInfo(email);
 	}
+	public Map<String, Object> getBankUserInfo(BankToken bankToken) {
+		// TODO Auto-generated method stub
+		return bankApiClient.requestBankUserInfo(bankToken);
+	}
 	
 
 }

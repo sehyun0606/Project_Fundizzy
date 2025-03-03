@@ -3,11 +3,22 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.itwillbs.project_fundizzy.mapper.FundMapper">
+<!--   	지지서명 조회 후 목록 출력 -->
   	<select id="selectSupportList" resultType="map">
-  		SELECT *
-  		FROM support
+  		SELECT
+		s.support_num, 
+	    s.support_content, 
+	    s.support_tag, 
+	    s.support_date,
+	    s.email,   
+  		p.project_code,
+  		m.maker_email
+  		FROM support s
+  		JOIN project_list p ON p.project_code = s.project_code
+  		JOIN maker_info m ON m.project_code = s.project_code
   	</select>
   	
+<!--   	지지서명 등록  -->
 	<insert id="insertSupportSignature">
 		<selectKey keyProperty="support_num" resultType="int" order="BEFORE">
 		    SELECT IFNULL(MAX(support_num), 0)
@@ -29,8 +40,31 @@
 	 		NOW()
 	 	)
 	</insert>
-  
-  
+	
+<!-- 	지지서명 댓글 등록 -->
+	<insert id="insertSupportReply">
+		<selectKey  keyProperty="reply_num" resultType="int" order="BEFORE">
+			SELECT IFNULL(MAX(reply_num),0)
+			FROM reply
+		</selectKey>
+		INSERT INTO reply
+		VALUES(
+				#{reply_num} + 1,
+			    #{project_code},              
+			    #{maker_email} ,         
+			    #{reply_content}, 
+			    NOW() , 
+			    #{support_num},
+			    #{reply_writer_ip},    
+			    0 
+		)
+	</insert>
+	<select id="selectReplyList" resultType="map">
+		SELECT reply_content, maker_email, reply_date
+		FROM reply
+		WHERE project_code = "83652PRO01";
+	</select>
+
   
   
   

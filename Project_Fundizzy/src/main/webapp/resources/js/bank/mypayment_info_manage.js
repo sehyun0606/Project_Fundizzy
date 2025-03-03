@@ -14,4 +14,14 @@ $(function(){
 								+ "&auth_type=0";
 	});
 	
+	$("#add_button").on("click", function(){
+//		계좌 리스트 출력 및 등록 가능하도록 
+		 $(".account_modal").css("display", "block");
+	});
+	
+	$(".x").click(function(){
+		$(".account_modal").css("display", "none");
+	});
+	
+	
 });

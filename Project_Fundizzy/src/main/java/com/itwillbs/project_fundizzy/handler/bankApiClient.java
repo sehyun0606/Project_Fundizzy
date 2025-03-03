@@ -1,8 +1,10 @@
 package com.itwillbs.project_fundizzy.handler;
 
+import java.net.URI;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -12,6 +14,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.server.session.HeaderWebSessionIdResolver;
+import org.springframework.web.servlet.function.ServerRequest.Headers;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import com.itwillbs.project_fundizzy.vo.BankToken;
 
@@ -66,5 +71,38 @@ public class bankApiClient {
 		log.info("토큰발급 요청 응답데이터의 body = " + response.getBody());
 		return response.getBody();
 	}
+	
+	//계좌 목록 
+	public Map<String, Object> requestBankUserInfo(BankToken bankToken) {
+	    URI uri = UriComponentsBuilder
+	            .fromUriString(base_url)
+	            .path("/v2.0/user/me")
+	            .queryParam("user_seq_no", bankToken.getUser_seq_no())
+	            .encode()
+	            .build()
+	            .toUri();
+	      
+	      HttpHeaders headers = new HttpHeaders();
+	      // 1) HttpHeaders 객체의 add() 메서드로 엑세스토큰 정보 추가(일반적인 헤더 추가 방법)
+	      //    => 속성값 전달 시 "Bearer" 문자열과 공백 1개와 엑세스토큰 결합하여 전달
+	      headers.add("Authorization", "Bearer " + bankToken.getAccess_token());
+	      System.out.println(">>>>> API 요청 URL: " + uri.toString());
+	      System.out.println(">>>>> 요청 헤더: " + headers);
 
+	      // HTTP 요청에 사용될 헤더 정보를 관리할 HttpEntity 객체 생성
+	      // => 파라미터 : HTTP Body 정보 객체, HTTP Header 정보 객체
+	      // => 제네릭타입은 전달할 body 에 대한 타입 지정
+	      HttpEntity<String> requestEntity = new HttpEntity<String>(headers);
+	      System.out.println("요청정보 = " + requestEntity);
+	      RestTemplate restTemplate = new RestTemplate();
+	      
+	      ParameterizedTypeReference<Map<String, Object>> responseType = new ParameterizedTypeReference<Map<String,Object>>() {};
+	      ResponseEntity<Map<String, Object>> response = restTemplate.exchange( uri,
+	                        HttpMethod.GET,
+	                        requestEntity,
+	                        responseType
+	                     );
+	      System.out.println(">>>>> 사용자 정보조회 요청 응답데이터의 body : " + response.getBody());
+	  	return response.getBody();
+	}
 }

@@ -22,5 +22,17 @@ public class FundService {
 		// TODO Auto-generated method stub
 		return mapper.insertSupportSignature(project_code, email, supportContent, supportKeyword);
 	}
+	public int registSupportReply(Map<String, String> map) {
+		// TODO Auto-generated method stub
+		return mapper.insertSupportReply(map);
+	}
+	public List<Map<String, Object>> getReplyList(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return mapper.selectReplyList(map);
+	}
+	
+	
+	
+	
 
 }
