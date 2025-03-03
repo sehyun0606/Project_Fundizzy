@@ -1,5 +1,6 @@
 package com.itwillbs.project_fundizzy.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.itwillbs.project_fundizzy.mapper.ProjectMakerMapper;
 import com.itwillbs.project_fundizzy.vo.ProjectInfoVO;
+import com.itwillbs.project_fundizzy.vo.RewardVO;
 
 @Service
 public class ProjectMakerService {
@@ -35,6 +37,16 @@ public class ProjectMakerService {
 	//프로젝트 정보 저장
 	public void registProjectInfo(ProjectInfoVO projectInfo) {
 		makerMapper.insertProjcetInfo(projectInfo);
+	}
+	
+	//프로젝트 리워드 저장
+	public void registReward(RewardVO reward) {
+		makerMapper.insertReward(reward);
+	}
+
+	//리워드 불러오기
+	public List<RewardVO> getReward(String projectCode) {
+		return makerMapper.selectReward(projectCode);
 	}
 	
 

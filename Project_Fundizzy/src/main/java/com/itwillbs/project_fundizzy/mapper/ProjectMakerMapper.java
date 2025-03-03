@@ -1,11 +1,13 @@
 package com.itwillbs.project_fundizzy.mapper;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.itwillbs.project_fundizzy.vo.ProjectInfoVO;
+import com.itwillbs.project_fundizzy.vo.RewardVO;
 
 @Mapper
 public interface ProjectMakerMapper {
@@ -21,6 +23,10 @@ public interface ProjectMakerMapper {
 	String selectServiceType(String projectCode);
 
 	void insertProjcetInfo(ProjectInfoVO projectInfo);
+
+	void insertReward(RewardVO reward);
+
+	List<RewardVO> selectReward(String projectCode);
 
 
 }

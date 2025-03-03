@@ -67,6 +67,32 @@
 		)
 		
 	</insert>
+	
+	
+	<insert id="insertReward">
+		<selectKey keyProperty="reward_code" resultType="int" order="BEFORE">
+ 			SELECT IFNULL(MAX(reward_code),0)
+ 			FROM reward;
+ 		</selectKey>
+		INSERT
+		INTO reward
+		VALUES (
+			#{project_code},
+			#{reward_code},
+			#{product_name},
+			#{product_desc},
+			#{price},
+			#{product_limit},
+			#{delivery_fee}
+		)
+	</insert>
+	
+	<select id="selectReward" resultType="Reward">
+		SELECT *
+		FROM reward
+		WHERE project_code = #{projectCode}
+	</select>
+	
 </mapper>
 
 

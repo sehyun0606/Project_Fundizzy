@@ -25,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.itwillbs.project_fundizzy.service.ProjectMakerService;
 import com.itwillbs.project_fundizzy.vo.ProjectInfoVO;
+import com.itwillbs.project_fundizzy.vo.RewardVO;
 
 @Controller
 public class ProjectMakerController {
@@ -146,11 +147,6 @@ public class ProjectMakerController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		
-		
-		
-		
 		return "redirect:/ProjectMaker";
 	}
 	
@@ -159,11 +155,36 @@ public class ProjectMakerController {
 		
 		return "project/projectMaker/project_story";
 	}
+	
+	//리워드 설정 페이지
 	@GetMapping("ProjectReward")
-	public String projectReward() {
+	public String projectReward(HttpSession session, Model model) {
+		
+		String projectCode =  (String)session.getAttribute("project_code");
+		
+		List<RewardVO> rewardList = projectMakerService.getReward(projectCode);
+		
+		model.addAttribute("rewardList", rewardList);
 		
 		return "project/projectMaker/project_reward";
 	}
+	
+	//리워드 저장하기
+	@PostMapping("ProjectReward")
+	public String registReward(RewardVO reward, HttpSession session) {
+		
+		String projectCode =  (String)session.getAttribute("project_code");
+		
+		reward.setProject_code(projectCode);
+		
+		
+		projectMakerService.registReward(reward);
+		
+		
+		return "redirect:/ProjectReward";
+	}
+	
+	
 	@GetMapping("MakerInfo")
 	public String makerInfo() {
 		return "project/projectMaker/maker_info";
