@@ -1,0 +1,45 @@
+@charset "UTF-8";
+.makeNewsBtn {
+	background-color: mediumpurple;
+	color: #fff;
+	border: none;
+	border-radius: 3px;
+	padding: 12px 100px;
+	font-size: 16px;
+	letter-spacing: -0.5px;
+	margin: 30px 0;
+}
+.list-container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 10px 0 15px 0;
+	border-bottom: 1px solid #ddd;
+}
+
+.list-container:last-child {
+	border-bottom: none;
+}
+
+.list-title {
+	
+}
+
+.btn-container {
+	display: flex;
+    gap: 10px;
+}
+
+.modifyBtn, .deleteBtn {
+	border: 1px solid #ddd;
+    background-color: #fff;
+    padding: 7px 12px;
+    border-radius: 2px;
+    color: #757575;
+}
+
+
+
+
+
+

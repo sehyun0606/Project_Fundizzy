@@ -112,7 +112,7 @@
             </div>
         </div>
         <div class="menu-item">
-        <span class="menu-title">새소식</span>
+        	<span class="menu-title"><a href="newsList">새소식</a></span>
         </div>
         <div class="menu-item">
         	<span class="menu-title">프로젝트 부스팅</span>

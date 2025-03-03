@@ -39,6 +39,13 @@
 					</div>
 				</div>
 				<div class="state">
+					<div class="subtitle">지지서명 참여자수</div>
+					<div class="item-container">
+						<span class="item">66</span>
+						<span class="unit">명</span>
+					</div>
+				</div>
+				<div class="state">
 					<div class="subtitle">남은 기간</div>
 					<div class="item-container">
 						<span class="item">0</span>
