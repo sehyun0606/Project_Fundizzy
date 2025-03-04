@@ -22,13 +22,25 @@ public class FundService {
 		// TODO Auto-generated method stub
 		return mapper.insertSupportSignature(project_code, email, supportContent, supportKeyword);
 	}
+	//지지서명 댓글 출력
+	public List<Map<String, Object>> getReplyList(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return mapper.selectReplyList(map);
+	}
+	//지지서명 댓글 등록
 	public int registSupportReply(Map<String, String> map) {
 		// TODO Auto-generated method stub
 		return mapper.insertSupportReply(map);
 	}
-	public List<Map<String, Object>> getReplyList(Map<String, Object> map) {
+	//지지서명 댓글 삭제
+	public int removeSupportReply(Map<String, Object> map) {
 		// TODO Auto-generated method stub
-		return mapper.selectReplyList(map);
+		return mapper.deleteSupportReply(map);
+	}
+	//지지서명 댓글 작성자 ip가져오기
+	public Object getReplyWriter(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return mapper.selectReplyWriter(map);
 	}
 	
 	

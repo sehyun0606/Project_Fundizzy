@@ -1,5 +1,6 @@
-//왼쪽 지지서명 댓글 보여주기 & 숨기기
+//왼쪽 
 $(function(){
+	//지지서명 댓글 보여주기 & 숨기기
 	$(".reply-show").on("click", function(){
 	 let replyWrite = document.querySelector(".reply-write");
             if (replyWrite.style.display === "none" || replyWrite.style.display === "") {
@@ -14,6 +15,25 @@ $(function(){
                 replyList.style.display = "none"; 
             }
 	});
+	//지지서명 댓글 삭제
+	function supportReplyDelete(reply_num) {
+		if(confirm("댓글을 삭제하시겠습니까?")){
+			$.ajax({
+				type : "GET",
+				url : "SupportReplyDelete",
+				data : {
+					reply_num
+				},
+				dataType: "JSON"
+			}).done(function(response){
+				console.log()
+			})
+			
+		} //if 
+			
+		
+		
+	}
 	
 });
 

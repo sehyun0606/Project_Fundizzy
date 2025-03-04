@@ -100,21 +100,31 @@ article input[type=button]:hover {
 	font-size: 16px;
 }
 
-.bankName, .companyName {
-	display: inline-block;
-	font-size: 20px;
+.accountHeader{
+    display: flex;
+    flex-direction: column; /* 세로 정렬 */
+    align-items: center; /* (선택 사항) 가운데 정렬 */
+}
+
+.bankName {
+	display: flex;
+	font-size: 19px;
 }
 
 .bankName img {
-	width: 30px;
+	width: 24px;
+	height: 24px;
 	vertical-align: bottom;
+	margin-right: 5px;
 }
+	
 
 .delete {
 	font-size: 18px;
 	display: inline-block;
 	opacity: 0.7;
 	cursor: pointer;
+	margin-top: 20px;
 }
 
 .delete:hover {
@@ -168,11 +178,11 @@ article input[type=button]:hover {
 
 .account_content {
     background-color: #fff;
-    margin: 10% 38%; 
+    margin: 9% 29%; 
     padding: 9px;
     border: 1px solid #888;
-    width: 580px; 
-    height: 340px; 
+    width: 800px; 
+    height: 360px; 
     overflow-y: auto;
     text-align: center;
 }

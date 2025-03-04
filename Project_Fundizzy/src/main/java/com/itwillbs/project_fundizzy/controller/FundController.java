@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.JsonObject;
 import com.itwillbs.project_fundizzy.service.FundService;
 
 
@@ -91,10 +93,11 @@ public class FundController {
 		return "redirect:/FundBoardSupport";
 	}
 	
-	//fund 지지서명 - 댓글기능 
+	//fund 지지서명 - 댓글 작성 기능 
 	@PostMapping("SupportReply")
 	public String supportReply(@RequestParam Map<String, String> map, HttpSession session, Model model, 
 			HttpServletRequest request) {
+		//지지서명 출력 
 		List<Map<String, Object>> supportList = fundService.getSupportList();
 		//세션에 있는 아이디 저장 
 		String maker_email = (String) session.getAttribute("sId");
@@ -111,6 +114,34 @@ public class FundController {
 			model.addAttribute("supportList", supportList);
 		}
 		return "redirect:/FundBoardSupport";
+	}
+	
+	//지지서명 - 댓글 삭제 기능
+	@ResponseBody
+	@GetMapping("SupportReplyDelete")
+	public String supportReplyDelete(@RequestParam Map<String, Object> map, HttpSession session, Model model,
+			HttpServletRequest request, @RequestParam Map<String, Object> responseMap) {
+		//지지서명 출력 
+		String maker_email = (String)session.getAttribute("sId");
+		System.out.println("maker_email = " + maker_email);
+		if(maker_email == null) {
+			responseMap.put("invalidSession", true);
+		}else {
+			map.put("reply_writer", maker_email);
+			//댓글 작성자와 현재 세션에 로그인 된 아이디가 일치 하지 않을경우
+			if(!maker_email.equals(map.get("reply_writer")) && fundService.getReplyWriter(map) == null) {
+				responseMap.put("invalidSession", true);
+				} else {
+					int count = fundService.removeSupportReply(map);
+					if(count > 0) {
+						System.out.println("댓글 삭제 성공");
+					}
+					responseMap.put("result", true);
+			}
+		}
+		JSONObject jo = new JSONObject(responseMap);
+		
+		return jo.toString();
 	}
 	//fund 서포터
 	@GetMapping("FundBoardSupporter")

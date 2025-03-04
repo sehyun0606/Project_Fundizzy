@@ -59,12 +59,25 @@
 			    0 
 		)
 	</insert>
+<!-- 	지지서명 댓글 목록 출력 -->
 	<select id="selectReplyList" resultType="map">
 		SELECT reply_content, maker_email, reply_date
 		FROM reply
 		WHERE project_code = "83652PRO01";
 	</select>
-
+<!-- 	지지서명 댓글 삭제 -->
+	<delete id="deleteSupportReply">
+		DELETE
+		FROM reply
+		WHERE 
+	</delete>
+<!-- 	지지서명 댓글 작성자 출력 -->
+<!-- 어짜피 댓글 작성자는 프로젝트코드 판매자 한명이라서 프로젝트 코드로 조건 걸었음 -->
+	<select id="selectReplyWriter" resultType="map">
+		SELECT reply_writer
+		FROM reply
+		WHERE project_code  = "83652PRO01";
+	</select>
   
   
   

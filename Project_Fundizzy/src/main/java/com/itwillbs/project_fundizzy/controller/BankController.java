@@ -31,14 +31,17 @@ public class BankController {
 		BankToken bankToken = (BankToken) session.getAttribute("token");
 		System.out.println("토큰 정보 = " + bankToken);
 		
-		Map<String, Object> bankUserInfo = bankservice.getBankUserInfo(bankToken);
-		System.out.println("API 응답 데이터: " + bankUserInfo);
-		System.out.println("rsp code 출력 == " + bankUserInfo.get("rsp_Code"));
+		if(bankToken != null) {
+			Map<String, Object> bankUserInfo = bankservice.getBankUserInfo(bankToken);
+			System.out.println("API 응답 데이터: " + bankUserInfo);
+			System.out.println("rsp code 출력 == " + bankUserInfo.get("rsp_Code"));
+			model.addAttribute("bankUserInfo", bankUserInfo);
+		}
+			
 //		if(!bankUserInfo.get("rsp_code").equals("A0000")) {
 //			model.addAttribute("msg", "요청처리과정에서 오류발생 \\n" + bankUserInfo.get("rsp_message"));
 //			return "result/fail";
 //		}
-		model.addAttribute("bankUserInfo", bankUserInfo);
 		return "bank/mypayment_info_manage";
 	}
 	
@@ -59,6 +62,7 @@ public class BankController {
 		}
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("email", session.getAttribute("sId"));
+		System.out.println(session.getAttribute("sId"));
 		map.put("token", token);
 		bankservice.registAccessToken(map);
 		
@@ -69,16 +73,40 @@ public class BankController {
 		
 		return "result/success";
 	}
+	
 	//계좌 등록 버튼 누르면 ManageMyPaymentInfo에 뜨도록 
 	@PostMapping("BankAccountRegist")
-	public String bankAccountRegist(HttpSession session ,Model model) {
+	public String bankAccountRegist(HttpSession session ,Model model,  
+			@RequestParam("account_alias") String accountAlias,
+	        @RequestParam("bank_name") String bankName,
+	        @RequestParam("account_num_masked") String accountNumMasked,
+	        @RequestParam("account_holder_name") String accountHolderName,
+	        @RequestParam("fintech_use_num") String fintechUseNum) {
+		
+		//토큰 정보와 사용자 정보 가져오기
 		BankToken bankToken = (BankToken) session.getAttribute("token");
 		Map<String, Object> bankUserInfo = bankservice.getBankUserInfo(bankToken);
 		System.out.println("API 응답 데이터: " + bankUserInfo);
-		System.out.println("rsp code 출력 == " + bankUserInfo.get("rsp_Code"));
+		
+		//선택된 항목의 정보 넣기 
+		Map<String, Object> selected = new HashMap<String, Object>();
+		selected.put("account_alias", accountAlias);
+		selected.put("bank_name", bankName);
+		selected.put("account_num_masked", accountNumMasked);
+		selected.put("account_holder_name", accountHolderName);
+		selected.put("fintech_use_num", fintechUseNum);
+		
+		//model을 통해 전달
+		model.addAttribute("selected", selected);	
 		model.addAttribute("bankUserInfo", bankUserInfo);
 		return "bank/mypayment_info_manage";
 	}
 	
+	//등록된 계좌 삭제 
+	@GetMapping("BankAccountRemove")
+	public String bankAccountRemove() {
+		
+		return "redirect:/MypaymentInfoManage";
+	}
 }
  

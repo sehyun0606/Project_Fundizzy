@@ -76,7 +76,7 @@
 								            <td class="replyContent">${reply.reply_content}</td>
 								            <td class="replyWriter">${reply.maker_email}</td>
 								            <td class="replyRegDate"><fmt:formatDate value="${reply.reply_date}" pattern="yyyy-MM-dd"/></td>
-								            <a href=""><img src="${pageContext.request.contextPath }/resources/images/fund/delete-icon.png" title="댓글삭제"></a>
+								            <a href="javascript:supportReplyDelete(${reply.reply_num})"><img src="${pageContext.request.contextPath }/resources/images/fund/delete-icon.png" title="댓글삭제"></a>
 								        </tr>
 								    </c:forEach>
 				        		</table>
