@@ -8,13 +8,116 @@
 	font-size: 16px;
 	letter-spacing: -0.5px;
 	margin: 30px 0;
+	cursor: pointer;
 }
+
+.modal {
+/* 	display: none; */
+	display: block;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 100%;
+	max-width: 100%;
+	height: 100%;
+	max-height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	border: 2px solid grey;
+	border-radius: 5px;
+	z-index: 1; 
+}
+
+.modal_content {
+/* 	display: none; */
+	display: block;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: white;
+	width: 600px;
+	height: 700px;
+	padding: 40px;
+	border-radius: 5px;
+	overflow-y: auto;
+}
+
+.modal_close {
+	position: absolute;
+	z-index: 9999;
+	width: 30px;
+	height: 30px;
+	font-size: 20px;
+	text-align: center;
+	top: 10px;
+	right: 10px;
+	cursor: pointer;
+}
+
+h1 {
+	padding-bottom: 30px;
+}
+
+.news-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 20px;
+}
+.news-container input[type=text] {
+	width: 100%;
+	padding: 10px;
+}
+
+.news-container textarea {
+	width: 100%;
+	height: 300px;
+	overflow-y: auto;
+	resize: none;
+	padding: 10px;
+	outline: none;
+}
+
+.news-container .btn-container {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 10px;
+    margin-top: 30px;
+    width: 100%;
+}
+
+.news-container input[type=button] {
+	width: 100%;
+    padding: 10px;
+/*     border: none; */
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    outline: none;
+}
+
+.saveBtn {
+	background-color: #fff;
+	border: 1px solid #353535;
+}
+
+.postBtn {
+    border: none;
+	background-color: mediumpurple;
+	color: #fff;
+	
+}
+
 .list-container {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	padding: 10px 0 15px 0;
 	border-bottom: 1px solid #ddd;
+	width: 1000px;
 }
 
 .list-container:last-child {
@@ -25,7 +128,7 @@
 	
 }
 
-.btn-container {
+.list-container .btn-container {
 	display: flex;
     gap: 10px;
 }
@@ -36,9 +139,42 @@
     padding: 7px 12px;
     border-radius: 2px;
     color: #757575;
+    cursor: pointer;
 }
 
+/* 전체 스크롤바 스타일 */
+textarea::-webkit-scrollbar {
+    width: 8px; /* 스크롤바 너비 */
+    height: 8px; /* 가로 스크롤바 높이 */
+    cursor: default;
+}
 
+/* 스크롤바 트랙 (배경) 스타일 */
+textarea::-webkit-scrollbar-track {
+    background: #f5f5f5; /* 트랙의 배경색 */
+    border-radius: 10px; /* 둥근 모서리 */
+    cursor: default;
+}
+
+/* 스크롤바 슬라이더 (thumb) 스타일 */
+textarea::-webkit-scrollbar-thumb {
+    background: #ccc; /* 슬라이더의 색상 */
+    border-radius: 10px; /* 둥근 모서리 */
+    border: 2px solid #f5f5f5; /* 슬라이더와 트랙 사이 여백 */
+    cursor: default;
+}
+
+/* 스크롤바 슬라이더에 마우스를 올렸을 때 스타일 */
+textarea::-webkit-scrollbar-thumb:hover {
+    background: #999; /* 슬라이더 색상 변화 */
+    cursor: default;
+}
+
+/* 스크롤바 슬라이더를 클릭 중일 때 스타일 */
+textarea::-webkit-scrollbar-thumb:active {
+    background: #666; /* 슬라이더 색상 변화 */
+    cursor: default;
+}
 
 
 
