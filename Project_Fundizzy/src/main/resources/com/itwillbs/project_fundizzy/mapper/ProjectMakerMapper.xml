@@ -109,9 +109,15 @@
 		WHERE project_code = #{projectCode}
 	</select>
 	
-	<select id="selectProjectInfo" resultType="MakerInfo">
+	<select id="selectMakerInfo" resultType="MakerInfo">
 		SELECT *
 		FROM maker_info
+		WHERE project_code = #{project_code}
+	</select>
+	
+	<select id="selectProjcetInfo" resultType="ProjectInfo">
+		SELECT *
+		FROM project_info
 		WHERE project_code = #{project_code}
 	</select>
 	

@@ -23,7 +23,7 @@
 	    		<button class="side-button" type="submit" onclick="location.href='ProjectMaker'"> 제출하기</button>
 	    	</div>
 	        <label for="maker-name">메이커 명</label>
-	        <input type="text" id="maker-name" name="maker_name" placeholder="메이커 명을 입력해 주세요" value="${projectInfo.maker_name}">
+	        <input type="text" id="maker-name" name="maker_name" placeholder="메이커 명을 입력해 주세요" value="${makerInfo.maker_name}">
 	
 	        <small>40자 제한</small>
 	
@@ -33,15 +33,15 @@
 	        <img id="previewImage" class="preview" src="" alt="미리보기" style="display:none;">
 	
 	        <label for="email">문의 이메일</label>
-	        <input type="email" id="email" name="maker_email" placeholder="이메일을 입력해 주세요">
+	        <input type="email" id="email" name="maker_email" placeholder="이메일을 입력해 주세요" value="${makerInfo.maker_email}">
 	
 	        <label for="phone">문의 전화번호</label>
-	        <input type="tel" id="phone" name="maker_phone" placeholder=" - 를 포함하여 전화번호 입력">
+	        <input type="tel" id="phone" name="maker_phone" placeholder=" - 를 포함하여 전화번호 입력" value="${makerInfo.maker_phone}">
 	
 	        <label>SNS(선택)</label>
-	        <input type="text" name="facebook_address" placeholder="facebook 주소 입력">
-	        <input type="text" name="twitter_address" placeholder="twitter 주소 입력">
-	        <input type="text" name="instagram_address" placeholder="instagram 주소 입력">
+	        <input type="text" name="facebook_address" placeholder="facebook 주소 입력" value="${makerInfo.facebook_address}">
+	        <input type="text" name="twitter_address" placeholder="twitter 주소 입력" value="${makerInfo.twitter_address}">
+	        <input type="text" name="instagram_address" placeholder="instagram 주소 입력" value="${makerInfo.instagram_address }">
 	    </form>
 	    </div>
     </div>

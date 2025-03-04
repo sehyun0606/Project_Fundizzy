@@ -71,9 +71,15 @@ public class ProjectMakerService {
 		makerMapper.updateMakerInfoConfig(projectCode);
 		makerMapper.insertMakerInfo(makerInfo);
 	}
-
-	public ProjectInfoVO getProjectInfo(String projectCode) {
-		return makerMapper.selectProjectInfo(projectCode);
+	
+	//메이커 정보 수정을 위한 불러오기 메서드
+	public MakerInfoVO getMakerInfo(String projectCode) {
+		return makerMapper.selectMakerInfo(projectCode);
+	}
+	
+	//프로젝트 정보 수정을 위한 불러오기 메서드
+	public ProjectInfoVO getProjectinfo(String project_code) {
+		return makerMapper.selectProjcetInfo(project_code);
 	}
 	
 

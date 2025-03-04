@@ -51,7 +51,7 @@
 				                <div class="progress-bar progress-complete"></div>
 				                프로젝트 정보 <span class="status">작성 완료</span>
 				            </div>
-				            <button>수정하기</button>
+				            <button onclick="location.href='ProjectInfoEdit'">수정하기</button>
 				        </div>
 		        	</c:when>
 		        	<c:otherwise>
@@ -60,7 +60,7 @@
 				                <div class="progress-bar progress-incomplete"></div>
 				                프로젝트 정보 <span class="status">작성 전</span>
 				            </div>
-				            <button>작성하기</button>
+				            <button onclick="location.href='ProjectInfo'">작성하기</button>
 				        </div>
 		        	</c:otherwise>
 		        </c:choose>

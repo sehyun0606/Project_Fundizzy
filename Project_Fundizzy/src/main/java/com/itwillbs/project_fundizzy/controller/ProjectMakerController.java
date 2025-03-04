@@ -151,6 +151,20 @@ public class ProjectMakerController {
 		return "redirect:/ProjectMaker";
 	}
 	
+	@GetMapping("ProjcetInfoEdit")
+	public String projcetInfoEdit(HttpSession session, Model model) {
+		
+		String project_code = (String)session.getAttribute("projcet_code");
+		
+		ProjectInfoVO projectInfo = projectMakerService.getProjectinfo(project_code);
+		
+		model.addAttribute("projectInfo", projectInfo);
+		
+		return "project/projectMaker/project_maker_edit";
+	}
+	
+	
+	
 	@GetMapping("ProjectStory")
 	public String projectStory(){
 		
@@ -191,6 +205,7 @@ public class ProjectMakerController {
 		return "project/projectMaker/maker_info";
 	}
 	
+	//메이커 정보 저장
 	@PostMapping("MakerInfo")
 	public String submitMakerInfo(MakerInfoVO makerInfo, HttpSession session) {
 		String projectCode = makerInfo.getProject_code();
@@ -232,17 +247,20 @@ public class ProjectMakerController {
 		return "redirect:/ProjectMaker";
 	}
 	
+	//메이커 정보 수정 폼
 	@GetMapping("MakerInfoEdit")
 	public String makerInfoEdit(HttpSession session,Model model) {
 		
 		String projectCode = (String)session.getAttribute("project_code");
 		
-		ProjectInfoVO projectInfo = projectMakerService.getProjectInfo(projectCode);
+		MakerInfoVO makerInfo = projectMakerService.getMakerInfo(projectCode);
 		
-		model.addAttribute("projectInfo", projectInfo);
+		model.addAttribute("makerInfo", makerInfo);
 		
 		return "project/projectMaker/maker_info_edit";
 	}
+	
+	
 	
 	
 	//파일 업로드 및 다운로드를 위한 유틸리티 메서드

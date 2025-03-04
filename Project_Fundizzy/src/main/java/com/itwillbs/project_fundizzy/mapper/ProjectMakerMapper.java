@@ -37,7 +37,9 @@ public interface ProjectMakerMapper {
 
 	void insertMakerInfo(MakerInfoVO makerInfo);
 
-	ProjectInfoVO selectProjectInfo(String projectCode);
+	MakerInfoVO selectMakerInfo(String projectCode);
+
+	ProjectInfoVO selectProjcetInfo(String project_code);
 
 
 }
