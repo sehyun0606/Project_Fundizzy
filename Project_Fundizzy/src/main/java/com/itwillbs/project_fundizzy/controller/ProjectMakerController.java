@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.itwillbs.project_fundizzy.service.ProjectMakerService;
+import com.itwillbs.project_fundizzy.vo.MakerInfoVO;
 import com.itwillbs.project_fundizzy.vo.ProjectInfoVO;
 import com.itwillbs.project_fundizzy.vo.RewardVO;
 
@@ -33,7 +34,7 @@ public class ProjectMakerController {
 	@Autowired
 	private ProjectMakerService projectMakerService;
 	
-	private String virtualPath = "/resources/upload";
+	private String virtualPath = "/resources/upload/";
 	
 	@GetMapping("ProjectMaker")
 	public String projectMaker(HttpSession session, Model model) {
@@ -190,6 +191,58 @@ public class ProjectMakerController {
 		return "project/projectMaker/maker_info";
 	}
 	
+	@PostMapping("MakerInfo")
+	public String submitMakerInfo(MakerInfoVO makerInfo, HttpSession session) {
+		String projectCode = makerInfo.getProject_code();
+		String realPath = getRealPath(session, virtualPath);
+		//파일 업로드되는 서브 경로
+		String subDir = projectCode + "/MakerProfile" ;
+		
+		realPath += subDir;
+		
+		//실제 파일 업로드 경로 생성
+		try {
+			Path path = Paths.get(realPath);
+			Files.createDirectory(path);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		MultipartFile registrationCardImg = makerInfo.getProfileImg();
+		
+		makerInfo.setProfile_img("");
+		
+		String registrationCardName = "";
+		
+		if(!registrationCardImg.getOriginalFilename().equals("")) {
+			registrationCardName = UUID.randomUUID().toString() + "_" + registrationCardImg.getOriginalFilename();
+			makerInfo.setProfile_img(subDir + "/" + registrationCardName);
+		}
+		projectMakerService.registMakerInfo(makerInfo);
+		
+		try {
+			if(!registrationCardImg.getOriginalFilename().equals("")) {
+				registrationCardImg.transferTo(new File(realPath,registrationCardName));
+			}
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "redirect:/ProjectMaker";
+	}
+	
+	@GetMapping("MakerInfoEdit")
+	public String makerInfoEdit(HttpSession session,Model model) {
+		
+		String projectCode = (String)session.getAttribute("project_code");
+		
+		ProjectInfoVO projectInfo = projectMakerService.getProjectInfo(projectCode);
+		
+		model.addAttribute("projectInfo", projectInfo);
+		
+		return "project/projectMaker/maker_info_edit";
+	}
 	
 	
 	//파일 업로드 및 다운로드를 위한 유틸리티 메서드

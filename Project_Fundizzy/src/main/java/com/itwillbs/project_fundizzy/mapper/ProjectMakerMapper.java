@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.itwillbs.project_fundizzy.vo.MakerInfoVO;
 import com.itwillbs.project_fundizzy.vo.ProjectInfoVO;
 import com.itwillbs.project_fundizzy.vo.RewardVO;
 
@@ -27,6 +28,16 @@ public interface ProjectMakerMapper {
 	void insertReward(RewardVO reward);
 
 	List<RewardVO> selectReward(String projectCode);
+	
+	void updateProjcetInfoConfig(String projectCode);
+
+	void updateRewardConfig(String projcetCode);
+
+	void updateMakerInfoConfig(String projectCode);
+
+	void insertMakerInfo(MakerInfoVO makerInfo);
+
+	ProjectInfoVO selectProjectInfo(String projectCode);
 
 
 }

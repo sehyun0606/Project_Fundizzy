@@ -21,11 +21,11 @@
 	        	<input type="hidden" id="adult_check" name="adult_check" value="N">
 	        	<input type="hidden" id="target_amount" name="target_amount">
 	        	<input type="hidden" id="maker_type" name="maker_type" value="individual">
-	        	<input type="file" id="file2" name="registration_card" style="display: none;">
-	        	<input type="hidden" id="business_name" name="business_name">
-	        	<input type="hidden" id="business_number" name="business_number">
-	        	<input type="hidden" id="repersentative_name" name="repersentative_name">
-	        	<input type="hidden" id="repersentative_email" name="repersentative_email">
+	        	<input type="file" id="file2" name="registrationCard" style="display: none;">
+	        	<input type="hidden" id="business_name" name="business_name" value="N">
+	        	<input type="hidden" id="business_number" name="business_number" value="N">
+	        	<input type="hidden" id="repersentative_name" name="representative_name">
+	        	<input type="hidden" id="repersentative_email" name="representative_email">
 	        </form>
 	        <!-- 카테고리 선택 -->
 		    <button class="side-button" id="submit-button" style="margin-left: 90%;"> 제출하기</button>

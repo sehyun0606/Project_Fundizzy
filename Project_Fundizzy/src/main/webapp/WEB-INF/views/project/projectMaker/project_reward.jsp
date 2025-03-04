@@ -44,7 +44,7 @@
                 <!-- 금액 입력 -->
                 <label for="amount">금액</label>
                 <div class="input-group">
-                    <input type="number" id="amount" placeholder="금액을 입력해 주세요" name="price" required="required">
+                    <input type="number" id="amount" min="1000" value="1000" placeholder="금액을 입력해 주세요" name="price" required="required">
                     <span>원</span>
                 </div>
 

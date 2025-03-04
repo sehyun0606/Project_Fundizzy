@@ -79,7 +79,7 @@
 				        <div class="task">
 				            <div class="task-title">
 				                <div class="progress-bar progress-incomplete"></div>
-				                스토리 작성 <span class="status">작성 전</span>
+				                스토리 작성 <span class="status" >작성 전</span>
 				            </div>
 				            <button>작성하기</button>
 				        </div>
@@ -90,9 +90,9 @@
 		        		<div class="task">
 				            <div class="task-title">
 				                <div class="progress-bar progress-complete"></div>
-				               	 리워드 설계 <span class="status">작성 완료</span>
+				               	 리워드 설계 <span class="status" >작성 완료</span>
 				            </div>
-		            		<button>수정하기</button>
+		            		<button  onclick="location.href='ProjectReward'">수정하기</button>
 		        		</div>
 		        	</c:when>
 		        	<c:otherwise>
@@ -101,7 +101,7 @@
 				                <div class="progress-bar progress-incomplete"></div>
 				               	 리워드 설계 <span class="status">작성 전</span>
 				            </div>
-		            		<button>작성하기</button>
+		            		<button  onclick="location.href='ProjectReward'">작성하기</button>
 		        		</div>
 		        	</c:otherwise>
 		        </c:choose>
@@ -112,7 +112,7 @@
 				                <div class="progress-bar progress-complete"></div>
 				                메이커 정보 <span class="status">작성 완료</span>
 				            </div>
-				            <button>수정하기</button>
+				            <button onclick="location.href='MakerInfoEdit'" >수정하기</button>
 				        </div>
 		        	</c:when>
 		        	<c:otherwise>
@@ -121,7 +121,7 @@
 				                <div class="progress-bar progress-incomplete"></div>
 				                메이커 정보 <span class="status">작성 전</span>
 				            </div>
-				            <button>작성하기</button>
+				            <button onclick="location.href='MakerInfo'">작성하기</button>
 				        </div>
 		        	</c:otherwise>
 		        </c:choose>

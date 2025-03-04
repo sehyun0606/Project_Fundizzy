@@ -7,6 +7,7 @@
 		<typeAlias type="com.itwillbs.project_fundizzy.vo.ProjectListVO" alias="ProjectList"/>
 		<typeAlias type="com.itwillbs.project_fundizzy.vo.BankToken" alias="bankToken"/>
 		<typeAlias type="com.itwillbs.project_fundizzy.vo.RewardVO" alias="Reward"/>
+		<typeAlias type="com.itwillbs.project_fundizzy.vo.MakerInfoVO" alias="MakerInfo"/>
 	</typeAliases>
 </configuration>
 

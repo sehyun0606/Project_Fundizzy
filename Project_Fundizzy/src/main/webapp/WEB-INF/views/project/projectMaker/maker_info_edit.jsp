@@ -15,7 +15,7 @@
 	<div class="main"> 
 		<jsp:include page="/WEB-INF/views/inc/project_maker_top.jsp"></jsp:include>
 	    <div class="container">
-    		<form action="MakerInfo" enctype="multipart/form-data" method="POST">
+    		<form action="MakerInfoEdit" enctype="multipart/form-data" method="POST">
     		<input type="hidden" name="project_code" value="${sessionScope.project_code}">
     		<input type="hidden" name="member_email" value="${sessionScope.sId}">
 	        <div class="title-section">
@@ -23,7 +23,7 @@
 	    		<button class="side-button" type="submit" onclick="location.href='ProjectMaker'"> 제출하기</button>
 	    	</div>
 	        <label for="maker-name">메이커 명</label>
-	        <input type="text" id="maker-name" name="maker_name" placeholder="메이커 명을 입력해 주세요">
+	        <input type="text" id="maker-name" name="maker_name" placeholder="메이커 명을 입력해 주세요" value="${projectInfo.maker_name}">
 	
 	        <small>40자 제한</small>
 	

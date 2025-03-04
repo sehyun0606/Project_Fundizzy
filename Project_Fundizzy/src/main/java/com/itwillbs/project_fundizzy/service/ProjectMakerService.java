@@ -5,8 +5,10 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.itwillbs.project_fundizzy.mapper.ProjectMakerMapper;
+import com.itwillbs.project_fundizzy.vo.MakerInfoVO;
 import com.itwillbs.project_fundizzy.vo.ProjectInfoVO;
 import com.itwillbs.project_fundizzy.vo.RewardVO;
 
@@ -35,18 +37,43 @@ public class ProjectMakerService {
 	}
 	
 	//프로젝트 정보 저장
+	//프로젝트 리스트에 설정 스텟 업데이트
+	@Transactional
 	public void registProjectInfo(ProjectInfoVO projectInfo) {
+		
+	 	String projectCode = projectInfo.getProject_code();
+		
+		makerMapper.updateProjcetInfoConfig(projectCode);
+		
 		makerMapper.insertProjcetInfo(projectInfo);
 	}
 	
 	//프로젝트 리워드 저장
+	@Transactional
 	public void registReward(RewardVO reward) {
+		
+		String projcetCode = reward.getProject_code();
+		
+		makerMapper.updateRewardConfig(projcetCode);
+		
 		makerMapper.insertReward(reward);
 	}
 
 	//리워드 불러오기
 	public List<RewardVO> getReward(String projectCode) {
 		return makerMapper.selectReward(projectCode);
+	}
+	
+	//메이커 정보 저장
+	@Transactional
+	public void registMakerInfo(MakerInfoVO makerInfo) {
+		String projectCode = makerInfo.getProject_code();
+		makerMapper.updateMakerInfoConfig(projectCode);
+		makerMapper.insertMakerInfo(makerInfo);
+	}
+
+	public ProjectInfoVO getProjectInfo(String projectCode) {
+		return makerMapper.selectProjectInfo(projectCode);
 	}
 	
 

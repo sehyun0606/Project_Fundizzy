@@ -51,7 +51,7 @@
 	
 	<insert id="insertProjcetInfo">
 		INSERT
-		INTO projcet_info
+		INTO project_info
 		VALUES (
 			#{project_code},
 			#{category},
@@ -87,11 +87,51 @@
 		)
 	</insert>
 	
+	<insert id="insertMakerInfo">
+		INSERT
+		INTO maker_info
+		VALUES (
+			#{project_code},
+			#{member_email},
+			#{maker_name},
+			#{maker_email},
+			#{maker_phone},
+			#{facebook_address},
+			#{twitter_address},
+			#{instagram_address},
+			#{profile_img}
+		)
+	</insert>
+	
 	<select id="selectReward" resultType="Reward">
 		SELECT *
 		FROM reward
 		WHERE project_code = #{projectCode}
 	</select>
+	
+	<select id="selectProjectInfo" resultType="MakerInfo">
+		SELECT *
+		FROM maker_info
+		WHERE project_code = #{project_code}
+	</select>
+	
+	<update id="updateProjcetInfoConfig">
+		UPDATE project_list
+		SET project_info_config = 'Y'
+		WHERE project_code = #{project_code}
+	</update>
+	
+	<update id="updateRewardConfig">
+		UPDATE project_list
+		SET reward_config = 'Y'
+		WHERE project_code = #{projcet_code};
+	</update>
+	
+	<update id="updateMakerInfoConfig">
+		UPDATE project_list
+		SET maker_config = 'Y'
+		WHERE project_code = #{projcet_code};
+	</update>
 	
 </mapper>
 
