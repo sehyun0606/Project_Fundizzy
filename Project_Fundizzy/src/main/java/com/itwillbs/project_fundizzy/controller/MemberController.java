@@ -179,6 +179,7 @@ public class MemberController {
 				
 				BankToken token = bankservice.getBankAccessTokenInfo(dbMember.get("email"));
 				session.setAttribute("token", token);
+				
 				session.setAttribute("member", dbMember);
 				
 				return "main";
