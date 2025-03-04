@@ -1,5 +1,6 @@
 package com.itwillbs.project_fundizzy.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -38,7 +39,13 @@ public class NotificationController {
 	
 	// 나의 알림 페이지로 이동
 	@GetMapping("NotificationBoard")
-	public String notificationBoard() {
+	public String notificationBoard(HttpSession session, Model model) {
+		String email = (String)session.getAttribute("sId");
+		
+		// 내 알림리스트 조회
+		List<Map<String, Object>> myNOTList = notificationService.getMyNOTList(email);
+		model.addAttribute("myNOTList", myNOTList);
+		
 		return "service/notification/my_notification_board";
 	}
 	

@@ -43,16 +43,6 @@ article {
     box-shadow: none;
 }
 
-
-#topGroup label {
-    font-size: 18px;
-    padding: 6px 15px 7px 3px;
-    border-radius: 10px;
-    cursor: pointer;
-    background-color: #9370DB;
-    color: #fff;
-}
-
 #topGroup input[type="button"] {
     font-size: 18px;
     background-color: #9370DB;
@@ -63,9 +53,12 @@ article {
     cursor: pointer;
 }
 
-#topGroup label:hover,
 #topGroup input[type="button"]:hover {
 	background-color: #8A2BE2;
+}
+
+#allCheck {
+	display: none;
 }
 
 #notificationList {
@@ -97,9 +90,8 @@ article {
     gap: 3px;
 }
 
-.notificationTitle::before {
-    content: "👤"; /* 아이콘 추가 */
-    font-size: 24px;
+.notificationTitle img {
+	width: 30px;
 }
 
 .notificationDate {
