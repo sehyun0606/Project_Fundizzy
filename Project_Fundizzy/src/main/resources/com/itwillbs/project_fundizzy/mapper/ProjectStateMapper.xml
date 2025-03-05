@@ -21,7 +21,7 @@
 		)
 	</insert>
 	
-	<select id="selectNewsList">
+	<select id="selectNewsList" resultType="news">
 		SELECT *
 		FROM news
 	</select>
