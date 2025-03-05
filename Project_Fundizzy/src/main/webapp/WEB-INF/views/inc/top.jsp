@@ -109,9 +109,18 @@
 		<!-- 				<a href="MemberJoin">회원가입</a> -->
 					</c:when>
 					<c:otherwise> <%-- 로그인 한 사용자일 경우 --%>
-					    <a href="NotificationBoard"><img class="bell" src="/resources/images/bell.png"></a>
-						<a href="SupporterPage" class="top-items">${member.nickname}</a> 님 | 
-						<a href="javascript:void(0)" onclick="logout()">로그아웃</a>
+						<c:choose>
+							<c:when test="${sessionScope.loginType == 'kakao'}">
+							    <a href="NotificationBoard"><img class="bell" src="/resources/images/bell.png"></a>
+								<a href="SupporterPage" class="top-items">${sessionScope.sId}</a> 님 | 
+								<a href="javascript:void(0)" onclick="logout()">로그아웃</a>
+							</c:when>
+							<c:when test="${sessionScope.loginType == 'local'}">
+							    <a href="NotificationBoard"><img class="bell" src="/resources/images/bell.png"></a>
+								<a href="SupporterPage" class="top-items">${member.nickname}</a> 님 | 
+								<a href="javascript:void(0)" onclick="logout()">로그아웃</a>
+							</c:when>
+						</c:choose>
 					</c:otherwise>
 				</c:choose>
 	        </div>

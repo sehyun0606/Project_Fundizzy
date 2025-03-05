@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,12 +17,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.project_fundizzy.handler.GenerateRandomCode;
+import com.itwillbs.project_fundizzy.handler.KakaoApiClient;
 import com.itwillbs.project_fundizzy.service.Bankservice;
+import com.itwillbs.project_fundizzy.service.LoginService;
 import com.itwillbs.project_fundizzy.service.MailService;
 import com.itwillbs.project_fundizzy.service.MemberService;
 import com.itwillbs.project_fundizzy.vo.BankToken;
+import com.itwillbs.project_fundizzy.vo.KakaoToken;
+
+import lombok.extern.log4j.Log4j2;
 
 @Controller
+@Log4j2
 public class MemberController {
 	@Autowired
 	private MemberService memberService;
@@ -29,16 +36,70 @@ public class MemberController {
 	private MailService mailService;
 	@Autowired
 	private Bankservice bankservice;
+	@Autowired
+	private LoginService loginService;
 	
+	
+	@Value("${kakao.api_key}")
+	private String kakaoClientId;
+
+	@Value("${kakao.redirect_uri}")
+	private String kakaoRedirectUri;
 	
 	// 로그인 폼으로 이동
 	@GetMapping("Login")
-	public String Login(HttpSession session) {
+	public String Login(HttpSession session, Model model) {
+		
 		if(session.getAttribute("adminId") != null) {
 			return "admin/admin_home";
 		}
+		
+		model.addAttribute("kakaoClientID", kakaoClientId);
+		model.addAttribute("kakaoRedirectUri", kakaoRedirectUri);
+		
 		return "member/login/login_form";
 	}
+	
+	// 카카오 콜백
+	@GetMapping("kakaoCallback")
+	public String kakaoLogin(@RequestParam Map<String, String> authResponse, HttpSession session, Model model) {
+		System.out.println("응답결과 : " + authResponse);
+		System.out.println("code : " + authResponse.get("code"));
+		// 2.1.2. 토큰발급 API - 사용자 토큰발급 API (3-legged) 요청
+		// BankService - getAccessToken() 메서드 호출하여 엑세스토큰 발급 요청
+		// => 파라미터 : 토큰 발급에 필요한 정보(인증코드 요청 결과가 포함된 Map 객체)
+		// => 리턴타입 : BankToken(VO) 또는 Map<String, String>
+		KakaoToken kakaoToken = loginService.getAccessToken(authResponse);
+		log.info(">>>>>> 엑세스토큰 정보 : " + kakaoToken);
+		
+		if(kakaoToken == null || kakaoToken.getAccess_token() == null) {
+			model.addAttribute("msg", "토큰 발급 실패! 다시 인증을 수행해 주세요.");
+			return "result/success";
+		}
+		
+		Map<String, Object> kakaoUserInfo = loginService.getKakaoUserInfo(kakaoToken.getAccess_token());
+		System.out.println("가져온 사용자 정보 : " + kakaoUserInfo);
+
+		// 사용자 정보에서 필요한 값 추출
+        String nickname = (String) ((Map<String, Object>) kakaoUserInfo.get("properties")).get("nickname");
+        Long id = (Long) kakaoUserInfo.get("id");
+        String connectedAt = (String) kakaoUserInfo.get("connected_at");
+
+        // Model 객체에 사용자 정보를 추가하여 JSP로 전달
+		session.setAttribute("sId", nickname);
+        session.setAttribute("loginType", "kakao");
+        
+        model.addAttribute("msg", "로그인 완료!");
+        model.addAttribute("targetURL", "./");
+        model.addAttribute("isClose", true);
+        
+		return "result/success";
+	}
+	
+	
+	
+	
+	
 	
 	@GetMapping("SignUp")
 	public String SignUp() {
@@ -161,6 +222,7 @@ public class MemberController {
 				
 			} else {
 				session.setAttribute("sId", dbMember.get("email"));
+				session.setAttribute("loginType", "local");
 				session.setMaxInactiveInterval(1800);
 				System.out.println("아이디 저장하기 체크박스값 : " + rememberId);
 //				 --------- 쿠키 생성 코드 중복 제거 ----------
@@ -209,5 +271,8 @@ public class MemberController {
 			return "main";
 		}
 	
+		
+		
+		
 	
 }
