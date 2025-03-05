@@ -54,15 +54,15 @@ public class BankController {
 		//사용자 인증을 위한 토큰 발급 
 		BankToken token = bankservice.getAccessToken(authResponse);
 		System.out.println(">>>>>>>>>>엑세스 토큰 정보 = " + token);
-		
+		//토큰 발급 실패시 실패 페이지로 리턴 
 		if(token == null || token.getAccess_token() == null) {
 			model.addAttribute("msg", "토큰 발급 실패! 다시 인증을 수행해 주세요. \\n 실패원인 : " + token.getRep_code() + " " + token.getRsp_message());
 			model.addAttribute("isClose", true);
 			return "result/fail";
 		}
+		//map에 토큰과 이메일(아이디) 저장 후 
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("email", session.getAttribute("sId"));
-		System.out.println(session.getAttribute("sId"));
 		map.put("token", token);
 		bankservice.registAccessToken(map);
 		
@@ -74,7 +74,7 @@ public class BankController {
 		return "result/success";
 	}
 	
-	//계좌 등록 버튼 누르면 ManageMyPaymentInfo에 뜨도록 
+	//계좌 등록 
 	@PostMapping("BankAccountRegist")
 	public String bankAccountRegist(HttpSession session ,Model model,  
 			@RequestParam("account_alias") String accountAlias,
@@ -102,11 +102,28 @@ public class BankController {
 		return "bank/mypayment_info_manage";
 	}
 	
-	//등록된 계좌 삭제 
-	@GetMapping("BankAccountRemove")
-	public String bankAccountRemove() {
+//	//등록된 계좌 삭제 
+//	@GetMapping("BankAccountRemove")
+//	public String bankAccountRemove() {
+//		
+//		return "redirect:/MypaymentInfoManage";
+//	}
+	//계좌 정보 보기 
+	@GetMapping("AccountDetail")
+	public String accountDetail(@RequestParam Map<String, Object> map ,HttpSession session, Model model) {
+		String bank_token = (String) session.getAttribute("token");
+		map.put("bank_token", bank_token);
+		Map<String , String> account_detail = bankservice.getAccountDetail(map);
+		if(!account_detail.get("rsp_code").equals("A0000")) {
+			model.addAttribute("msg", "rsp_code 가져오기 실패 ");
+			return "result/fail";
+		}
+		model.addAttribute("account_detail", account_detail);
+		model.addAttribute("account_num", map.get("account_num"));
+		model.addAttribute("account_holder_name", map.get("account_holder_name"));
 		
-		return "redirect:/MypaymentInfoManage";
+		return "bank/account_detail";
 	}
+	
 }
  

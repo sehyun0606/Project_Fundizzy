@@ -23,7 +23,7 @@ import com.itwillbs.project_fundizzy.vo.BankToken;
 import lombok.extern.log4j.Log4j2;
 @Component
 @Log4j2
-public class bankApiClient {
+public class BankApiClient {
 	@Value("${bank.base_url}")
 	private String base_url;
 	
@@ -104,5 +104,14 @@ public class bankApiClient {
 	                     );
 	      System.out.println(">>>>> 사용자 정보조회 요청 응답데이터의 body : " + response.getBody());
 	  	return response.getBody();
+	}
+	// 계좌정보 조회 
+	public Map<String, String> reqeustAccountDetail(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		BankToken bank_token = (BankToken) map.get("bank_token");
+		String bank_tran_id = BankValueGenerator.getBankTranId(client_use_code);
+		String tran_dtime = BankValueGenerator.getTranDTrime();
+				
+		return null;
 	}
 }
