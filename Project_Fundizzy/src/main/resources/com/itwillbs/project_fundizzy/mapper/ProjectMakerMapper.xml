@@ -139,6 +139,20 @@
 		WHERE project_code = #{projcet_code};
 	</update>
 	
+	<update id="updateMakerInfo">
+		UPDATE maker_info
+		SET maker_name = #{maker_name},
+			maker_email = #{maker_email},
+			maker_phone = #{maker_phone},
+			facebook_address = #{facebook_address},
+			twitter_address = #{twitter_address},
+			instagram_address = #{instagram_address}
+			<if test="profile_img != null and profile_img != ''">
+            	,profile_img = #{profile_img}
+        	</if>
+		WHERE project_code = #{project_code}
+	</update>
+	
 </mapper>
 
 

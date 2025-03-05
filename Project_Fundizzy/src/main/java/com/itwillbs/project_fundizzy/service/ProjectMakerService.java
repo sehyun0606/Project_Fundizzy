@@ -81,6 +81,10 @@ public class ProjectMakerService {
 	public ProjectInfoVO getProjectinfo(String project_code) {
 		return makerMapper.selectProjcetInfo(project_code);
 	}
+
+	public void updateMakerInfo(MakerInfoVO makerInfo) {
+		makerMapper.updateMakerInfo(makerInfo);
+	}
 	
 
 }

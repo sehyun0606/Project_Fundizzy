@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -151,18 +152,20 @@ public class ProjectMakerController {
 		return "redirect:/ProjectMaker";
 	}
 	
-	@GetMapping("ProjcetInfoEdit")
+	//프로젝트 수정 폼
+	@GetMapping("ProjectInfoEdit")
 	public String projcetInfoEdit(HttpSession session, Model model) {
 		
-		String project_code = (String)session.getAttribute("projcet_code");
+		String project_code = (String)session.getAttribute("project_code");
 		
 		ProjectInfoVO projectInfo = projectMakerService.getProjectinfo(project_code);
 		
 		model.addAttribute("projectInfo", projectInfo);
 		
-		return "project/projectMaker/project_maker_edit";
+		return "project/projectMaker/project_info_edit";
 	}
 	
+			
 	
 	
 	@GetMapping("ProjectStory")
@@ -249,7 +252,7 @@ public class ProjectMakerController {
 	
 	//메이커 정보 수정 폼
 	@GetMapping("MakerInfoEdit")
-	public String makerInfoEdit(HttpSession session,Model model) {
+	public String makerInfoEditForm(HttpSession session,Model model) {
 		
 		String projectCode = (String)session.getAttribute("project_code");
 		
@@ -260,6 +263,36 @@ public class ProjectMakerController {
 		return "project/projectMaker/maker_info_edit";
 	}
 	
+	//메이커 정보 업데이트
+	@PostMapping("MakerInfoEdit")
+	public String makerInfoEdit(MakerInfoVO makerInfo, HttpSession session) {
+		
+		String projectCode = makerInfo.getProject_code();
+		String realPath = getRealPath(session, virtualPath);
+		
+		//파일 업로드되는 서브 경로
+		String subDir = projectCode + "/MakerProfile" ;
+		
+		realPath += subDir;
+		
+		MultipartFile profileImg = makerInfo.getProfileImg();
+		
+		makerInfo.setProfile_img("");
+		
+		String imgName = "";
+		
+		if(!profileImg.getOriginalFilename().equals("")) {
+			imgName = UUID.randomUUID().toString() + "_" + profileImg.getOriginalFilename();
+			makerInfo.setProfile_img(subDir + "/" + imgName);
+		}
+		
+		projectMakerService.updateMakerInfo(makerInfo);
+		
+		updateFile(profileImg, realPath, imgName);
+		
+		
+		return "redirect:/ProjectMaker";
+	}
 	
 	
 	
@@ -267,5 +300,58 @@ public class ProjectMakerController {
 	//파일 업로드에 사용될 실제 업로드 디렉토리 경로를 리턴하는 메서드
 	private String getRealPath(HttpSession session, String virturalPath) {
 		return session.getServletContext().getRealPath(virturalPath);
+	}
+	
+	//업로드된 파일을 업데이트하는 메서드
+	private void updateFile(MultipartFile img, String realPath, String imgName) {
+		try {
+			MultipartFile mFile = img;
+			
+			
+			if(!mFile.getOriginalFilename().equals("")) {
+				mFile.transferTo(new File(realPath,imgName));
+			}
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	//프로젝트 스토리에서 파일 업로드를 담당하는 메서드
+	@PostMapping("StoryImg")
+	@ResponseBody
+	public String uploadStoryImg(@RequestParam("image") MultipartFile file, HttpSession session) {
+	    String projectCode = (String)session.getAttribute("project_code");
+	    String realPath = getRealPath(session, virtualPath);
+	    
+
+	    // 파일 경로 설정
+	    String subDir = projectCode + "/ProjectStoryImg";
+	    realPath = realPath.endsWith("/") ? realPath + subDir : realPath + "/" + subDir;
+
+	    try {
+	        // 디렉토리 생성
+	        Path dirPath = Paths.get(realPath);
+	        if (!Files.exists(dirPath)) {
+	            Files.createDirectories(dirPath); // 디렉토리 생성
+	        }
+
+	        // 파일명 생성
+	        String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
+	        Path filePath = Paths.get(realPath + "/" + fileName);
+	        
+	        // 파일 저장
+	        Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+	        
+	        System.out.println(fileName);
+	        
+	        
+	        // URL 반환
+	        return "resources/upload/" + projectCode + "/ProjectStoryImg/" + fileName;
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	        return "Image upload failed: " + e.getMessage();
+	    }
 	}
 }
