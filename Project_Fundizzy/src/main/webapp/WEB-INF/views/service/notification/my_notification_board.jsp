@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -62,7 +63,8 @@
 						</c:choose>
 					</div>
 					<div class="notificationDate">
-						${myNOT.regist_date}
+						<fmt:formatDate value="${myNOT.regist_date}" pattern="yyyy-MM-dd" /><br>
+						<fmt:formatDate value="${myNOT.regist_date}" pattern="HH:mm" />
 					</div>
 				</div>
 				<div class="notificationBody">
