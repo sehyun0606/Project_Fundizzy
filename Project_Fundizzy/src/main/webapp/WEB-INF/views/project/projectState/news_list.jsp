@@ -20,17 +20,24 @@
 				<h1>새소식</h1>
 				<input type="button" value="새소식 작성하기" class="makeNewsBtn">
 				<div class="modal">
-					<div class="modal_content">
-						<div class="modal_close">x</div>
+					<div class="modal-content">
+						<div class="modal-close">x</div>
 						<h1>새소식 작성하기</h1>
-						<div class="news-container">
-							<input type="text" placeholder="제목을 입력해 주세요">
-							<textarea placeholder="내용을 입력해 주세요"></textarea>
-							<div class="btn-container">
-								<input type="button" value="임시저장" class="saveBtn">
-								<input type="button" value="게시하기" class="postBtn">
+						<form action=NewsBoard method="post">
+							<div class="news-container">
+								<div class="board-container">
+									<div class="title-container">
+										<input type="text" name="news_title" class="news_title" placeholder="제목을 입력해 주세요" maxlength="32" required>
+										<div class="char-count">32자 남음</div>
+									</div>
+									<textarea name="news_content" class="news_content" placeholder="내용을 입력해 주세요" maxlength="1000" required></textarea>
+								</div>
+								<div class="btn-container">
+									<input type="button" value="임시저장" class="saveBtn">
+									<input type="submit" value="게시하기" class="postBtn">
+								</div>
 							</div>
-						</div>
+						</form>
 					</div>
 				</div>
 				
@@ -39,11 +46,11 @@
 					프로젝트 공개 이후에도 추가적으로 소식을 전할 수 있는 공간이에요. 
 					새소식 게시물을 작성하면 서포터님들에게 알림이 나가요.
 				</div>
-				<c:forEach var="list" begin="1" end="7">
+				<c:forEach var="news" items="${newsList}">
 					<div class="list-container">
 						<div class="list-title">
-							<h3><a href="">첫 번째 새소식 블라블라 제목입니다</a></h3>
-							<div>2025.03.02</div>
+							<h3><a href="">${news.news_title}</a></h3>
+							<div>${news.news_date}</div>
 						</div>
 						<div class="btn-container">
 							<input type="button" value="수정" class="modifyBtn">
@@ -57,20 +64,57 @@
 	
 	
 	<script>
-	        
-// 	        // 새소식 작성하지 버튼 클릭 시 모달창 생성 
+		$(document).ready(function() {
+			// 새소식 작성하기 버튼 클릭 시 모달창 생성 
 			$(".makeNewsBtn").click(function(e) {
 				e.preventDefault();
 				$(".modal").css("display", "block");
-				$(".modal_content").css("display", "block");
+				$(".modal-content").css("display", "block");
 			});
 			
-// 	        // x 버튼 클릭 시 모달창 닫힘
-			$(".modal_close").click(function() {
+	      	// x 버튼 클릭 시 모달창 닫힘
+			$(".modal-close").click(function() {
 				$(".modal").css("display", "none");
-				$(".modal_content").css("display", "none");
+				$(".modal-content").css("display", "none");
+				location.reload();
 			});
-	        
-		</script>
+			
+			// 새소식 폼 제목에 작성가능 글자수 보여주기
+			$("input[name='news_title']").on("input", function() {
+				let maxLength = 32;
+				let currentLength = maxLength - $(this).val().length;
+			
+				if(currentLength < 0) {
+					currentLength = 0;
+					$(".char-count").text(currentLength + "자 남음");
+				}
+				$(".char-count").text(currentLength + "자 남음");
+			});
+			
+			// 게시하기 버튼 클릭 시
+	// 		$(".postBtn").click(function() {
+				
+	// 			$(".modal").css("display", "none");
+	// 			$(".modal-content").css("display", "none");
+	// 		});
+		});   
+	</script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

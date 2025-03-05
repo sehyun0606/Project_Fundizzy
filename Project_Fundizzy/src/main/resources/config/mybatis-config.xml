@@ -9,6 +9,7 @@
 		<typeAlias type="com.itwillbs.project_fundizzy.vo.RewardVO" alias="Reward"/>
 		<typeAlias type="com.itwillbs.project_fundizzy.vo.MakerInfoVO" alias="MakerInfo"/>
 		<typeAlias type="com.itwillbs.project_fundizzy.vo.ProjectInfoVO" alias="ProjectInfo"/>
+		<typeAlias type="com.itwillbs.project_fundizzy.vo.newsVO" alias="news"/>
 	</typeAliases>
 </configuration>
 
