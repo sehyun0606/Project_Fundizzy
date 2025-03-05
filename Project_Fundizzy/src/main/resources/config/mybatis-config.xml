@@ -9,8 +9,6 @@
 		<typeAlias type="com.itwillbs.project_fundizzy.vo.RewardVO" alias="Reward"/>
 		<typeAlias type="com.itwillbs.project_fundizzy.vo.MakerInfoVO" alias="MakerInfo"/>
 		<typeAlias type="com.itwillbs.project_fundizzy.vo.ProjectInfoVO" alias="ProjectInfo"/>
-		<typeAlias type="com.itwillbs.project_fundizzy.vo.NotificationVO" alias="notification"/>
-		<typeAlias type="com.itwillbs.project_fundizzy.vo.NotificationSetVO" alias="notificationSet"/>
 	</typeAliases>
 </configuration>
 

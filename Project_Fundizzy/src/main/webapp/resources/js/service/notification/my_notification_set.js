@@ -23,7 +23,7 @@ $(function() {
 	});
 	
 	// 사이트 알림 옵션 ON/OFF 시 판별 후 다른 옵션 활성화/비활성화
-	$("#is_receive_notification").click(function() {
+	$("#is_recv_notification").click(function() {
 		if(!$(this).prop("checked")) {
 			$(".setCheck").not(this).prop("checked", false);
 			$(".setCheck").not(this).prop("disabled", true);

@@ -25,7 +25,7 @@
 					</div>	
 				</div>
 				<label class="switch">
-				  <input type="checkbox" class="setCheck" id="is_receive_notification" <c:if test="${memberNOTSetInfo.is_receive_notification eq 'Y'}">checked</c:if>>
+				  <input type="checkbox" class="setCheck" id="is_recv_notification" <c:if test="${memberNOTSetInfo.is_receive_notification eq 'Y'}">checked</c:if>>
 				  <span class="slider"></span>
 				</label>
 			</div>
