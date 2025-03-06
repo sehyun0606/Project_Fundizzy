@@ -131,17 +131,17 @@
 	            $(this).siblings(".submenu").slideToggle();
 	        });
 	    });
-	    $(document).ready(function() {
-	        function adjustSidebarHeight() {
-	            $(".sidebar").css("height", $("body").height());
-	        }
+// 	    $(document).ready(function() {
+// 	        function adjustSidebarHeight() {
+// 	            $(".sidebar").css("height", $("body").height());
+// 	        }
 	        
-	        adjustSidebarHeight();
+// 	        adjustSidebarHeight();
 	        
-	        $(window).resize(function() {
-	            adjustSidebarHeight();
-	        });
-	    });
+// 	        $(window).resize(function() {
+// 	            adjustSidebarHeight();
+// 	        });
+// 	    });
 	</script>
 
 
