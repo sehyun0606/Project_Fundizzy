@@ -7,7 +7,7 @@ body {
 }
 
 .container {
-    width: 400px;
+    width: 480px;
     background-color: white;
     padding: 20px;
     border-radius: 10px;
@@ -35,15 +35,15 @@ body {
 
 .step {
     background-color: #e3ddff;
-    padding: 10px 20px;
+    padding: 11px 22px;
     border-radius: 3px;
-    font-size: 13px;
+    font-size: 17px;
  }
  .step-here{
 	 background-color: #c0b0ff;
 	 padding: 10px 20px;
 	 border-radius: 3px;
-	 font-size: 13px;
+	 font-size: 17px;
  
  }
 
@@ -74,6 +74,7 @@ body {
 .support-ship h4{
 	margin-left: 5px;
 }
+
 .section-supporter {
 	background-color: #f8f8f8;
     padding-bottom: 10px;
@@ -88,11 +89,49 @@ body {
 }
 .section-shipment br{
 	margin-bottom: 7px;
-
 }
+.section-shipment .notice{
+	font-size: 11px;
+}
+
+
+#div_address, #div_new_address{
+    display: flex;
+    align-items: center; /* 세로 중앙 정렬 */
+    gap: 10px; /* 라디오 버튼과 내용 사이 간격 */
+}
+
+.address-content {
+    display: flex;
+    flex-direction: column; /* 내부 요소들을 세로로 정렬 */
+}
+
+
+#address_name, #address_add{
+	padding-right: 20px;
+}
+
+#address_phone{
+	padding-right: 4px;
+	
+}
+
+.new_address_box span, .new_address_box input[type="button"] {
+    padding-bottom: 5px;
+    margin-bottom: 7px;
+}
+
 
 .support-ship{
 	display: flex;
+}
+
+.new_address_box {
+	display: block;
+	background-color: #CCCC;
+	padding: 10px;
+	border-radius: 7px;
+	margin: 10px;
 }
 .section-reservation {
     border-bottom: 1px solid #ddd;
@@ -123,6 +162,13 @@ body {
 	font-size: 13px;
 	color: #737373;
 	margin-bottom: 7px;
+}
+
+.payment-pay{
+	position: relative;
+    top: 145%;
+    left: 32%;
+    transform: translate(-48%, 0%);
 }
 h3, h4 {
     margin: 10px 0;
@@ -166,6 +212,10 @@ h3, h4 {
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    position: relative;
+    top: 0%;
+    left: 48%;
+    transform: translate(-48%, 0%);
 }
 
 label {
@@ -182,7 +232,7 @@ label {
     cursor: pointer;
     border-radius: 5px;
     display: block;
-    width: 100%;
+    width: 116%;
     height: 60px;
     text-align: center;
     font-size: 17px; 

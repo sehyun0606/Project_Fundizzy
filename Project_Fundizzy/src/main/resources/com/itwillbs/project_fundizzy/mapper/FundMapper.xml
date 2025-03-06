@@ -99,14 +99,18 @@
   
   
 <!--   오른쪽 부분  -->
-
+<!-- 	리워드 정보 가져오기 -->
 	<select id="selectPaymentReward" resultType="map">
 		SELECT *
 		FROM reward
-		WHERE project_code = "18152PRO01";
+		WHERE reward_code = 1;
 	</select>
-  
-  
+<!--   배송을 위한 맴버 정보 가져오기 -->
+  	<select id="selectPaymentPayMember">
+  		SELECT *
+  		FROM member
+  		WHERE email = #{email}
+  	</select>
   
   
   
