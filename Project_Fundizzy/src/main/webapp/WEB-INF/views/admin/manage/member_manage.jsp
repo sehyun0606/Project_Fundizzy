@@ -96,15 +96,24 @@
 		    <!-- 회원 정보 -->
 		    <div class="member-info">
 		        <h2>회원 정보</h2>
-		        <div class="search-bar">
-		            <input type="text" placeholder="회원명">
-		            <button>검색</button>
-		        </div>
+	        	<form action=""> 
+			        <div class="search-bar">
+			        	<select name="searchType" style="height: 29px;">
+							<option value="" >email</option>
+							<option value="" >닉네임</option>
+							<option value="" >카카오</option>
+							<option value="" >네이버</option>
+						</select>
+			            <input type="text" placeholder="회원명">
+			            <button class="search-btn">검색</button>
+			        </div>
+	            </form>
 		
 		        <table>
 		            <thead>
 		            <tr>
 		                <th>이메일</th>
+		                <th>닉네임</th>
 		                <th>가입 날짜</th>
 		                <th>상태</th>
 		                <th>이미지</th>
@@ -115,6 +124,7 @@
 			                <c:if test="${status.index < 8}"> <%-- 0~4 번째 요소(5개)만 출력 --%>
 			                    <tr onclick="location.href='#'">
 			                        <td>${member.email}</td>
+			                        <td>${member.nickname}</td>
 			                        <td>
 			                            <fmt:formatDate value="${member.reg_date}" pattern="yyyy-MM-dd HH:mm"/>
 			                        </td>
