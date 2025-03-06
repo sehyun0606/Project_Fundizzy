@@ -15,7 +15,6 @@
 		    background: #f9f9f9;
 		    padding: 15px;
 		    border-right: 1px solid #ddd;
-		    height: 100vh;
 		}
 		
 		.project-number {

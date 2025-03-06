@@ -23,13 +23,13 @@
 		    		<button class="side-button" type="submit"> 제출하기</button>
 		    	</div>
 		        <label for="title">프로젝트 제목</label>
-		        <input type="text" id="title" name="project_title" placeholder="제목을 입력해 주세요">
+		        <input type="text" id="title" name="project_title" value="${projectStory.project_title}" placeholder="제목을 입력해 주세요">
 		        <span class="helper-text">40자 남음</span>
 		        
 	         	<label>대표 이미지</label>
 			    <div class="file-upload">
 			        <input type="file" id="fileInput" name="representativePicture" accept="image/*" style="display: none;">
-			        <img id="previewImage" class="preview" name="representativePicture" src="" alt="미리보기" style="display:none;">
+			        <img id="previewImage" class="preview" name="representativePicture" src="/resources/upload/${projectStory.representative_picture}" alt="미리보기" >
 			        <input type="button" class="image-upload" value="사진을 넣어주세요">
 			        <p id="fileName">0/1</p>
 			    </div>

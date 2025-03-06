@@ -27,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.itwillbs.project_fundizzy.service.ProjectMakerService;
 import com.itwillbs.project_fundizzy.vo.MakerInfoVO;
 import com.itwillbs.project_fundizzy.vo.ProjectInfoVO;
+import com.itwillbs.project_fundizzy.vo.ProjectStoryVO;
 import com.itwillbs.project_fundizzy.vo.RewardVO;
 
 @Controller
@@ -173,6 +174,76 @@ public class ProjectMakerController {
 		
 		return "project/projectMaker/project_story";
 	}
+	
+	@PostMapping("ProjectStory")
+	public String submitProjectStory(ProjectStoryVO projectStory, HttpSession session) {
+
+	    String projectCode = projectStory.getProject_code();
+	    String realPath = getRealPath(session, virtualPath) + projectCode + "/ProjectStory";
+
+	    // ✅ 실제 파일 업로드 경로 생성
+	    try {
+	        Path path = Paths.get(realPath);
+	        if (!Files.exists(path)) { 
+	            Files.createDirectories(path);
+	        }
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+
+	    // ✅ 대표 이미지 업로드
+	    MultipartFile representativePicture = projectStory.getRepresentativePicture();
+	    projectStory.setRepresentative_picture(""); // 기본값 설정
+
+	    if (representativePicture != null && !representativePicture.getOriginalFilename().isEmpty()) {
+	        String repFileName = UUID.randomUUID().toString() + "_" + representativePicture.getOriginalFilename();
+	        projectStory.setRepresentative_picture("ProjectStory/" + repFileName);
+	        try {
+	            representativePicture.transferTo(new File(realPath, repFileName));
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	    }
+
+	    // ✅ 소개 이미지 (다중 파일 업로드)
+	    MultipartFile[] productPictures = projectStory.getProductPicture();
+	    List<String> productPicturePaths = new ArrayList<>();
+
+	    if (productPictures != null) {
+	        for (MultipartFile file : productPictures) {
+	            if (file != null && !file.getOriginalFilename().isEmpty()) {
+	                String fileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
+	                productPicturePaths.add("ProjectStory/" + fileName);
+
+	                try {
+	                    file.transferTo(new File(realPath, fileName));
+	                } catch (IOException e) {
+	                    e.printStackTrace();
+	                }
+	            }
+	        }
+	    }
+
+	    // ✅ 경로를 하나의 문자열로 저장
+	    projectStory.setProduct_picture(String.join(",", productPicturePaths));
+
+	    // ✅ DB 저장
+	    projectMakerService.registProjectStory(projectStory);
+
+	    return "redirect:/ProjectMaker";
+	}
+	@GetMapping("ProjectStoryEdit")
+	public String projectStoryEdit(HttpSession session, Model model) {
+		
+		String project_code = (String) session.getAttribute("project_code");
+		
+		ProjectStoryVO projectStory = projectMakerService.getProjectStory(project_code);
+		
+		model.addAttribute("projectStory", projectStory);
+		
+		return "project/projectMaker/project_story_edit";
+	}
+
 	
 	//리워드 설정 페이지
 	@GetMapping("ProjectReward")

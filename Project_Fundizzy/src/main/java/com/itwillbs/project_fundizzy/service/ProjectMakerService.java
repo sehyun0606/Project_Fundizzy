@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.itwillbs.project_fundizzy.mapper.ProjectMakerMapper;
 import com.itwillbs.project_fundizzy.vo.MakerInfoVO;
 import com.itwillbs.project_fundizzy.vo.ProjectInfoVO;
+import com.itwillbs.project_fundizzy.vo.ProjectStoryVO;
 import com.itwillbs.project_fundizzy.vo.RewardVO;
 
 @Service
@@ -84,6 +85,18 @@ public class ProjectMakerService {
 
 	public void updateMakerInfo(MakerInfoVO makerInfo) {
 		makerMapper.updateMakerInfo(makerInfo);
+	}
+	
+	//프로젝트 스토리 저장을 위한 메서드
+	@Transactional
+	public void registProjectStory(ProjectStoryVO projectStory) {
+		String projectCode = projectStory.getProject_code();
+		makerMapper.updatProjectStorySetting(projectCode);
+		makerMapper.insertProjectStory(projectStory);
+	}
+
+	public ProjectStoryVO getProjectStory(String project_code) {
+		return makerMapper.selectProjectStory(project_code);
 	}
 	
 

@@ -114,3 +114,6 @@ input, textarea {
 	display: flex;
 	justify-content: space-between;
 }
+#editor-container2{
+	height: 300px;
+}

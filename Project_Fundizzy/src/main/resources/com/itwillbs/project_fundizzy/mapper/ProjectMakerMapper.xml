@@ -78,7 +78,7 @@
 		INTO reward
 		VALUES (
 			#{project_code},
-			#{reward_code},
+			#{reward_code} + 1,
 			#{product_name},
 			#{product_desc},
 			#{price},
@@ -121,6 +121,12 @@
 		WHERE project_code = #{project_code}
 	</select>
 	
+	<select id="selectProjectStory" resultType="ProjectStory">
+		SELECT *
+		FROM project_story
+		WHERE project_code = #{project_code}
+	</select>
+	
 	<update id="updateProjcetInfoConfig">
 		UPDATE project_list
 		SET project_info_config = 'Y'
@@ -130,13 +136,19 @@
 	<update id="updateRewardConfig">
 		UPDATE project_list
 		SET reward_config = 'Y'
-		WHERE project_code = #{projcet_code};
+		WHERE project_code = #{projcet_code}
 	</update>
 	
 	<update id="updateMakerInfoConfig">
 		UPDATE project_list
 		SET maker_config = 'Y'
-		WHERE project_code = #{projcet_code};
+		WHERE project_code = #{projcet_code}
+	</update>
+	
+	<update id="updatProjectStorySetting">
+		UPDATE project_list
+		SET story_config = 'Y'
+		WHERE project_code = #{project_code}
 	</update>
 	
 	<update id="updateMakerInfo">
@@ -152,6 +164,20 @@
         	</if>
 		WHERE project_code = #{project_code}
 	</update>
+	
+	<insert id="insertProjectStory">
+		INSERT
+		INTO project_story
+		VALUES(
+			#{project_code},
+			#{project_title},
+			#{representative_picture},
+			#{product_picture},
+			#{project_content},
+			#{project_story},
+			#{open_story}
+		)
+	</insert>
 	
 </mapper>
 
