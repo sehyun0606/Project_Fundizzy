@@ -11,7 +11,7 @@
 	cursor: pointer;
 }
 
-.modal {
+.modal, .modal2 {
 	display: none;
 	position: fixed;
 	top: 50%;
@@ -27,7 +27,7 @@
 	z-index: 1; 
 }
 
-.modal-content {
+.modal-content, .modal-content2 {
 	display: none;
 	position: absolute;
 	top: 50%;
@@ -130,6 +130,10 @@ h1 {
 	
 }
 
+.content-container {
+	width: 1000px;
+}
+
 .list-container {
 	display: flex;
 	justify-content: space-between;
@@ -148,10 +152,9 @@ h1 {
 	font-size: 14px;
 }
 
-.list-container .btn-container {
-	display: flex;
-    gap: 10px;
-}
+/* .list-container .btn-container { */
+/* 	display: flex; */
+/* } */
 
 .modifyBtn, .deleteBtn {
 	border: 1px solid #ddd;
@@ -161,6 +164,30 @@ h1 {
     color: #757575;
     cursor: pointer;
 }
+
+/* .page_btn_group { */
+/* 	position: relative; */
+/* } */
+
+.page_btn {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+	margin-top: 20px;
+}
+
+.page_btn a, .page_btn b {
+	padding: 5px;
+}
+
+.page_btn input[type="button"] {
+	padding: 10px;
+	border: none;
+	background-color: #fff;
+	cursor: pointer;
+}
+
 
 /* 전체 스크롤바 스타일 */
 textarea::-webkit-scrollbar {

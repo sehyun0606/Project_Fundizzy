@@ -26,20 +26,28 @@
 		        <span class="arrow">→</span>
 		        <div class="step">결제 완료</div>
 			</div>
-			<form action="">
+<!-- 			배송에 필요한 정보들 hidden값으로 받아와서 pay페이지로 넘기기 -->
+			<form id="pay-form" action="PaymentPay" method="post">
+				<input type="hidden" name="member_email" value="${sessionScope.sId}">
+				<input type="hidden" name="reward_code" value="${reward.reward_code}">
+				<input type="hidden" id="product_count" name="product_count" value="1">
+				<input type="hidden" id="total_price" name="total_price" value="${reward.price}">
+			</form>
 		        <div class="reward-selection-box">
 		            <h2>수량 선택</h2>
 		            <hr>
 		            <div class="reward-item">
 		            	<input type="hidden" name="sell_price" value="${reward.price}" style="width:30px;">
-		                <span class="price">${reward.price}</span>
+		                <span class="price"><fmt:formatNumber pattern="#,###" value="${reward.price}"></fmt:formatNumber></span>
 		                <p class="reward-title">${reward.product_name}</p>
+		                <p class="reward-content">${reward.product_desc}</p>
+<!-- 		                수량 선택 박스 -->
 		                <div class="ctrl_box">
 							<button type="button" class="minus_btn" value="${schedule.showtime_type}">-</button>
-							<input type="text" class="totalCount" value="1" size="2" readonly)>
+							<input type="text" class="totalCount" value="1" size="2" readonly>
 							<button type="button" class="plus_btn" value="${schedule.showtime_type}">+</button>
 						</div>
-						<div class="totalAmount">최종 가격 : totalPrice </div>
+						<div class="totalPrice"><div> 총금액 : ${reward.price}</div></div>
 		           	 </div>
 		            <div class="privacy-section">
 		                <p>공개여부(선택)</p>
@@ -47,9 +55,8 @@
 		                <label><input type="checkbox"> 이름 비공개</label>
 		                <label><input type="checkbox"> 금액 비공개</label>
 		            </div>
-		            <button class="next-button" onclick="location.href='PaymentPay'">다음 단계</button>
+		            <button type="button"  id="next-button">다음단계</button>
 		        </div>
-	        </form>
 	    </div> 
 	</article>
 	<footer>

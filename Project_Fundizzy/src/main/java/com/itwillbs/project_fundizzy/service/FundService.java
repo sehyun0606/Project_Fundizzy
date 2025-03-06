@@ -55,6 +55,10 @@ public class FundService {
 		// TODO Auto-generated method stub
 		return mapper.selectPaymentReward(project_code);
 	}
+	public Map<String, Object> getPaymentPayMember(String email) {
+		// TODO Auto-generated method stub
+		return mapper.selectPaymentPayMember(email);
+	}
 	
 	
 	

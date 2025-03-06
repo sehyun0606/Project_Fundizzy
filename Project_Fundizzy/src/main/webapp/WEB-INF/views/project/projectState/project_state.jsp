@@ -8,6 +8,8 @@
 <link rel="styleSheet" type="text/css" href="resources/css/projectState/project_state_default.css" >
 <link rel="stylesheet" type="text/css" href="resources/css/projectState/project_state.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="resources/js/projectState/project_state.js"></script>
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/inc/project_maker_side.jsp" />
@@ -54,27 +56,16 @@
 				</div>
 			</div>
 			<h3>펀딩 현황 분석</h3>
+			<div class="selectDate">
+				<input type="date"> <input type="date">
+			</div>
 			<div>
-				<canvas id="myChart" width="300" height="100"></canvas>
+				<canvas id="myChart" width="1200px" height="500px"></canvas>
 			</div>
 		</div>
 	</div>
 </body>
 <script>
-let myCt = document.getElementById('myChart');
-
-let myChart = new Chart(myCt, {
-  type: 'bar',
-  data: {
-    labels: ['2020', '2021', '2022', '2023'],
-    datasets: [
-      {
-        label: 'Dataset',
-        data: [10,20,30,40],
-      }
-    ]
-  },
-});
 </script>
 </html>
 

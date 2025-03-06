@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -30,15 +31,22 @@
 			    <div class="file-upload">
 			        <input type="file" id="fileInput" name="representativePicture" accept="image/*" style="display: none;">
 			        <img id="previewImage" class="preview" name="representativePicture" src="/resources/upload/${projectStory.representative_picture}" alt="미리보기" >
-			        <input type="button" class="image-upload" value="사진을 넣어주세요">
+			        <input type="button" class="image-upload" value="사진을 넣어주세요" style="display: none;">
 			        <p id="fileName">0/1</p>
 			    </div>
 		
 		       <label>소개 이미지 (다중 파일 업로드)</label>
 			   <div class="file-upload">
 			       <input type="file" id="multiFileInput" name="productPicture" accept="image/*" multiple >
-			       <input type="button" class="multi-upload" value="사진 여러 개 추가">
-			       <div class="multi-preview-container" id="multiPreviewContainer"></div>
+			       <input type="button" class="multi-upload" value="사진 다시 선택하기">
+			       <div class="multi-preview-container" id="multiPreviewContainer">
+			       		<c:forEach items="${imgList}" var="img">
+			       			<div class="multi-preview-wrapper">
+			       				<img class="multi-preview" src="/resources/upload/${img}">
+			       				<button type="button" class="remove-btn">x</button>
+			       			</div>
+			       		</c:forEach>
+			       </div>
 			       <p id="multiFileCount">0/10</p>
 			   </div>	
 			   	<div id="project-summary">
@@ -46,7 +54,7 @@
 			        <div><a class="ai-link">ai어드바이저에게 추천받기</a></div>
 			   	</div>
 		        <span class="helper-text">소개 이미지와 함깨 보이는 글이에요 프로젝트를 쉽고 간결하게 소개해 주세요</span>
-		        <textarea id="summary"  name="project_content" placeholder="내용 입력"></textarea>
+		        <textarea id="summary"  name="project_content" placeholder="내용 입력">${projectStory.project_content}</textarea>
 		        <span class="helper-text">100자 남음</span>
 		
 		        <label for="story">프로젝트 스토리</label>

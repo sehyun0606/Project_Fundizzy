@@ -162,7 +162,7 @@ public class FundController {
 	
 	
 //----------------------------------------------오른쪽 결제창 관련 -----------------------------------------------------------------------------------
-	//결제창으로 이동 - get 
+	//리워드 선택 - get 
 	@GetMapping("PaymentReward")
 	public String paymentReward(String project_code, Model model) {
 		
@@ -174,11 +174,29 @@ public class FundController {
 	}
 	
 	
+	
 	//결제창으로 이동 - post 
-	@GetMapping("PaymentPay")
-	public String paymentPay() {
+	@PostMapping("PaymentPay")
+	public String paymentPay(String project_code, Model model, HttpSession session) {
+		Map<String, Object> reward = fundService.getPaymentReward(project_code);
+		System.out.println("pay reward = " + reward);
+		model.addAttribute("reward", reward);
+		
+		//배송을 위한 member 정보 가져오기 
+		String email = (String) session.getAttribute("sId");
+		Map<String, Object> member = fundService.getPaymentPayMember(email);
+		System.out.println("payment member = " + member);
+		model.addAttribute("member", member);
 		return "merch/payment/payment_pay";
 	}
+	
+	//결제창으로 이동 - get 
+	@GetMapping("PaymentPay")
+	public String paymentPayPage() {
+		return "merch/payment/payment_pay";
+	}
+	
+	//결제 완료창 
 	@GetMapping("PaymentComplete")
 	public String paymentComplete() {
 		return "merch/payment/payment_complete";
