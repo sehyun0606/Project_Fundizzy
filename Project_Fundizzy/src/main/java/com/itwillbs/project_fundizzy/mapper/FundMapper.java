@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface FundMapper {
+	//프로젝트 board 출력
+	Map<String, Object> selectFundBoard(String project_code);
 	
 	//지지서명 글 목록 
 	List<Map<String, Object>> selectSupportList();
@@ -23,5 +25,10 @@ public interface FundMapper {
 	int deleteSupportReply(Map<String, Object> map);
 	//지지서명 댓글 작성자 가져오기 
 	Object selectReplyWriter(Map<String, Object> map);
+	//---------------오른쪽 부분 ----------------------
+	
+	//리워드 가져오기 
+	Map<String, Object> selectPaymentReward(String project_code);
+
 	
 }

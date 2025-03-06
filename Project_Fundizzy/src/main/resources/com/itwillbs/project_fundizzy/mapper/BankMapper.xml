@@ -38,11 +38,41 @@
 
 
 
-
-
-
-
-
+<!-- MyPage 관련 코드들 - 페이 -->
+	<select id="selectDBTransactionResult" resultType="map">
+		SELECT *
+		FROM bank_transaction_info
+		WHERE bank_tran_id = #{bank_tran_id}
+	</select>
+	<select id="selectDBAccountInfo" resultType="bankAccount">
+		SELECT *
+		FROM bank_account
+		WHERE user_seq_no = #{user_seq_no}
+	</select>
+<!-- 출금결과 저장 -->
+	<insert id="insertChargeResult">
+		INSERT INTO bank_transaction_info 
+		VALUES(
+			#{transactionResult.user_seq_no}
+			,#{transactionResult.fintech_use_num}
+			,#{transactionType}
+			,#{transactionResult.api_tran_id}
+			
+			,LEFT(#{transactionResult.api_tran_dtm},14)
+			,#{transactionResult.bank_tran_id}
+		
+			,#{transactionResult.bank_tran_date}
+			,#{transactionResult.tran_amt}
+			,#{transactionResult.rsp_code}
+			,#{transactionResult.rsp_message}
+			,#{transactionResult.bank_rsp_code}
+			,#{transactionResult.bank_rsp_message}
+			,#{transactionResult.dps_bank_code_std}
+			,#{transactionResult.dps_account_num_masked}
+			,#{transactionResult.tran_id}
+		
+		)
+	</insert>
 
 
 

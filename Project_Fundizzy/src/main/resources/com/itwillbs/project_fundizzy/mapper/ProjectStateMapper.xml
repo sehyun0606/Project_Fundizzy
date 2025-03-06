@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itwillbs.project_fundizzy.mapper.ProjectStateMapper">
+	<insert id="insertNewsBoard">
+		<selectKey keyProperty="news_code" resultType="int" order="BEFORE">
+			SELECT IFNULL(MAX(news_code), 0)
+			FROM news
+		</selectKey>
+		INSERT 
+		INTO news
+		VALUES (
+			#{news_code} + 1
+			, #{project_code}
+			, #{maker_email}
+			, #{news_title}
+			, #{news_content}
+			, NOW()
+			, 'Y'
+		)
+	</insert>
+	
+	<select id="selectNewsList" resultType="news">
+		SELECT *
+		FROM news
+		WHERE project_code = #{project_code}
+		ORDER BY news_date DESC
+	</select>
+
+
+
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+

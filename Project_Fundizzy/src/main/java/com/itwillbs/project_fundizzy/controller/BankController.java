@@ -28,9 +28,11 @@ public class BankController {
 	@BankTokenCheck
 	@GetMapping("ManageMyPaymentInfo")
 	public String manageMyPaymentInfo(HttpSession session, Model model) {
+		//토큰 가져오기
 		BankToken bankToken = (BankToken) session.getAttribute("token");
 		System.out.println("토큰 정보 = " + bankToken);
 		
+		//토큰 있으면 model에 저장 후 view 페이지로 
 		if(bankToken != null) {
 			Map<String, Object> bankUserInfo = bankservice.getBankUserInfo(bankToken);
 			System.out.println("API 응답 데이터: " + bankUserInfo);
@@ -55,11 +57,11 @@ public class BankController {
 		BankToken token = bankservice.getAccessToken(authResponse);
 		System.out.println(">>>>>>>>>>엑세스 토큰 정보 = " + token);
 		//토큰 발급 실패시 실패 페이지로 리턴 
-		if(token == null || token.getAccess_token() == null) {
-			model.addAttribute("msg", "토큰 발급 실패! 다시 인증을 수행해 주세요. \\n 실패원인 : " + token.getRep_code() + " " + token.getRsp_message());
-			model.addAttribute("isClose", true);
-			return "result/fail";
-		}
+//		if(token == null || token.getAccess_token() == null) {
+//			model.addAttribute("msg", "토큰 발급 실패! 다시 인증을 수행해 주세요. \\n 실패원인 : " + token.getRep_code() + " " + token.getRsp_message());
+//			model.addAttribute("isClose", true);
+//			return "result/fail";
+//		}
 		//map에 토큰과 이메일(아이디) 저장 후 
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("email", session.getAttribute("sId"));

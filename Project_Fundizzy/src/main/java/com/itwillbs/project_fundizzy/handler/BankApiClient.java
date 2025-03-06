@@ -16,8 +16,10 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.session.HeaderWebSessionIdResolver;
 import org.springframework.web.servlet.function.ServerRequest.Headers;
+import org.springframework.web.servlet.tags.Param;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.google.gson.JsonObject;
 import com.itwillbs.project_fundizzy.vo.BankToken;
 
 import lombok.extern.log4j.Log4j2;
@@ -113,5 +115,69 @@ public class BankApiClient {
 		String tran_dtime = BankValueGenerator.getTranDTrime();
 				
 		return null;
+	}
+	//출금이체 
+	public Map<String, Object> requestCharge(Map<String, Object> map) {
+		//map에서 꺼내 토큰 변수에 저장 
+		BankToken bankToken = (BankToken) map.get("bankToken");
+		
+		//bank_tran_id, tran_dtime 생성
+		String bank_tran_id = BankValueGenerator.getBankTranId(client_use_code);
+		String tran_dtime = BankValueGenerator.getTranDTrime();
+		
+		//등록계좌 조회 api 요청주소 생성
+		 URI uri = UriComponentsBuilder
+				 .fromUriString(base_url)
+				 .path("/v2.0/transfer/withdraw/fin_num")
+				 .encode()
+				 .build()
+				 .toUri();
+		 System.out.println("uri = " + uri.toString());
+		 //http 통신에서 전송할 header 정보 생성 
+		 HttpHeaders headers = new HttpHeaders();
+		 headers.setBearerAuth(bankToken.getAccess_token());
+		 
+		 //header setcontent type을 호출해 json타입으로 설정 
+		 headers.setContentType(MediaType.APPLICATION_JSON);
+		 
+		 JsonObject jsonObject = new JsonObject();
+//		 이용기관 정보
+		 jsonObject.addProperty("bank_tran_id", bank_tran_id); // 거래 고유번호
+		 jsonObject.addProperty("cntr_account_type", "N"); //약정계좌(N) & 계정 구분 
+		 jsonObject.addProperty("cntr_account_num", cntr_account_num);//약정 계좌번호
+		 
+		 //입금계좌인자내역 (아이티윌에 출력할 메시지) 
+		 jsonObject.addProperty("dps_print_content",(String) map.get("email")); //사용자 아이디
+		 
+		 //출금계좌 정보
+		 jsonObject.addProperty("fintech_use_num", (String)map.get("charge_fintech_use_num"));// 출금계좌 핀테크 이용번호
+		 jsonObject.addProperty("wd_print_content",  "funddizy pay");// 출금계좌 인자내약
+		 
+		 jsonObject.addProperty("tran_amt", (String)map.get("tran_amt")); // 출금금액
+		 jsonObject.addProperty("tran_dtime", tran_dtime); //거래날짜
+		 jsonObject.addProperty("req_client_name", (String)map.get("charge_req_client_name")); // 출금계좌 예금주명 
+		 jsonObject.addProperty("req_client_fintech_use_num", (String)map.get("charge_fintech_use_num")); // 요청고객 핀테크 이용번호(출금계좌)
+		 
+		 
+		 jsonObject.addProperty("req_client_num", bankToken.getUser_seq_no()); //사용자 일련번호
+		 jsonObject.addProperty("transfer_purpose", "ST");
+		 
+		 //출금계좌 정보 
+		 jsonObject.addProperty("recv_client_name", "이연태");
+		 jsonObject.addProperty("recv_client_bank_code", cntr_account_bank_code);
+		 jsonObject.addProperty("recv_client_account_num", cntr_account_num);
+		 
+		 System.out.println("잘 나오는지 출력 = " + uri.toString());
+		 
+		 HttpEntity<String> httpEntity = new HttpEntity<String>(jsonObject.toString(),headers);
+		 
+		 RestTemplate restTemplate = new RestTemplate();
+		 
+		 ParameterizedTypeReference<Map<String, Object>> responseType = new ParameterizedTypeReference<Map<String,Object>>() {
+		};
+		 
+		ResponseEntity<Map<String, Object>> response = restTemplate.exchange(uri, HttpMethod.POST, httpEntity, responseType);
+		System.out.println("응답 데이터 출력 = " + response.getBody());
+		return response.getBody();
 	}
 }
