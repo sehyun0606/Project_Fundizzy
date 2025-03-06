@@ -50,5 +50,11 @@ public interface ProjectMakerMapper {
 
 	ProjectStoryVO selectProjectStory(String project_code);
 
+	RewardVO selectRewardInfo(int reward_code);
+
+	void updateReward(RewardVO reward);
+
+	void deleteReward(String reward_code);
+
 
 }

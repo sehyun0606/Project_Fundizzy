@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.gson.Gson;
 import com.itwillbs.project_fundizzy.service.ProjectMakerService;
 import com.itwillbs.project_fundizzy.vo.MakerInfoVO;
 import com.itwillbs.project_fundizzy.vo.ProjectInfoVO;
@@ -181,7 +182,7 @@ public class ProjectMakerController {
 	    String projectCode = projectStory.getProject_code();
 	    String realPath = getRealPath(session, virtualPath) + projectCode + "/ProjectStory";
 
-	    // ✅ 실제 파일 업로드 경로 생성
+	    //실제 파일 업로드 경로 생성
 	    try {
 	        Path path = Paths.get(realPath);
 	        if (!Files.exists(path)) { 
@@ -191,7 +192,7 @@ public class ProjectMakerController {
 	        e.printStackTrace();
 	    }
 
-	    // ✅ 대표 이미지 업로드
+	    //대표 이미지 업로드
 	    MultipartFile representativePicture = projectStory.getRepresentativePicture();
 	    projectStory.setRepresentative_picture(""); // 기본값 설정
 
@@ -205,7 +206,7 @@ public class ProjectMakerController {
 	        }
 	    }
 
-	    // ✅ 소개 이미지 (다중 파일 업로드)
+	    //소개 이미지 (다중 파일 업로드)
 	    MultipartFile[] productPictures = projectStory.getProductPicture();
 	    List<String> productPicturePaths = new ArrayList<>();
 
@@ -224,10 +225,10 @@ public class ProjectMakerController {
 	        }
 	    }
 
-	    // ✅ 경로를 하나의 문자열로 저장
+	    //경로를 하나의 문자열로 저장
 	    projectStory.setProduct_picture(String.join(",", productPicturePaths));
 
-	    // ✅ DB 저장
+	    //DB 저장
 	    projectMakerService.registProjectStory(projectStory);
 
 	    return "redirect:/ProjectMaker";
@@ -278,6 +279,33 @@ public class ProjectMakerController {
 		return "redirect:/ProjectReward";
 	}
 	
+	//ajax를 활용하여 리워드 수정하기
+	@GetMapping("GetRewardInfo")
+	@ResponseBody
+	public String getRewardInfo(int reward_code) {
+		RewardVO reward = projectMakerService.getRewardInfo(reward_code);
+		Gson gson = new Gson();
+		
+		return gson.toJson(reward);
+	}
+	
+	//리워드 업데이트
+	@PostMapping("ProjectRewardUpdate")
+	public String projectRewardUpdate(RewardVO reward){
+		
+		projectMakerService.updateReward(reward);
+		
+		
+		return "redirect:/ProjectReward";
+	}
+	
+	//리워드 삭제 ajax
+	@GetMapping("DeleteReward")
+	@ResponseBody
+	public String deleteReward(String reward_code) {
+		projectMakerService.deleteReward(reward_code);
+		return "success";
+	}
 	
 	@GetMapping("MakerInfo")
 	public String makerInfo() {

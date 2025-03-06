@@ -99,5 +99,20 @@ public class ProjectMakerService {
 		return makerMapper.selectProjectStory(project_code);
 	}
 	
+	//ajax를 활용한 리워드 정보 들고오기
+	public RewardVO getRewardInfo(int reward_code) {
+		return makerMapper.selectRewardInfo(reward_code);
+	}
+	
+	//리워드 수정
+	public void updateReward(RewardVO reward) {
+		makerMapper.updateReward(reward);
+		
+	}
+
+	public void deleteReward(String reward_code) {
+		makerMapper.deleteReward(reward_code);
+	}
+	
 
 }

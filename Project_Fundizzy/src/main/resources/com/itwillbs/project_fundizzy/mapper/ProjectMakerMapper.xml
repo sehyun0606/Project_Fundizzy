@@ -109,6 +109,12 @@
 		WHERE project_code = #{projectCode}
 	</select>
 	
+	<select id="selectRewardInfo" resultType="Reward">
+		SELECT *
+		FROM reward
+		WHERE reward_code = #{reward_code}
+	</select>
+	
 	<select id="selectMakerInfo" resultType="MakerInfo">
 		SELECT *
 		FROM maker_info
@@ -165,6 +171,16 @@
 		WHERE project_code = #{project_code}
 	</update>
 	
+	<update id="updateReward">
+		UPDATE reward
+		SET product_name = #{product_name},
+			product_desc = #{product_desc},
+			price =#{price},
+			product_limit = #{product_limit},
+			delivery_fee = #{delivery_fee}
+		WHERE reward_code = #{reward_code}
+	</update>
+	
 	<insert id="insertProjectStory">
 		INSERT
 		INTO project_story
@@ -178,6 +194,12 @@
 			#{open_story}
 		)
 	</insert>
+	
+	<delete id="deleteReward">
+		DELETE
+		FROM reward
+		WHERE reward_code = #{reward_code}
+	</delete>
 	
 </mapper>
 
