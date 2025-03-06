@@ -20,95 +20,11 @@
 	</header>
 	<article>
 		<div id="title">
-			결제 정보 관리
+			잔액조회
 		</div>
-		<div id="accountInfoDiv">
-			<div class="subTitle">등록된 계좌정보</div>
-			<div id="registAccountList">
-				<div class="account">
-					<div class="accountHeader">
-						<div class="bankName">
-							<img src="${pageContext.request.contextPath}/resources/images/bank/bankbook.png">  
-							<c:choose>
-								<c:when test="${empty selected}">
-									<input type="hidden" id="empty-account" value="${selected.account_num_masked}">
-								</c:when>
-								<c:otherwise>
-									<div>
-										${selected.account_alias}
-										${selected.account_num_masked}
-										${selected.bank_name}
-										${selected.account_holder_name }
-									</div>
-								</c:otherwise>
-							</c:choose>	
-						</div>
-						<div class="delete">
-							<button class="account_delete"><img alt="계좌 삭제하기" id="account_delete" src="${pageContext.request.contextPath}/resources/images/bank/trashcan.png">삭제</button>
-						</div>
-					</div>
-				</div>
-				
-				<div id="addAccount">
-					<button 
-						<c:choose>
-							<c:when test="${empty sessionScope.token}">
-								id="auth-button"
-							</c:when>
-							<c:otherwise>
-								id="add_button"
-							</c:otherwise>
-						</c:choose>
-					>+ button<i class='fas fa-plus'></i></button>
-<%-- 					<img alt="계좌등록/추가" src="${pageContext.request.contextPath}/resources/images/bank/plus.png"> --%>
-				</div>
-			</div>
-		</div>
-		<div id="cardInfoDiv">
-			<div class="subTitle">간편결제카드</div>
-			<div id="addCard">
-				<img alt="간편카드등록" src="${pageContext.request.contextPath}/resources/images/bank/plus.png">
-			</div>
-		</div>
+		${sessionScope.sId} 서포터님의 계좌 정보
 	</article>
 	
-	<div class="account_modal" id="account_modal">
-	    <div class="account_content">
-	        <div class="top">
-	            <b class="subject">${sessionScope.sId} 님의 계좌 목록</b>
-	            <button type="button" class="x">x</button>
-	        </div>
-        <div class="account_list_table">
-            <table>
-                <tr>
-                    <th>계좌명</th>
-                    <th>은행명</th>
-                    <th>계좌번호</th>
-                    <th>예금주명</th>
-                    <th>핀테크 이용번호</th>
-                    <th>등록</th>
-                </tr>
-                <c:forEach var="account" items="${bankUserInfo.res_list}">
-                    <tr>
-                        <form action="BankAccountRegist" method="POST">
-                            <input type="hidden" name="account_alias" value="${account.account_alias}">
-                            <input type="hidden" name="bank_name" value="${account.bank_name}">
-                            <input type="hidden" name="account_num_masked" value="${account.account_num_masked}">
-                            <input type="hidden" name="account_holder_name" value="${account.account_holder_name}">
-                            <input type="hidden" name="fintech_use_num" value="${account.fintech_use_num}">
-                            <th>${account.account_alias}</th>
-                            <th>${account.bank_name}</th>
-                            <th>${account.account_num_masked}</th>
-                            <th>${account.account_holder_name}</th>
-                            <th>${account.fintech_use_num}</th>
-                            <th><input type="submit" value="계좌 등록"></th>
-                        </form>
-                    </tr>
-                </c:forEach>
-            </table>
-   		 </div>
-	</div>
-</div>
 
 	<footer>
 		<jsp:include page="/WEB-INF/views/inc/footer.jsp" />

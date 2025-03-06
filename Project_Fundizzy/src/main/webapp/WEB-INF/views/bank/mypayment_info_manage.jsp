@@ -38,7 +38,7 @@
 										${selected.account_alias}
 										${selected.account_num_masked}
 										${selected.bank_name}
-										${selected.account_holder_name }
+										${selected.account_holder_name}
 									</div>
 								</c:otherwise>
 							</c:choose>	

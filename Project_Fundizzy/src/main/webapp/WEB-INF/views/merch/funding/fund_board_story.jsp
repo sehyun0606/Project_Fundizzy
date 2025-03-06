@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -161,10 +163,9 @@
         </div>
         <div class="content-right">
             <div class="purchase-section">
-                <h3>[소재혁명] 빈틈없는 편안함! 고온세척&건조 가능한 반영구 통실리콘 베개</h3>
+                <h3>${fundStory.project_title}</h3>
                 <div class="purchase-content">
-                   이렇게 목과 머리를 제대로 잡아주는데, 심지어 스팀 살균, 건조기까지 사용이 가능하다구? 해외에서 각광받는 베개,
-                   22년 침구 기술력을 온전히 담아낸 통실리콘 베개를 소개합니다. 
+                   ${fundStory.project_content}
                 </div>
                 <p><strong>139</strong>명 참여</p>
                 <p><strong>50,000</strong>원 달성</p>
@@ -186,24 +187,6 @@
             <div class="reward-selection">
                 <h3>리워드 선택</h3>
                 <div class="reward-list">
-				  	<div class="reward">
-		               <h4>13,900원</h4>
-		               <p>헤어스타일러 외 4종 스타일링 툴</p>
-		               <p>드라이기 + 고속노즐 + 일반노즐 + 스타일링 빗</p>
-		               <hr>
-		               <p>배송비 </p>
-		               <p>발송 시작일</p>
-		               <p>제한 수량</p>
-		            </div>
-				  	<div class="reward">
-		               <h4>13,900원</h4>
-		               <p>헤어스타일러 외 4종 스타일링 툴</p>
-		               <p>드라이기 + 고속노즐 + 일반노즐 + 스타일링 빗</p>
-		               <hr>
-		               <p>배송비 </p>
-		               <p>발송 시작일</p>
-		               <p>제한 수량</p>
-		            </div>
 				  	<div class="reward">
 		               <h4>13,900원</h4>
 		               <p>헤어스타일러 외 4종 스타일링 툴</p>

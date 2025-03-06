@@ -31,8 +31,10 @@ public class FundController {
 	}
 	//fund 스토리
 	@GetMapping("FundBoardStory")
-	public String fundBoardStory() {
-		
+	public String fundBoardStory(String project_code, Model model) {
+		Map<String, Object> fundStory = fundService.getFundBoard(project_code);
+		System.out.println("map == " + fundStory); // ok
+		model.addAttribute("fundStory", fundStory); //ok
 		return "merch/funding/fund_board_story";
 	}
 	//fund 새소식 
@@ -156,11 +158,23 @@ public class FundController {
 	public String fundBoardReward() {
 		return "merch/funding/fund_board_reward";
 	}
-//오른쪽 결제창 관련 
+	
+	
+	
+//----------------------------------------------오른쪽 결제창 관련 -----------------------------------------------------------------------------------
+	//결제창으로 이동 - get 
 	@GetMapping("PaymentReward")
-	public String paymentReward() {
+	public String paymentReward(String project_code, Model model) {
+		
+		Map<String, Object> reward = fundService.getPaymentReward(project_code);
+		System.out.println("reward map = " +  reward); // ok
+		
+		model.addAttribute("reward", reward);
 		return "merch/payment/payment_reward";
 	}
+	
+	
+	//결제창으로 이동 - post 
 	@GetMapping("PaymentPay")
 	public String paymentPay() {
 		return "merch/payment/payment_pay";
