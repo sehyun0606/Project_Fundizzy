@@ -86,7 +86,8 @@ body {
 .search-bar input[type="text"] {
     width: 200px;
     padding: 5px;
-    margin-right: 10px;
+    margin-right: 5px;
+    margin-left: 5px
 }
 .member-img {
     width: 50px;
@@ -132,3 +133,30 @@ table tr:hover {
     background-color: #f5f5f5; /* 행에 마우스 올릴 때 배경색 변경 */
     cursor: pointer; /* 마우스 포인터 커서 변경 */
 }
+.search-btn {
+    background-color: #4CAF50; /* 하얀색 배경 */
+    border: 1px solid #4CAF50; /* 연한 초록색 테두리 */
+    color: white; /* 텍스트 색상 */
+    padding: 5px 12px; /* 버튼 크기 조정 */
+    font-size: 14px;
+    border-radius: 5px; /* 둥근 모서리 */
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    height: 29px;
+}
+
+.search-btn:hover {
+    background-color: white; /* 초록색 배경 */
+    color: #4CAF50; /* 흰색 글씨 */
+}
+
+
+
+
+
+
+
+
+
+
+

@@ -71,13 +71,9 @@ public class AdminController {
 	public String memberManage(@RequestParam Map<String, String> member, Model model) {
 		// 회원 정보 들고오기
 		List<Map<String, String>> memberInfo = service.getUserInfo();
-		System.out.println("들고온 회원 정보 : " + memberInfo);
-		
 		List<Map<String, String>> recentRegDate = service.getRegDate();
 		List<Map<String, String>> recentWithdrawDate = service.getWithdrawDate();
 		
-	
-	    
 		model.addAttribute("memberInfo", memberInfo);
 		model.addAttribute("recentRegDate", recentRegDate);
 		model.addAttribute("recentWithdrawDate", recentWithdrawDate);
