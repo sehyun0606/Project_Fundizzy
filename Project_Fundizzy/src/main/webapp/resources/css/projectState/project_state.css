@@ -54,9 +54,16 @@
     background-color: #ddd; /* 세로선 색상 */
 }
 
+.selectDate {
+	display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    gap: 10px;
+}
 
-
-
+#myChart {
+	margin: 50px 30px 70px;
+}
 
 
 
