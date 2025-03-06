@@ -143,8 +143,9 @@ h1 {
 	border-bottom: none;
 }
 
-.list-title {
-	
+.list-title > div {
+	color: #a1a1a1;
+	font-size: 14px;
 }
 
 .list-container .btn-container {

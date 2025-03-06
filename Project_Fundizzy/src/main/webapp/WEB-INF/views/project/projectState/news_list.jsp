@@ -48,6 +48,9 @@
 				</div>
 				<c:forEach var="news" items="${newsList}">
 					<div class="list-container">
+						<c:if test="${empty news}">
+							<div>등록된 새소식이 없습니다</div>
+						</c:if>
 						<div class="list-title">
 							<h3><a href="">${news.news_title}</a></h3>
 							<div>${news.news_date}</div>

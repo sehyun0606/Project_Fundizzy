@@ -12,8 +12,8 @@
 		INTO news
 		VALUES (
 			#{news_code} + 1
-			, 'project_code'
-			, 'email'
+			, #{project_code}
+			, #{maker_email}
 			, #{news_title}
 			, #{news_content}
 			, NOW()
@@ -24,6 +24,8 @@
 	<select id="selectNewsList" resultType="news">
 		SELECT *
 		FROM news
+		WHERE project_code = #{project_code}
+		ORDER BY news_date DESC
 	</select>
 
 

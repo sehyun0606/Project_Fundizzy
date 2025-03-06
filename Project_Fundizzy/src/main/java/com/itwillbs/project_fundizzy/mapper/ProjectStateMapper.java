@@ -12,6 +12,6 @@ public interface ProjectStateMapper {
 
 	int insertNewsBoard(NewsVO news);
 
-	List<NewsVO> selectNewsList();
+	List<NewsVO> selectNewsList(String project_code);
 
 }

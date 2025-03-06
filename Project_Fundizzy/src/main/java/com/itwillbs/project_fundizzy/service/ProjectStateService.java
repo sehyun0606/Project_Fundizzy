@@ -18,8 +18,8 @@ public class ProjectStateService {
 		return stateMapper.insertNewsBoard(news);
 	}
 
-	public List<NewsVO> getNewsList() {
-		return stateMapper.selectNewsList();
+	public List<NewsVO> getNewsList(String project_code) {
+		return stateMapper.selectNewsList(project_code);
 	}
 
 }
