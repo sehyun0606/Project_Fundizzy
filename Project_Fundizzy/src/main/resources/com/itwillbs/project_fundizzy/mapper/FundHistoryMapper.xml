@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.itwillbs.project_fundizzy.mapper.FundHistoryMapper">
+ 	<select id="selectFundHistoryListCount" resultType="int">
+ 		SELECT COUNT(*)
+ 		FROM fund_history
+ 		WHERE member_email = #{member_email}
+ 	</select>
+ 	
+ 	<select id="selectFundList" resultType="FundHistory">
+ 		SELECT *
+ 		FROM fund_history
+ 		ORDER BY
+ 			fund_idx DESC
+ 		LIMIT
+ 			#{startRow}
+ 			,#{listLimit}
+ 	</select>
+ 	
+ 	<select id="selectFundInfo" resultType="FundHistory">
+ 		SELECT *
+ 		FROM fund_history
+ 		WHERE fund_idx = #{fund_idx}
+ 	</select>
+ 	
+ 	<insert id="insertRefund">
+ 		INSERT
+ 		INTO refund
+ 		VALUES(
+ 			#{refund_code},
+ 			#{fund_idx},
+ 			#{member_email},
+ 			#{reward_code},
+ 			#{product_name},
+ 			#{refund_amound},
+ 			#{refund_reason},
+ 			#{refund_img},
+ 			null,
+ 			NOW(),
+ 			null,
+ 			'REF01'
+ 		
+ 		)
+ 	</insert>
+ 	
+ </mapper>
