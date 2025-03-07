@@ -24,8 +24,27 @@ public class ProjectStateController {
 	@Autowired
 	ProjectStateService stateService;
 	
+	// 프로젝트 현황 페이지
 	@GetMapping("ProjectState")
-	public String projectState() {
+	public String projectState(HttpSession session, Model model) {
+		
+		String project_code = (String)session.getAttribute("project_code");
+		
+		// 일일 누적 결제건수 리스트
+		List<Map<String, Object>> paymentCountList = stateService.getPaymentCountList(project_code);
+		// 일일 총 결제 금액 리스트
+		List<Map<String, Object>> dailyPaymentList = stateService.getDailyPaymentList(project_code);
+		// 일일 누적 결제 금액 리스트
+		List<Map<String, Object>> cumulativePaymentList = stateService.getCumulativePaymentList(project_code);
+		
+		model.addAttribute("paymentCountList", paymentCountList);
+		model.addAttribute("dailyPaymentList", dailyPaymentList);
+		model.addAttribute("cumulativePaymentList", cumulativePaymentList);
+		
+		System.out.println(paymentCountList);
+		System.out.println(dailyPaymentList);
+		System.out.println(cumulativePaymentList);
+		
 		return "project/projectState/project_state";
 	}
 
@@ -34,11 +53,13 @@ public class ProjectStateController {
 		return "project/projectState/settlement_info";
 	}
 
+	// 정산관리 페이지
 	@GetMapping("SettlementDetail")
 	public String settlementDetail() {
 		return "project/projectState/settlement_detail";
 	}
 
+	// 발송환불관리 페이지
 	@GetMapping("ShipmentRefund")
 	public String shipmentRefund() {
 		return "project/projectState/shipment_refund";
@@ -105,13 +126,14 @@ public class ProjectStateController {
 	@ResponseBody
 	@GetMapping("NewsModify")
 	public NewsVO getNewsCodeToModify(int news_code) {
+		// ajax로 새소식 조회 결과 보냄
 		NewsVO news = stateService.getNews(news_code);
 		return news;
 	}
 	
 	@PostMapping("NewsModify")
 	public String newsModify(@RequestParam Map<String, String> map, Model model, HttpSession session) {
-		
+		// 새소식 수정
 		int updateCount;
 		try {
 			updateCount = stateService.modifyNewsBoard(map);

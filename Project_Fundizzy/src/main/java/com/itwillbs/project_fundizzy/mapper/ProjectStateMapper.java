@@ -23,6 +23,12 @@ public interface ProjectStateMapper {
 
 	int updateNewsBoard(Map<String, String> map);
 
+	List<Map<String, Object>> selectPaymentCountList(String project_code);
+
+	List<Map<String, Object>> selectDailyPaymentList(String project_code);
+
+	List<Map<String, Object>> selectCumulativePaymentList(String project_code);
+
 
 
 }

@@ -60,6 +60,36 @@
 		WHERE news_code = #{news_code}
 	</update>
 
+	<select id="selectPaymentCountList" resultType="map">
+		SELECT
+		    DATE(payment_complete_date) AS date,
+		    COUNT(*) AS daily_payments,  -- 해당 날짜의 결제 건수
+		    SUM(COUNT(*)) OVER (ORDER BY DATE(payment_complete_date)) AS cumulative_payments -- 누적 건수
+		FROM payment
+		WHERE project_code = #{project_code}
+		GROUP BY DATE(payment_complete_date)
+		ORDER BY DATE(payment_complete_date)
+	</select>
+	
+	<select id="selectDailyPaymentList" resultType="map">
+		SELECT 
+		    DATE(payment_complete_date) AS date,
+		    SUM(payment_amount) AS cumulative_payments
+		FROM payment
+		WHERE project_code = #{project_code}
+		GROUP BY DATE(payment_complete_date)
+		ORDER BY DATE(payment_complete_date);
+	</select>
+	
+	<select id="selectCumulativePaymentList" resultType="map">
+		SELECT 
+		    DATE(payment_complete_date) AS date,
+		    SUM(SUM(payment_amount)) OVER (ORDER BY DATE(payment_complete_date)) AS cumulative_payments
+		FROM payment
+		WHERE project_code = #{project_code}
+		GROUP BY DATE(payment_complete_date)
+		ORDER BY DATE(payment_complete_date)
+	</select>
 
 </mapper>
 

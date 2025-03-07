@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -66,6 +67,105 @@
 	</div>
 </body>
 <script>
+	$(function() {
+		let dateArr = new Array();
+		let paymentCountArr = new Array();
+		let dailyPaymentArr = new Array();
+		let cumulativePaymentArr = new Array();
+
+		<c:forEach var="paymentCount" items="${paymentCountList}">
+		    dateArr.push("${paymentCount.date}");
+		    paymentCountArr.push("${paymentCount.cumulative_payments}");
+		</c:forEach>
+
+		<c:forEach var="dailyPayment" items="${dailyPaymentList}">
+		    dailyPaymentArr.push("${dailyPayment.cumulative_payments}");
+		</c:forEach>
+
+		<c:forEach var="cumulativePayment" items="${cumulativePaymentList}">
+		    cumulativePaymentArr.push("${cumulativePayment.cumulative_payments}");
+		</c:forEach>
+
+		let myCt = $("#myChart");
+
+		let myChart = new Chart(myCt, {
+		    type: 'bar',
+		    data: {
+		        labels: dateArr,
+		        datasets: [
+		            {
+		                label: '누적 결제 건수',
+		                data: paymentCountArr,
+		                type: 'line',
+		                borderColor: 'rgba(75, 192, 192, 1)',
+		                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+// 		                backgroundColor: 'rgba(54, 162, 235, 0.5)',
+// 		                borderWidth: 1,
+		                yAxisID: 'y'
+		            },
+		            {
+		                label: '일일 결제 금액',
+		                data: dailyPaymentArr,
+		                backgroundColor: 'rgba(54, 162, 235, 0.5)',
+		                borderWidth: 1,
+// 		                type: 'line',
+// 		                borderColor: 'rgba(75, 192, 192, 1)',
+// 		                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+		                fill: false,
+		                yAxisID: 'y1'
+		            },
+		            {
+		                label: '누적 결제 금액',
+		                data: cumulativePaymentArr,
+		                backgroundColor: 'rgba(54, 162, 235, 0.5)',
+		                borderWidth: 1,
+// 		                type: 'line',
+// 		                borderColor: 'rgba(255, 99, 132, 1)',
+// 		                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+		                fill: false,
+		                yAxisID: 'y1'
+		            }
+		        ]
+		    },
+		    options: {
+		        responsive: false,
+		        scales: {
+		            y: {
+		                beginAtZero: true,
+		                position: 'right',
+		                title: {
+		                    display: true,
+		                    text: '누적 결제 건수'
+		                },
+		                ticks: {
+		                    stepSize: 5,
+		                    max: 1000
+		                }
+		            },
+		            y1: {
+		                beginAtZero: true,
+		                position: 'left',
+		                title: {
+		                    display: true,
+		                    text: '결제 금액'
+		                },
+		                grid: {
+		                    drawOnChartArea: false
+		                },
+		                ticks: {
+		                    stepSize: 100000
+		                }
+		            }
+		        }
+		    }
+		});
+
+
+		
+		
+		
+	});
+
 </script>
 </html>
 

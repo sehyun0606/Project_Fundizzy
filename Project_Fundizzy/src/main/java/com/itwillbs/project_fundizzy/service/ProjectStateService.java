@@ -38,6 +38,18 @@ public class ProjectStateService {
 		return stateMapper.updateNewsBoard(map);
 	}
 
+	public List<Map<String, Object>> getPaymentCountList(String project_code) {
+		return stateMapper.selectPaymentCountList(project_code);
+	}
+
+	public List<Map<String, Object>> getDailyPaymentList(String project_code) {
+		return stateMapper.selectDailyPaymentList(project_code);
+	}
+
+	public List<Map<String, Object>> getCumulativePaymentList(String project_code) {
+		return stateMapper.selectCumulativePaymentList(project_code);
+	}
+
 
 
 
