@@ -148,6 +148,12 @@
         .toggle-checkbox:not(:checked) ~ .maker {
             color: #aaa;
         }
+        
+        #pay_btn{
+        width: 230px;
+        height: 40px;
+        margin-top: 10px;
+        }
     </style>
 </head>
 
@@ -167,7 +173,7 @@
         <div class="profile-image"></div>
         <input type="button" class="settings" value="내 정보 설정" onclick="location.href='SettingMain'">
 
-       
+       <input type="button" value="페이" id="pay_btn" onclick="location.href='PayPage'">
         <div class="menu-item">
         	<span class="menu-title">프로젝트</span>
             <div class="submenu2">

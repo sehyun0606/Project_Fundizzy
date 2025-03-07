@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -23,7 +24,7 @@
 	        	<input type="hidden" id="maker_type" name="maker_type" value="${projectInfo.maker_type}">
 	        	<input type="file" id="file2" name="registrationCard" style="display: none;">
 	        	<input type="hidden" id="business_name" name="business_name"  value="${projectInfo.business_name}">
-	        	<input type="hidden" id="business_number" name="business_number" value="${projectInfo.business-number}">
+	        	<input type="hidden" id="business_number" name="business_number" value="${projectInfo.business_number}">
 	        	<input type="hidden" id="repersentative_name" name="representative_name" value="${projectInfo.representative_name}">
 	        	<input type="hidden" id="repersentative_email" name="representative_email" value="${projectInfo.representative_email}">
 	        </form>
@@ -32,26 +33,36 @@
 	        <label class="label">카테고리 선택</label> 
 	        <select class="select main-category" required="required">
 	            <option value="">카테고리 선택</option>
-	            <option value="electric">전자기기</option>
-	            <option value="furniture">가구</option>
-	            <option value="life">생활용품</option>
+	            <option value="electric" ${projectInfo.category eq 'electric' ? 'selected' : ''}>전자기기</option>
+	            <option value="furniture" ${projectInfo.category eq 'furniture' ? 'selected' : ''}>가구</option>
+	            <option value="life" ${projectInfo.category eq 'life' ? 'selected' : ''}>생활용품</option>
 	        </select>
 	        
 	        <label class="label">보조 카테고리 선택(선택)</label>
 	        <select class="select sub-category" required="required">
 	            <option value="">카테고리 선택</option>
-	            <option value="electric">전자기기</option>
-	            <option value="furniture">가구</option>
-	            <option value="life">생활용품</option>
+	            <option value="electric" ${projectInfo.sub_category eq 'electric' ? 'selected' : ''}>전자기기</option>
+	            <option value="furniture" ${projectInfo.sub_category eq 'furniture' ? 'selected' : ''}>가구</option>
+	            <option value="life" ${projectInfo.sub_category eq 'life' ? 'selected' : ''}>생활용품</option>
 	        </select>
 	        
 	        <!-- 성인 인증 -->
 	        <label class="label">성인 인증(선택)</label>
-	        <div class="checkbox-container">
-	            <input type="checkbox" id="adult">
-	            <label for="adult">19세 이상만 참여 가능한 리워드예요</label>
-	        </div>
-	
+	        <c:choose>
+		        <c:when test="${adult_check eq 'Y'}">
+			        <div class="checkbox-container">
+			            <input type="checkbox" id="adult" checked="checked">
+			            <label for="adult">19세 이상만 참여 가능한 리워드예요</label>
+			        </div>
+		        </c:when>
+	        	<c:otherwise>
+			        <div class="checkbox-container">
+			            <input type="checkbox" id="adult" >
+			            <label for="adult">19세 이상만 참여 가능한 리워드예요</label>
+			        </div>
+	        	</c:otherwise>
+	        </c:choose>
+	        
 	        <!-- 메이커 유형 -->
 	        <label class="label">메이커 유형</label>
 	        <div class="button-group">

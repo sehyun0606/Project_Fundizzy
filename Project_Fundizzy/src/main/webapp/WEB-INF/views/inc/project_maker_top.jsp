@@ -18,7 +18,7 @@
 </style>
 <div class="top">
 	<div class="top-text">
-		<span style="color: mediumpurple;">fundizzy</span>&nbsp;<span>메이커 스튜디오</span>
+		<span><a href="/" style="color: mediumpurple;">fundizzy</a></span>&nbsp;<span>메이커 스튜디오</span>
 	</div>
 </div>
 

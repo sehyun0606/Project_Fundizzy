@@ -30,21 +30,21 @@
 						<div class="bankName">
 							<img src="${pageContext.request.contextPath}/resources/images/bank/bankbook.png">  
 							<c:choose>
-								<c:when test="${empty selected}">
-									<input type="hidden" id="empty-account" value="${selected.account_num_masked}">
+								<c:when test="${empty bankAccount}">
+									<input type="hidden" id="empty-account" value="${bankAccount.account_num_masked}">
 								</c:when>
 								<c:otherwise>
 									<div>
-										${selected.account_alias}
-										${selected.account_num_masked}
-										${selected.bank_name}
-										${selected.account_holder_name }
+										${bankAccount.account_alias}
+										${bankAccount.account_num_masked}
+										${bankAccount.bank_name}
+										${bankAccount.account_holder_name}
 									</div>
 								</c:otherwise>
 							</c:choose>	
 						</div>
 						<div class="delete">
-							<button class="account_delete"><img alt="계좌 삭제하기" id="account_delete" src="${pageContext.request.contextPath}/resources/images/bank/trashcan.png">삭제</button>
+							<button class="account_delete" onclick="BankAccountRemove()"><img alt="계좌 삭제하기" id="account_delete" src="${pageContext.request.contextPath}/resources/images/bank/trashcan.png">삭제</button>
 						</div>
 					</div>
 				</div>
@@ -96,6 +96,7 @@
                             <input type="hidden" name="account_num_masked" value="${account.account_num_masked}">
                             <input type="hidden" name="account_holder_name" value="${account.account_holder_name}">
                             <input type="hidden" name="fintech_use_num" value="${account.fintech_use_num}">
+                            <input type="hidden" name="account_bank_code" value="${account.bank_code_std}">
                             <th>${account.account_alias}</th>
                             <th>${account.bank_name}</th>
                             <th>${account.account_num_masked}</th>

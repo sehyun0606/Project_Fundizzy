@@ -50,8 +50,8 @@ public class MemberController {
 	@GetMapping("Login")
 	public String Login(HttpSession session, Model model) {
 		
-		if(session.getAttribute("adminId") != null) {
-			return "admin/admin_home";
+		if(session.getAttribute("sId") != null) {
+			return "main";
 		}
 		
 		model.addAttribute("kakaoClientID", kakaoClientId);

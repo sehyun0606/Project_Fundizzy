@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,9 +24,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.gson.Gson;
 import com.itwillbs.project_fundizzy.service.ProjectMakerService;
 import com.itwillbs.project_fundizzy.vo.MakerInfoVO;
 import com.itwillbs.project_fundizzy.vo.ProjectInfoVO;
+import com.itwillbs.project_fundizzy.vo.ProjectStoryVO;
 import com.itwillbs.project_fundizzy.vo.RewardVO;
 
 @Controller
@@ -151,18 +154,20 @@ public class ProjectMakerController {
 		return "redirect:/ProjectMaker";
 	}
 	
-	@GetMapping("ProjcetInfoEdit")
+	//프로젝트 수정 폼
+	@GetMapping("ProjectInfoEdit")
 	public String projcetInfoEdit(HttpSession session, Model model) {
 		
-		String project_code = (String)session.getAttribute("projcet_code");
+		String project_code = (String)session.getAttribute("project_code");
 		
 		ProjectInfoVO projectInfo = projectMakerService.getProjectinfo(project_code);
 		
 		model.addAttribute("projectInfo", projectInfo);
 		
-		return "project/projectMaker/project_maker_edit";
+		return "project/projectMaker/project_info_edit";
 	}
 	
+			
 	
 	
 	@GetMapping("ProjectStory")
@@ -170,6 +175,81 @@ public class ProjectMakerController {
 		
 		return "project/projectMaker/project_story";
 	}
+	
+	@PostMapping("ProjectStory")
+	public String submitProjectStory(ProjectStoryVO projectStory, HttpSession session) {
+
+	    String projectCode = projectStory.getProject_code();
+	    String realPath = getRealPath(session, virtualPath) + projectCode + "/ProjectStory";
+
+	    //실제 파일 업로드 경로 생성
+	    try {
+	        Path path = Paths.get(realPath);
+	        if (!Files.exists(path)) { 
+	            Files.createDirectories(path);
+	        }
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+
+	    //대표 이미지 업로드
+	    MultipartFile representativePicture = projectStory.getRepresentativePicture();
+	    projectStory.setRepresentative_picture(""); // 기본값 설정
+
+	    if (representativePicture != null && !representativePicture.getOriginalFilename().isEmpty()) {
+	        String repFileName = UUID.randomUUID().toString() + "_" + representativePicture.getOriginalFilename();
+	        projectStory.setRepresentative_picture( projectCode +"/ProjectStory/" + repFileName);
+	        try {
+	            representativePicture.transferTo(new File(realPath, repFileName));
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	    }
+
+	    //소개 이미지 (다중 파일 업로드)
+	    MultipartFile[] productPictures = projectStory.getProductPicture();
+	    List<String> productPicturePaths = new ArrayList<>();
+
+	    if (productPictures != null) {
+	        for (MultipartFile file : productPictures) {
+	            if (file != null && !file.getOriginalFilename().isEmpty()) {
+	                String fileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
+	                productPicturePaths.add( projectCode + "/ProjectStory/" + fileName);
+
+	                try {
+	                    file.transferTo(new File(realPath, fileName));
+	                } catch (IOException e) {
+	                    e.printStackTrace();
+	                }
+	            }
+	        }
+	    }
+
+	    //경로를 하나의 문자열로 저장
+	    projectStory.setProduct_picture(String.join(",", productPicturePaths));
+
+	    //DB 저장
+	    projectMakerService.registProjectStory(projectStory);
+
+	    return "redirect:/ProjectMaker";
+	}
+	@GetMapping("ProjectStoryEdit")
+	public String projectStoryEdit(HttpSession session, Model model) {
+		
+		String project_code = (String) session.getAttribute("project_code");
+		
+		ProjectStoryVO projectStory = projectMakerService.getProjectStory(project_code);
+		
+		model.addAttribute("projectStory", projectStory);
+		
+		//다중파일 목록을 배열처리하기
+		String[] projectStoryArray = projectStory.getProduct_picture().split(",");
+		model.addAttribute("imgList", projectStoryArray);
+		
+		
+		return "project/projectMaker/project_story_edit";
+	}
+
 	
 	//리워드 설정 페이지
 	@GetMapping("ProjectReward")
@@ -199,6 +279,33 @@ public class ProjectMakerController {
 		return "redirect:/ProjectReward";
 	}
 	
+	//ajax를 활용하여 리워드 수정하기
+	@GetMapping("GetRewardInfo")
+	@ResponseBody
+	public String getRewardInfo(int reward_code) {
+		RewardVO reward = projectMakerService.getRewardInfo(reward_code);
+		Gson gson = new Gson();
+		
+		return gson.toJson(reward);
+	}
+	
+	//리워드 업데이트
+	@PostMapping("ProjectRewardUpdate")
+	public String projectRewardUpdate(RewardVO reward){
+		
+		projectMakerService.updateReward(reward);
+		
+		
+		return "redirect:/ProjectReward";
+	}
+	
+	//리워드 삭제 ajax
+	@GetMapping("DeleteReward")
+	@ResponseBody
+	public String deleteReward(String reward_code) {
+		projectMakerService.deleteReward(reward_code);
+		return "success";
+	}
 	
 	@GetMapping("MakerInfo")
 	public String makerInfo() {
@@ -249,7 +356,7 @@ public class ProjectMakerController {
 	
 	//메이커 정보 수정 폼
 	@GetMapping("MakerInfoEdit")
-	public String makerInfoEdit(HttpSession session,Model model) {
+	public String makerInfoEditForm(HttpSession session,Model model) {
 		
 		String projectCode = (String)session.getAttribute("project_code");
 		
@@ -260,6 +367,36 @@ public class ProjectMakerController {
 		return "project/projectMaker/maker_info_edit";
 	}
 	
+	//메이커 정보 업데이트
+	@PostMapping("MakerInfoEdit")
+	public String makerInfoEdit(MakerInfoVO makerInfo, HttpSession session) {
+		
+		String projectCode = makerInfo.getProject_code();
+		String realPath = getRealPath(session, virtualPath);
+		
+		//파일 업로드되는 서브 경로
+		String subDir = projectCode + "/MakerProfile" ;
+		
+		realPath += subDir;
+		
+		MultipartFile profileImg = makerInfo.getProfileImg();
+		
+		makerInfo.setProfile_img("");
+		
+		String imgName = "";
+		
+		if(!profileImg.getOriginalFilename().equals("")) {
+			imgName = UUID.randomUUID().toString() + "_" + profileImg.getOriginalFilename();
+			makerInfo.setProfile_img(subDir + "/" + imgName);
+		}
+		
+		projectMakerService.updateMakerInfo(makerInfo);
+		
+		updateFile(profileImg, realPath, imgName);
+		
+		
+		return "redirect:/ProjectMaker";
+	}
 	
 	
 	
@@ -267,5 +404,58 @@ public class ProjectMakerController {
 	//파일 업로드에 사용될 실제 업로드 디렉토리 경로를 리턴하는 메서드
 	private String getRealPath(HttpSession session, String virturalPath) {
 		return session.getServletContext().getRealPath(virturalPath);
+	}
+	
+	//업로드된 파일을 업데이트하는 메서드
+	private void updateFile(MultipartFile img, String realPath, String imgName) {
+		try {
+			MultipartFile mFile = img;
+			
+			
+			if(!mFile.getOriginalFilename().equals("")) {
+				mFile.transferTo(new File(realPath,imgName));
+			}
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	//프로젝트 스토리에서 파일 업로드를 담당하는 메서드
+	@PostMapping("StoryImg")
+	@ResponseBody
+	public String uploadStoryImg(@RequestParam("image") MultipartFile file, HttpSession session) {
+	    String projectCode = (String)session.getAttribute("project_code");
+	    String realPath = getRealPath(session, virtualPath);
+	    
+
+	    // 파일 경로 설정
+	    String subDir = projectCode + "/ProjectStoryImg";
+	    realPath = realPath.endsWith("/") ? realPath + subDir : realPath + "/" + subDir;
+
+	    try {
+	        // 디렉토리 생성
+	        Path dirPath = Paths.get(realPath);
+	        if (!Files.exists(dirPath)) {
+	            Files.createDirectories(dirPath); // 디렉토리 생성
+	        }
+
+	        // 파일명 생성
+	        String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
+	        Path filePath = Paths.get(realPath + "/" + fileName);
+	        
+	        // 파일 저장
+	        Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+	        
+	        System.out.println(fileName);
+	        
+	        
+	        // URL 반환
+	        return "resources/upload/" + projectCode + "/ProjectStoryImg/" + fileName;
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	        return "Image upload failed: " + e.getMessage();
+	    }
 	}
 }

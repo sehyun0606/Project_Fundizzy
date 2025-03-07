@@ -9,4 +9,27 @@
 		FROM admin
 		WHERE admin_id = #{admin_id}
 	</select>
+	
+	<select id="selectUserInfo" resultType="map">
+		SELECT * 
+		FROM member
+	</select>
+
+	<select id="selectGetRegDate" resultType="map">
+		SELECT * 
+		FROM member
+		ORDER BY reg_date DESC;
+	</select>
+	
+	<select id="selectWithdrawDate" resultType="map">
+		SELECT * 
+		FROM member
+		WHERE member_status = '2' 
+		AND withdraw_date IS NOT NULL
+		ORDER BY withdraw_date DESC;
+	</select>
+	
+	
+	
+	
 </mapper>

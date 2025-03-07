@@ -1,6 +1,10 @@
 package com.itwillbs.project_fundizzy.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpSession;
 
@@ -21,9 +25,9 @@ public class AdminController {
 	@GetMapping("adminPageLoginNoInputUser")
 	public String admin(HttpSession session) {
 		if(session.getAttribute("adminId") != null) {
-			return "admin/admin_home";
+			return "admin/home/admin_home";
 		}
-		return "admin/admin_login";
+		return "admin/login/admin_login";
 	}
 	
 	@PostMapping("adminLoginAction")
@@ -33,7 +37,6 @@ public class AdminController {
 		// DB에 있는 어드민 아이디, 비밀번호 가져오기
 		Map<String, String> adminDBInfo = service.getAdminDBInfo(admin);
 //		System.out.println("리턴 된 정보 : " + adminDBInfo);
-		
 		
 		if(adminDBInfo == null) { 
 			model.addAttribute("msg", "회원 정보가 없습니다!");
@@ -52,8 +55,7 @@ public class AdminController {
 	public String adminHome(HttpSession session, Model model) {
 		String adminId = (String)session.getAttribute("adminId");
 		
-		
-		return "admin/admin_home";
+		return "admin/home/admin_home";
 	}
 	
 	// 로그아웃 비즈니스 로직
@@ -64,7 +66,21 @@ public class AdminController {
 		return "main";
 	}
 	
-	
+	// 회원, 관리자 관리 페이지
+	@GetMapping("memberManage")
+	public String memberManage(@RequestParam Map<String, String> member, Model model) {
+		// 회원 정보 들고오기
+		List<Map<String, String>> memberInfo = service.getUserInfo();
+		List<Map<String, String>> recentRegDate = service.getRegDate();
+		List<Map<String, String>> recentWithdrawDate = service.getWithdrawDate();
+		
+		model.addAttribute("memberInfo", memberInfo);
+		model.addAttribute("recentRegDate", recentRegDate);
+		model.addAttribute("recentWithdrawDate", recentWithdrawDate);
+		
+		
+		return "admin/manage/member_manage";
+	}
 	
 	
 	

@@ -15,7 +15,6 @@
 		    background: #f9f9f9;
 		    padding: 15px;
 		    border-right: 1px solid #ddd;
-		    height: 100vh;
 		}
 		
 		.project-number {
@@ -112,7 +111,7 @@
             </div>
         </div>
         <div class="menu-item">
-        	<span class="menu-title"><a href="newsList">새소식</a></span>
+        	<span class="menu-title"><a href="NewsList">새소식</a></span>
         </div>
         <div class="menu-item">
         	<span class="menu-title">프로젝트 부스팅</span>
@@ -131,17 +130,17 @@
 	            $(this).siblings(".submenu").slideToggle();
 	        });
 	    });
-	    $(document).ready(function() {
-	        function adjustSidebarHeight() {
-	            $(".sidebar").css("height", $("body").height());
-	        }
+// 	    $(document).ready(function() {
+// 	        function adjustSidebarHeight() {
+// 	            $(".sidebar").css("height", $("body").height());
+// 	        }
 	        
-	        adjustSidebarHeight();
+// 	        adjustSidebarHeight();
 	        
-	        $(window).resize(function() {
-	            adjustSidebarHeight();
-	        });
-	    });
+// 	        $(window).resize(function() {
+// 	            adjustSidebarHeight();
+// 	        });
+// 	    });
 	</script>
 
 

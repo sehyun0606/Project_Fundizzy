@@ -1,5 +1,6 @@
 package com.itwillbs.project_fundizzy.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,5 +15,17 @@ public class AdminService {
 
 	public Map<String, String> getAdminDBInfo(Map<String, String> admin) {
 		return mapper.selectAdminDBInfo(admin);
+	}
+
+	public List<Map<String, String>> getUserInfo() {
+		return mapper.selectUserInfo();
+	}
+
+	public List<Map<String, String>> getRegDate() {
+		return mapper.selectGetRegDate();
+	}
+
+	public List<Map<String, String>> getWithdrawDate() {
+		return mapper.selectWithdrawDate();
 	}
 }

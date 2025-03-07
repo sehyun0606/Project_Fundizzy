@@ -12,6 +12,13 @@ import com.itwillbs.project_fundizzy.mapper.FundMapper;
 public class FundService {
 	@Autowired
 	private FundMapper mapper;
+	
+	
+	//프로젝트 board 출력
+	public Map<String, Object> getFundBoard(String project_code) {
+		// TODO Auto-generated method stub
+		return mapper.selectFundBoard(project_code);
+	}
 	//지지서명 목록 출력 
 	public List<Map<String, Object>> getSupportList() {
 		// TODO Auto-generated method stub
@@ -41,6 +48,16 @@ public class FundService {
 	public Object getReplyWriter(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		return mapper.selectReplyWriter(map);
+	}
+	//-------------------------------------------------오른쪽 부분 --------------------------------------
+	//리워드 가져오기 
+	public Map<String, Object> getPaymentReward(String project_code) {
+		// TODO Auto-generated method stub
+		return mapper.selectPaymentReward(project_code);
+	}
+	public Map<String, Object> getPaymentPayMember(String email) {
+		// TODO Auto-generated method stub
+		return mapper.selectPaymentPayMember(email);
 	}
 	
 	

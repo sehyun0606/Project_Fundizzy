@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.itwillbs.project_fundizzy.mapper.ProjectMakerMapper;
 import com.itwillbs.project_fundizzy.vo.MakerInfoVO;
 import com.itwillbs.project_fundizzy.vo.ProjectInfoVO;
+import com.itwillbs.project_fundizzy.vo.ProjectStoryVO;
 import com.itwillbs.project_fundizzy.vo.RewardVO;
 
 @Service
@@ -80,6 +81,37 @@ public class ProjectMakerService {
 	//프로젝트 정보 수정을 위한 불러오기 메서드
 	public ProjectInfoVO getProjectinfo(String project_code) {
 		return makerMapper.selectProjcetInfo(project_code);
+	}
+
+	public void updateMakerInfo(MakerInfoVO makerInfo) {
+		makerMapper.updateMakerInfo(makerInfo);
+	}
+	
+	//프로젝트 스토리 저장을 위한 메서드
+	@Transactional
+	public void registProjectStory(ProjectStoryVO projectStory) {
+		String projectCode = projectStory.getProject_code();
+		makerMapper.updatProjectStorySetting(projectCode);
+		makerMapper.insertProjectStory(projectStory);
+	}
+
+	public ProjectStoryVO getProjectStory(String project_code) {
+		return makerMapper.selectProjectStory(project_code);
+	}
+	
+	//ajax를 활용한 리워드 정보 들고오기
+	public RewardVO getRewardInfo(int reward_code) {
+		return makerMapper.selectRewardInfo(reward_code);
+	}
+	
+	//리워드 수정
+	public void updateReward(RewardVO reward) {
+		makerMapper.updateReward(reward);
+		
+	}
+
+	public void deleteReward(String reward_code) {
+		makerMapper.deleteReward(reward_code);
 	}
 	
 

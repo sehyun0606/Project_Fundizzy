@@ -31,8 +31,10 @@ public class FundController {
 	}
 	//fund 스토리
 	@GetMapping("FundBoardStory")
-	public String fundBoardStory() {
-		
+	public String fundBoardStory(String project_code, Model model) {
+		Map<String, Object> fundStory = fundService.getFundBoard(project_code);
+		System.out.println("map == " + fundStory); // ok
+		model.addAttribute("fundStory", fundStory); //ok
 		return "merch/funding/fund_board_story";
 	}
 	//fund 새소식 
@@ -156,15 +158,45 @@ public class FundController {
 	public String fundBoardReward() {
 		return "merch/funding/fund_board_reward";
 	}
-//오른쪽 결제창 관련 
+	
+	
+	
+//----------------------------------------------오른쪽 결제창 관련 -----------------------------------------------------------------------------------
+	//리워드 선택 - get 
 	@GetMapping("PaymentReward")
-	public String paymentReward() {
+	public String paymentReward(String project_code, Model model) {
+		
+		Map<String, Object> reward = fundService.getPaymentReward(project_code);
+		System.out.println("reward map = " +  reward); // ok
+		
+		model.addAttribute("reward", reward);
 		return "merch/payment/payment_reward";
 	}
-	@GetMapping("PaymentPay")
-	public String paymentPay() {
+	
+	
+	
+	//결제창으로 이동 - post 
+	@PostMapping("PaymentPay")
+	public String paymentPay(String project_code, Model model, HttpSession session) {
+		Map<String, Object> reward = fundService.getPaymentReward(project_code);
+		System.out.println("pay reward = " + reward);
+		model.addAttribute("reward", reward);
+		
+		//배송을 위한 member 정보 가져오기 
+		String email = (String) session.getAttribute("sId");
+		Map<String, Object> member = fundService.getPaymentPayMember(email);
+		System.out.println("payment member = " + member);
+		model.addAttribute("member", member);
 		return "merch/payment/payment_pay";
 	}
+	
+	//결제창으로 이동 - get 
+	@GetMapping("PaymentPay")
+	public String paymentPayPage() {
+		return "merch/payment/payment_pay";
+	}
+	
+	//결제 완료창 
 	@GetMapping("PaymentComplete")
 	public String paymentComplete() {
 		return "merch/payment/payment_complete";

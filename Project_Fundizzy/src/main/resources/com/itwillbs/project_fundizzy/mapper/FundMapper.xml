@@ -3,6 +3,23 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.itwillbs.project_fundizzy.mapper.FundMapper">
+  
+<!--   프로젝트 보드 출력 -->
+	<select id="selectFundBoard" resultType="map">
+		SELECT pi.project_code,
+		pi.category,
+		pi.sub_category,
+		pi.adult_check,
+		pi.target_amount,
+		ps.project_title,
+		ps.project_content,
+		pd.project_start_date,
+		pd.project_end_date
+		FROM project_info pi 
+		JOIN project_date pd ON pi.project_code = pd.project_code
+		JOIN project_story ps ON pd.project_code = ps.project_code
+		WHERE ps.project_code = "18152PRO01";
+	</select>
 <!--   	지지서명 조회 후 목록 출력 -->
   	<select id="selectSupportList" resultType="map">
   		SELECT
@@ -81,9 +98,19 @@
   
   
   
-  
-  
-  
+<!--   오른쪽 부분  -->
+<!-- 	리워드 정보 가져오기 -->
+	<select id="selectPaymentReward" resultType="map">
+		SELECT *
+		FROM reward
+		WHERE reward_code = 1;
+	</select>
+<!--   배송을 위한 맴버 정보 가져오기 -->
+  	<select id="selectPaymentPayMember">
+  		SELECT *
+  		FROM member
+  		WHERE email = #{email}
+  	</select>
   
   
   

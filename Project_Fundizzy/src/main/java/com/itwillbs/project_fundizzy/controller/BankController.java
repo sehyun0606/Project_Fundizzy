@@ -28,9 +28,11 @@ public class BankController {
 	@BankTokenCheck
 	@GetMapping("ManageMyPaymentInfo")
 	public String manageMyPaymentInfo(HttpSession session, Model model) {
+		//토큰 가져오기
 		BankToken bankToken = (BankToken) session.getAttribute("token");
 		System.out.println("토큰 정보 = " + bankToken);
 		
+		//토큰 있으면 model에 저장 후 view 페이지로 
 		if(bankToken != null) {
 			Map<String, Object> bankUserInfo = bankservice.getBankUserInfo(bankToken);
 			System.out.println("API 응답 데이터: " + bankUserInfo);
@@ -55,11 +57,11 @@ public class BankController {
 		BankToken token = bankservice.getAccessToken(authResponse);
 		System.out.println(">>>>>>>>>>엑세스 토큰 정보 = " + token);
 		//토큰 발급 실패시 실패 페이지로 리턴 
-		if(token == null || token.getAccess_token() == null) {
-			model.addAttribute("msg", "토큰 발급 실패! 다시 인증을 수행해 주세요. \\n 실패원인 : " + token.getRep_code() + " " + token.getRsp_message());
-			model.addAttribute("isClose", true);
-			return "result/fail";
-		}
+//		if(token == null || token.getAccess_token() == null) {
+//			model.addAttribute("msg", "토큰 발급 실패! 다시 인증을 수행해 주세요. \\n 실패원인 : " + token.getRep_code() + " " + token.getRsp_message());
+//			model.addAttribute("isClose", true);
+//			return "result/fail";
+//		}
 		//map에 토큰과 이메일(아이디) 저장 후 
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("email", session.getAttribute("sId"));
@@ -76,12 +78,8 @@ public class BankController {
 	
 	//계좌 등록 
 	@PostMapping("BankAccountRegist")
-	public String bankAccountRegist(HttpSession session ,Model model,  
-			@RequestParam("account_alias") String accountAlias,
-	        @RequestParam("bank_name") String bankName,
-	        @RequestParam("account_num_masked") String accountNumMasked,
-	        @RequestParam("account_holder_name") String accountHolderName,
-	        @RequestParam("fintech_use_num") String fintechUseNum) {
+	public String bankAccountRegist(HttpSession session ,Model model, @RequestParam Map<String, Object> bankAccount) {
+		System.out.println("bankAccount = " + bankAccount);
 		
 		//토큰 정보와 사용자 정보 가져오기
 		BankToken bankToken = (BankToken) session.getAttribute("token");
@@ -89,25 +87,25 @@ public class BankController {
 		System.out.println("API 응답 데이터: " + bankUserInfo);
 		
 		//선택된 항목의 정보 넣기 
-		Map<String, Object> selected = new HashMap<String, Object>();
-		selected.put("account_alias", accountAlias);
-		selected.put("bank_name", bankName);
-		selected.put("account_num_masked", accountNumMasked);
-		selected.put("account_holder_name", accountHolderName);
-		selected.put("fintech_use_num", fintechUseNum);
+		bankAccount.put("user_seq_no", bankToken.getUser_seq_no());
+		bankservice.registBankAccount(bankAccount);
+		
 		
 		//model을 통해 전달
-		model.addAttribute("selected", selected);	
+		model.addAttribute("bankAccount", bankAccount);	
 		model.addAttribute("bankUserInfo", bankUserInfo);
 		return "bank/mypayment_info_manage";
 	}
+
 	
-//	//등록된 계좌 삭제 
-//	@GetMapping("BankAccountRemove")
-//	public String bankAccountRemove() {
-//		
-//		return "redirect:/MypaymentInfoManage";
-//	}
+	//등록된 대표계좌 삭제 
+	@GetMapping("BankAccountRemove")
+	public String bankAccountRemove(@RequestParam Map<String, Object> bankAccount) {
+	
+		bankservice.removeBankAccount(bankAccount);
+		
+		return "redirect:/MypaymentInfoManage";
+	}
 	//계좌 정보 보기 
 	@GetMapping("AccountDetail")
 	public String accountDetail(@RequestParam Map<String, Object> map ,HttpSession session, Model model) {

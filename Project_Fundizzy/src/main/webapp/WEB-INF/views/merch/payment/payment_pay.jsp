@@ -6,6 +6,19 @@
 <meta charset="UTF-8">
 <title>결제-결제예약</title>
 <link rel="stylesheet" type="text/css" href="resources/css/merch/payment/payment_pay.css">
+<!-- js파일 로드 script -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/merch/payment/payment_pay.js"></script>
+<!-- 주소 api script -->
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<!-- 결제 관련 jQuery -->
+<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<!-- iamport.payment.js -->
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+  <style>
+    .wrong_text{font-size:1rem;color:#f44e38;letter-spacing:-.2px;font-weight:300;margin:8px 0 2px;line-height:1em;display:none}
+  </style>
 </head>
 <body>
 	<header>
@@ -22,27 +35,49 @@
 		        <div class="step">결제 완료</div>
 			</div>
 	       <div class="section-product">
-	            <h3>[울트라 얼리버드] 티타늄 세라믹 텀블러 싱글</h3>
-	            <p>구성 - 티타늄 세라믹 텀블러 1세트<br>* 실리콘 스트로우 1개, 원터치 스트로우 1개</p>
-	            <p>수량 1개 <span class="price">52,000원</span></p>
+	            <h3>${reward.product_name}</h3>
+	            <p>${reward.product_desc}</p>
+	            <p>product_count 개<span id="total_price" class="totalPrice">${reward.price}원</span></p>
 	        </div>
 	        <div class="section-price">
 	            <h4>결제 예약 금액</h4>
-	            <p>리워드 금액 <span class="price">52,000원</span></p>
-	            <p>배송비 <span class="price">0원</span></p>
-	            <p class="total">총 결제 금액 <span class="price">52,000원</span></p>
+	            <p>리워드 금액 <span class="total_price">${reward.price}원</span></p>
+	            <p>배송비 <span class="price">${reward.delivery_fee}원</span></p>
+	            <p class="total">총 결제 금액 <span id="total_price"></span>${total}원</p>
 	        </div>
 	        <div class="support-ship">
 		        <div class="section-supporter">
 		            <h4>서포터</h4>
-		            <p>이름 정유나</p>
-		            <p>휴대폰 010-2442-5478</p>
-		            <p>이메일 yuyu1503@naver.com</p>
+		            <p>닉네임 ${member.nickname}</p>
+		            <p>휴대폰 ${member.phone}</p>
+		            <p>이메일 ${member.email}</p>
 		        </div>
 		        <div class="section-shipment">
-		            <h4>리워드 배송지(최근배송지)</h4>
-		            <p>정유나 010-2242-5478<br>부산시 수영구 반송로 (우미마을 120 1937)</p>
-		            <div class="tag">새로운 입력</div>
+		            <h4>리워드 배송지</h4>
+		            <span class="notice">* 회원정보를 기반으로 생성한 배송지 입니다.</span><br>
+		            <div id="div_address">
+		            	<input type="radio" name="address" id="address">
+		            	<label for="address">
+			            	<input type="text" placeholder="배송 받으실 분 이름을 입력해주세요." required="required"><br>
+			             	${member.phone}<br>
+			             	(${member.post_code}) ${member.address1 } ${member.address2 }
+		             	</label>
+	             	</div>
+		            <div id="div_new_address">
+			            <input type="radio" value="새로운 입력" name="address" id="new_address">
+			            <label for="new_address">새로입력</label>
+			            <div class="new_address_box">
+			            	<span id="address_name">이름</span><input type="text"><br>
+			            	<span id="address_phone">휴대폰</span><input type="text"><br> 
+			            	<span id="address_add">주소
+			            		<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+			            	</span>
+			            	<input type="text" id="sample6_postcode" placeholder="우편번호"><br>
+							<input type="text" id="sample6_address" placeholder="주소"><br>
+							<input type="text" id="sample6_detailAddress" placeholder="상세주소">
+							<input type="text" id="sample6_extraAddress" placeholder="참고항목">
+			            </div>
+		             </div>
 		            <input type="text" class="shipment-box" placeholder="배송 시 요청사항 (선택)">
 		        </div>
 	        </div>
@@ -54,9 +89,9 @@
 	        </div>
 	        <div class="section-now">
 	            <h4>지금 결제</h4>
-	            <label><input type="radio" name="final-payment"> 네이버 페이</label>
-	            <label><input type="radio" name="final-payment"> 카카오 페이</label>
-	            <label><input type="radio" name="final-payment"> 신용/체크카드</label>
+	            <label><input type="radio" class="pay" name="payment"> 네이버 페이</label>
+	            <label><input type="radio" class="pay" name="payment"> 카카오 페이</label>
+	            <label><input type="radio" class="pay" name="payment"> 신용/체크카드</label>
 	        </div>
 	      	<div class="payment-notice">
 	      		<h4>결제 유의사항</h4>
@@ -70,9 +105,9 @@
 			</div>
 			<div class="payment-pay">
 				<h4>약관동의</h4>
-				<input type="checkbox">결제 진행 필수 동의<br>
-				<input type="checkbox">구매조건, 결제 진행 및 결제 대행 서비스 동의(필수)<br>
-				<input type="checkbox">개인정보 제3자 제공 동의 (필수)<br>
+				<input type="checkbox" required="required">결제 진행 필수 동의<br>
+				<input type="checkbox" required="required">구매조건, 결제 진행 및 결제 대행 서비스 동의(필수)<br>
+				<input type="checkbox" required="required">개인정보 제3자 제공 동의 (필수)<br>
 				<button onclick="location.href='PaymentComplete'">결제하기</button>
 			</div>
 				       

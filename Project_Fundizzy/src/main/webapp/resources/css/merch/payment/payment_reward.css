@@ -7,7 +7,7 @@ body {
 }
 
 .container {
-    width: 400px;
+    width: 480px;
     background-color: white;
     padding: 20px;
     border-radius: 10px;
@@ -110,7 +110,7 @@ hr {
 
 }
 
-.next-button {
+#next-button {
 	width: 100%;
 	padding: 10px;
 	background-color: #666;
@@ -121,6 +121,6 @@ hr {
 	margin-top: 30px;
 }
 
-.next-button:hover {
+#next-button:hover {
 	background-color: #444;
 }

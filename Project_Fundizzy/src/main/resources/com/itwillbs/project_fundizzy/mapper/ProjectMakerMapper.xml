@@ -78,7 +78,7 @@
 		INTO reward
 		VALUES (
 			#{project_code},
-			#{reward_code},
+			#{reward_code} + 1,
 			#{product_name},
 			#{product_desc},
 			#{price},
@@ -109,6 +109,12 @@
 		WHERE project_code = #{projectCode}
 	</select>
 	
+	<select id="selectRewardInfo" resultType="Reward">
+		SELECT *
+		FROM reward
+		WHERE reward_code = #{reward_code}
+	</select>
+	
 	<select id="selectMakerInfo" resultType="MakerInfo">
 		SELECT *
 		FROM maker_info
@@ -121,6 +127,12 @@
 		WHERE project_code = #{project_code}
 	</select>
 	
+	<select id="selectProjectStory" resultType="ProjectStory">
+		SELECT *
+		FROM project_story
+		WHERE project_code = #{project_code}
+	</select>
+	
 	<update id="updateProjcetInfoConfig">
 		UPDATE project_list
 		SET project_info_config = 'Y'
@@ -130,14 +142,64 @@
 	<update id="updateRewardConfig">
 		UPDATE project_list
 		SET reward_config = 'Y'
-		WHERE project_code = #{projcet_code};
+		WHERE project_code = #{projcet_code}
 	</update>
 	
 	<update id="updateMakerInfoConfig">
 		UPDATE project_list
 		SET maker_config = 'Y'
-		WHERE project_code = #{projcet_code};
+		WHERE project_code = #{projcet_code}
 	</update>
+	
+	<update id="updatProjectStorySetting">
+		UPDATE project_list
+		SET story_config = 'Y'
+		WHERE project_code = #{project_code}
+	</update>
+	
+	<update id="updateMakerInfo">
+		UPDATE maker_info
+		SET maker_name = #{maker_name},
+			maker_email = #{maker_email},
+			maker_phone = #{maker_phone},
+			facebook_address = #{facebook_address},
+			twitter_address = #{twitter_address},
+			instagram_address = #{instagram_address}
+			<if test="profile_img != null and profile_img != ''">
+            	,profile_img = #{profile_img}
+        	</if>
+		WHERE project_code = #{project_code}
+	</update>
+	
+	<update id="updateReward">
+		UPDATE reward
+		SET product_name = #{product_name},
+			product_desc = #{product_desc},
+			price =#{price},
+			product_limit = #{product_limit},
+			delivery_fee = #{delivery_fee}
+		WHERE reward_code = #{reward_code}
+	</update>
+	
+	<insert id="insertProjectStory">
+		INSERT
+		INTO project_story
+		VALUES(
+			#{project_code},
+			#{project_title},
+			#{representative_picture},
+			#{product_picture},
+			#{project_content},
+			#{project_story},
+			#{open_story}
+		)
+	</insert>
+	
+	<delete id="deleteReward">
+		DELETE
+		FROM reward
+		WHERE reward_code = #{reward_code}
+	</delete>
 	
 </mapper>
 

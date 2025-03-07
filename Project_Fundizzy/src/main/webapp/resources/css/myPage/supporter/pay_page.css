@@ -1,0 +1,70 @@
+/* 전체 스타일 */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+    height: 100vh;
+}
+
+/* 설정 페이지 컨테이너 */
+.pay-container {
+    width: 410px;
+    height: 600px;
+    background-color: #ffffff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 8px;
+}
+.pay-container p{
+	font-size: 23px;
+	text-align: center;
+}
+
+.pay-info{
+	width: 370px;
+    height: 140px;
+    background-color: #e6cfffc4;
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 8px;
+}
+
+.button-div{
+	display: flex;
+	position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.fundizy-pay{
+	text-align: center;
+	margin-top: 13px;
+}
+.pay-money{
+	text-align: center;
+}
+.button-div #charge{
+	width: 150px;
+	height: 36px;
+	margin-right: 15px; 
+}
+.button-div #transfer{
+	width: 150px;
+	height: 36px;
+}
+
+.pay-detail{
+	width: 240px;
+    height: 120px;
+    background-color: #e6cfffc4;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+}

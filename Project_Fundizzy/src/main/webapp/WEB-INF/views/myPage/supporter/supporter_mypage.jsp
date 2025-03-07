@@ -22,7 +22,7 @@
     <!-- 메인 콘텐츠 -->
     <main class="main-content">
         
-            <h2>(사용자성명자리) 님 안녕하세요 - 서포터 마이 페이지</h2> 
+            <h2>${sessionScope.sId} 님 안녕하세요 - 서포터 마이 페이지</h2> 
             <p></p>
             
             
@@ -33,7 +33,7 @@
 	            <div class="user-stats">
 	                <div class="stat-item1">
 	                	<img class="icon" src="${pageContext.request.contextPath}/resources/images/myPage/free-icon-cart-709782.png">
-	                    <a href="FundingProd">펀딩</a><span>횟수</span>
+	                    <a href="FundHistory">펀딩</a><span>횟수</span>
 	                </div>
 	                <div class="stat-item2">
 	                	<img class="icon2" src="${pageContext.request.contextPath}/resources/images/myPage/free-icon-business-people-8452029.png">

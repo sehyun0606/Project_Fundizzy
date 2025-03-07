@@ -20,7 +20,7 @@
     		<input type="hidden" name="member_email" value="${sessionScope.sId}">
 	        <div class="title-section">
 		        <h2 class="title">스토리 정보</h2>
-	    		<button class="side-button" type="submit" onclick="location.href='ProjectMaker'"> 제출하기</button>
+	    		<button class="side-button" type="submit" onclick="location.href='MakerInfoEdit'"> 수정하기</button>
 	    	</div>
 	        <label for="maker-name">메이커 명</label>
 	        <input type="text" id="maker-name" name="maker_name" placeholder="메이커 명을 입력해 주세요" value="${makerInfo.maker_name}">
@@ -28,9 +28,9 @@
 	        <small>40자 제한</small>
 	
 	        <label>메이커 프로필 이미지</label>
-	        <button type="button" class="image-upload">이미지 등록</button>
+	        <button type="button" class="image-upload" style="display: none;">이미지 등록</button>
 	        <input type="file" id="fileInput" name="profileImg" accept="image/*" style="display: none;">
-	        <img id="previewImage" class="preview" src="" alt="미리보기" style="display:none;">
+	        <img id="previewImage" class="preview" src="/resources/upload/${makerInfo.profile_img}">
 	
 	        <label for="email">문의 이메일</label>
 	        <input type="email" id="email" name="maker_email" placeholder="이메일을 입력해 주세요" value="${makerInfo.maker_email}">
