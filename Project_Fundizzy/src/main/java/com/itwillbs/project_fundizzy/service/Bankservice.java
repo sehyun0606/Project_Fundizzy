@@ -74,5 +74,22 @@ public class Bankservice {
 		mapper.insertChargeResult(chargeResult, "WI");
 	}
 	
+	//대표계좌 등록 
+	public void registBankAccount(Map<String, Object> bankAccount) {
+		if(mapper.selectDBAccountInfo((String) bankAccount.get("user_seq_no")) == null) {
+			mapper.insertBankAccount(bankAccount);
+		} else {
+			mapper.updateBankAccount(bankAccount);
+		}
+		
+		// TODO Auto-generated method stub
+	}
+	
+	//대표계좌 삭제
+	public void removeBankAccount(Map<String, Object> bankAccount) {
+		// TODO Auto-generated method stub
+		mapper.deleteBankAccount(bankAccount);
+	}
+	
 
 }

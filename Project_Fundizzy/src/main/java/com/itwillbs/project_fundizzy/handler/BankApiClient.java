@@ -162,7 +162,7 @@ public class BankApiClient {
 		 jsonObject.addProperty("req_client_num", bankToken.getUser_seq_no()); //사용자 일련번호
 		 jsonObject.addProperty("transfer_purpose", "ST");
 		 
-		 //출금계좌 정보 
+		 // 입금계좌정보 
 		 jsonObject.addProperty("recv_client_name", "이연태");
 		 jsonObject.addProperty("recv_client_bank_code", cntr_account_bank_code);
 		 jsonObject.addProperty("recv_client_account_num", cntr_account_num);

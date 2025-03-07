@@ -78,12 +78,8 @@ public class BankController {
 	
 	//계좌 등록 
 	@PostMapping("BankAccountRegist")
-	public String bankAccountRegist(HttpSession session ,Model model,  
-			@RequestParam("account_alias") String accountAlias,
-	        @RequestParam("bank_name") String bankName,
-	        @RequestParam("account_num_masked") String accountNumMasked,
-	        @RequestParam("account_holder_name") String accountHolderName,
-	        @RequestParam("fintech_use_num") String fintechUseNum) {
+	public String bankAccountRegist(HttpSession session ,Model model, @RequestParam Map<String, Object> bankAccount) {
+		System.out.println("bankAccount = " + bankAccount);
 		
 		//토큰 정보와 사용자 정보 가져오기
 		BankToken bankToken = (BankToken) session.getAttribute("token");
@@ -91,25 +87,25 @@ public class BankController {
 		System.out.println("API 응답 데이터: " + bankUserInfo);
 		
 		//선택된 항목의 정보 넣기 
-		Map<String, Object> selected = new HashMap<String, Object>();
-		selected.put("account_alias", accountAlias);
-		selected.put("bank_name", bankName);
-		selected.put("account_num_masked", accountNumMasked);
-		selected.put("account_holder_name", accountHolderName);
-		selected.put("fintech_use_num", fintechUseNum);
+		bankAccount.put("user_seq_no", bankToken.getUser_seq_no());
+		bankservice.registBankAccount(bankAccount);
+		
 		
 		//model을 통해 전달
-		model.addAttribute("selected", selected);	
+		model.addAttribute("bankAccount", bankAccount);	
 		model.addAttribute("bankUserInfo", bankUserInfo);
 		return "bank/mypayment_info_manage";
 	}
+
 	
-//	//등록된 계좌 삭제 
-//	@GetMapping("BankAccountRemove")
-//	public String bankAccountRemove() {
-//		
-//		return "redirect:/MypaymentInfoManage";
-//	}
+	//등록된 대표계좌 삭제 
+	@GetMapping("BankAccountRemove")
+	public String bankAccountRemove(@RequestParam Map<String, Object> bankAccount) {
+	
+		bankservice.removeBankAccount(bankAccount);
+		
+		return "redirect:/MypaymentInfoManage";
+	}
 	//계좌 정보 보기 
 	@GetMapping("AccountDetail")
 	public String accountDetail(@RequestParam Map<String, Object> map ,HttpSession session, Model model) {

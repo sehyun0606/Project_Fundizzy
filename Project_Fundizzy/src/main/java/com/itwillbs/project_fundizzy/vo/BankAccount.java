@@ -13,7 +13,6 @@ public class BankAccount {
 	private String account_holder_name;
 	private String fintech_use_num;
 	private String account_bank_code;
-	private int account_type;
 	
 }
 

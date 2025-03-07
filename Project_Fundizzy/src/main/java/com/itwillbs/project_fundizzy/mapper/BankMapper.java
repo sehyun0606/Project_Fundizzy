@@ -30,5 +30,11 @@ public interface BankMapper {
 	
 	//이체결과 저장 
 	void insertChargeResult(@Param("chargeResult") Map<String, Object> chargeResult, @Param("transactionType")String transactionType);
+	// 대표계좌 등록
+	void insertBankAccount(Map<String, Object> bankAccount);
+	// 대표계좌가 있을경우 update 
+	void updateBankAccount(Map<String, Object> bankAccount);
+	// 대표계좌 삭제 
+	void deleteBankAccount(Map<String, Object> bankAccount);
 
 }

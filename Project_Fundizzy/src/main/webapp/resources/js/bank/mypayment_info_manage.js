@@ -3,9 +3,10 @@ $(function(){
 
 	
 	//등록한 계좌 삭제 
-	$("#account_delete").on("click", function(){
+	$(".account_delete").on("click", function(){
 		console.log("휴지통 버튼 눌려졌음 ");
 		if(confirm("등록된 계좌를 삭제하시겠습니까?")){
+			
 			$(this).closest(".account").hide();
 		}
 	});
