@@ -77,19 +77,27 @@ public class MemberController {
 			return "result/success";
 		}
 		
+		// 카카오 엑세스 토큰으로 유저 정보 가져오기
 		Map<String, Object> kakaoUserInfo = loginService.getKakaoUserInfo(kakaoToken.getAccess_token());
 		System.out.println("가져온 사용자 정보 : " + kakaoUserInfo);
 
 		// 사용자 정보에서 필요한 값 추출
         String nickname = (String) ((Map<String, Object>) kakaoUserInfo.get("properties")).get("nickname");
-        Long id = (Long) kakaoUserInfo.get("id");
-        String connectedAt = (String) kakaoUserInfo.get("connected_at");
-
-        // Model 객체에 사용자 정보를 추가하여 JSP로 전달
-		session.setAttribute("sId", nickname);
+        String email = (String) ((Map<String, Object>) kakaoUserInfo.get("kakao_account")).get("email");
+        System.out.println("닉네임 : " + nickname + " 이메일 : " + email);
+        
+        // DB에서 유저 정보 가져오기
+        Map<String, String> DBKakaoUserInfo = memberService.getDBKakaoUserInfo(email);
+        System.out.println("가져온 정보 : " + DBKakaoUserInfo);
+        if(DBKakaoUserInfo == null) {
+        	memberService.insertKakaoUser(nickname, email);
+        }
+        
+        session.setAttribute("DBKakaoUserInfo", DBKakaoUserInfo);
+		session.setAttribute("sId", email);
         session.setAttribute("loginType", "kakao");
         
-        model.addAttribute("msg", "로그인 완료!");
+        // Model 객체에 사용자 정보를 추가하여 JSP로 전달
         model.addAttribute("targetURL", "./");
         model.addAttribute("isClose", true);
         
@@ -97,10 +105,7 @@ public class MemberController {
 	}
 	
 	
-	
-	
-	
-	
+	// 회원가입 페이지 이동
 	@GetMapping("SignUp")
 	public String SignUp() {
 		return "member/sign_up/join_form";

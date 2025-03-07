@@ -47,6 +47,14 @@ public class MemberService {
 	public String getMemberNickname(String email) {
 		return mapper.selectNickname(email);
 	}
+
+	public void insertKakaoUser(String nickname, String email) {
+		mapper.insertKakaoUser(nickname, email);
+	}
+
+	public Map<String, String> getDBKakaoUserInfo(String email) {
+		return mapper.selectDBKakaoUserInfo(email);
+	}
 	
 	
 	

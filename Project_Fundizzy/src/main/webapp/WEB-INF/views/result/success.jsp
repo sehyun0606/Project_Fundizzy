@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <script>
 	// 컨트롤러에서 Model 객체를 통해 저장한 msg 속성값을 alert() 함수를 통해 출력
-	alert("${msg}"); // \${msg} 부분은 서버측에서 뷰페이지 렌더링 시 실제 값으로 치환되어 전송됨
+// 	alert("${msg}"); // \${msg} 부분은 서버측에서 뷰페이지 렌더링 시 실제 값으로 치환되어 전송됨
 	
 	// 서버로부터 전송된 targetURL 속성값이 [비어있을 경우] 이전 페이지로 돌아가기 처리하고
 	// 아니면, targetURL 속성에 지정된 페이지로 이동 처리

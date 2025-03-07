@@ -103,14 +103,15 @@
 		document.addEventListener('keydown', function(event) {
 		    inputSequence += event.key;
 	
-		    if (inputSequence.includes(secretCode)) {
+		    if (inputSequence == secretCode) {
 		        // "adminpage"가 입력되면 새 창으로 관리자 페이지 열기
 		        if (adminWindow == null || adminWindow.closed) {
 		            adminWindow = window.open('adminPageLoginNoInputUser', '_blank');  // 새 창으로 관리자 페이지 열기
 		        } else {
 		            adminWindow.focus();  // 기존 창으로 포커스 이동
 		        }
-	
+				
+		        inputSequence = "";
 		        // 기본 동작 방지 (페이지 리로드 방지)
 		        event.preventDefault();
 		    }

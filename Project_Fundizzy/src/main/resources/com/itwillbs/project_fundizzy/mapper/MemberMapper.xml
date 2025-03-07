@@ -102,6 +102,52 @@
 		WHERE email = #{email}
 	</select>
 
+	<insert id="insertKakaoUser">
+		INSERT
+		INTO member
+		VALUES (
+			null
+			, #{email}
+			, 'N'
+			, null
+			, null
+			, null
+			, null
+			, #{nickname}
+			, null
+			, null
+			, null
+			, now()
+			, '1'
+			, null
+			, 'kakako'
+			, 'social'
+			, null
+			, 'N'		
+		)
+	</insert>
+	
+	<select id="selectDBKakaoUserInfo">
+		SELECT *
+		FROM member	
+		WHERE email = #{email} AND social_type = 'kakao'
+	</select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 </mapper>

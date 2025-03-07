@@ -112,7 +112,7 @@
 						<c:choose>
 							<c:when test="${sessionScope.loginType == 'kakao'}">
 							    <a href="NotificationBoard"><img class="bell" src="/resources/images/bell.png"></a>
-								<a href="SupporterPage" class="top-items">${sessionScope.sId}</a> 님 | 
+								<a href="SupporterPage" class="top-items">${DBKakaoUserInfo.nickname}</a> 님 | 
 								<a href="javascript:void(0)" onclick="logout()">로그아웃</a>
 							</c:when>
 							<c:when test="${sessionScope.loginType == 'local'}">

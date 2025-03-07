@@ -3,6 +3,7 @@ package com.itwillbs.project_fundizzy.mapper;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface MemberMapper {
@@ -25,6 +26,10 @@ public interface MemberMapper {
 	Map<String, String> selectEmail(String email);
 
 	String selectNickname(String email);
+
+	void insertKakaoUser(@Param("nickname") String nickname,@Param("email") String email);
+
+	Map<String, String> selectDBKakaoUserInfo(String email);
 
 
 
