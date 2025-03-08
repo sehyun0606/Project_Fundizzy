@@ -84,11 +84,11 @@
         </div>
     </div>
     <div id="floatingChat">
-    	<img src="${pageContext.request.contextPath}/resources/images/chattingIcon.png" alt="채팅오픈">
+    	<img src="/resources/images/chat/chattingIcon.png" alt="채팅오픈">
 	</div>
 	<script>
 	    document.getElementById('floatingChat').onclick = function() {
-	        window.open('chat.html', 'chatWindow', 'width=400, height=600, top=200, left=1500, status=no, location=no, menubar=no, toolbar=no');
+	        window.open('/ChatMain', 'chatWindow', 'width=400, height=600, top=200, left=1500, status=no, location=no, menubar=no, toolbar=no');
 	    };
 	</script>
 </body>
