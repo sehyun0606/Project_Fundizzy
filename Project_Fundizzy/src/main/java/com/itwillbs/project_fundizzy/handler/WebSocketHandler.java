@@ -28,6 +28,8 @@ public class WebSocketHandler extends TextWebSocketHandler {
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		System.out.println("메세지 수신됨! - handleTextMessage");
 		
+		System.out.println("메세지 전송한 사용자 : " + getHttpSessionId(session));
+		System.out.println("전송된 메세지 : " + message.getPayload());
 	}
 
 	@Override
