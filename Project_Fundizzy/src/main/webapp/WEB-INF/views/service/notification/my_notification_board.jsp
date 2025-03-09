@@ -82,6 +82,6 @@
 	<footer>
 		<jsp:include page="/WEB-INF/views/inc/footer.jsp" />
 	</footer>
-	<script src="/resourcex/js/service/my_notification_board.js"></script>
+	<script src="/resources/js/service/my_notification_board.js"></script>
 </body>
 </html>

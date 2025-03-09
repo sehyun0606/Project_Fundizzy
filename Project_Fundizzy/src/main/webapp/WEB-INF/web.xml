@@ -22,7 +22,10 @@
 		<param-name>contextConfigLocation</param-name>
 <!-- 		<param-value>/WEB-INF/spring/root-context.xml</param-value> -->
 		<!-- src/main/resources/config/root-context.xml 파일 위치로 변경 -->
-		<param-value>classpath:/config/root-context.xml</param-value>
+		<param-value>
+			classpath:/config/root-context.xml
+<!-- 			classpath:/config/db-context.xml -->
+		</param-value>
 	</context-param>
 	
 	
@@ -39,7 +42,10 @@
 			<param-name>contextConfigLocation</param-name>
 <!-- 			<param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value> -->
 			<!-- src/main/resources/config/servlet-context.xml 파일 위치로 변경 -->
-			<param-value>classpath:/config/servlet-context.xml</param-value>
+			<param-value>
+				classpath:/config/servlet-context.xml
+				classpath:/config/websocket-context.xml
+			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>

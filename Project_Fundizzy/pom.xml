@@ -276,6 +276,14 @@
 		    <scope>runtime</scope>
 		</dependency>
 		
+		<!-- 스프링 웹소켓 라이브러리(스프링 기본 버전 사용) -->		
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-websocket -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-websocket</artifactId>
+		    <version>${org.springframework-version}</version>
+		</dependency>
+		
 		<!-- Log4j2 사용으로 인한 Log4j 주석 처리 필요한 부분 -->
 		<!-- Logging -->
 <!-- 		<dependency> -->
