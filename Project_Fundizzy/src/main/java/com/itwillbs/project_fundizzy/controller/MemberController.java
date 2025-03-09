@@ -102,11 +102,13 @@ public class MemberController {
         System.out.println("닉네임 : " + nickname + " 이메일 : " + email);
         
         // DB에서 유저 정보 가져오기
-        Map<String, String> DBKakaoUserInfo = memberService.getDBKakaoUserInfo(email);
-        System.out.println("가져온 정보 : " + DBKakaoUserInfo);
-        if(DBKakaoUserInfo == null) {
+        Map<String, String> DBKakaoUser = memberService.getDBKakaoUser(email);
+        System.out.println("가져온 정보 : " + DBKakaoUser);
+        if(DBKakaoUser == null) {
         	memberService.insertKakaoUser(nickname, email);
         }
+        // DB에서 유저 정보 다시한번 더 가져오기
+        Map<String, String> DBKakaoUserInfo = memberService.getDBKakaoUserInfo(email);
         
         session.setAttribute("DBKakaoUserInfo", DBKakaoUserInfo);
 		session.setAttribute("sId", email);
@@ -139,9 +141,9 @@ public class MemberController {
 		System.out.println("email: " + email + " nickname: " + nickname);
 		
 		// DB에서 유저 정보 가져오기
-        Map<String, String> DBNaverUserInfoConfirm = memberService.getDBNaverUserInfoConfirm(email);
-        System.out.println("가져온 정보 : " + DBNaverUserInfoConfirm);
-        if(DBNaverUserInfoConfirm == null) {
+        Map<String, String> DBNaverUser = memberService.getDBNaverUser(email);
+        System.out.println("가져온 정보 : " + DBNaverUser);
+        if(DBNaverUser == null) {
         	memberService.insertNaverUser(nickname, email);
         }
         // DB에서 유저 정보 다시한번 더 가져오기

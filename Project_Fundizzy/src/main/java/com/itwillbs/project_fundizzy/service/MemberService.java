@@ -47,26 +47,33 @@ public class MemberService {
 	public String getMemberNickname(String email) {
 		return mapper.selectNickname(email);
 	}
-
+	
+	// 카카오 로그인
 	public void insertKakaoUser(String nickname, String email) {
 		mapper.insertKakaoUser(nickname, email);
+	}
+
+	public Map<String, String> getDBKakaoUser(String email) {
+		return mapper.selectDBKakaoUser(email);
 	}
 
 	public Map<String, String> getDBKakaoUserInfo(String email) {
 		return mapper.selectDBKakaoUserInfo(email);
 	}
 
+	// 네이버 로그인
 	public void insertNaverUser(String nickname, String email) {
 		mapper.insertNaverUser(nickname, email);
 	}
 
-	public Map<String, String> getDBNaverUserInfoConfirm(String email) {
-		return mapper.selectDBNaverUserInfoConfirm(email);
+	public Map<String, String> getDBNaverUser(String email) {
+		return mapper.selectDBNaverUser(email);
 	}
 
 	public Map<String, String> getDBNaverUserInfo(String email) {
 		return mapper.selectDBNaverUserInfo(email);
 	}
+
 	
 	
 	

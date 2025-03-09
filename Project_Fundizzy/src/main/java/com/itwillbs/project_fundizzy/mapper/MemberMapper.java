@@ -29,13 +29,16 @@ public interface MemberMapper {
 
 	void insertKakaoUser(@Param("nickname") String nickname,@Param("email") String email);
 
+	Map<String, String> selectDBKakaoUser(String email);
+
 	Map<String, String> selectDBKakaoUserInfo(String email);
 
 	void insertNaverUser(@Param("nickname") String nickname,@Param("email") String email);
 
-	Map<String, String> selectDBNaverUserInfoConfirm(String email);
+	Map<String, String> selectDBNaverUser(String email);
 
 	Map<String, String> selectDBNaverUserInfo(String email);
+
 
 
 
