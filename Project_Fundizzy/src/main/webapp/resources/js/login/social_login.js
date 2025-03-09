@@ -17,19 +17,20 @@
 //-----------------------------------------------------------------------------------------------------------------------------
 // 카카오 로그인 js
 function loginWithKakao() {
-	const kakaoClientId = window.config.kakaoClientId;
-	const kakaoRedirectUrl = window.config.kakaoRedirectUrl;
+//	const kakaoClientId = window.config.kakaoClientId;
+//	const kakaoRedirectUrl = window.config.kakaoRedirectUrl;
+	const kakaoApiKey = "dac18f4f0b5faff6eae286e3e135c18f";
+	const kakaoRedirectUrl = "http://localhost:8081/kakaoCallback";
     const width = 500;
     const height = 700;
     const left = (window.innerWidth / 2) - (width / 2);
     const top = (window.innerHeight / 2) - (height / 2);
 
 	let authWindow = window.open("about:blank", "authWindow", "width=500,height=700,top=" + top + ",left=" + left);
-	authWindow.location.href = "https://kauth.kakao.com/oauth/authorize?"
+	authWindow.location = "https://kauth.kakao.com/oauth/authorize?"
 				+ "response_type=code"
-				+ "&client_id=" + kakaoClientId
-				+ "&redirect_uri=" + encodeURIComponent(kakaoRedirectUrl)
-				+ "&prompt=none";
+				+ "&client_id=" + kakaoApiKey
+				+ "&redirect_uri=" + encodeURIComponent(kakaoRedirectUrl);
 
 }
 

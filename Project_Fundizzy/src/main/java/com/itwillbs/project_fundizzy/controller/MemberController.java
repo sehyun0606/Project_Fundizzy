@@ -146,6 +146,7 @@ public class MemberController {
         }
         // DB에서 유저 정보 다시한번 더 가져오기
         Map<String, String> DBNaverUserInfo = memberService.getDBNaverUserInfo(email);
+        System.out.println("한번 더 가져온 정보 : " + DBNaverUserInfo);
         
         session.setAttribute("DBNaverUserInfo", DBNaverUserInfo);
 		session.setAttribute("sId", email);
