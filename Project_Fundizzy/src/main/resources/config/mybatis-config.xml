@@ -13,6 +13,8 @@
 		<typeAlias type="com.itwillbs.project_fundizzy.vo.BankAccount" alias="bankAccount"/>
 		<typeAlias type="com.itwillbs.project_fundizzy.vo.ProjectStoryVO" alias="ProjectStory"/>
 		<typeAlias type="com.itwillbs.project_fundizzy.vo.FundHistoryVO" alias="FundHistory"/>
+		<typeAlias type="com.itwillbs.project_fundizzy.vo.ChatRoom" alias="chatRoom"/>
+		<typeAlias type="com.itwillbs.project_fundizzy.vo.ChatMessage" alias="chatMessage"/>
 	</typeAliases>
 </configuration>
 

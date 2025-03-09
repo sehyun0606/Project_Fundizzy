@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xsi:schemaLocation="http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket-4.3.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+
+	<websocket:handlers>
+		<!-- <websocket:mapping> 태그 활용하여 매핑에 사용될 요청 주소 지정 -->
+		<!-- <websocket:mapping handler="핸들러이름(아무거나)" path="요청주소"> -->
+		<websocket:mapping handler="wsHandler" path="/echo"/>
+		
+		<!-- 
+		클라이언트 웹소켓 최초 연결 시 HTTP 통신 과정에서 생성되는 HttpSession 객체 가로채기
+		=> WebSocketHandler 클래스에서 HttpSession 객체의 값들에 접근하기 위함
+		가로챈 HttpSession 객체를 WebSocketSession 객체에 저장해주는 인터셉터 정보 설정
+		spring-websocket 라이브러리에 포함된 HttpSessionHandshakeIntercepter 클래스 지정
+		-->
+		<websocket:handshake-interceptors>
+			<bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
+		</websocket:handshake-interceptors>
+	</websocket:handlers>
+	
+	<!-- 2. <bean> 태그를 활용하여 매핑에 사용될 클래스를 스프링 빈으로 등록 -->
+	<!-- <bean id="1번에서 지정한 핸들러 이름" class="웹소켓 핸들러 클래스 지정"> -->
+	<bean id="wsHandler" class="com.itwillbs.project_fundizzy.handler.WebSocketHandler" />
+</beans>

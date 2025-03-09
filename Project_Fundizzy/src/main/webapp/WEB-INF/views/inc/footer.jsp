@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -83,13 +84,14 @@
             </div>
         </div>
     </div>
-    <div id="floatingChat">
-    	<img src="/resources/images/chat/chattingIcon.png" alt="채팅오픈">
-	</div>
-	<script>
-	    document.getElementById('floatingChat').onclick = function() {
-	        window.open('/ChatMain', 'chatWindow', 'width=400, height=600, top=200, left=1500, status=no, location=no, menubar=no, toolbar=no');
-	    };
-	</script>
+    <input type="hidden" id="sId" value="${sessionScope.sId}">
+    <c:if test="${not empty sessionScope.sId}">
+	    <div id="floatingChat">
+	    	<img src="/resources/images/chat/chattingIcon.png" alt="채팅오픈" onclick="openChatWindow()">
+		</div>
+    </c:if>
+	<script src="/resources/js/jquery-3.7.1.js"></script>
+	<script src="/resources/js/footer.js"></script>
+	
 </body>
 </html>

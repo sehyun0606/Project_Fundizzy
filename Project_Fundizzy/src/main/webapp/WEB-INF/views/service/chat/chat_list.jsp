@@ -43,5 +43,6 @@
 	</div>
 	<script src="/resources/js/jquery-3.7.1.js"></script>
 	<script src="/resources/js/service/chat/chat_list.js"></script>
+	<script src="/resources/js/service/chat/chat_window.js"></script>
 </body>
 </html>
