@@ -90,6 +90,73 @@
 		GROUP BY DATE(payment_complete_date)
 		ORDER BY DATE(payment_complete_date)
 	</select>
+	
+	<select id="selectOrderCount" resultType="int">
+		SELECT COUNT(*)
+		FROM shipment
+		WHERE project_code = #{project_code}
+	</select>
+	
+	<select id="selectOrderList" resultType="map">
+		SELECT 
+		    p.common_code AS payment_common_code, 
+		    p.project_code, 
+		    p.payment_code,
+		    p.billing_email, 
+		    p.payment_method, 
+		    FORMAT(p.payment_amount, 0) AS payment_amount,
+		    p.payment_request_date, 
+		    p.payment_complete_date,
+		    p.participation_status, 
+		    p.reference_number, 
+		    s.common_code AS shipment_common_code, 
+		    s.shipping_code, 
+		    s.supporter_email, 
+		    s.name, 
+		    CONCAT(SUBSTRING(s.phone_num, 1, 3), '-', SUBSTRING(s.phone_num, 4, 4), '-', SUBSTRING(s.phone_num, 8)) AS phone_num, 
+		    s.address, 
+		    s.address1, 
+		    s.post_code,
+		    (SELECT COUNT(*) 
+		     FROM fund_history fh 
+		     WHERE fh.payment_code = p.payment_code) AS fund_count
+		FROM payment p
+		JOIN shipment s
+		ON p.payment_code = s.payment_code
+		WHERE p.project_code = #{project_code}
+		ORDER BY p.payment_complete_date DESC
+		
+	</select>
+	
+	<select id="selectPaymentRewardList" resultType="map">
+		SELECT 
+			fund_idx, 
+			project_code, 
+			member_email, 
+			project_title, 
+			representative_picture, 
+			product_name, 
+			business_name, 
+			FORMAT(result_point, 0) AS result_point,
+			send_stat, 
+			refund_stat, 
+			reward_code, 
+			purchase_date, 
+			refund_date, 
+			send_date, 
+			product_count, 
+			payment_code
+		FROM fund_history
+		WHERE payment_code = #{payment_code}
+	</select>
+	
+	<select id="selectShipStatusCount" resultType="map">
+		SELECT common_code, COUNT(*) AS count
+		FROM shipment
+		WHERE project_code = #{project_code}
+		GROUP BY common_code
+		ORDER BY common_code
+	</select>
 
 </mapper>
 

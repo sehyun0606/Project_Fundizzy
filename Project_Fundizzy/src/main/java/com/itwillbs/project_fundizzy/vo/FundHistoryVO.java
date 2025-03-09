@@ -18,9 +18,12 @@ public class FundHistoryVO {
 	private String product_name;
 	private String business_name;
 	private int result_point;
-	private String address;
 	private String send_stat;
 	private String refund_stat;
 	private int reward_code;
 	private Timestamp purchase_date;
+	private Timestamp refund_date;
+	private Timestamp send_date;
+	private int product_count;
+	private String payment_code;
 }

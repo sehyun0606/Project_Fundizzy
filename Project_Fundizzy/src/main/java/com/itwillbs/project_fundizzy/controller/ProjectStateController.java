@@ -1,5 +1,7 @@
 package com.itwillbs.project_fundizzy.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.itwillbs.project_fundizzy.service.ProjectStateService;
 import com.itwillbs.project_fundizzy.vo.NewsVO;
 import com.itwillbs.project_fundizzy.vo.PageInfo;
+import com.itwillbs.project_fundizzy.vo.ShipmentVO;
 
 // 최서해
 @Controller
@@ -61,9 +64,40 @@ public class ProjectStateController {
 
 	// 발송환불관리 페이지
 	@GetMapping("ShipmentRefund")
-	public String shipmentRefund() {
+	public String shipmentRefund(HttpSession session, Model model) {
+		String project_code = (String)session.getAttribute("project_code");
+		
+		// 주문 건수 조회
+		int orderCount = stateService.getOrderCount(project_code);
+		model.addAttribute("orderCount", orderCount);
+		
+		// 결제내역, 발송정보 리스트 조회
+		List<Map<String, Object>> orderList = stateService.getOrderList(project_code);
+		model.addAttribute("orderList", orderList);
+		
+		// 주문한 리워드 정보 리스트 조회
+		List<Map<String, Object>> paymentRewardList = stateService.getPaymentRewardList(project_code, "");
+		model.addAttribute("paymentRewardList", paymentRewardList);
+		
+		// 배송상태 건수 조회
+		List<ShipmentVO> shipStatusCount = stateService.getShipStatusCount(project_code);
+		model.addAttribute("shipStatusCount", shipStatusCount);
+			
 		return "project/projectState/shipment_refund";
 	}
+	
+	@ResponseBody
+	@GetMapping("PaymentRewardDetail")
+	public List<Map<String, Object>> paymentRewardDetail(HttpSession session, Model model, String payment_code) {
+		String project_code = (String)session.getAttribute("project_code");
+		
+		List<Map<String, Object>> paymentRewardList = stateService.getPaymentRewardList(project_code, payment_code);
+		model.addAttribute("paymentRewardList", paymentRewardList);
+		System.out.println("rewardList : " + paymentRewardList);
+		return paymentRewardList;
+	}
+	
+	
 	
 	@GetMapping("NewsList")
 	public String newsList(@RequestParam(defaultValue = "1") int pageNum, Model model, HttpSession session) {

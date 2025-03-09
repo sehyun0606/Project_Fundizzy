@@ -68,10 +68,11 @@
 </body>
 <script>
 	$(function() {
+		// 현황 차트
 		let dateArr = new Array();
-		let paymentCountArr = new Array();
-		let dailyPaymentArr = new Array();
-		let cumulativePaymentArr = new Array();
+		let paymentCountArr = new Array();		// 누적 결제 건수
+		let dailyPaymentArr = new Array();		// 일일 결제 금액
+		let cumulativePaymentArr = new Array();	// 누적 결제 금액
 
 		<c:forEach var="paymentCount" items="${paymentCountList}">
 		    dateArr.push("${paymentCount.date}");
@@ -117,7 +118,7 @@
 		            {
 		                label: '누적 결제 금액',
 		                data: cumulativePaymentArr,
-		                backgroundColor: 'rgba(54, 162, 235, 0.5)',
+		                backgroundColor: 'rgba(255, 99, 132, 1)',
 		                borderWidth: 1,
 // 		                type: 'line',
 // 		                borderColor: 'rgba(255, 99, 132, 1)',
