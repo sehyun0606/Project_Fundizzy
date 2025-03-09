@@ -9,8 +9,9 @@
 <body>
 	<jsp:include page="/WEB-INF/views/inc/top.jsp"></jsp:include>
 	<div class="pay-container">
-		<p>내 펀디지페이로 xxxx원 충전완료</p>
-		<p>페이잔액 : xxxx원</p>
+		<input type="hidden" value="${bank_tran_id}">
+		<p>내 펀디지페이로 ${chargeResult.tran_amt}원 충전완료</p>
+		<p>페이잔액 : ${fundizzy_pay.pay_balance}원</p>
 		<input type="button" value="페이홈으로">
 	</div>
 <%-- 	<jsp:include page="/WEB-INF/views/inc/footer.jsp"></jsp:include> --%>

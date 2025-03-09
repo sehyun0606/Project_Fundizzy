@@ -1,9 +1,11 @@
 package com.itwillbs.project_fundizzy.service;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.itwillbs.project_fundizzy.handler.BankApiClient;
 import com.itwillbs.project_fundizzy.handler.BankValueGenerator;
@@ -69,12 +71,13 @@ public class Bankservice {
 	
 	//이체결과 저장 
 	public void registChargeResult(Map<String, Object> chargeResult) {
-		// TODO Auto-generated method stub
+		//uuid 만들기 - 이체한거 들고오기 위해 
 		chargeResult.put("tran_id", BankValueGenerator.getTranId());
 		mapper.insertChargeResult(chargeResult, "WI");
 	}
 	
 	//대표계좌 등록 
+	@Transactional
 	public void registBankAccount(Map<String, Object> bankAccount) {
 		if(mapper.selectDBAccountInfo((String) bankAccount.get("user_seq_no")) == null) {
 			mapper.insertBankAccount(bankAccount);
@@ -82,7 +85,9 @@ public class Bankservice {
 			mapper.updateBankAccount(bankAccount);
 		}
 		
-		// TODO Auto-generated method stub
+		String email =  (String)bankAccount.get("eamil");
+		String pay_tran_id = BankValueGenerator.getTranId();
+		mapper.connectFundizzyPay(email, pay_tran_id);
 	}
 	
 	//대표계좌 삭제
@@ -90,6 +95,39 @@ public class Bankservice {
 		// TODO Auto-generated method stub
 		mapper.deleteBankAccount(bankAccount);
 	}
+	
+	// 페이 거래 내역 입력 메서드
+	public void payTransaction(Map<String, String> mapForPay) {
+		mapper.insertFundizzyPay(mapForPay);
+	}
+	
+	//입금 요청
+	public Map<String, Object> requestDeposit(Map<String, Object> map) {
+		// 이용기관 토큰 조회
+		BankToken adminToken = mapper.selectAdminToken("admin");
+		
+		//map에 이용기관 토큰 저장
+		map.put("adminToken", adminToken);
+		
+		return bankApiClient.requestDeposit(map);
+	}
+	
+	//db에 입금 결과 저장
+	public void registTransferResult(Map<String, Object> transferResult) {
+		// TODO Auto-generated method stub
+		transferResult.put("tran_id", BankValueGenerator.getTranId());
+		
+		// BankMapper - selectRepresentAccount2() 메서드 호출하여 사용자 토큰 정보 조회
+				// => 파라미터 : 사용자일련번호(BankToken 객체에서 꺼내기)
+				//    리턴타입 : BankAccount(bankAccount)
+		BankAccount bankAccount = mapper.selectBankAccount((String)transferResult.get("user_seq_no"));
+		
+		//DE = 입금 이체 
+		mapper.insertTransferResult(transferResult, "DE");
+	}
+	
+	
+
 	
 
 }

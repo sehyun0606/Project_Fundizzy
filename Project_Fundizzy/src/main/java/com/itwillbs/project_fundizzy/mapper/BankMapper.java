@@ -22,7 +22,7 @@ public interface BankMapper {
 	
 	//------------MyPageController와 연관된 코드 -----------
 	
-	//출금결과를 db에 저장 
+	//거래결과를 db에 저장 (입,출금)
 	Map<String, Object> selectDBTransactionResult(String bank_tran_id);
 	
 	//등록된 계좌정보 조회
@@ -36,5 +36,21 @@ public interface BankMapper {
 	void updateBankAccount(Map<String, Object> bankAccount);
 	// 대표계좌 삭제 
 	void deleteBankAccount(Map<String, Object> bankAccount);
+	
+	// 첫 계좌 연동시 페이연결 정보 입력
+	void connectFundizzyPay(@Param("email") String email, @Param("pay_tran_id") String pay_tran_id);
+	
+	//페이 충전결과 페이지 
+	Map<String, Object> insertFundizzyPay(Map<String, String> mapForPay);
+
+	// 이용기관 토큰 조회
+	BankToken selectAdminToken(String id);
+	
+	//db에 입금 결과 저장 - 사용자 토큰 정보 조회
+	BankAccount selectBankAccount(String user_seq_no);
+	
+	//db에 입금 결과 저장
+	void insertTransferResult(@Param("transferResult") Map<String, Object> transferResult, @Param("transactionType") String transactionType);
+	
 
 }

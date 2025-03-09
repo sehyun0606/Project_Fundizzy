@@ -20,6 +20,7 @@ import org.springframework.web.servlet.tags.Param;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.google.gson.JsonObject;
+import com.itwillbs.project_fundizzy.vo.BankAccount;
 import com.itwillbs.project_fundizzy.vo.BankToken;
 
 import lombok.extern.log4j.Log4j2;
@@ -107,6 +108,8 @@ public class BankApiClient {
 	      System.out.println(">>>>> 사용자 정보조회 요청 응답데이터의 body : " + response.getBody());
 	  	return response.getBody();
 	}
+	
+	
 	// 계좌정보 조회 
 	public Map<String, String> reqeustAccountDetail(Map<String, Object> map) {
 		// TODO Auto-generated method stub
@@ -116,6 +119,8 @@ public class BankApiClient {
 				
 		return null;
 	}
+	
+	
 	//출금이체 
 	public Map<String, Object> requestCharge(Map<String, Object> map) {
 		//map에서 꺼내 토큰 변수에 저장 
@@ -147,16 +152,17 @@ public class BankApiClient {
 		 jsonObject.addProperty("cntr_account_num", cntr_account_num);//약정 계좌번호
 		 
 		 //입금계좌인자내역 (아이티윌에 출력할 메시지) 
-		 jsonObject.addProperty("dps_print_content",(String) map.get("email")); //사용자 아이디
+		 jsonObject.addProperty("dps_print_content", "페이 충전");
+		 System.out.println("라라라라랄 _ " + (String)map.get("email"));
 		 
 		 //출금계좌 정보
-		 jsonObject.addProperty("fintech_use_num", (String)map.get("charge_fintech_use_num"));// 출금계좌 핀테크 이용번호
-		 jsonObject.addProperty("wd_print_content",  "funddizy pay");// 출금계좌 인자내약
+		 jsonObject.addProperty("fintech_use_num", ((BankAccount)map.get("bankAccount")).getFintech_use_num());// 출금계좌 핀테크 이용번호
+		 jsonObject.addProperty("wd_print_content",  "아이티윌");// 출금계좌 인자내약
 		 
 		 jsonObject.addProperty("tran_amt", (String)map.get("tran_amt")); // 출금금액
 		 jsonObject.addProperty("tran_dtime", tran_dtime); //거래날짜
-		 jsonObject.addProperty("req_client_name", (String)map.get("charge_req_client_name")); // 출금계좌 예금주명 
-		 jsonObject.addProperty("req_client_fintech_use_num", (String)map.get("charge_fintech_use_num")); // 요청고객 핀테크 이용번호(출금계좌)
+		 jsonObject.addProperty("req_client_name", ((BankAccount)map.get("bankAccount")).getAccount_holder_name()); // 출금계좌 예금주명 
+		 jsonObject.addProperty("req_client_fintech_use_num", ((BankAccount)map.get("bankAccount")).getFintech_use_num()); // 요청고객 핀테크 이용번호(출금계좌)
 		 
 		 
 		 jsonObject.addProperty("req_client_num", bankToken.getUser_seq_no()); //사용자 일련번호
@@ -167,17 +173,54 @@ public class BankApiClient {
 		 jsonObject.addProperty("recv_client_bank_code", cntr_account_bank_code);
 		 jsonObject.addProperty("recv_client_account_num", cntr_account_num);
 		 
-		 System.out.println("잘 나오는지 출력 = " + uri.toString());
+		 System.out.println("잘 나오는지 출력 = " + jsonObject.toString());
 		 
-		 HttpEntity<String> httpEntity = new HttpEntity<String>(jsonObject.toString(),headers);
+		 HttpEntity<String> requestEntity = new HttpEntity<String>(jsonObject.toString(),headers);
 		 
 		 RestTemplate restTemplate = new RestTemplate();
 		 
 		 ParameterizedTypeReference<Map<String, Object>> responseType = new ParameterizedTypeReference<Map<String,Object>>() {
 		};
 		 
-		ResponseEntity<Map<String, Object>> response = restTemplate.exchange(uri, HttpMethod.POST, httpEntity, responseType);
+		ResponseEntity<Map<String, Object>> response = restTemplate.exchange(uri, HttpMethod.POST, requestEntity, responseType);
 		System.out.println("응답 데이터 출력 = " + response.getBody());
 		return response.getBody();
+	}
+	
+	//입금 요청 - 2.6.2
+	public Map<String, Object> requestDeposit(Map<String, Object> map) {
+		
+		//이용기관 토큰 꺼내기
+		
+		//아이디 꺼내서 String email에 저장
+		
+		//잔액 조회에 사용될 bank_tran_id, tran_dtime 생성
+		
+		//uri 생성
+		
+		//헤더 정보생성
+		
+		//api 요청 파라미터를 JSON 형식으로 생성 - 	1건의 입금 이체 정보를 저장할 JsonObject (joReq)객체 생성
+	
+		//2) 입금 이체 1건의 정보를 리스트 형식으로 관리할 JsonArray 객체 생성
+		
+		
+		// JsonArray 객체의 add() 메서드 호출하여 1건 이체 정보가 담긴 JsonObject 객체 추가
+		
+		// 3) 기본 입금 이체 정보를 저장할 JsonObject 객체 생성 후 내용 추가 - pdf 보고 
+		
+		// 4) 기본 입금 이체 정보 JsonObject 객체에 1건 이체정보가 저장된 JsonArray 객체 추가 
+		// => JsonObject 객체의 add() 메서드 활용
+		
+		
+		// jsonObject 객체 출력해보기 
+		
+		
+		//헤더정보를 관리할 Entity 생성
+		
+		//restTemplate 생ㅅ어 
+		
+		// 응답데이터 리턴 => ResponseEntity 객체의 getBody() 메서드 호출 시 응답데이터에 접근
+		return null;
 	}
 }

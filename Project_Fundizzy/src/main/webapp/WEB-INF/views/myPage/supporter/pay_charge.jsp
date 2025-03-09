@@ -11,10 +11,8 @@
 	<div class="pay-container">
 		<p>${sessionScope.sId} 님의 페이 충전</p>
 		<form action="PayCharge" method="post">
-			<input type="hidden" name="charge_fintech_use_num" value="${accountDetail.fintech_use_num }">
-			<input type="hidden" name="charge_account_client_name" value="${account_holder_name}">
 			<div class="pay-info">
-				<input type="search" id="fundizy-pay" placeholder="충전할 금액 입력">
+				<input type="search" id="fundizy-pay" name="tran_amt" placeholder="충전할 금액 입력">
 				<div class="btn-list">
 					<input type="button" value="+1만">
 					<input type="button" value="+5만">

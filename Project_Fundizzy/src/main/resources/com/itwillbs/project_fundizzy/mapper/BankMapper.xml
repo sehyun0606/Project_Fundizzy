@@ -78,32 +78,90 @@
 	<insert id="insertChargeResult">
 		INSERT INTO bank_transaction_info 
 		VALUES(
-			#{transactionResult.user_seq_no}
-			,#{transactionResult.fintech_use_num}
+			#{chargeResult.user_seq_no}
+			,#{chargeResult.fintech_use_num}
 			,#{transactionType}
-			,#{transactionResult.api_tran_id}
+			,#{chargeResult.api_tran_id}
 			
-			,LEFT(#{transactionResult.api_tran_dtm},14)
-			,#{transactionResult.bank_tran_id}
+			,LEFT(#{chargeResult.api_tran_dtm},14)
+			,#{chargeResult.bank_tran_id}
 		
-			,#{transactionResult.bank_tran_date}
-			,#{transactionResult.tran_amt}
-			,#{transactionResult.rsp_code}
-			,#{transactionResult.rsp_message}
-			,#{transactionResult.bank_rsp_code}
-			,#{transactionResult.bank_rsp_message}
-			,#{transactionResult.dps_bank_code_std}
-			,#{transactionResult.dps_account_num_masked}
-			,#{transactionResult.tran_id}
+			,#{chargeResult.bank_tran_date}
+			,#{chargeResult.tran_amt}
+			,#{chargeResult.rsp_code}
+			,#{chargeResult.rsp_message}
+			,#{chargeResult.bank_rsp_code}
+			,#{chargeResult.bank_rsp_message}
+			,#{chargeResult.dps_bank_code_std}
+			,#{chargeResult.dps_account_num_masked}
+			,#{chargeResult.tran_id}
 		
 		)
 	</insert>
+	
+	<insert id="connectFundizzyPay">
+		INSERT INTO fundizzy_pay
+		VALUES( 
+			#{email}
+			, 0
+			, 'CN'
+			, NOW()
+			, null
+			, 0
+			, #{pay_tran_id} 
+		)
+	</insert>
 
+<!-- 	페이 충전 결과 페이지 -->
+	<insert id="insertFundizzyPay">
+		<selectKey order="BEFORE" keyProperty="pay_balance" resultType="int">
+			SELECT pay_balance
+			FROM fundizzy_pay
+			WHERE email = #{email}
+			AND pay_date = (SELECT MAX(pay_date)
+							FROM fundizzy_pay
+							WHERE email = #{email})
+		</selectKey>
+		
+		INSERT INTO fundizzy_pay
+		VALUES( 
+			#{email}
+			,#{pay_amt} 
+			,#{pay_type} -- 
+			,NOW()
+			,#{payment_code} --
+			,#{pay_balance} -- 
+			,#{pay_tran_id} 
+		)
+	</insert>
 
+<!-- 	이용기관 토큰 조회 -->
+	<select id="selectAdminToken" resultType="bankToken">
+		SELECT *
+		FROM bank_access_token
+		WHERE id = #{id}
+	
+	
+	</select>
 
-
-
-
-
+	<!-- db에 입금 결과 저장 - 사용자 토큰 정보 조회  -->
+	<select id="selectBankAccount" resultType="bankAccount">
+		SELECT *
+		FROM bank_account
+		WHERE user_seq_no = #{user_seq_no}
+	</select>
+<!-- 	db에 입금 결과 저장  -->
+	<insert id="insertTransferResult">
+		INSERT INTO bank_account
+		VALUES(
+			#{}
+			,#{}
+			,#{}
+			,#{}
+			,#{}
+			,#{}
+			,#{}
+		)
+	</insert>
 
 </mapper>

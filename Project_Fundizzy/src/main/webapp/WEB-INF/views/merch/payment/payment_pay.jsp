@@ -83,8 +83,8 @@
 	        </div>
 	        <div class="section-reservation">
 	            <h4>예약 결제</h4>
-	            <label><input type="radio" name="payment" checked> 와디즈 간편결제</label>
-<!-- 	            <div class="upload-box">+</div> -->
+	            <label><input type="radio" name="payment" checked> 펀디지 페이결제</label>
+	            <div class="upload-box">Fundizy pay<br> 잔액표시</div>
 	            <label><input type="radio" name="payment" checked> 직접입력</label>
 	        </div>
 	        <div class="section-now">

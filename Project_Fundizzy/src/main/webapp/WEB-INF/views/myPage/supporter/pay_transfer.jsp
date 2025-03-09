@@ -14,10 +14,8 @@
 			<div>
 				내가 등록한 계좌로 
 			</div>
-			<input type="hidden" name="transfer_fintech_use_num" value="${accountDetail.fintech_use_num }">
-			<input type="hidden" name="transfer_account_client_name" value="${account_holder_name}">
 			<div class="pay-info">
-				<input type="search" id="fundizy-pay" placeholder="보낼 금액을 입력해주세요.">
+				<input type="search" id="fundizy-pay" name = "tran_amt" placeholder="보낼 금액을 입력해주세요.">
 				<div class="btn-list">
 					<input type="button" value="+1만">
 					<input type="button" value="+5만">
