@@ -36,7 +36,7 @@
 		        <a href="javascript:loginWithKakao()">
 		            <img src="${pageContext.request.contextPath}/resources/images/login/kakao_login_custom.png" alt="카카오 로그인 버튼" class="kakao" >
 		        </a>
-		        <a href="YOUR_NAVER_LOGIN_URL">
+		        <a href="javascript:loginWithNaver()">
 		            <img src="${pageContext.request.contextPath}/resources/images/login/naver_login_custom.png" alt="네이버 로그인 버튼" class="naver">
 		        </a>
 		    </div>
@@ -52,7 +52,21 @@
 	<div class="link-container">
 	    <a href="#">아이디/비밀번호 찾기</a> | <a href="SignUp">회원가입</a>
 	</div>
-    <script src="${pageContext.request.contextPath}/resources/js/login/kakao_login.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/login/social_login.js"></script>
+    <script>
+	    window.config = {
+  			kakaoClientId: "${kakaoClientId}", // Spring Model 값을 window 객체에 저장
+  			kakaoRedirectUrl: "${kakaoRedirectUrl}", // Spring Model 값을 window 객체에 저장
+  			naverClientId: "${naverClientId}", // Spring Model 값을 window 객체에 저장
+  			naverClientSecret: "${naverClientSecret}", // Spring Model 값을 window 객체에 저장
+  			naverRedirectUrl: "${naverRedirectUrl}" // Spring Model 값을 window 객체에 저장
+	    };
+	    var messageFromJSP = "${state}";
+	</script>
+<%--     			kakaoRedirectUrl: "${kakaoRedirectUrl}" // Spring Model 값을 window 객체에 저장 --%>
+<%--    				naverClientId: "${naverClientId}" // Spring Model 값을 window 객체에 저장 --%>
+<%-- 				naverClientSecret: "${naverClientSecret}" // Spring Model 값을 window 객체에 저장 --%>
+<%-- 				naverRedirectUrl: "${naverRedirectUrl}" // Spring Model 값을 window 객체에 저장 --%>
 
 </body>
 </html>

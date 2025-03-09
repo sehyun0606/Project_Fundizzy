@@ -24,4 +24,6 @@ public class RefundVO {
 	private String reject_reason;
 	private Timestamp refund_request_date;
 	private Timestamp refund_confirm_date;
+	private String refund_status;
+	private String project_code;
 }

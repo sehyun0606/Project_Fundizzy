@@ -23,18 +23,43 @@
 		        <div class="section">
 		            <div class="title">발송·배송 상태</div>
 		            <div class="status">
-		                <div>
-		                    <span>미발송</span>
-		                    <span class="count">0<span>건</span></span>
-		                </div>
-		                <div>
-		                    <span>배송 중</span>
-		                    <span class="count">0<span>건</span></span>
-		                </div>
-		                <div>
-		                    <span>배송 완료</span>
-		                    <span class="count">3<span>건</span></span>
-		                </div>
+		            	<c:forEach var="status" items="${shipStatusCount}">
+			                <div>
+			                	<span>
+					                <c:choose>
+					                	<c:when test="${status.common_code eq 'SHI01'}">
+					                		미발송
+					                	</c:when>
+					                	<c:when test="${status.common_code eq 'SHI02'}">
+					                		발송 완료
+					                	</c:when>
+					                	<c:when test="${status.common_code eq 'SHI03'}">
+					                		배송 중
+					                	</c:when>
+					                	<c:when test="${status.common_code eq 'SHI04'}">
+					                		배송 완료
+					                	</c:when>
+					                </c:choose>
+			                    </span>
+			                    <span class="count">
+					                <c:choose>
+					                	<c:when test="${status.common_code eq 'SHI01'}">
+					                		${status.count}
+					                	</c:when>
+					                	<c:when test="${status.common_code eq 'SHI02'}">
+					                		${status.count}
+					                	</c:when>
+					                	<c:when test="${status.common_code eq 'SHI03'}">
+					                		${status.count}
+					                	</c:when>
+					                	<c:when test="${status.common_code eq 'SHI04'}">
+					                		${status.count}
+					                	</c:when>
+					                </c:choose>
+			                    	<span>건</span>
+			                    </span>
+			                </div>
+		            	</c:forEach>
 		            </div>
 		        </div>
 		        <div class="section">
@@ -66,98 +91,119 @@
 			
 			<div class="order-summary">
 				<span>목록</span>
-				<span>총 <span>100</span>건</span>
+				<span>총 <span>${orderCount}</span>건</span>
 			</div>
-			<table class="list">
-	            <tr>
-	                <th width="6%">결제번호</th>
-	                <th width="10%">서포터 정보</th>
-	                <th width="7%">결제일</th>
-	                <th width="7%">결제 금액</th>
-	                <th width="7%">발송 정보</th>
-	                <th width="7%">발송 예정일</th>
-	                <th width="7%">발송 상태</th>
-	                <th width="5%">발송 번호</th>
-	                <th width="5%">환불</th>
-	                <th width="3%"></th>
-	            </tr>
-	            <c:forEach var="order" begin="1" end="20">
-		            <tr>
-		                <td>${order}</td>
-		                <td>
-		                    오렌지<br>
-		                    orange111@gmail.com<br>
-		                    010-0000-0000
-		                </td>
-		                <td>2025-01-01</td>
-		                <td>18,000원</td>
-		                <td><input type="button" value="입력" class="shipInfoBtn"></td>
-		                <td>2025-01-01</td>
-		                <td>배송 완료</td>
-		                <td>010101011</td>
-		                <td>신청</td>
-		                <td class="toggleBtn">
-		                	<button><img src="/resources/images/projectState/arrow_right.png" style="width: 10px; height: 10px;"></button>
-	                	</td>
-		            </tr>
-		            <tr class="details">
-		                <td colspan="10">
-		                    <table>
-		                        <tr>
-		                            <th width="6%">결제번호</th>
-		                            <th width="25%">리워드명</th>
-		                            <th width="10%">리워드 금액</th>
-		                            <th width="9%">수량</th>
-		                            <th width="11%">펀딩금 반환</th>
-		                            <th width="5%">
-			                            <c:if test="true">
-				                            <input type="button" value="확인하기" class="refundInfoBtn">
-			                            </c:if>
-		                            </th>
-		                            <th width="3%"></th>
-		                        </tr>
-            					<c:forEach var="kiki" begin="1" end="3">
-		                        <tr>
-		                            <td>${order}</td>
-		                            <td>[발받침대] 편안함을 선사하는 2단 쿠션 발받침대</td>
-		                            <td>18,000원</td>
-		                            <td>1개</td>
-		                            <td>
-			                            <c:choose>
-			                            	<c:when test="">
-					                            신청
-			                            	</c:when>
-			                            	<c:when test="">
-					                            완료
-			                            	</c:when>
-			                            	<c:when test="">
-					                            거절
-			                            	</c:when>
-			                            	<c:otherwise>
-												<!-- 신청내역 없을 시 공백 -->
-			                            	</c:otherwise>
-			                            </c:choose>
-		                            </td>
-		                            <td></td>
-		                            <td></td>
-		                        </tr>
-          				  		</c:forEach>
-		                    </table>
-		                </td>
-		            </tr>
-	            </c:forEach>
-		    </table>
+			<div class="table-container">
+				<table class="list">
+					 <thead>
+			            <tr>
+			                <th width="103px">결제번호</th>
+			                <th width="171px">서포터 정보</th>
+			                <th width="120px">결제일</th>
+			                <th width="120px">결제 금액</th>
+			                <th width="120px">발송 정보</th>
+			                <th width="120px">발송 예정일</th>
+			                <th width="120px">발송 상태</th>
+			                <th width="86px">발송 번호</th>
+			                <th width="86px">환불</th>
+			                <th width="50px"></th>
+			            </tr>
+		            </thead>
+		            <tbody>
+			            <c:forEach var="order" items="${orderList}" varStatus="status">
+				            <tr>
+				                <td width="103px">${status.index + 1}<input type="hidden" class="payment_code" value="${order.payment_code}"></td>
+				                <td width="171px">
+				                    ${order.name}<br>
+				                    ${order.supporter_email}<br>
+				                    ${order.phone_num}
+				                </td>
+				                <td width="120px"><fmt:formatDate value="${order.payment_complete_date}" pattern="yyyy-MM-dd"/> </td>
+				                <td width="120px">${order.payment_amount}원</td>
+				                <td width="120px"><input type="button" value="입력" class="shipInfoBtn"></td>
+				                <td width="120px">2025-01-01</td>
+				                <td width="120px">
+					                <c:choose>
+						            	<c:when test="${order.shipment_common_code eq 'SHI01'}">
+						            		미발송
+						            	</c:when>
+						            	<c:when test="${order.shipment_common_code eq 'SHI02'}">
+						            		발송 완료
+						            	</c:when>
+						            	<c:when test="${order.shipment_common_code eq 'SHI03'}">
+						            		배송 중
+						            	</c:when>
+						            	<c:when test="${order.shipment_common_code eq 'SHI04'}">
+						            		배송 완료
+						            	</c:when>
+						            </c:choose>
+			           			</td>
+				                <td width="86px">500671063724</td>
+				                <td width="86px">신청</td>
+				                <td width="50px" class="toggleBtn">
+				                	<button><img src="/resources/images/projectState/arrow_right.png" style="width: 10px; height: 10px;"></button>
+			                	</td>
+				            </tr>
+				            <tr class="details">
+				                <td colspan="10">
+				                    <table>
+				                        <tr>
+				                            <th width="92px">결제번호</th>
+				                            <th width="382px">리워드명</th>
+				                            <th width="153px">리워드 금액</th>
+				                            <th width="138px">수량</th>
+				                            <th width="169px">펀딩금 반환</th>
+				                            <th width="117px">
+					                            <c:if test="true">
+						                            <input type="button" value="확인하기" class="refundInfoBtn">
+					                            </c:if>
+				                            </th>
+				                            <th width="45px"></th>
+				                        </tr>
+		            					<c:forEach begin="1" end="${order.fund_count}">
+				                        <tr>
+				                            <td>${status.index + 1}</td>
+				                            <td class="product_name"></td>
+				                            <td class="result_point">원</td>
+				                            <td class="product_count">개</td>
+				                            <td>
+					                            <c:choose>
+					                            	<c:when test="">
+							                            신청
+					                            	</c:when>
+					                            	<c:when test="">
+							                            완료
+					                            	</c:when>
+					                            	<c:when test="">
+							                            거절
+					                            	</c:when>
+					                            	<c:otherwise>
+														<!-- 신청내역 없을 시 공백 -->
+					                            	</c:otherwise>
+					                            </c:choose>
+				                            </td>
+				                            <td></td>
+				                            <td></td>
+				                        </tr>
+		          				  		</c:forEach>
+				                    </table>
+				                </td>
+				            </tr>
+			            </c:forEach>
+		            </tbody>
+			    </table>
+		    </div>
 		    <!-- 발송 정보 입력 모달창 -->
 			<div id="ship-modal" class="modal-content">
 				<div class="modal-close">x</div>
 				<div class="modal-main">
 					<h3>발송 정보</h3>
 					<form action="ShipmentInfo">
-						<c:forEach var="order" begin="1" end="3">
+						<c:forEach var="reward" items="${paymentRewardList}">
 							<div class="reward-container">
-								<div class="reward-title">[발받침대] 편안함을 선사하는 ${order}단 쿠션 발받침대</div>
+								<div class="reward-title">${reward.product_name}</div>
 								<div class="reward-info">
-									<span>18,000원 / ${order}개</span>
+									<span>${reward.price}원 / ${reward.order_count}개</span>
 								</div>
 							</div>
 						</c:forEach>
@@ -272,6 +318,8 @@
 	    	$(".toggleBtn button").click(function() {
 				let img = $(this).find("img");
 	    		let detail =  $(this).closest("tr").next(".details");
+	    		
+	    		let productName = detail.find(".product_name"); // details 행 내부의 .product_name 선택
 		        detail.toggle(); // 다음 .details 행들을 토글
 		        
 		        // 맨 오른쪽 아이콘 변경
@@ -282,6 +330,34 @@
 		        } else {
 		        	img.attr("src", "/resources/images/projectState/arrow_right.png");
 		        }
+		        
+		        // 클릭한 테이블 목록의 결제 코드 받아오기
+				let payment_code = $(this).closest("tr").find(".payment_code").val();
+				console.log("pc : " + payment_code);
+				
+		        $.ajax({
+					type : "GET",
+					url : "PaymentRewardDetail",
+					data : {
+						payment_code
+					}
+				}).done(function(rewardList) {
+					 let rows = detail.find("tr:gt(0)"); // 첫 번째 tr(제목 행) 이후의 모든 tr 선택
+
+				     rows.each(function(index) {
+				        if (index < rewardList.length) {
+				            $(this).find(".product_name").text(rewardList[index].product_name);
+				            $(this).find(".result_point").text(rewardList[index].result_point + "원");
+				            $(this).find(".product_count").text(rewardList[index].product_count + "개");
+				        }
+				     });
+				}).fail(function() {
+					console.log("실패");
+					
+				}); 
+
+
+		        
 	    	});
 			
 	    	// 버튼 클릭 시 모달창 생성 

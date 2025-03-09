@@ -102,6 +102,7 @@
 		WHERE email = #{email}
 	</select>
 
+	<!-- 카카오 로그인 -->
 	<insert id="insertKakaoUser">
 		INSERT
 		INTO member
@@ -120,21 +121,64 @@
 			, now()
 			, '1'
 			, null
-			, 'kakako'
+			, 'kakao'
 			, 'social'
 			, null
 			, 'N'		
 		)
 	</insert>
 	
+	<select id="selectDBKakaoUser">
+		SELECT *
+		FROM member	
+		WHERE email = #{email}
+	</select>
+	
 	<select id="selectDBKakaoUserInfo">
 		SELECT *
 		FROM member	
 		WHERE email = #{email} AND social_type = 'kakao'
 	</select>
+	
+	
+	
+	<!-- 네이버 로그인 -->
+	<insert id="insertNaverUser">
+			INSERT
+			INTO member
+			VALUES (
+				null
+				, #{email}
+				, 'N'
+				, null
+				, null
+				, null
+				, null
+				, #{nickname}
+				, null
+				, null
+				, null
+				, now()
+				, '1'
+				, null
+				, 'naver'
+				, 'social'
+				, null
+				, 'N'		
+			)
+		</insert>
 
+	<select id="selectDBNaverUser">
+			SELECT *
+			FROM member	
+			WHERE email = #{email}
+	</select>
 
-
+	<select id="selectDBNaverUserInfo">
+			SELECT *
+			FROM member	
+			WHERE email = #{email} AND social_type = 'naver'
+		</select>
 
 
 

@@ -99,7 +99,7 @@ hr {
 
 /* 주문 내역 테이블 */
 table {
-    width: 1100px;
+    width: 100%;
     border-collapse: collapse;
     border: none;
 }
@@ -109,10 +109,46 @@ th, td {
     padding: 5px;
     text-align: center;
 }
+
+.table-container {
+    max-height: 700px; /* 원하는 높이 설정 */
+    overflow-y: auto;  /* 세로 스크롤 추가 */
+	margin-bottom: 70px;
+	width: 1100px;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+
+.list {
+	width: 100%;
+    border-collapse: collapse;	
+    display: block;
+}
+
+.list thead {
+	display: block;
+    position: sticky;
+    top: 0;
+    background: white; /* 배경색 지정 (스크롤 시 가려지지 않게) */
+    z-index: 10;
+}
+
+.list tbody {
+	display: block;
+    max-height: 800px; /* 스크롤 높이 */
+    overflow-y: auto;
+    width: 100%;
+}
+
+.list th, .list td {
+    text-align: center;
+}
+
 .list th {
 	background-color: #f7f7f7;
 	padding: 13px;
 }
+
 .shipInfoBtn {
 	background-color: mediumpurple;
 	border: none;
@@ -310,31 +346,31 @@ h4 {
 }
 
 /* 전체 스크롤바 스타일 */
-.modal-content::-webkit-scrollbar {
+.modal-content::-webkit-scrollbar, .list::-webkit-scrollbar {
     width: 8px; /* 스크롤바 너비 */
     height: 8px; /* 가로 스크롤바 높이 */
 }
 
 /* 스크롤바 트랙 (배경) 스타일 */
-.modal-content::-webkit-scrollbar-track {
+.modal-content::-webkit-scrollbar-track, .list::-webkit-scrollbar-track {
     background: #f5f5f5; /* 트랙의 배경색 */
     border-radius: 10px; /* 둥근 모서리 */
 }
 
 /* 스크롤바 슬라이더 (thumb) 스타일 */
-.modal-content::-webkit-scrollbar-thumb {
+.modal-content::-webkit-scrollbar-thumb, .list::-webkit-scrollbar-track {
     background: #ccc; /* 슬라이더의 색상 */
     border-radius: 10px; /* 둥근 모서리 */
     border: 2px solid #f5f5f5; /* 슬라이더와 트랙 사이 여백 */
 }
 
 /* 스크롤바 슬라이더에 마우스를 올렸을 때 스타일 */
-.modal-content::-webkit-scrollbar-thumb:hover {
+.modal-content::-webkit-scrollbar-thumb:hover, .list::-webkit-scrollbar-track {
     background: #999; /* 슬라이더 색상 변화 */
 }
 
 /* 스크롤바 슬라이더를 클릭 중일 때 스타일 */
-.modal-content::-webkit-scrollbar-thumb:active {
+.modal-content::-webkit-scrollbar-thumb:active, .list::-webkit-scrollbar-track {
     background: #666; /* 슬라이더 색상 변화 */
 }
 
