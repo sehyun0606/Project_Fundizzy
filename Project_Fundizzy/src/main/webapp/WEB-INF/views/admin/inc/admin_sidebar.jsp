@@ -23,9 +23,8 @@
 			프로젝트 관리
 		</div>
 		<ul class="submenu">
-			<li>프로젝트 추가</li>
-			<li>프로젝트 목록</li>
-			<li>프로젝트 상태 관리</li>
+			<li onclick="location.href='AdminProjectList'">프로젝트 목록</li>
+			<li onclick="location.href='AdminProjectStatus'">프로젝트 상태 관리</li>
 		</ul>
 		<div class="menu">
 			결제 방법 관리
