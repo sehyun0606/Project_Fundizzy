@@ -32,7 +32,6 @@
 				opener.location.href = "${targetURL}";
 			</c:otherwise>
 		</c:choose>
-		
 		// 현재창(자식창) 닫기
 		window.close();
 	}

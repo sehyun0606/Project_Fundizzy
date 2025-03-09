@@ -31,6 +31,13 @@ public interface MemberMapper {
 
 	Map<String, String> selectDBKakaoUserInfo(String email);
 
+	void insertNaverUser(@Param("nickname") String nickname,@Param("email") String email);
+
+	Map<String, String> selectDBNaverUserInfoConfirm(String email);
+
+	Map<String, String> selectDBNaverUserInfo(String email);
+
+
 
 
 }

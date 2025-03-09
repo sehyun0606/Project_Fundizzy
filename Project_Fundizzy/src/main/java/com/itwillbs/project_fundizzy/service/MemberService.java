@@ -55,6 +55,18 @@ public class MemberService {
 	public Map<String, String> getDBKakaoUserInfo(String email) {
 		return mapper.selectDBKakaoUserInfo(email);
 	}
+
+	public void insertNaverUser(String nickname, String email) {
+		mapper.insertNaverUser(nickname, email);
+	}
+
+	public Map<String, String> getDBNaverUserInfoConfirm(String email) {
+		return mapper.selectDBNaverUserInfoConfirm(email);
+	}
+
+	public Map<String, String> getDBNaverUserInfo(String email) {
+		return mapper.selectDBNaverUserInfo(email);
+	}
 	
 	
 	

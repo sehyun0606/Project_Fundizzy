@@ -1,6 +1,7 @@
 package com.itwillbs.project_fundizzy.controller;
 
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -43,8 +44,17 @@ public class MemberController {
 	@Value("${kakao.api_key}")
 	private String kakaoClientId;
 
-	@Value("${kakao.redirect_uri}")
-	private String kakaoRedirectUri;
+	@Value("${kakao.redirect_url}")
+	private String kakaoRedirectUrl;
+	
+	@Value("${naver.client_id}")
+	private String naverClientId;
+
+	@Value("${naver.client_secret}")
+	private String naverClientSecret;
+	
+	@Value("${naver.redirect_url}")
+	private String naverRedirectUrl;
 	
 	// 로그인 폼으로 이동
 	@GetMapping("Login")
@@ -54,8 +64,15 @@ public class MemberController {
 			return "main";
 		}
 		
-		model.addAttribute("kakaoClientID", kakaoClientId);
-		model.addAttribute("kakaoRedirectUri", kakaoRedirectUri);
+		String state = UUID.randomUUID().toString().substring(0, 8);
+//		System.out.println(state);
+		
+		model.addAttribute("state", state);
+		model.addAttribute("kakaoClientId", kakaoClientId);
+		model.addAttribute("kakaoRedirectUrl", kakaoRedirectUrl);
+		model.addAttribute("naverClientId", naverClientId);
+		model.addAttribute("naverClientSecret", naverClientSecret);
+		model.addAttribute("naverRedirectUrl", naverRedirectUrl);
 		
 		return "member/login/login_form";
 	}
@@ -65,11 +82,9 @@ public class MemberController {
 	public String kakaoLogin(@RequestParam Map<String, String> authResponse, HttpSession session, Model model) {
 		System.out.println("응답결과 : " + authResponse);
 		System.out.println("code : " + authResponse.get("code"));
+		
 		// 2.1.2. 토큰발급 API - 사용자 토큰발급 API (3-legged) 요청
-		// BankService - getAccessToken() 메서드 호출하여 엑세스토큰 발급 요청
-		// => 파라미터 : 토큰 발급에 필요한 정보(인증코드 요청 결과가 포함된 Map 객체)
-		// => 리턴타입 : BankToken(VO) 또는 Map<String, String>
-		KakaoToken kakaoToken = loginService.getAccessToken(authResponse);
+		KakaoToken kakaoToken = loginService.getKakaoAccessToken(authResponse);
 		log.info(">>>>>> 엑세스토큰 정보 : " + kakaoToken);
 		
 		if(kakaoToken == null || kakaoToken.getAccess_token() == null) {
@@ -103,6 +118,49 @@ public class MemberController {
         
 		return "result/success";
 	}
+	
+	@GetMapping("NaverCallback")
+	public String NaverCallback(@RequestParam Map<String, String> authResponse, HttpSession session, Model model) {
+		System.out.println("응답결과 : " + authResponse);
+		 Map<String, String> naverToken = loginService.getNaverAccessToken(authResponse);
+		System.out.println("네이버 토큰 가져온 정보 : " + naverToken);
+		
+		if(naverToken == null || naverToken.get("access_token") == null) {
+			model.addAttribute("msg", "토큰 발급 실패! 다시 인증을 수행해 주세요.");
+			return "result/success";
+		}
+		
+		// 네이버 엑세스 토큰으로 유저 정보 가져오기
+		Map<String, Object> naverUserInfo = loginService.getNaverUserInfo(naverToken.get("access_token"));
+		System.out.println("가져온 유저 정보 : " + naverUserInfo);
+		
+		String email = (String) ((Map<String, Object>) naverUserInfo.get("response")).get("email");
+		String nickname = (String) ((Map<String, Object>) naverUserInfo.get("response")).get("nickname");
+		System.out.println("email: " + email + " nickname: " + nickname);
+		
+		// DB에서 유저 정보 가져오기
+        Map<String, String> DBNaverUserInfoConfirm = memberService.getDBNaverUserInfoConfirm(email);
+        System.out.println("가져온 정보 : " + DBNaverUserInfoConfirm);
+        if(DBNaverUserInfoConfirm == null) {
+        	memberService.insertNaverUser(nickname, email);
+        }
+        // DB에서 유저 정보 다시한번 더 가져오기
+        Map<String, String> DBNaverUserInfo = memberService.getDBNaverUserInfo(email);
+        
+        session.setAttribute("DBNaverUserInfo", DBNaverUserInfo);
+		session.setAttribute("sId", email);
+        session.setAttribute("loginType", "naver");
+        
+        // Model 객체에 사용자 정보를 추가하여 JSP로 전달
+        model.addAttribute("targetURL", "./");
+        model.addAttribute("isClose", true);
+		return "result/success";
+	}
+	
+	
+	
+	
+	
 	
 	
 	// 회원가입 페이지 이동

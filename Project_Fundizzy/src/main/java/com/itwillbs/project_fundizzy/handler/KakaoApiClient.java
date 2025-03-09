@@ -28,8 +28,8 @@ public class KakaoApiClient {
 	@Value("${kakao.api_key}")
 	private String kakaoClientID;
 	
-	@Value("${kakao.redirect_uri}")
-	private String kakaoRedirectUri;
+	@Value("${kakao.redirect_url}")
+	private String kakaoRedirectUrl;
 	
     @Value("${kakao.grant_type}")
     private String grantType;
@@ -47,7 +47,7 @@ public class KakaoApiClient {
 		MultiValueMap<String, String> requestBody = new LinkedMultiValueMap<String, String>();
 		requestBody.add("grant_type", grantType);
 		requestBody.add("client_id", kakaoClientID);
-		requestBody.add("redirect_uri", kakaoRedirectUri);
+		requestBody.add("redirect_uri", kakaoRedirectUrl);
         requestBody.add("code", authResponse.get("code"));
 				
         HttpEntity<MultiValueMap<String, String>> requestEntity = 

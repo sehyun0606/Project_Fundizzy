@@ -115,6 +115,11 @@
 								<a href="SupporterPage" class="top-items">${DBKakaoUserInfo.nickname}</a> 님 | 
 								<a href="javascript:void(0)" onclick="logout()">로그아웃</a>
 							</c:when>
+							<c:when test="${sessionScope.loginType == 'naver'}">
+							    <a href="NotificationBoard"><img class="bell" src="/resources/images/bell.png"></a>
+								<a href="SupporterPage" class="top-items">${DBNaverUserInfo.nickname}</a> 님 | 
+								<a href="javascript:void(0)" onclick="logout()">로그아웃</a>
+							</c:when>
 							<c:when test="${sessionScope.loginType == 'local'}">
 							    <a href="NotificationBoard"><img class="bell" src="/resources/images/bell.png"></a>
 								<a href="SupporterPage" class="top-items">${member.nickname}</a> 님 | 

@@ -133,8 +133,42 @@
 		WHERE email = #{email} AND social_type = 'kakao'
 	</select>
 
+	<insert id="insertNaverUser">
+			INSERT
+			INTO member
+			VALUES (
+				null
+				, #{email}
+				, 'N'
+				, null
+				, null
+				, null
+				, null
+				, #{nickname}
+				, null
+				, null
+				, null
+				, now()
+				, '1'
+				, null
+				, 'naver'
+				, 'social'
+				, null
+				, 'N'		
+			)
+		</insert>
 
+	<select id="selectDBNaverUserInfoConfirm">
+			SELECT *
+			FROM member	
+			WHERE email = #{email}
+		</select>
 
+	<select id="selectDBNaverUserInfo">
+			SELECT *
+			FROM member	
+			WHERE email = #{email} AND social_type = 'naver'
+		</select>
 
 
 
