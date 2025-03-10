@@ -91,17 +91,19 @@ public class AdminController {
 	
 	@ResponseBody
 	@PostMapping("adminAdd")
-	public String adminAdd(@RequestParam Map<String, String> adminInfo, Model model) {
+	public String adminAdd(@RequestParam Map<String, String> admin, Model model) {
 		String response = "";
-		System.out.println("넘어온 정보 : " + adminInfo);
 		
-		
-		int count = adminService.insertAdminInfo(adminInfo);
-		if(count > 0) {
-			response = "true";
-			return response;
+		System.out.println("넘어온 정보 : " + admin);
+		Map<String, String> adminDBInfo = adminService.getAdminDBInfo(admin);
+//		System.out.println("넘어온 정보 : " + adminDBInfo);
+		if(adminDBInfo == null) {
+			int count = adminService.insertAdminInfo(admin);
+			if(count > 0) {
+				response = "true";
+				return response;
+			}
 		}
-		
 		return response;
 	}
 	

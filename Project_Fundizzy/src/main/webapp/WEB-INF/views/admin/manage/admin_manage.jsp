@@ -156,10 +156,10 @@
 					type : "POST",
 					url : "adminAdd",
 					data : {
-						team : submitTeam,
-						id : submitId,
-						name : submitName,
-						passwd : submitPasswd
+						admin_team : submitTeam,
+						admin_id : submitId,
+						admin_name : submitName,
+						admin_passwd : submitPasswd
 					}
 				}).done(function(result) {
 					if(result.trim() == "true") {
