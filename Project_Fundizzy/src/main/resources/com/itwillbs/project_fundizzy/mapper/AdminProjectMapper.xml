@@ -11,10 +11,30 @@
 	<select id="selectProjectList" resultType="ProjectList">
 		SELECT *
  		FROM project_list
+ 		WHERE approve_stat = "request"
  		ORDER BY
  			project_date DESC
  		LIMIT
  			#{startRow}
  			,#{listLimit}
+	</select>
+	
+	<select id="selectProjectInfo" resultType="map">
+		SELECT 
+			project_list.project_title, 
+		    project_list.representative_picture, 
+		    project_list.service_type,
+		    project_info.category, 
+		    project_info.sub_category,
+		    project_info.adult_check, 
+		    project_info.target_amount
+		FROM
+			project_list
+		INNER JOIN 
+			project_info
+		ON
+			project_list.project_code = project_info.project_code
+		WHERE
+			project_list.project_code = #{projectCode}
 	</select>
 </mapper>

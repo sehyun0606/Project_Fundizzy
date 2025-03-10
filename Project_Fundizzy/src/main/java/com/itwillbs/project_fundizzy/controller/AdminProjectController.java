@@ -1,6 +1,7 @@
 package com.itwillbs.project_fundizzy.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -9,7 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
 import com.itwillbs.project_fundizzy.service.AdminProjectService;
 import com.itwillbs.project_fundizzy.vo.PageInfo;
 import com.itwillbs.project_fundizzy.vo.ProjectListVO;
@@ -53,5 +56,14 @@ public class AdminProjectController {
 		model.addAttribute("projectList", projectList);
 		
 		return "admin/project_management/project_status";
+	}
+	
+	@ResponseBody
+	@GetMapping("AdminGetProjectInfo")
+	public String adminGetProjectInfo(String projectCode) {
+		Map<String, Object> projectInfo = projectService.getProjectInfo(projectCode);
+		Gson gson = new Gson();
+		
+		return gson.toJson(projectInfo);
 	}
 }

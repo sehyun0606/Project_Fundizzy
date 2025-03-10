@@ -41,7 +41,8 @@
  			null,
  			NOW(),
  			null,
- 			'REF01'
+ 			'REF01',
+ 			#{project_code}
  		
  		)
  	</insert>

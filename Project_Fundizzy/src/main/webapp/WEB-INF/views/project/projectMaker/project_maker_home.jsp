@@ -21,31 +21,49 @@
 	        <div class="status-box">
 	            <span>프로젝트 준비 상태</span>
 	            <c:if test="${projectSetting.service_config eq 'Y' and projectSetting.project_info_config eq 'Y' and projectSetting.story_config eq 'Y' and projectSetting.reward_config eq 'Y'  and projectSetting.maker_config eq 'Y' }">
-	            	<button onclick="location.href='ProjectSubmit'">제출하기</button>
+	            	<c:if test="${projectSetting.approve_stat eq 'before'}">
+		            	<button onclick="location.href='ProjectSubmit'">제출하기</button>
+	            	</c:if>
+	            	<c:if test="${projectSetting.approve_stat eq 'request'}">
+	            		<button disabled="disabled">심사중</button>
+	            	</c:if>
 	        	</c:if>
 	        </div>
+	        <c:choose>
+	        	<c:when test="${projectSetting.approve_stat eq 'before'}">
+		        	<c:choose>
+			        	<c:when test="${projectSetting.service_config eq 'Y' }">
+					        <div class="task">
+					            <div class="task-title">
+					                <div class="progress-bar progress-complete"></div>
+					                서비스 요금 <span class="status">작성 완료</span>
+					            </div>
+					            <button onclick="location.href='ProjectPlan'">수정하기</button>
+					        </div>
+			        	</c:when>
+			        	<c:otherwise>
+					        <div class="task">
+					            <div class="task-title">
+					                <div class="progress-bar progress-incomplete"></div>
+					                서비스 요금 <span class="status">작성 전</span>
+					            </div>
+					            <button onclick="location.href='ProjectPlan'">작성하기</button>
+					        </div>
+			        	</c:otherwise>
+			        </c:choose>
+	        	</c:when>
+	        	<c:otherwise>
+	        		<div class="task">
+			            <div class="task-title">
+			                <div class="progress-bar progress-incomplete"></div>
+			                서비스 요금 <span class="status">작성 완료</span>
+			            </div>
+			            <button onclick="location.href='ProjectPlan'">확인하기</button>
+			        </div>
+	        	</c:otherwise>
+	        </c:choose>
+	        <!-- 여기까지 작업함  밑에 판별 필요-->
 	        
-	        	<c:choose>
-		        	<c:when test="${projectSetting.service_config eq 'Y' }">
-				        <div class="task">
-				            <div class="task-title">
-				                <div class="progress-bar progress-complete"></div>
-				                서비스 요금 <span class="status">작성 완료</span>
-				            </div>
-				            <button onclick="location.href='ProjectPlan'">수정하기</button>
-				        </div>
-		        	</c:when>
-		        	<c:otherwise>
-				        <div class="task">
-				            <div class="task-title">
-				                <div class="progress-bar progress-incomplete"></div>
-				                서비스 요금 <span class="status">작성 전</span>
-				            </div>
-				            <button onclick="location.href='ProjectPlan'">작성하기</button>
-				        </div>
-		        	</c:otherwise>
-		        </c:choose>
-		        
 		        <c:choose>
 		        	<c:when test="${projectSetting.project_info_config eq 'Y' }">
 				        <div class="task">

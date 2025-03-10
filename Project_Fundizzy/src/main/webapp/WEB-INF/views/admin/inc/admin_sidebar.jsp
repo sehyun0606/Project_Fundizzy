@@ -24,7 +24,7 @@
 		</div>
 		<ul class="submenu">
 			<li onclick="location.href='AdminProjectList'">프로젝트 목록</li>
-			<li onclick="location.href='AdminProjectStatus'">프로젝트 상태 관리</li>
+			<li onclick="location.href='AdminProjectStatus'">프로젝트 승인</li>
 		</ul>
 		<div class="menu">
 			결제 방법 관리

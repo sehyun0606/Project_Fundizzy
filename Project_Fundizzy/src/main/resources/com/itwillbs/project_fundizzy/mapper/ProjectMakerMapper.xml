@@ -31,7 +31,7 @@
 		
 	</insert>
 	<select id="selectSettingInfo" resultType="map">
-		 	SELECT service_config, project_info_config, story_config, reward_config, maker_config
+		 	SELECT service_config, project_info_config, story_config, reward_config, maker_config,approve_stat
 	        FROM project_list
 	        WHERE project_code = #{project_code}
 	</select>

@@ -88,7 +88,8 @@ public class FundHistoryController {
 		Random r = new Random();
 		int rNum = r.nextInt(1000000);
 		
-		System.out.println(refund.getProduct_name());
+		
+		System.out.println(refund.getProject_code());
 		
 		String refundCode = "" + rNum;
 		refund.setRefund_code(rNum);
