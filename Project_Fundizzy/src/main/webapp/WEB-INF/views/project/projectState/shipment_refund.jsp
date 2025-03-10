@@ -234,7 +234,7 @@
 				                            <td class="result_point">원</td>
 				                            <td class="product_count">개</td>
 				                            <td class="refund_status"></td>
-				                            <td></td>
+				                            <td class="statusBtn"></td>
 				                            <td></td>
 				                        </tr>
 		          				  		</c:forEach>
@@ -364,7 +364,7 @@
 	</div>
 			
 	<script>
-		$(document).ready(function(){
+		$(function() {
 			
 			// 아코디언 형식으로 주문 상세내역 표시
 	    	$(".toggleBtn button").click(function() {
@@ -404,25 +404,29 @@
 				            
 				            let refundStatus;
 				            switch (rewardList[index].refund_stat) {
-							case "REF01" : refundStatus = "신청"
+							case "REF01" : 
+								refundStatus = "신청";
+				            	$(this).find(".statusBtn").html("<button class='refundInfoBtn'>확인하기</button>");
 								break;
-							case "REF02" :refundStatus = "완료"
+							case "REF02" : 
+								refundStatus = "완료";
 								break;
-							case "REF03" : refundStatus = "거절"
+							case "REF03" : 
+								refundStatus = "거절";
 								break;
 							default: refundStatus = "";
 							}
 				            
-				            $(this).find(".refund_status").text(refundStatus);
+			            	$(this).find(".refund_status").text(refundStatus);
 				        }
 				     });
+				     
+				     openModal();
 				}).fail(function() {
 					console.log("실패");
 					
 				}); 
 
-
-		        
 	    	});
 			
 	    	// 버튼 클릭 시 모달창 생성 

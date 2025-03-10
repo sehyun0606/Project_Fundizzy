@@ -75,6 +75,8 @@ public class ProjectStateController {
 		// 결제내역, 발송정보 리스트 조회
 		List<Map<String, Object>> orderList = stateService.getOrderList(project_code);
 		model.addAttribute("orderList", orderList);
+
+		
 		
 		// 주문한 리워드 정보 리스트 조회
 		List<Map<String, Object>> paymentRewardList = stateService.getPaymentRewardList(project_code, "");

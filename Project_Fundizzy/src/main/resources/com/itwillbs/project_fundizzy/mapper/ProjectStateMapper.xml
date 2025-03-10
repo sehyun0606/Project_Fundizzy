@@ -97,6 +97,7 @@
 		WHERE project_code = #{project_code}
 	</select>
 	
+	<!-- 결제내역, 환불상태 조회 -->
 	<select id="selectOrderList" resultType="map">
 		SELECT 
 		    p.common_code AS payment_common_code, 
@@ -120,9 +121,13 @@
 		    (SELECT COUNT(*) 
 		     FROM fund_history fh 
 		     WHERE fh.payment_code = p.payment_code) AS fund_count,
-		    (SELECT refund_status
-		     FROM refund r
-		     WHERE r.payment_code = p.payment_code) AS refund_status
+		    (SELECT r.refund_status 
+		     FROM fund_history fh 
+		     LEFT JOIN refund r 
+		     ON fh.fund_idx = r.fund_idx 
+		     WHERE fh.payment_code = p.payment_code 
+		     ORDER BY refund_request_date DESC
+		     LIMIT 1) AS refund_status
 		FROM payment p
 		JOIN shipment s
 		ON p.payment_code = s.payment_code
@@ -133,24 +138,27 @@
 		
 	<select id="selectPaymentRewardList" resultType="map">
 		SELECT 
-			fund_idx, 
-			project_code, 
-			member_email, 
-			project_title, 
-			representative_picture, 
-			product_name, 
-			business_name, 
-			FORMAT(result_point, 0) AS result_point,
-			send_stat, 
-			refund_stat, 
-			reward_code, 
-			purchase_date, 
-			refund_date, 
-			send_date, 
-			product_count, 
-			payment_code
-		FROM fund_history
-		WHERE payment_code = #{payment_code}
+			fh.fund_idx, 
+			fh.project_code, 
+			fh.member_email, 
+			fh.project_title, 
+			fh.representative_picture, 
+			fh.product_name, 
+			fh.business_name, 
+			FORMAT(fh.result_point, 0) AS result_point,
+			fh.send_stat, 
+			fh.refund_stat, 
+			fh.reward_code, 
+			fh.purchase_date, 
+			fh.refund_date, 
+			fh.send_date, 
+			fh.product_count, 
+			fh.payment_code
+		FROM fund_history fh
+		JOIN refund r
+		ON fh.fund_idx = r.fund_idx
+		WHERE fh.payment_code = #{payment_code}
+		ORDER BY refund_request_date DESC
 	</select>
 	
 	<select id="selectShipStateCount" resultType="map">

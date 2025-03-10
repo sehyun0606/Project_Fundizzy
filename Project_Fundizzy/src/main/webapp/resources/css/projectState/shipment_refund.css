@@ -191,10 +191,13 @@ th, td {
 .refundInfoBtn {
 	background-color: #fff;
 	border: 1px solid mediumpurple;
-	border-radius: 5px;
-	height: 30px;
+	border-radius: 3px;
 	cursor: pointer;
 	color: mediumpurple;
+}
+.refundInfoBtn:hover {
+	background-color: mediumpurple;
+	color: #fff;
 }
 .modal-content {
 	z-index: 9000;
