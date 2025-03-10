@@ -151,17 +151,17 @@
 		WHERE user_seq_no = #{user_seq_no}
 	</select>
 <!-- 	db에 입금 결과 저장  -->
-	<insert id="insertTransferResult">
-		INSERT INTO bank_account
-		VALUES(
-			#{}
-			,#{}
-			,#{}
-			,#{}
-			,#{}
-			,#{}
-			,#{}
-		)
-	</insert>
+<!-- 	<insert id="insertTransferResult"> -->
+<!-- 		INSERT INTO bank_account -->
+<!-- 		VALUES( -->
+<!-- 			#{} -->
+<!-- 			,#{} -->
+<!-- 			,#{} -->
+<!-- 			,#{} -->
+<!-- 			,#{} -->
+<!-- 			,#{} -->
+<!-- 			,#{} -->
+<!-- 		) -->
+<!-- 	</insert> -->
 
 </mapper>
