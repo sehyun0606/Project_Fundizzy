@@ -18,7 +18,7 @@
 	<div style="width: 100%;">
 		<jsp:include page="/WEB-INF/views/inc/project_maker_top.jsp"></jsp:include>
 	    <div class="container" >
-        	<form id="form" action="ProjectStory" enctype="multipart/form-data" method="post">
+        	<form id="form" action="ProjectStoryUpdate" enctype="multipart/form-data" method="post">
         		<input type="hidden" name="project_code" value="${sessionScope.project_code}">
 		    	<div class="title-section">
 			        <h2>스토리 정보</h2>

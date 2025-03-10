@@ -91,7 +91,9 @@ public class ProjectMakerService {
 	@Transactional
 	public void registProjectStory(ProjectStoryVO projectStory) {
 		String projectCode = projectStory.getProject_code();
-		makerMapper.updatProjectStorySetting(projectCode);
+		String projectTitle = projectStory.getProject_title();
+		String representativePicture = projectStory.getRepresentative_picture();
+		makerMapper.updatProjectStorySetting(projectCode,projectTitle,representativePicture);
 		makerMapper.insertProjectStory(projectStory);
 	}
 
@@ -112,6 +114,20 @@ public class ProjectMakerService {
 
 	public void deleteReward(String reward_code) {
 		makerMapper.deleteReward(reward_code);
+	}
+
+	@Transactional
+	public void updateProjectStory(ProjectStoryVO projectStory) {
+		String projectCode = projectStory.getProject_code();
+		String projectTitle = projectStory.getProject_title();
+		String representativePicture = projectStory.getRepresentative_picture();
+		makerMapper.updatProjectStorySetting(projectCode,projectTitle,representativePicture);
+		makerMapper.updateProjectStory(projectStory);
+		
+	}
+
+	public void updateProjectList(String projectCode) {
+		makerMapper.updateProjectList(projectCode);
 	}
 	
 

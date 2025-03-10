@@ -46,7 +46,9 @@ public interface ProjectMakerMapper {
 
 	void insertProjectStory(ProjectStoryVO projectStory);
 
-	void updatProjectStorySetting(String projectCode);
+	void updatProjectStorySetting(@Param("projectCode") String projectCode, 
+								  @Param("projectTitle") String projectTitle,
+								  @Param("representativePicture") String representativePicture);
 
 	ProjectStoryVO selectProjectStory(String project_code);
 
@@ -55,6 +57,10 @@ public interface ProjectMakerMapper {
 	void updateReward(RewardVO reward);
 
 	void deleteReward(String reward_code);
+
+	void updateProjectStory(ProjectStoryVO projectStory);
+
+	void updateProjectList(String projectCode);
 
 
 }

@@ -12,6 +12,7 @@
  	<select id="selectFundList" resultType="FundHistory">
  		SELECT *
  		FROM fund_history
+ 		WHERE member_email = #{member_email}
  		ORDER BY
  			fund_idx DESC
  		LIMIT

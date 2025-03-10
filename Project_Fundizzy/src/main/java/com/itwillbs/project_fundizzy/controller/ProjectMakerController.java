@@ -65,6 +65,9 @@ public class ProjectMakerController {
 		//프로젝트 번호 생성(난수)
 		Random r = new Random();
 		int rNum = r.nextInt(1000000);
+		if(rNum < 100000) {
+			rNum *= 10;
+		}
 		map.put("project_num", rNum);
 		//공통코드 및 프로젝트 코드 작업
 		String common_code = (String) map.get("common_code");
@@ -75,6 +78,16 @@ public class ProjectMakerController {
 		projectMakerService.makeNewProject(map);
 		
 		System.out.println(map);
+		
+		return "redirect:/MakerPage";
+	}
+	
+	@GetMapping("ProjectSubmit")
+	public String projectSubmit(HttpSession session) {
+		
+		String projectCode = (String)session.getAttribute("project_code");
+		
+		projectMakerService.updateProjectList(projectCode);
 		
 		return "redirect:/MakerPage";
 	}
@@ -249,8 +262,63 @@ public class ProjectMakerController {
 		
 		return "project/projectMaker/project_story_edit";
 	}
-
 	
+	@PostMapping("ProjectStoryUpdate")
+	public String updateProjectStory(ProjectStoryVO projectStory, HttpSession session) {
+		 String projectCode = projectStory.getProject_code();
+		    String realPath = getRealPath(session, virtualPath) + projectCode + "/ProjectStory";
+
+		    //실제 파일 업로드 경로 생성
+		    try {
+		        Path path = Paths.get(realPath);
+		        if (!Files.exists(path)) { 
+		            Files.createDirectories(path);
+		        }
+		    } catch (IOException e) {
+		        e.printStackTrace();
+		    }
+
+		    //대표 이미지 업로드
+		    MultipartFile representativePicture = projectStory.getRepresentativePicture();
+		    projectStory.setRepresentative_picture(""); // 기본값 설정
+
+		    if (representativePicture != null && !representativePicture.getOriginalFilename().isEmpty()) {
+		        String repFileName = UUID.randomUUID().toString() + "_" + representativePicture.getOriginalFilename();
+		        projectStory.setRepresentative_picture( projectCode +"/ProjectStory/" + repFileName);
+		        try {
+		            representativePicture.transferTo(new File(realPath, repFileName));
+		        } catch (IOException e) {
+		            e.printStackTrace();
+		        }
+		    }
+
+		    //소개 이미지 (다중 파일 업로드)
+		    MultipartFile[] productPictures = projectStory.getProductPicture();
+		    List<String> productPicturePaths = new ArrayList<>();
+
+		    if (productPictures != null) {
+		        for (MultipartFile file : productPictures) {
+		            if (file != null && !file.getOriginalFilename().isEmpty()) {
+		                String fileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
+		                productPicturePaths.add( projectCode + "/ProjectStory/" + fileName);
+
+		                try {
+		                    file.transferTo(new File(realPath, fileName));
+		                } catch (IOException e) {
+		                    e.printStackTrace();
+		                }
+		            }
+		        }
+		    }
+
+		    //경로를 하나의 문자열로 저장
+		    projectStory.setProduct_picture(String.join(",", productPicturePaths));
+
+		    //DB 저장
+		    projectMakerService.updateProjectStory(projectStory);
+
+		    return "redirect:/ProjectMaker";
+	}
 	//리워드 설정 페이지
 	@GetMapping("ProjectReward")
 	public String projectReward(HttpSession session, Model model) {

@@ -20,7 +20,9 @@
 	        <div class="header">프로젝트 관리</div>
 	        <div class="status-box">
 	            <span>프로젝트 준비 상태</span>
-	            <button>제출하기</button>
+	            <c:if test="${projectSetting.service_config eq 'Y' and projectSetting.project_info_config eq 'Y' and projectSetting.story_config eq 'Y' and projectSetting.reward_config eq 'Y'  and projectSetting.maker_config eq 'Y' }">
+	            	<button onclick="location.href='ProjectSubmit'">제출하기</button>
+	        	</c:if>
 	        </div>
 	        
 	        	<c:choose>

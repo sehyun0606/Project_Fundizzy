@@ -36,7 +36,7 @@
 							                <div class="image-placeholder">이미지 등록 필요</div>
 			    						</c:when>
 			    						<c:otherwise>
-			    							<img src="/resources/upload/${project.representative_picture}">
+			    							<img src="/resources/upload/${project.representative_picture}" style="width: 100%; height: 120px;">
 			    						</c:otherwise>
 			    					</c:choose>
 			    					<c:choose>
@@ -66,7 +66,12 @@
 			    						</c:otherwise>
 			    					</c:choose>
 			    					<div class="title-input"><fmt:formatDate value="${project.project_date}" pattern="yyyy-MM-dd"/></div>
-					                <div class="project-status">작성 중</div>
+			    					<c:if test="${project.approve_stat eq 'before' }">
+						                <div class="project-status">작성 중</div>
+			    					</c:if>
+			    					<c:if test="${project.approve_stat eq 'request' }">
+						                <div class="project-status">등록 요청 중</div>
+			    					</c:if>
 				            	</div>
 			    			</c:forEach>
 				        </div>

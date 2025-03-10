@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itwillbs.project_fundizzy.mapper.AdminProjectMapper">
+	<select id="selectProjectListCount" resultType="int">
+		SELECT COUNT(*)
+		FROM project_list
+	</select>
+	
+	<select id="selectProjectList" resultType="ProjectList">
+		SELECT *
+ 		FROM project_list
+ 		ORDER BY
+ 			project_date DESC
+ 		LIMIT
+ 			#{startRow}
+ 			,#{listLimit}
+	</select>
+</mapper>

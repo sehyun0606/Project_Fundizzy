@@ -15,7 +15,8 @@ public interface FundHistoryMapper {
 	int selectFundHistoryListCount(String member_email);
 
 	List<FundHistoryVO> selectFundList(@Param("startRow")int startRow, 
-										@Param("listLimit") int listLimit);
+										@Param("listLimit") int listLimit,
+										@Param("member_email") String member_email);
 
 	FundHistoryVO selectFundInfo(String fund_idx);
 

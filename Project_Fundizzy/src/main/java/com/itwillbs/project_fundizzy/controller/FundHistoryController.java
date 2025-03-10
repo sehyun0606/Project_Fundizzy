@@ -66,7 +66,7 @@ public class FundHistoryController {
 		PageInfo pageInfo = new PageInfo(listCount,pageListLimit,maxPage,startPage,endPage,pageNum);
 		model.addAttribute("pageInfo",pageInfo);
 		
-		List<FundHistoryVO> fundList = historyService.getFundList(startRow,listLimit);
+		List<FundHistoryVO> fundList = historyService.getFundList(startRow,listLimit, member_email);
 		model.addAttribute("fundList", fundList);
 		
 		return "myPage/supporter/my_fund";

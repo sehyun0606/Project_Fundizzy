@@ -153,8 +153,17 @@
 	
 	<update id="updatProjectStorySetting">
 		UPDATE project_list
-		SET story_config = 'Y'
-		WHERE project_code = #{project_code}
+		SET story_config = 'Y',
+			project_title = #{projectTitle},
+			representative_picture = #{representativePicture}
+		WHERE project_code = #{projectCode}
+	</update>
+	
+	<update id="updateProjectList">
+		UPDATE project_list
+		SET approve_stat = 'request',
+			request_approve_date = NOW()
+		WHERE project_code = #{projectCode}
 	</update>
 	
 	<update id="updateMakerInfo">
@@ -181,6 +190,7 @@
 		WHERE reward_code = #{reward_code}
 	</update>
 	
+	
 	<insert id="insertProjectStory">
 		INSERT
 		INTO project_story
@@ -195,11 +205,23 @@
 		)
 	</insert>
 	
+	<update id="updateProjectStory">
+		UPDATE project_story
+		SET project_title = #{project_title},
+			representative_picture = #{representative_picture},
+			product_picture = #{product_picture},
+			project_content = #{project_content},
+			project_story = #{project_story},
+			open_story = #{open_story}
+		WHERE project_code = #{project_code}
+	</update>
+	
 	<delete id="deleteReward">
 		DELETE
 		FROM reward
 		WHERE reward_code = #{reward_code}
 	</delete>
+	
 	
 </mapper>
 

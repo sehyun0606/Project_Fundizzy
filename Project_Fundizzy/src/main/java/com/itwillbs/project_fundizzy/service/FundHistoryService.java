@@ -20,8 +20,8 @@ public class FundHistoryService {
 	}
 	
 	//페이징 처리된 페이지에서 불러올 구매내역 리스트 불러오는 메서드
-	public List<FundHistoryVO> getFundList(int startRow, int listLimit) {
-		return historyMapper.selectFundList(startRow,listLimit);
+	public List<FundHistoryVO> getFundList(int startRow, int listLimit, String member_email) {
+		return historyMapper.selectFundList(startRow,listLimit,member_email);
 	}
 
 	public FundHistoryVO getFundInfo(String fund_idx) {
