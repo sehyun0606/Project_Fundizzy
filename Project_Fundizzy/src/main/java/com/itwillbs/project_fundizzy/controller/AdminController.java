@@ -8,19 +8,21 @@ import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.project_fundizzy.service.AdminService;
 
 @Controller
 public class AdminController {
 	@Autowired
-	private AdminService service;
+	private AdminService adminService;
 	
 	@GetMapping("adminPageLoginNoInputUser")
 	public String admin(HttpSession session) {
@@ -35,7 +37,7 @@ public class AdminController {
 //		System.out.println("넘어온 정보 : " + admin);
 
 		// DB에 있는 어드민 아이디, 비밀번호 가져오기
-		Map<String, String> adminDBInfo = service.getAdminDBInfo(admin);
+		Map<String, String> adminDBInfo = adminService.getAdminDBInfo(admin);
 //		System.out.println("리턴 된 정보 : " + adminDBInfo);
 		
 		if(adminDBInfo == null) { 
@@ -46,14 +48,14 @@ public class AdminController {
 			return "result/result";
 		} 
 		
-		session.setAttribute("adminId", adminDBInfo.get("admin_id"));
+		session.setAttribute("adminName", adminDBInfo.get("admin_name"));
 		
 		return "redirect:/adminHome";
 	}
 	
 	@GetMapping("adminHome")
 	public String adminHome(HttpSession session, Model model) {
-		String adminId = (String)session.getAttribute("adminId");
+		String adminName = (String)session.getAttribute("adminName");
 		
 		return "admin/home/admin_home";
 	}
@@ -70,9 +72,9 @@ public class AdminController {
 	@GetMapping("memberManage")
 	public String memberManage(@RequestParam Map<String, String> member, Model model) {
 		// 회원 정보 들고오기
-		List<Map<String, String>> memberInfo = service.getUserInfo();
-		List<Map<String, String>> recentRegDate = service.getRegDate();
-		List<Map<String, String>> recentWithdrawDate = service.getWithdrawDate();
+		List<Map<String, String>> memberInfo = adminService.getUserInfo();
+		List<Map<String, String>> recentRegDate = adminService.getRegDate();
+		List<Map<String, String>> recentWithdrawDate = adminService.getWithdrawDate();
 		
 		model.addAttribute("memberInfo", memberInfo);
 		model.addAttribute("recentRegDate", recentRegDate);
@@ -82,9 +84,26 @@ public class AdminController {
 		return "admin/manage/member_manage";
 	}
 	
+	@GetMapping("adminManage")
+	public String adminManage() {
+		return "admin/manage/admin_manage";
+	}
 	
-	
-	
+	@ResponseBody
+	@PostMapping("adminAdd")
+	public String adminAdd(@RequestParam Map<String, String> adminInfo, Model model) {
+		String response = "";
+		System.out.println("넘어온 정보 : " + adminInfo);
+		
+		
+		int count = adminService.insertAdminInfo(adminInfo);
+		if(count > 0) {
+			response = "true";
+			return response;
+		}
+		
+		return response;
+	}
 	
 	
 	

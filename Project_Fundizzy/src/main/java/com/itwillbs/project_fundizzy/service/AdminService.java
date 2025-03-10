@@ -28,4 +28,8 @@ public class AdminService {
 	public List<Map<String, String>> getWithdrawDate() {
 		return mapper.selectWithdrawDate();
 	}
+
+	public int insertAdminInfo(Map<String, String> adminInfo) {
+		return mapper.insertAdminInfo(adminInfo);
+	}
 }

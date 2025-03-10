@@ -29,6 +29,16 @@
 		ORDER BY withdraw_date DESC;
 	</select>
 	
+	<insert id="insertAdminInfo">
+		INSERT 
+		INTO admin
+		VALUES (
+			#{id}
+			, #{passwd}
+			, #{name}
+			, #{team}
+		)
+	</insert>
 	
 	
 	
