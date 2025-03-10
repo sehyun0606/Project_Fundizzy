@@ -365,6 +365,7 @@
 			}).done(function(result){
 				console.log("응답 받은 데이터: ", result);
 				
+				$("#fund_idx").val(result.fund_idx);
 				$("#amount").val(result.result_point);
 				$("#rewardName").val(result.product_name);
 				$("#fund_idx").val(result.fund_idx);

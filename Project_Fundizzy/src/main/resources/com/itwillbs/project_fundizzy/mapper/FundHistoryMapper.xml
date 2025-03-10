@@ -48,4 +48,13 @@
  		)
  	</insert>
  	
+ 	<update id="updateFundHistory">
+ 		UPDATE
+ 			fund_history
+ 		SET
+ 			refund_stat = 'REF01'
+ 		WHERE
+ 			fund_idx = #{fund_idx}
+ 	</update>
+ 	
  </mapper>

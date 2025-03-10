@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.itwillbs.project_fundizzy.mapper.FundHistoryMapper;
 import com.itwillbs.project_fundizzy.vo.FundHistoryVO;
@@ -27,8 +28,11 @@ public class FundHistoryService {
 	public FundHistoryVO getFundInfo(String fund_idx) {
 		return historyMapper.selectFundInfo(fund_idx);
 	}
-
+	
+	@Transactional
 	public void registRefund(RefundVO refund) {
+		int fundIdx = refund.getFund_idx();
 		historyMapper.insertRefund(refund);
+		historyMapper.updateFundHistory(fundIdx);
 	}
 }

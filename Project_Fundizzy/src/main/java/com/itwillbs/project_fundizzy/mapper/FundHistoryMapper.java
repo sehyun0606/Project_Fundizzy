@@ -22,4 +22,6 @@ public interface FundHistoryMapper {
 
 	void insertRefund(RefundVO refund);
 
+	void updateFundHistory(int fundIdx);
+
 }
