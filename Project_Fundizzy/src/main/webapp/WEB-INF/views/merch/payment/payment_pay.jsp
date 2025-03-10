@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,57 +37,68 @@
 		        <div class="step">결제 완료</div>
 			</div>
 	       <div class="section-product">
+<!-- 	       완료 -->
 	            <h3>${reward.product_name}</h3>
 	            <p>${reward.product_desc}</p>
-	            <p>product_count 개<span id="total_price" class="totalPrice">${reward.price}원</span></p>
+	            <p>수량: ${total_count}개<br><span id="total_price" class="totalPrice"><fmt:formatNumber pattern="#,###원" value="${total_price}"></fmt:formatNumber></span></p>
 	        </div>
 	        <div class="section-price">
+<!-- 	        완료 -->
 	            <h4>결제 예약 금액</h4>
-	            <p>리워드 금액 <span class="total_price">${reward.price}원</span></p>
+	            <p>리워드 금액 <span class="total_price"><fmt:formatNumber pattern="#,###원" value="${total_price}"></fmt:formatNumber></span></p>
 	            <p>배송비 <span class="price">${reward.delivery_fee}원</span></p>
-	            <p class="total">총 결제 금액 <span id="total_price"></span>${total}원</p>
+	            <p class="total">총 결제 금액 <span id="total_price_delivery"><fmt:formatNumber pattern="#,###원" value="${total_price + reward.delivery_fee}"></fmt:formatNumber></span></p>
 	        </div>
 	        <div class="support-ship">
 		        <div class="section-supporter">
+<!-- 		        완료 -->
 		            <h4>서포터</h4>
 		            <p>닉네임 ${member.nickname}</p>
 		            <p>휴대폰 ${member.phone}</p>
-		            <p>이메일 ${member.email}</p>
+		            <p>이메일 ${member.email}</p> 
 		        </div>
 		        <div class="section-shipment">
+<!-- 		        완료 -->
 		            <h4>리워드 배송지</h4>
 		            <span class="notice">* 회원정보를 기반으로 생성한 배송지 입니다.</span><br>
 		            <div id="div_address">
-		            	<input type="radio" name="address" id="address">
+		            	<input type="radio" name="address" id="address" value="최근 배송지">
 		            	<label for="address">
 			            	<input type="text" placeholder="배송 받으실 분 이름을 입력해주세요." required="required"><br>
 			             	${member.phone}<br>
-			             	(${member.post_code}) ${member.address1 } ${member.address2 }
+			             	(${member.post_code}) ${member.address1} ${member.address2}
 		             	</label>
 	             	</div>
 		            <div id="div_new_address">
+<!-- 		            해야ㅐ함 -->
 			            <input type="radio" value="새로운 입력" name="address" id="new_address">
 			            <label for="new_address">새로입력</label>
 			            <div class="new_address_box">
-			            	<span id="address_name">이름</span><input type="text"><br>
-			            	<span id="address_phone">휴대폰</span><input type="text"><br> 
+			            	<span id="address_name">이름</span><input type="text" required="required"><br>
+			            	<span id="address_phone">휴대폰</span><input type="text" required="required"><br> 
 			            	<span id="address_add">주소
 			            		<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
 			            	</span>
-			            	<input type="text" id="sample6_postcode" placeholder="우편번호"><br>
-							<input type="text" id="sample6_address" placeholder="주소"><br>
-							<input type="text" id="sample6_detailAddress" placeholder="상세주소">
-							<input type="text" id="sample6_extraAddress" placeholder="참고항목">
+			            	<input type="text" id="sample6_postcode" placeholder="우편번호" required="required"><br>
+							<input type="text" id="sample6_address" placeholder="주소" required="required"><br>
+							<input type="text" id="sample6_detailAddress" placeholder="상세주소" required="required">
+							<input type="text" id="sample6_extraAddress" placeholder="참고항목" required="required">
 			            </div>
 		             </div>
-		            <input type="text" class="shipment-box" placeholder="배송 시 요청사항 (선택)">
+		            <input type="text" class="shipment-box" placeholder="배송 시 요청사항(선택)">
 		        </div>
 	        </div>
 	        <div class="section-reservation">
 	            <h4>예약 결제</h4>
 	            <label><input type="radio" name="payment" checked> 펀디지 페이결제</label>
-	            <div class="upload-box">Fundizy pay<br> 잔액표시</div>
-	            <label><input type="radio" name="payment" checked> 직접입력</label>
+	          <div class="upload-box">
+			     <p class="fundizzy-pay">Fundizzy 결제</p>
+			     <span id="pay_amt"><fmt:formatNumber pattern="#,###" value="${fundizzy_pay.pay_amt}"></fmt:formatNumber> 원</span>
+			     <input type="button" id="charge-btn" value="충전" onclick="location.href='PayCharge'"> 
+			     <input type="button" id="aaa" value="임시">
+			 </div>
+
+<!-- 	            <label><input type="radio" name="payment" checked> 직접입력</label> -->
 	        </div>
 	        <div class="section-now">
 	            <h4>지금 결제</h4>
@@ -105,10 +118,10 @@
 			</div>
 			<div class="payment-pay">
 				<h4>약관동의</h4>
-				<input type="checkbox" required="required">결제 진행 필수 동의<br>
-				<input type="checkbox" required="required">구매조건, 결제 진행 및 결제 대행 서비스 동의(필수)<br>
-				<input type="checkbox" required="required">개인정보 제3자 제공 동의 (필수)<br>
-				<button onclick="location.href='PaymentComplete'">결제하기</button>
+				<div class="checkbox-container"><input type="checkbox" required="required" id="agree1"><label for="agree1">결제 진행 필수 동의 (필수)</label><br></div>
+				<div class="checkbox-container"><input type="checkbox" required="required" id="agree2"><label for="agree2">구매조건, 결제 진행 및 결제 대행 서비스 동의 (필수)</label><br></div>
+				<div class="checkbox-container"><input type="checkbox" required="required" id="agree3"><label for="agree3">개인정보 제3자 제공 동의 (필수)</label><br></div>
+				<button id="PaymentComplete">결제하기</button>
 			</div>
 				       
 	    </div>

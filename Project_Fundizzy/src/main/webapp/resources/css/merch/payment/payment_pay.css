@@ -14,7 +14,7 @@ body {
     margin: auto;
     display: flex;
     flex-direction: column;
-    align-items: center;
+/*     align-items: center; */
     justify-content: center;
 }
 .back {
@@ -51,10 +51,13 @@ body {
     font-size: 16px;
 }
 /* 여기서부터 pay의 본문 */
+
 .section-product {
     margin-bottom: 20px;
     padding-bottom: 10px;
     border-bottom: 1px solid #ddd;
+    text-align: left;
+    margin-left: 8px;
 }
 .section-product p {
 	font-size: 14px;
@@ -86,6 +89,7 @@ body {
     padding-bottom: 10px;
     padding-left: 10px;
     border-bottom: 1px solid #ddd;
+    width: 250px;
 }
 .section-shipment br{
 	margin-bottom: 7px;
@@ -94,11 +98,33 @@ body {
 	font-size: 11px;
 }
 
-
-#div_address, #div_new_address{
+#div_address{
     display: flex;
     align-items: center; /* 세로 중앙 정렬 */
     gap: 10px; /* 라디오 버튼과 내용 사이 간격 */
+}
+
+#div_new_address {
+    display: flex;
+    flex-direction: column; /* 전체적으로 세로 정렬 */
+    gap: 10px; /* 요소 간 간격 추가 */
+}
+
+.address_radio_label {
+    display: flex;
+    align-items: center; /* 라디오 버튼과 라벨 수직 정렬 */
+    gap: 5px; /* 간격 추가 */
+}
+
+.new_address_box {
+    display: flex;
+    flex-direction: column; /* 입력 필드를 세로 배치 */
+    gap: 8px; /* 간격 추가 */
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 300px; /* 입력 박스 크기 조정 */
+    display: none; /* 기본적으로 숨김 */
 }
 
 .address-content {
@@ -132,6 +158,7 @@ body {
 	padding: 10px;
 	border-radius: 7px;
 	margin: 10px;
+	width: 200px;
 }
 .section-reservation {
     border-bottom: 1px solid #ddd;
@@ -168,21 +195,21 @@ body {
 	position: relative;
     top: 145%;
     left: 32%;
-    transform: translate(-48%, 0%);
+    transform: translate(-30%, 0%);
 }
 h3, h4 {
     margin: 10px 0;
 }
 
-.price {
+.price, .total_price{
     float: right;
     font-weight: bold;
 }
 
-/* .total { */
-/*     font-size: 18px; */
-/*     font-weight: bold; */
-/* } */
+#total_price, #total_price_delivery{
+    float: right;
+    font-weight: bold;
+}
 
 .tag {
     display: inline-block;
@@ -195,8 +222,8 @@ h3, h4 {
 }
 
 .upload-box {
-    width: 180px;
-    height: 100px;
+    width: 240px;
+    height: 130px;
     background-color: #ddd;
     display: flex;
     align-items: center;
@@ -205,6 +232,20 @@ h3, h4 {
     cursor: pointer;
     margin: 10px 0;
     border-radius: 4px;
+    flex-direction: column; /* Add this line to arrange items vertically */
+}
+
+.upload-box .fundizzy-pay{
+	font-size: 15px;
+	font-weight: bold;
+	margin-top: 15px;
+}
+
+.upload-box #charge-btn{
+	margin: 10px;
+	font-size: 15px;
+	width: 60px;
+	margin-bottom: 20px;
 }
 
 .shipment-box{
@@ -225,6 +266,13 @@ label {
 .payment-pay checkbox{
 	margin-bottom: 7px;
 }	
+
+.checkbox-container {
+    display: flex;
+    align-items: center; 
+    margin-bottom: 10px; 
+}
+
 .payment-pay button{
 	background-color: #666;
     color: white;
@@ -232,7 +280,7 @@ label {
     cursor: pointer;
     border-radius: 5px;
     display: block;
-    width: 116%;
+    width: 96%;
     height: 60px;
     text-align: center;
     font-size: 17px; 

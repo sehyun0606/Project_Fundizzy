@@ -16,13 +16,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.JsonObject;
+import com.itwillbs.project_fundizzy.service.Bankservice;
 import com.itwillbs.project_fundizzy.service.FundService;
+import com.itwillbs.project_fundizzy.vo.FundizzyPay;
 
 
 @Controller
 public class FundController {
+	
 	@Autowired
 	private FundService fundService;
+	
+	@Autowired
+	private Bankservice bankService;
+	
 //	왼쪽 
 	//fund 목록
 	@GetMapping("FundList")
@@ -32,9 +39,11 @@ public class FundController {
 	//fund 스토리
 	@GetMapping("FundBoardStory")
 	public String fundBoardStory(String project_code, Model model) {
+		
 		Map<String, Object> fundStory = fundService.getFundBoard(project_code);
 		System.out.println("map == " + fundStory); // ok
 		model.addAttribute("fundStory", fundStory); //ok
+		
 		return "merch/funding/fund_board_story";
 	}
 	//fund 새소식 
@@ -54,10 +63,14 @@ public class FundController {
 		List<Map<String, Object>> supportList = fundService.getSupportList();
 		model.addAttribute("supportList", supportList);
 		System.out.println("supportList ======== " + supportList);
+		
 		// 댓글 목록 조회 기능 
 		List<Map<String, Object>> ReplyList = fundService.getReplyList(map);
 		System.out.println("Reply LIst = " + ReplyList);
+		
+		//모델에 추가 후 넘기기 
 		model.addAttribute("ReplyList", ReplyList);
+		
 		return "merch/funding/fund_board_support";
 	}
 	
@@ -85,6 +98,7 @@ public class FundController {
 			supportKeyword += 5;
 			
 		}
+		
 		//지지서명시 필요한 값 들고오기
 		int project_code = Integer.parseInt(map.get("project_code"));
 		String email = map.get("email");
@@ -99,8 +113,10 @@ public class FundController {
 	@PostMapping("SupportReply")
 	public String supportReply(@RequestParam Map<String, String> map, HttpSession session, Model model, 
 			HttpServletRequest request) {
+		
 		//지지서명 출력 
 		List<Map<String, Object>> supportList = fundService.getSupportList();
+		
 		//세션에 있는 아이디 저장 
 		String maker_email = (String) session.getAttribute("sId");
 		System.out.println("makerEmail = " + maker_email);
@@ -111,10 +127,12 @@ public class FundController {
 		
 		//댓글 db에 등록 
 		int count = fundService.registSupportReply(map);
+		
 		if(count > 0) {
 			System.out.println("insert 성공!!!!!!!!!!");
 			model.addAttribute("supportList", supportList);
 		}
+		
 		return "redirect:/FundBoardSupport";
 	}
 	
@@ -123,9 +141,11 @@ public class FundController {
 	@GetMapping("SupportReplyDelete")
 	public String supportReplyDelete(@RequestParam Map<String, Object> map, HttpSession session, Model model,
 			HttpServletRequest request, @RequestParam Map<String, Object> responseMap) {
+		
 		//지지서명 출력 
 		String maker_email = (String)session.getAttribute("sId");
 		System.out.println("maker_email = " + maker_email);
+		
 		if(maker_email == null) {
 			responseMap.put("invalidSession", true);
 		}else {
@@ -141,6 +161,7 @@ public class FundController {
 					responseMap.put("result", true);
 			}
 		}
+		
 		JSONObject jo = new JSONObject(responseMap);
 		
 		return jo.toString();
@@ -177,16 +198,35 @@ public class FundController {
 	
 	//결제창으로 이동 - post 
 	@PostMapping("PaymentPay")
-	public String paymentPay(String project_code, Model model, HttpSession session) {
+	public String paymentPay(String reward_code, int total_count, int total_price, String project_code, Model model, HttpSession session) {
+		
+		//이메일 가져오기
+		String email = (String) session.getAttribute("sId");
+		
+	   //히든값 가져오기 
+	   System.out.println("!!!!!!!!!최종 수량: " + total_count);
+	   System.out.println("!!!!!!!!!최종 가격: " + total_price); 
+	   System.out.println("**********리워드 코드: " + reward_code); //ok
+	   
+	   //히든값 모델에 저장 후 jsp 에 ~>..
+	   model.addAttribute("total_count", total_count);
+	   model.addAttribute("total_price", total_price);
+	   
+		//리워드 가져오기 
 		Map<String, Object> reward = fundService.getPaymentReward(project_code);
 		System.out.println("pay reward = " + reward);
 		model.addAttribute("reward", reward);
 		
+		
 		//배송을 위한 member 정보 가져오기 
-		String email = (String) session.getAttribute("sId");
 		Map<String, Object> member = fundService.getPaymentPayMember(email);
 		System.out.println("payment member = " + member);
 		model.addAttribute("member", member);
+		
+		//결제를 위한 펀디지 페이 들고오기 
+		FundizzyPay fundizzy_pay = (FundizzyPay) bankService.getFundizzyPay(email);
+		model.addAttribute("fundizzy_pay", fundizzy_pay);
+		
 		return "merch/payment/payment_pay";
 	}
 	

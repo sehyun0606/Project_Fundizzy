@@ -19,6 +19,7 @@ import org.springframework.web.servlet.function.ServerRequest.Headers;
 import org.springframework.web.servlet.tags.Param;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.itwillbs.project_fundizzy.vo.BankAccount;
 import com.itwillbs.project_fundizzy.vo.BankToken;
@@ -191,36 +192,81 @@ public class BankApiClient {
 	public Map<String, Object> requestDeposit(Map<String, Object> map) {
 		
 		//이용기관 토큰 꺼내기
+		BankToken adminToken = (BankToken)map.get("adminToken");
 		
 		//아이디 꺼내서 String email에 저장
+		String email = (String)map.get("email");
+		System.out.println("adminToken = " + adminToken + "apiclient = " + email );
 		
 		//잔액 조회에 사용될 bank_tran_id, tran_dtime 생성
+		String bank_tran_id = BankValueGenerator.getBankTranId(client_use_code);
+		String tran_dtime = BankValueGenerator.getTranDTrime();
 		
 		//uri 생성
+		URI uri = UriComponentsBuilder
+				.fromUriString(base_url)
+				.path("/v2.0/transfer/withdraw/fin_num")
+				.encode()
+				.build()
+				.toUri();
+		System.out.println("uri = " + uri.toString());		
 		
 		//헤더 정보생성
+		HttpHeaders headers = new HttpHeaders();
+		headers.setBearerAuth(adminToken.getAccess_token());
+		headers.setContentType(MediaType.APPLICATION_JSON);
 		
 		//api 요청 파라미터를 JSON 형식으로 생성 - 	1건의 입금 이체 정보를 저장할 JsonObject (joReq)객체 생성
-	
-		//2) 입금 이체 1건의 정보를 리스트 형식으로 관리할 JsonArray 객체 생성
+		JsonObject joreq = new JsonObject();
+		joreq.addProperty("tran_no", 1);//거래순번
+		joreq.addProperty("bank_tran_id", bank_tran_id);//거래 고유번호
+		joreq.addProperty("fintech_use_num", ((BankAccount)map.get("bankAccount")).getFintech_use_num());
+		joreq.addProperty("print_content", "펀디지"); //입금계좌인자내역
+		joreq.addProperty("tran_amt", 2409); 
+		joreq.addProperty("req_client_name",((BankAccount)map.get("bankAccount")).getAccount_holder_name() );
+		joreq.addProperty("req_client_fintech_use_num", ((BankAccount) map.get("bankAccount")).getFintech_use_num());//요청 고객 핀테크 이용번호
+		joreq.addProperty("req_client_num", email.toUpperCase());
+		joreq.addProperty("transfer_purpose", "TR"); //이체목적 
 		
+		//2) 입금 이체 1건의 정보를 리스트 형식으로 관리할 JsonArray 객체 생성
+		JsonArray joreq_list = new JsonArray();
 		
 		// JsonArray 객체의 add() 메서드 호출하여 1건 이체 정보가 담긴 JsonObject 객체 추가
+		joreq_list.add(joreq);
 		
 		// 3) 기본 입금 이체 정보를 저장할 JsonObject 객체 생성 후 내용 추가 - pdf 보고 
+		JsonObject jsonObject = new JsonObject();
 		
 		// 4) 기본 입금 이체 정보 JsonObject 객체에 1건 이체정보가 저장된 JsonArray 객체 추가 
 		// => JsonObject 객체의 add() 메서드 활용
-		
+		jsonObject.addProperty("cntr_account_type", "N");
+		jsonObject.addProperty("cntr_account_num", cntr_account_num);
+		jsonObject.addProperty("wd_pass_phrase", "NONE");
+		jsonObject.addProperty("wd_print_content", map.get("account_client_name") + "_송금");//출금계좌인자내역 
+		jsonObject.addProperty("name_check_option", "on");
+		jsonObject.addProperty("tran_dtime", tran_dtime);
+		jsonObject.addProperty("req_cnt", 1);//입금요청건수
 		
 		// jsonObject 객체 출력해보기 
-		
+		jsonObject.add("req_list", joreq_list);
+		System.out.println("요청데이터 - " + jsonObject);
 		
 		//헤더정보를 관리할 Entity 생성
+		HttpEntity<String> requestEntity = new HttpEntity<String>(jsonObject.toString(), headers);
 		
 		//restTemplate 생ㅅ어 
+		RestTemplate restTemplate = new RestTemplate();	
 		
-		// 응답데이터 리턴 => ResponseEntity 객체의 getBody() 메서드 호출 시 응답데이터에 접근
-		return null;
+		// 응답데이터 리턴 
+		ParameterizedTypeReference<Map<String, Object>> responseType = 
+				new ParameterizedTypeReference<Map<String,Object>>() {};
+				ResponseEntity<Map<String, Object>> response = 
+						restTemplate.exchange(
+								uri, 
+								HttpMethod.POST, 
+								requestEntity, 
+								responseType); 
+				
+				return response.getBody();
 	}
 }

@@ -16,6 +16,7 @@
 		<typeAlias type="com.itwillbs.project_fundizzy.vo.ChatRoom" alias="chatRoom"/>
 		<typeAlias type="com.itwillbs.project_fundizzy.vo.ChatMessage" alias="chatMessage"/>
 		<typeAlias type="com.itwillbs.project_fundizzy.vo.ShipmentVO" alias="shipment"/>
+		<typeAlias type="com.itwillbs.project_fundizzy.vo.FundizzyPay" alias="fundizzyPay"/>
 	</typeAliases>
 </configuration>
 

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.itwillbs.project_fundizzy.vo.BankAccount;
 import com.itwillbs.project_fundizzy.vo.BankToken;
+import com.itwillbs.project_fundizzy.vo.FundizzyPay;
 
 @Mapper
 public interface BankMapper {
@@ -38,7 +39,7 @@ public interface BankMapper {
 	void deleteBankAccount(Map<String, Object> bankAccount);
 	
 	// 첫 계좌 연동시 페이연결 정보 입력
-	void connectFundizzyPay(@Param("email") String email, @Param("pay_tran_id") String pay_tran_id);
+	void connectFundizzyPay(@Param("bankAccount") Map<String, Object> bankAccount, @Param("pay_tran_id")String pay_tran_id);
 	
 	//페이 충전결과 페이지 
 	Map<String, Object> insertFundizzyPay(Map<String, String> mapForPay);
@@ -51,6 +52,9 @@ public interface BankMapper {
 	
 	//db에 입금 결과 저장
 	void insertTransferResult(@Param("transferResult") Map<String, Object> transferResult, @Param("transactionType") String transactionType);
+	
+	//펀디지 페이 가져오기 
+	FundizzyPay selectFundizzyPay(String email);
 	
 
 }

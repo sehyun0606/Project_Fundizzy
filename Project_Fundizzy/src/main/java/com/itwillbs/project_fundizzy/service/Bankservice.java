@@ -12,6 +12,7 @@ import com.itwillbs.project_fundizzy.handler.BankValueGenerator;
 import com.itwillbs.project_fundizzy.mapper.BankMapper;
 import com.itwillbs.project_fundizzy.vo.BankAccount;
 import com.itwillbs.project_fundizzy.vo.BankToken;
+import com.itwillbs.project_fundizzy.vo.FundizzyPay;
 @Service
 public class Bankservice {
 	@Autowired
@@ -79,15 +80,16 @@ public class Bankservice {
 	//대표계좌 등록 
 	@Transactional
 	public void registBankAccount(Map<String, Object> bankAccount) {
+		//사용자 일련번호가 없으면 insert 있으면 update
 		if(mapper.selectDBAccountInfo((String) bankAccount.get("user_seq_no")) == null) {
 			mapper.insertBankAccount(bankAccount);
 		} else {
 			mapper.updateBankAccount(bankAccount);
 		}
 		
-		String email =  (String)bankAccount.get("eamil");
+		String email =  (String)bankAccount.get("email");
 		String pay_tran_id = BankValueGenerator.getTranId();
-		mapper.connectFundizzyPay(email, pay_tran_id);
+		mapper.connectFundizzyPay(bankAccount, pay_tran_id);
 	}
 	
 	//대표계좌 삭제
@@ -98,6 +100,8 @@ public class Bankservice {
 	
 	// 페이 거래 내역 입력 메서드
 	public void payTransaction(Map<String, String> mapForPay) {
+		mapForPay.put("tran_id", BankValueGenerator.getTranId());
+		
 		mapper.insertFundizzyPay(mapForPay);
 	}
 	
@@ -126,6 +130,13 @@ public class Bankservice {
 		mapper.insertTransferResult(transferResult, "DE");
 	}
 	
+	//페이 가져오기 
+	public FundizzyPay getFundizzyPay(String email) {
+		// TODO Auto-generated method stub
+		return mapper.selectFundizzyPay(email);
+	}
+
+
 	
 
 	

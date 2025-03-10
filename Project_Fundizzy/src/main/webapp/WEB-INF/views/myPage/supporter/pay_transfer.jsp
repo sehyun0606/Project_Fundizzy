@@ -9,13 +9,13 @@
 <body>
 	<jsp:include page="/WEB-INF/views/inc/top.jsp"></jsp:include>
 	<div class="pay-container">
-		<p>${sessionScope.sId} 님의 페이 충전</p>
+		<p>${sessionScope.sId} 님의 페이 보내기</p>
 		<form action="PayTransfer" method="post">
 			<div>
 				내가 등록한 계좌로 
 			</div>
 			<div class="pay-info">
-				<input type="search" id="fundizy-pay" name = "tran_amt" placeholder="보낼 금액을 입력해주세요.">
+				<input type="search" id="fundizy-pay" name ="tran_amt" placeholder="보낼 금액을 입력해주세요.">
 				<div class="btn-list">
 					<input type="button" value="+1만">
 					<input type="button" value="+5만">

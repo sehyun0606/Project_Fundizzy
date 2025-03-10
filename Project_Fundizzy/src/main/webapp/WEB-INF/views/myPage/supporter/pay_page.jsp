@@ -12,7 +12,7 @@
 		<p>${sessionScope.sId} 님의 페이</p>
 	  <div class="pay-info">
 	  	<div class="fundizy-pay">Fundizy Pay</div> <br>
-	  	<div class="pay-money">1275307원</div>  	
+	  	<div class="pay-money">${fundizzy_pay.pay_amt}</div>  	
 	  	<div class="button-div">
 		  <input type="button" value="충전" id="charge" onclick="location.href='PayCharge'"> 
 		  <input type="button" value="송금" id="transfer" onclick="location.href='PayTransfer'"> 

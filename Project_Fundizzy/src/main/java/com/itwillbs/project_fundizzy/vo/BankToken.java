@@ -17,4 +17,10 @@ public class BankToken implements Serializable {
 	
 	private String rep_code;
 	private String rsp_message;
+	
+	
+	//-----------------admin access token 조회로 인한 idx와 email 추가 ------------------------ (db에는 추가 안했음)
+	
+	private int idx;
+	private String email;
 }

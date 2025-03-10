@@ -89,6 +89,7 @@ public class BankController {
 		
 		//선택된 항목의 정보 넣기 
 		bankAccount.put("user_seq_no", bankToken.getUser_seq_no());
+		bankAccount.put("email", session.getAttribute("sId"));
 		bankservice.registBankAccount(bankAccount);
 		
 		

@@ -17,6 +17,7 @@ import com.itwillbs.project_fundizzy.service.Bankservice;
 import com.itwillbs.project_fundizzy.service.MypageService;
 import com.itwillbs.project_fundizzy.vo.BankAccount;
 import com.itwillbs.project_fundizzy.vo.BankToken;
+import com.itwillbs.project_fundizzy.vo.FundizzyPay;
 import com.itwillbs.project_fundizzy.vo.ProjectListVO;
 import com.mysql.cj.Session;
 
@@ -71,32 +72,37 @@ public class MyPageController {
 	//페이 페이지
 	@GetMapping("PayPage")
 	public String payPage(HttpSession session, Model model) {
+		//이메일 가져오기
+		String email = (String) session.getAttribute("sId");
 		
+		//페이 정보를 표시하기 위해 페이 가져오기
+		FundizzyPay fundizzy_pay = (FundizzyPay) bankService.getFundizzyPay(email);
+		
+		model.addAttribute("fundizzy_pay", fundizzy_pay);
 		return "myPage/supporter/pay_page";
 	}
 	
 	
 	//페이 충전 페이지 (정유나 -> 아이티윌) - POST 
 	@PostMapping("PayCharge")
-	public String payCharge(String tran_amt, HttpSession session, Model model ) {
-		// 출금 요청을 위한 맵객체
-		Map<String, Object> requestMap = new HashMap<String, Object>();
+	public String payCharge(@RequestParam Map<String, Object> map, String tran_amt, HttpSession session, Model model ) {
+
 		// 토큰 가져오기 
 		BankToken bankToken = (BankToken) session.getAttribute("token");
 		
 		// map에 토큰과 세션의 아이디 저장 
-		requestMap.put("bankToken", bankToken);
-		requestMap.put("email", session.getAttribute("sId"));
-		requestMap.put("tran_amt", tran_amt);
+		map.put("bankToken", bankToken);
+		map.put("email", session.getAttribute("sId"));
+		map.put("tran_amt", tran_amt);
 		
 		// DB에서 등록된 계좌정보 들고와서 map에 저장
 		BankAccount bankAccount = bankService.getDBAccountInfo(bankToken.getUser_seq_no());
-		requestMap.put("bankAccount", bankAccount);
+		map.put("bankAccount", bankAccount);
 		
 		// map에 출금이체(=충전) 요청을 리턴
-		Map<String, Object> chargeResult = bankService.requestCharge(requestMap);
+		Map<String, Object> chargeResult = bankService.requestCharge(map);
 		System.out.println("chargeResult = " + chargeResult);
-		System.out.println("map = " + requestMap);
+		System.out.println("map = " + map);
 		if(!chargeResult.get("rsp_code").equals("A0000")) {
 			model.addAttribute("msg", "rsp_code 오류발생 \\n 다시 시도하세요." + chargeResult.get("rsp_message"));
 			return "result/fail";
@@ -131,11 +137,13 @@ public class MyPageController {
 	@GetMapping("PayChargeResult")
 	public String payChargeResult(String bank_tran_id , Model model) {
 		System.out.println("bank_tran_id " + bank_tran_id);
+		
 		//db에 거래결과 저장
 		Map<String, Object> chargeResult = bankService.getDBTransactionResult(bank_tran_id);
 		model.addAttribute("chargeResult", chargeResult);
 		
 		//페이 테이블 가져오기 
+		
 		return "myPage/supporter/pay_charge_result";
 	}
 	
@@ -145,25 +153,30 @@ public class MyPageController {
 		// 세션에서 토큰 가져오기
 		String email = (String) session.getAttribute("sId");
 		BankToken bankToken = (BankToken) session.getAttribute("token");
+		System.out.println("###### banktoken = " + bankToken);
 		
 		//map 객체에 세션 아이디 추가 
 		map.put("email",email);
 		
 		// DB에서 등록된 계좌정보 들고와서 
 		BankAccount bankAccount = bankService.getDBAccountInfo(bankToken.getUser_seq_no());
+		System.out.println("user_seq - no == " + bankToken.getUser_seq_no());
 		
 		//map에 대표계좌 정보 저장
 		map.put("bankAccount", bankAccount);
 		
 		//requestTransfer() 요청해서 map의 transferResult에 저장 
 		Map<String, Object> transferResult = bankService.requestDeposit(map);
+		System.out.println("@@@@@@@@@transfer result = " + transferResult);
 		
 		//@응답데이터가 map 객체로 저장되어있으며 객체내에 res_list값이 리스트 형태로 저장됨
 		//1. res_list값에 해당하는 list 객체 꺼내기
 		List<Object> res_list = (List<Object>)transferResult.get("res_list");
+		System.out.println("*****res_list == " + res_list);
 		
 		//2. res_list내의 첫번째 이체 결과정보 객체 꺼내서 map으로 저장 
 		Map<String, Object> result = (Map<String, Object>)res_list.get(0);
+		System.out.println("****result == " + result);
 		
 		//@api응답코드가 "A0000"가 아닌 경우엔 오류메시지 띄우기 - String msg 써서 하는거라 보고하기
 		if(!transferResult.get("rsp_code").equals("A0000")) {
