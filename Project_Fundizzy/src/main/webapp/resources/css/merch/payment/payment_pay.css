@@ -153,7 +153,7 @@ body {
 }
 
 .new_address_box {
-	display: block;
+	display: none;
 	background-color: #CCCC;
 	padding: 10px;
 	border-radius: 7px;

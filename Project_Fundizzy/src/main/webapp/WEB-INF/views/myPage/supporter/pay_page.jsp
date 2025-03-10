@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -12,7 +14,7 @@
 		<p>${sessionScope.sId} 님의 페이</p>
 	  <div class="pay-info">
 	  	<div class="fundizy-pay">Fundizy Pay</div> <br>
-	  	<div class="pay-money">${fundizzy_pay.pay_amt}</div>  	
+	  	<div class="pay-money"><fmt:formatNumber pattern="#,###원" value="${fundizzy_pay.pay_amt}"></fmt:formatNumber></div>  	
 	  	<div class="button-div">
 		  <input type="button" value="충전" id="charge" onclick="location.href='PayCharge'"> 
 		  <input type="button" value="송금" id="transfer" onclick="location.href='PayTransfer'"> 

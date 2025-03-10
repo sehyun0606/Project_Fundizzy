@@ -194,8 +194,6 @@ public class FundController {
 		return "merch/payment/payment_reward";
 	}
 	
-	
-	
 	//결제창으로 이동 - post 
 	@PostMapping("PaymentPay")
 	public String paymentPay(String reward_code, int total_count, int total_price, String project_code, Model model, HttpSession session) {
@@ -230,15 +228,28 @@ public class FundController {
 		return "merch/payment/payment_pay";
 	}
 	
-	//결제창으로 이동 - get 
+	//결제창으로 이동 - get 비지니스 로직
 	@GetMapping("PaymentPay")
 	public String paymentPayPage() {
 		return "merch/payment/payment_pay";
 	}
 	
-	//결제 완료창 
-	@GetMapping("PaymentComplete")
+	@PostMapping("PaymentComplete")
 	public String paymentComplete() {
+		//member 테이블 가져오기
+		
+		//페이 결제 계산
+		
+		//
+		
+		return "merch/payment/payment_complete";
+	}
+	
+	
+	
+	//결제 완료창 - get 비지니스 로직
+	@GetMapping("PaymentComplete")
+	public String paymentCompletePage() {
 		return "merch/payment/payment_complete";
 	}
 	

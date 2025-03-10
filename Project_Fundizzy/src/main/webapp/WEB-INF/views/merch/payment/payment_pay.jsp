@@ -36,6 +36,12 @@
 		        <span class="arrow">→</span>
 		        <div class="step">결제 완료</div>
 			</div>
+			
+			<form action="PaymentComplete" id="complete-form" method="post">
+				<input type="hidden">
+			
+			
+			</form>
 	       <div class="section-product">
 <!-- 	       완료 -->
 	            <h3>${reward.product_name}</h3>
@@ -62,7 +68,7 @@
 		            <h4>리워드 배송지</h4>
 		            <span class="notice">* 회원정보를 기반으로 생성한 배송지 입니다.</span><br>
 		            <div id="div_address">
-		            	<input type="radio" name="address" id="address" value="최근 배송지">
+		            	<input type="radio" name="address" id="address" value="최근 배송지" checked="checked">
 		            	<label for="address">
 			            	<input type="text" placeholder="배송 받으실 분 이름을 입력해주세요." required="required"><br>
 			             	${member.phone}<br>
@@ -90,12 +96,11 @@
 	        </div>
 	        <div class="section-reservation">
 	            <h4>예약 결제</h4>
-	            <label><input type="radio" name="payment" checked> 펀디지 페이결제</label>
+	            <label><input type="radio" name="payment" checked> 펀디지 페이</label>
 	          <div class="upload-box">
-			     <p class="fundizzy-pay">Fundizzy 결제</p>
+			     <p class="fundizzy-pay">Fundizzy Pay</p>
 			     <span id="pay_amt"><fmt:formatNumber pattern="#,###" value="${fundizzy_pay.pay_amt}"></fmt:formatNumber> 원</span>
 			     <input type="button" id="charge-btn" value="충전" onclick="location.href='PayCharge'"> 
-			     <input type="button" id="aaa" value="임시">
 			 </div>
 
 <!-- 	            <label><input type="radio" name="payment" checked> 직접입력</label> -->
