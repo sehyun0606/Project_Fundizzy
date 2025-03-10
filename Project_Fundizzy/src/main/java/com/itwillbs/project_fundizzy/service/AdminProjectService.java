@@ -34,4 +34,8 @@ public class AdminProjectService {
 		return projectMapper.selectRewardInfo(projectCode);
 	}
 
+	public Map<String, Object> getMakerInfo(String projectCode) {
+		return projectMapper.selectMakerInfo(projectCode);
+	}
+
 }

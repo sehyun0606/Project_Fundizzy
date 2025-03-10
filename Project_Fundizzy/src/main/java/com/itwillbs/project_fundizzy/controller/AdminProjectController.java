@@ -79,6 +79,15 @@ public class AdminProjectController {
 		return gson.toJson(rewardInfo);
 	}
 	
+	//ajax를 활용하여 판매자 정보 확인
+	@ResponseBody
+	@GetMapping("AdminGetMakerInfo")
+	public String adminGetMakerInfo(String projectCode) {
+		Map<String,Object> makerInfo = projectService.getMakerInfo(projectCode);
+		Gson gson = new Gson();
+		
+		return gson.toJson(makerInfo);
+	}
 }
 
 

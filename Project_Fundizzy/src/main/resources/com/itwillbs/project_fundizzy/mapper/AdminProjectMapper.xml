@@ -43,6 +43,19 @@
 		FROM reward
 		WHERE project_code = #{projectCode}
 	</select>
+	
+	<select id="selectMakerInfo" resultType="map">
+		SELECT
+			maker_type,
+			registration_card, 
+			representative_name, 
+			representative_email, 
+			business_name, 
+			business_number
+		FROM 
+			project_info
+		WHERE project_code = #{projectCode}
+	</select>
 </mapper>
 
 

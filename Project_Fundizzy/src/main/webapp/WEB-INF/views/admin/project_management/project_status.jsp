@@ -153,8 +153,33 @@
 					</table>
 	            </div>
 	            <div id="extra-info" class="tab-content">
-	                <h3>기타 정보</h3>
-	                <p>추가적인 정보를 여기에 표시합니다.</p>
+	                 <h3>판매자 정보</h3>
+				    <table class="info-table">
+				        <tr>
+				            <th>메이커 유형</th>
+				            <td id="maker-type"></td>
+				        </tr>
+				        <tr>
+				            <th>신분증 및 사업자등록증</th>
+				            <td ><img id="id-card" src="" alt="대표 이미지" class="modal-img"></td>
+				        </tr>
+				        <tr>
+				            <th>대표자명</th>
+				            <td id="representative-name"></td>
+				        </tr>
+				        <tr>
+				            <th>대표자 이메일</th>
+				            <td id="representative-email"></td>
+				        </tr>
+				        <tr>
+				            <th>사업자 등록 번호</th>
+				            <td id="business-number"></td>
+				        </tr>
+				        <tr>
+				            <th>상호명</th>
+				            <td id="business-name"></td>
+				        </tr>
+				    </table>
 	            </div>
 	        </div>
 	        <div class="buttonSection">

@@ -20,5 +20,7 @@ public interface AdminProjectMapper {
 	Map<String, Object> selectProjectInfo(String projectCode);
 
 	List<RewardVO> selectRewardInfo(String projectCode);
+
+	Map<String, Object> selectMakerInfo(String projectCode);
 	
 }
