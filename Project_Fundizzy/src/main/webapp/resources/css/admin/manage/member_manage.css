@@ -43,6 +43,9 @@ body {
 	display: block;
 	max-height: 200px;
 }
+article {	
+	display: flex; /* Flexbox 사용 */	
+}
 /* 메인 콘텐츠 */
 .main-content {
     flex-grow: 1;

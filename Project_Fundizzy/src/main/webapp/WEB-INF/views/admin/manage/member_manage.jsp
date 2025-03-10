@@ -9,9 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>사용자 관리 페이지</title>
     <script src="resources/js/jquery-3.7.1.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="resources/css/admin/admin_home.css" />
-    <link rel="stylesheet" href="resources/css/admin/admin_member_manage.css" />
+    <link rel="stylesheet" href="resources/css/admin/manage/member_manage.css" />
 </head>
 <body>
 	<!-- top.jsp -->

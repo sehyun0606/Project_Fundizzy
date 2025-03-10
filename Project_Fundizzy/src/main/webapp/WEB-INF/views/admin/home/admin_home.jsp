@@ -9,8 +9,8 @@
     <title>Fundizy 관리자 페이지</title>
     <script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="resources/css/admin/admin_home.css" />
-</head>s
+    <link rel="stylesheet" href="resources/css/admin/home.css" />
+</head>
 <body>
 	<!-- top.jsp -->
 	<header>

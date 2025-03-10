@@ -16,4 +16,6 @@ public interface AdminMapper {
 
 	List<Map<String, String>> selectWithdrawDate();
 
+	int insertAdminInfo(Map<String, String> adminInfo);
+
 }

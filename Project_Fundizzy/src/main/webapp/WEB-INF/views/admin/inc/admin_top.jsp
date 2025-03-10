@@ -58,7 +58,7 @@
         <!-- 로그인|회원가입 div 오른쪽 끝 -->
         <div class="login-links">
 			<a class="login-item" >관리자</a> |
-			<a class="login-item" >${sessionScope.adminId}님</a>
+			<a class="login-item" >${sessionScope.adminName}님</a>
         </div>
     </div>
 </body>
