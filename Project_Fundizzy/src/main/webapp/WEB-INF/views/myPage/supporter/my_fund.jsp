@@ -316,6 +316,7 @@
             	<input type="hidden" name="reward_code" id="reward_code">
             	<input type="hidden"  name="fund_idx" id="fund_idx">
             	<input type="hidden"  name="project_code" id="project_code">
+            	<input type="hidden"  name="payment_code" id="payment_code">
             	<div class="title-section">
 	            	<h2 class="title">환불 신청</h2>
         		</div>
@@ -369,6 +370,7 @@
 				$("#fund_idx").val(result.fund_idx);
 				$("#reward_code").val(result.reward_code);
 				$("#project_code").val(result.project_code);
+				$("#payment_code").val(result.payment_code);
 			}).fail(function(){
 				console.log("실패..")
 			})

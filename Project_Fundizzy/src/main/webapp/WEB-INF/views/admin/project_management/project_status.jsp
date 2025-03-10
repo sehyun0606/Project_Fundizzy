@@ -94,7 +94,7 @@
 	        <!-- 모달 탑 섹션 (카테고리 탭) -->
 	        <div class="modal-header">
 	            <button class="tab-btn active" data-tab="basic-info">기본 정보</button>
-	            <button class="tab-btn" data-tab="review-history">심사 내역</button>
+	            <button class="tab-btn" data-tab="reward-info">리워드</button>
 	            <button class="tab-btn" data-tab="extra-info">기타 정보</button>
 	            <button class="close-btn">닫기</button>
 	        </div>
@@ -136,69 +136,34 @@
 				    </table>
 				</div>
 					            
-	            <div id="review-history" class="tab-content">
-	                <h3>심사 내역</h3>
-	                <p>심사 내역 관련 내용을 여기에 표시합니다.</p>
+	            <div id="reward-info" class="tab-content">
+	                <h3>리워드</h3>
+	                <table id="reward-info-table" style="width: 500px;">
+					    <thead>
+					        <tr>
+					            <th>상품명</th>
+					            <th>설명</th>
+					            <th>가격</th>
+					            <th>배송비</th>
+					            <th>재고</th>
+					        </tr>
+					    </thead>
+					    <tbody>
+					    </tbody>
+					</table>
 	            </div>
 	            <div id="extra-info" class="tab-content">
 	                <h3>기타 정보</h3>
 	                <p>추가적인 정보를 여기에 표시합니다.</p>
 	            </div>
 	        </div>
+	        <div class="buttonSection">
+	        	<input type="button" value="거절하기">
+	        	<input type="button" value="허가하기">
+	        </div>
 	    </div>
 	</div>
 
-	
-	<script type="text/javascript">
-		 $(document).ready(function() {
-			 let projectCode;
-	         // 모달 열기
-	         $(".project-info").click(function() {
-	             $("#modal").fadeIn();
-	             projectCode = $(this).closest("tr").find(".project_code").text();
-	             console.log(projectCode)
-	             
-	              $.ajax({
-		  			url : "AdminGetProjectInfo",
-					type : "GET",
-					data : {
-						projectCode
-					},
-					dataType: "json",  
-        			contentType: "application/json; charset=UTF-8"
-				}).done(function(result){
-					console.log("응답 받은 데이터: ", result);
-					
-				}).fail(function(){
-					console.log("실패..")
-				})
-	         });
-	
-	         // 모달 닫기 (닫기 버튼 클릭)
-	         $(".close-btn").click(function() {
-	             $("#modal").fadeOut();
-	         });
-	
-	         // 모달 닫기 (배경 클릭)
-	         $(".modal-overlay").click(function(event) {
-	             if (event.target === this) {
-	                 $(this).fadeOut();
-	             }
-	         });
-	         
-	         // 탭 버튼 클릭 시 내용 변경
-	         $(".tab-btn").click(function() {
-	             let tabId = $(this).data("tab");
-				console.log(projectCode)				
-	             // 모든 탭 버튼과 콘텐츠에서 active 제거
-	             $(".tab-btn").removeClass("active");
-	             $(".tab-content").removeClass("active");
-	
-	             // 선택한 탭 버튼과 콘텐츠에 active 추가
-	             $(this).addClass("active");
-	             $("#" + tabId).addClass("active");
-	         });
-	     });
-	</script>
+	<script src="/resources/js/admin/project_menagement/project_status.js"></script>
 </body>
 </html>

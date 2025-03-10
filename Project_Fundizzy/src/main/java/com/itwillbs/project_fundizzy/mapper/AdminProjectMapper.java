@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.itwillbs.project_fundizzy.vo.ProjectListVO;
+import com.itwillbs.project_fundizzy.vo.RewardVO;
 
 @Mapper
 public interface AdminProjectMapper {
@@ -17,5 +18,7 @@ public interface AdminProjectMapper {
 										  @Param("listLimit") int listLimit);
 
 	Map<String, Object> selectProjectInfo(String projectCode);
+
+	List<RewardVO> selectRewardInfo(String projectCode);
 	
 }

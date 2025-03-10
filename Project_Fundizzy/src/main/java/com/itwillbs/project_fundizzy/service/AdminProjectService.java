@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.itwillbs.project_fundizzy.mapper.AdminProjectMapper;
 import com.itwillbs.project_fundizzy.vo.ProjectListVO;
+import com.itwillbs.project_fundizzy.vo.RewardVO;
 
 @Service
 public class AdminProjectService {
@@ -27,6 +28,10 @@ public class AdminProjectService {
 	//ajax를 활용한 기본 정보 조회
 	public Map<String, Object> getProjectInfo(String projectCode) {
 		return projectMapper.selectProjectInfo(projectCode);
+	}
+
+	public List<RewardVO> getRewardInfo(String projectCode) {
+		return projectMapper.selectRewardInfo(projectCode);
 	}
 
 }

@@ -37,4 +37,15 @@
 		WHERE
 			project_list.project_code = #{projectCode}
 	</select>
+	
+	<select id="selectRewardInfo" resultType="Reward">
+		SELECT *
+		FROM reward
+		WHERE project_code = #{projectCode}
+	</select>
 </mapper>
+
+
+
+
+

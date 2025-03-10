@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 import com.itwillbs.project_fundizzy.service.AdminProjectService;
 import com.itwillbs.project_fundizzy.vo.PageInfo;
 import com.itwillbs.project_fundizzy.vo.ProjectListVO;
+import com.itwillbs.project_fundizzy.vo.RewardVO;
 
 @Controller
 public class AdminProjectController {
@@ -58,6 +59,7 @@ public class AdminProjectController {
 		return "admin/project_management/project_status";
 	}
 	
+	//ajax를 활용하여 기본 프로젝트 정보 확인
 	@ResponseBody
 	@GetMapping("AdminGetProjectInfo")
 	public String adminGetProjectInfo(String projectCode) {
@@ -66,4 +68,25 @@ public class AdminProjectController {
 		
 		return gson.toJson(projectInfo);
 	}
+	
+	//ajax를 활용하여 리워드 정보 확인
+	@ResponseBody
+	@GetMapping("AdminGetRewardInfo")
+	public String adminGetRewardInfo(String projectCode) {
+		List<RewardVO> rewardInfo = projectService.getRewardInfo(projectCode);
+		Gson gson = new Gson();
+		
+		return gson.toJson(rewardInfo);
+	}
+	
 }
+
+
+
+
+
+
+
+
+
+

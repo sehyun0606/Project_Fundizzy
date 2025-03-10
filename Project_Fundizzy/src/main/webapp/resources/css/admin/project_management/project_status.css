@@ -219,7 +219,7 @@ table tr:hover {
     left: 50%;
     transform: translate(-50%, -50%);
     background: white;
-    width: 400px;
+    width: auto;
     border-radius: 10px;
     text-align: center;
     padding: 20px;
@@ -246,10 +246,6 @@ table tr:hover {
     border-bottom: 2px solid blue;
 }
 
-/* 모달 컨텐츠 */
-.modal-body {
-    padding: 20px;
-}
 
 .tab-content {
     display: none;
@@ -292,7 +288,12 @@ table tr:hover {
     border-radius: 5px;
 }
 
-
+.buttonSection{
+	margin-top: 10px;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
 
 
 
