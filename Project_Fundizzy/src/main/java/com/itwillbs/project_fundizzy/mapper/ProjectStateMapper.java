@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.itwillbs.project_fundizzy.vo.NewsVO;
+import com.itwillbs.project_fundizzy.vo.RefundVO;
 import com.itwillbs.project_fundizzy.vo.ShipmentVO;
 
 @Mapper
@@ -18,15 +19,6 @@ public interface ProjectStateMapper {
 	List<Map<String, Object>> selectDailyPaymentList(String project_code);
 	
 	List<Map<String, Object>> selectCumulativePaymentList(String project_code);
-	
-
-	// ================================== 발송 및 환불관리 ==================================
-	int selectOrderCount(String project_code);
-	
-	List<Map<String, Object>> selectOrderList(String project_code);
-	
-	List<Map<String, Object>> selectPaymentRewardList(@Param("project_code") String project_code, @Param("payment_code") String payment_code);
-	
 	
 	
 	// ================================== 새소식 ==================================
@@ -42,10 +34,18 @@ public interface ProjectStateMapper {
 
 	int updateNewsBoard(Map<String, String> map);
 
-	List<ShipmentVO> selectShipStatusCount(String project_code);
 
 
+	// ================================== 발송 및 환불관리 ==================================
+	int selectOrderCount(String project_code);
 	
+	List<Map<String, Object>> selectOrderList(String project_code);
+	
+	List<Map<String, Object>> selectPaymentRewardList(@Param("project_code") String project_code, @Param("payment_code") String payment_code);
+
+	List<ShipmentVO> selectShipStateCount(String project_code);
+
+	List<RefundVO> selectRefundStateCount(String project_code);
 
 
 

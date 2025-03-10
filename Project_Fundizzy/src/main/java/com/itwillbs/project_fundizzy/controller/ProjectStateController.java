@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.itwillbs.project_fundizzy.service.ProjectStateService;
 import com.itwillbs.project_fundizzy.vo.NewsVO;
 import com.itwillbs.project_fundizzy.vo.PageInfo;
+import com.itwillbs.project_fundizzy.vo.RefundVO;
 import com.itwillbs.project_fundizzy.vo.ShipmentVO;
 
 // 최서해
@@ -80,8 +81,12 @@ public class ProjectStateController {
 		model.addAttribute("paymentRewardList", paymentRewardList);
 		
 		// 배송상태 건수 조회
-		List<ShipmentVO> shipStatusCount = stateService.getShipStatusCount(project_code);
-		model.addAttribute("shipStatusCount", shipStatusCount);
+		List<ShipmentVO> shipStateCount = stateService.getShipStateCount(project_code);
+		model.addAttribute("shipStateCount", shipStateCount);
+		
+		// 환불상태 건수 조회
+		List<RefundVO> refundStateCount = stateService.getRefundStateCount(project_code);
+		model.addAttribute("refundStateCount", refundStateCount);
 			
 		return "project/projectState/shipment_refund";
 	}

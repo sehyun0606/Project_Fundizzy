@@ -51,8 +51,8 @@ hr {
 }
 .status {
     display: flex;
-    justify-content: space-between;
-    flex-grow: 1;
+    justify-content: flex-start;
+    gap: 50px;
 }
 .status div {
     display: flex;
@@ -111,8 +111,8 @@ th, td {
 }
 
 .table-container {
-    max-height: 700px; /* 원하는 높이 설정 */
-    overflow-y: auto;  /* 세로 스크롤 추가 */
+/*     max-height: 700px; */
+/*     overflow-y: auto; */
 	margin-bottom: 70px;
 	width: 1100px;
     border-top: 1px solid #ddd;
@@ -135,7 +135,7 @@ th, td {
 
 .list tbody {
 	display: block;
-    max-height: 800px; /* 스크롤 높이 */
+    max-height: 800px;
     overflow-y: auto;
     width: 100%;
 }

@@ -26,4 +26,5 @@ public class RefundVO {
 	private Timestamp refund_confirm_date;
 	private String refund_status;
 	private String project_code;
+	private String payment_code;
 }

@@ -119,7 +119,10 @@
 		    s.post_code,
 		    (SELECT COUNT(*) 
 		     FROM fund_history fh 
-		     WHERE fh.payment_code = p.payment_code) AS fund_count
+		     WHERE fh.payment_code = p.payment_code) AS fund_count,
+		    (SELECT refund_status
+		     FROM refund r
+		     WHERE r.payment_code = p.payment_code) AS refund_status
 		FROM payment p
 		JOIN shipment s
 		ON p.payment_code = s.payment_code
@@ -127,7 +130,7 @@
 		ORDER BY p.payment_complete_date DESC
 		
 	</select>
-	
+		
 	<select id="selectPaymentRewardList" resultType="map">
 		SELECT 
 			fund_idx, 
@@ -150,12 +153,20 @@
 		WHERE payment_code = #{payment_code}
 	</select>
 	
-	<select id="selectShipStatusCount" resultType="map">
+	<select id="selectShipStateCount" resultType="map">
 		SELECT common_code, COUNT(*) AS count
 		FROM shipment
 		WHERE project_code = #{project_code}
 		GROUP BY common_code
 		ORDER BY common_code
+	</select>
+	
+	<select id="selectRefundStateCount" resultType="map">
+		SELECT refund_status, COUNT(*) AS count
+		FROM refund
+		WHERE project_code = #{project_code}
+		GROUP BY refund_status
+		ORDER BY refund_status
 	</select>
 
 </mapper>

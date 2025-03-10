@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.itwillbs.project_fundizzy.mapper.ProjectStateMapper;
 import com.itwillbs.project_fundizzy.vo.NewsVO;
+import com.itwillbs.project_fundizzy.vo.RefundVO;
 import com.itwillbs.project_fundizzy.vo.ShipmentVO;
 
 @Service
@@ -28,20 +29,6 @@ public class ProjectStateService {
 		return stateMapper.selectCumulativePaymentList(project_code);
 	}
 	
-
-	// ================================== 발송 및 환불관리 ==================================
-	public int getOrderCount(String project_code) {
-		return stateMapper.selectOrderCount(project_code);
-	}
-	
-	public List<Map<String, Object>> getOrderList(String project_code) {
-		return stateMapper.selectOrderList(project_code);
-	}
-	
-	public List<Map<String, Object>> getPaymentRewardList(String project_code, String payment_code) {
-		return stateMapper.selectPaymentRewardList(project_code, payment_code);
-	}
-
 	// ================================== 새소식 ==================================
 	public int registNewsBoard(Map<String, String> map) {
 		return stateMapper.insertNewsBoard(map);
@@ -66,9 +53,26 @@ public class ProjectStateService {
 	public int modifyNewsBoard(Map<String, String> map) {
 		return stateMapper.updateNewsBoard(map);
 	}
+	
+	// ================================== 발송 및 환불관리 ==================================
+	public int getOrderCount(String project_code) {
+		return stateMapper.selectOrderCount(project_code);
+	}
+	
+	public List<Map<String, Object>> getOrderList(String project_code) {
+		return stateMapper.selectOrderList(project_code);
+	}
+	
+	public List<Map<String, Object>> getPaymentRewardList(String project_code, String payment_code) {
+		return stateMapper.selectPaymentRewardList(project_code, payment_code);
+	}
 
-	public List<ShipmentVO> getShipStatusCount(String project_code) {
-		return stateMapper.selectShipStatusCount(project_code);
+	public List<ShipmentVO> getShipStateCount(String project_code) {
+		return stateMapper.selectShipStateCount(project_code);
+	}
+
+	public List<RefundVO> getRefundStateCount(String project_code) {
+		return stateMapper.selectRefundStateCount(project_code);
 	}
 
 
