@@ -34,4 +34,10 @@ public class ChatController {
 	public String chatList() {
 		return "service/chat/chat_list";
 	}
+	
+	// 채팅방으로 이동
+	@GetMapping("ChatRoom")
+	public String chatRoom() {
+		return "service/chat/chat_room";
+	}
 }

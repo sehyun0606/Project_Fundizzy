@@ -33,8 +33,8 @@ CREATE TABLE chat_message (
 public class ChatMessage {
 	private int idx;
 	private String type; // 메세지 타입
-	private String sender_id; // 메세지 송신자
-	private String receiver_id; // 메세지 수신자
+	private String sender_email; // 메세지 송신자
+	private String receiver_email; // 메세지 수신자
 	private String room_id; // 채팅방 아이디
 	private String message; // 메세지 내용
 	private String send_time; // 메세지 전송 시각
@@ -44,7 +44,9 @@ public class ChatMessage {
 	public static final String TYPE_ENTER = "TYPE_ENTER";
 	public static final String TYPE_LEAVE = "TYPE_LEAVE";
 	public static final String TYPE_TALK = "TYPE_TALK"; // 대화 메세지
-	public static final String TYPE_INIT = "TYPE_INIT"; // 채팅창 초기화 요청
+	public static final String TYPE_INIT_MAIN = "TYPE_INIT_MAIN"; // 채팅창 초기화 요청(메인페이지)
+	public static final String TYPE_INIT_LIST = "TYPE_INIT_LIST"; // 채팅창 초기화 요청(채팅리스트페이지)
+	public static final String TYPE_INIT_CHATROOM = "TYPE_INIT_CHATROOM"; // 채팅창 초기화 요청(채팅방페이지)
 	public static final String TYPE_INIT_COMPLETE = "TYPE_INIT_COMPLETE"; // 채팅창 초기화 완료
 	public static final String TYPE_ERROR = "TYPE_ERROR"; // 채팅 관련 에러
 	public static final String TYPE_START = "TYPE_START"; // 채팅 시작

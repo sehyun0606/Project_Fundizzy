@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itwillbs.project_fundizzy.mapper.ChatMapper">
+
+	<!-- 채팅방 리스트 조회 -->
+	<select id="selectChatRoomList" resultType="chatRoom">
+		SELECT 
+			c.room_id
+			, c.title
+			, c.member_email as sender_email
+			, (
+				SELECT member_email
+				FROM chat_room
+				WHERE 
+					room_id = c.room_id
+					AND member_email != #{sender_email}
+			) as receiver_email
+			, c.status
+			, c.last_accessed_time
+			, (
+				SELECT COUNT(read_state)
+		        FROM chat_message
+		        WHERE
+					room_id = c.room_id
+		            AND sender_email != c.member_email
+		            AND read_state = 0
+			) as unread_count
+			, (
+				SELECT DISTINCT(message)
+				FROM chat_message
+				WHERE 
+					room_id = c.room_id
+					AND send_time = (
+										SELECT MAX(send_time)
+										FROM chat_message
+										WHERE room_id = c.room_id
+									)
+			) as last_message
+		FROM 
+			chat_room c
+		WHERE
+			c.member_email = #{sender_email}
+			AND c.status > 0
+		ORDER BY c.last_accessed_time ASC
+	</select>
+	
+</mapper>

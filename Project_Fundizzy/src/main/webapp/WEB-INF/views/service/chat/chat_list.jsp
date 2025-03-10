@@ -20,29 +20,9 @@
 			</div>
 		</div>
 		<div id="chatListBoard">
-			<c:forEach begin="1" end="10">
-				<div class="chatRoom">
-					<div class="receiverImg">
-						<img src="/resources/images/notification/followingIcon.png">
-						<span class="messageCount">3</span>
-					</div>
-					<div class="chatRoomInfo">
-						<div class=chatRoomTitle>
-							"뽀로로"님과의 대화방
-						</div>
-						<div class="chatLastContent">
-							마지막 채팅 내용 라라라
-						</div>
-						<div class="updateLastTime">
-						 	2025-02-13 11:20
-						</div>
-					</div>
-				</div>
-			</c:forEach>
 		</div>
 	</div>
 	<script src="/resources/js/jquery-3.7.1.js"></script>
 	<script src="/resources/js/service/chat/chat_list.js"></script>
-	<script src="/resources/js/service/chat/chat_window.js"></script>
 </body>
 </html>

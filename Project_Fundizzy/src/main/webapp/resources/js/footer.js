@@ -1,18 +1,12 @@
-// 채팅 메세지 타입 구분을 위한 상수 설정
-const TYPE_ENTER = "TYPE_ENTER"; // 입장
-const TYPE_LEAVE = "TYPE_LEAVE"; // 퇴장
-const TYPE_TALK = "TYPE_TALK"; // 대화
-
-// 채팅 메세지 정렬 위치 구분을 위한 상수 설정
-const ALIGN_CENTER = "align_center";
-const ALIGN_LEFT = "align_left";
-const ALIGN_RIGHT = "align_right";
-
 // => 자식창에서도 접근 가능하도록 전역 변수로 선언하기 위해 var 로 변수 선언
 var ws;
 
 // 채팅창(새 창) window 객체를 저장할 변수 선언
 var chatWindow;
+
+// 채팅방(새 창) window 객체를 저장할 객체 선언
+// 채팅창마다의 각각의 window 객체를 저장
+var chatRoomWindowObj = {};
 
 // 수신자 아이디를 저장할 변수 선언(상대방과 채팅하기 클릭 시)
 var receiver_id;
@@ -26,9 +20,15 @@ $(function() {
 
 // --------------------------메서드-----------------------------------------------------------
 // 채팅창 오픈 메서드
-function openChatWindow(receiver_id) {
+function openChatWindow() {
 	chatWindow = window.open('/ChatMain', 'chatWindow',
 		'width=400, height=600, top=200, left=1500, status=no, location=no, menubar=no, toolbar=no');
+}
+
+// 채팅방 오픈 메서드
+function openChatRoomWindow(receiver_id) {
+	chatRoomWindowObj[receiver_id] = window.open('/ChatRoom', receiver_id,
+		'width=400, height=600, top=180, left=1300, status=no, location=no, menubar=no, toolbar=no');
 	
 	this.receiver_id = receiver_id; 
 }
@@ -50,14 +50,21 @@ function onOpen() {
 }
 
 function onMessage(event) {
-	console.log("onMessage");
-	
-	// 자식창이 연결 되어있을 경우 ponstMessage()로 전송
+	// 채팅창이 연결 되어있을 경우 postMessage()로 전송
 	if(chatWindow) {
 		chatWindow.postMessage(event.data);
-	} else {
-		// 추후 작업;
-	}
+	} 
+	
+	// 리시버아이디를 통해 해당 채팅방에만 메세지 전달을 위해
+	// event.data에서 receiver_id 추출
+    let chatMessage = JSON.parse(event.data);
+    let receiver_id = chatMessage.receiver_id
+	
+	// 메세지가 전달되어야할 채팅방에만 postMessage 호출
+    if (chatRoomWindowObj[receiver_id]) {
+        chatRoomWindowObj[receiver_id].postMessage(event.data);
+    }
+	
 }
 
 function onClose() {

@@ -32,20 +32,6 @@ $(function() {
 	initChatWindow();
 });
 
-// 채팅창 초기화
-function initChatWindow() {
-	let wsCheckInterval = setInterval(() => {
-		// 부모창의 웹소켓 객체가 없거나 연결상태가 아닐경우 부모창의 연결 메서드 호출
-		if(opener.ws == null || opener.ws.readyState != opener.ws.OPEN) {
-			opener.connect();
-		} else {
-			// 부모창을 통해 메세지를 전송할 sendMessage()함수 호출
-			sendMessage(TYPE_INIT, "", "", "", "");
-			
-			clearInterval(wsCheckInterval);
-		}
-	}, 1000);
-}
  
 // 부모창의 sendMessage() 함수 호출하여 메세지 전송을 요청하는 함수
 function sendMessage(type, sender_id, receiver_id, room_id, message, idx) {
