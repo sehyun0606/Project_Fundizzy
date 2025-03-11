@@ -46,4 +46,37 @@
 		ORDER BY c.last_accessed_time ASC
 	</select>
 	
+	<select id="selectMyMakerInfo" resultType="map">
+		SELECT *
+		FROM member
+		WHERE email IN ( -- 내가 지지한 프로젝트의 메이커 조회
+							SELECT                    
+								p.member_email
+							FROM 
+								support s
+							JOIN 
+								project_list p
+							on 
+								s.project_code = p.project_code
+							WHERE 
+								s.email = #{sender_email}
+						)
+		-- 찜, 팔로잉, 참여한 프로젝트의 메이커 조회 추후 작업
+	</select>
+	
+	<select id="selectMySupportInfo" resultType="map">
+		SELECT *
+		FROM member
+		WHERE email IN ( -- 내프로젝트를 지지한 서포터 조회
+							SELECT s.email
+							FROM 
+								project_list p
+							JOIN 
+								support s
+							ON 
+								p.project_code = s.project_code
+							WHERE
+								p.member_email = #{sender_email}
+						)
+	</select>
 </mapper>

@@ -14,6 +14,7 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.google.gson.Gson;
 import com.itwillbs.project_fundizzy.service.ChatService;
+import com.itwillbs.project_fundizzy.service.MemberService;
 import com.itwillbs.project_fundizzy.vo.ChatMessage;
 import com.itwillbs.project_fundizzy.vo.ChatRoom;
 
@@ -29,6 +30,9 @@ public class WebSocketHandler extends TextWebSocketHandler {
 	
 	@Autowired
 	private ChatService chatService;
+	
+	@Autowired
+	private MemberService memberService;
 
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
@@ -55,9 +59,32 @@ public class WebSocketHandler extends TextWebSocketHandler {
 		
 		System.out.println("수신된 메서드 타입 : " + type);
 		
+		// 채팅창 메인 페이지 초기화 메시지
+		if(type.equals(ChatMessage.TYPE_INIT_MAIN)) {
+			// 회원 정보 조회
+			Map<String, String> sender_info = memberService.getMember(sender_email);
+			chatMessage.setSender_info(gson.toJson(sender_info));
+			
+			// chat_main에 표시할 내가 팔로잉, 찜 및 참여한 프로젝트의 메이커의 정보 조회
+			List<Map<String, String>> makerList = chatService.getMyMakerInfo(sender_email);
+			
+			// chat_main에 표시할 내 프로젝트 서포터정보 조회
+			// 서포터 정보 => 내 프로젝트 참여 회원, 내 프로젝트 지지선언한 회원
+			List<Map<String, String>> supportList = chatService.getMySupportInfo(sender_email);
+			
+			// 조회한 메이커, 서포터의 정보를 메세지로 전달하기위해 하나의 맵객체안에 속성값으로 저장
+			Map<String, List<Map<String, String>>> memberList = new HashMap<String, List<Map<String,String>>>();
+			memberList.put("makerList", makerList);
+			memberList.put("supportList", supportList);
+			
+			// 메세지로 전달하기위해 JSON 형식으로 변환
+			String jsonMemberList = gson.toJson(memberList);
+			chatMessage.setMessage(jsonMemberList);
+			
+			sendMessasge(session, chatMessage);
+			
 		// 채팅 리스트 페이지 채팅창 초기화 메시지
-		if(type.equals(ChatMessage.TYPE_INIT_LIST)) {
-			System.out.println(sender_email);
+		} else if(type.equals(ChatMessage.TYPE_INIT_LIST)) {
 			// 채팅방 리스트 조회
 			List<ChatRoom> chatRoomList = chatService.getChatRoomList(sender_email);
 			// 조회결과를 json타입으로 변환후 chatMessage의 message에 초기화
@@ -65,10 +92,12 @@ public class WebSocketHandler extends TextWebSocketHandler {
 			chatMessage.setMessage(jsonChatRoomList);
 			// 메시지 전달
 			sendMessasge(session, chatMessage);
+		// 채팅방 초기화 메시지
 		} else if (type.equals(ChatMessage.TYPE_INIT_CHATROOM)) {
 			System.out.println("채팅방 초기화 완료");
-			// 채팅 리스트 조회
-			System.out.println(chatMessage);
+			
+			// 채팅방 채팅내역 조회
+//			chatService.getChatRoomRecord(chatMessage);
 		}
 	}
 

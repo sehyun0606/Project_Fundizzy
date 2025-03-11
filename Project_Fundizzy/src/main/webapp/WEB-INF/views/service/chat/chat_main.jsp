@@ -17,8 +17,8 @@
 			<div id="memberTitle">
 				<div id=myProfileImg><img src="/resources/images/notification/followingIcon.png"></div>
 				<div id=myProfile>
-					<div id="myNickName">${memberInfo.nickname}</div>
-					<div id="myEmail">(${memberInfo.email})</div>
+					<div id="myNickName"></div>
+					<div id="myEmail"></div>
 				</div>
 			</div>
 			<div id="memberSearchBox">
@@ -50,15 +50,15 @@
 					<span class="foldingBtn"></span>
 				</div>
 				<div class="peopleList">
-					<c:forEach begin="1" end="5">
-						<div class="people">
-							<div class="peopleImg"><img src="/resources/images/notification/followingIcon.png"></div>
-							<div class=peopleProfile>
-								<div class="peopleNickName">포로리</div>
-								<div class="peopleEmail">(asdf@naver.com)</div>
-							</div>
-						</div>
-					</c:forEach>
+<%-- 					<c:forEach begin="1" end="5"> --%>
+<!-- 						<div class="people"> -->
+<!-- 							<div class="peopleImg"><img src="/resources/images/notification/followingIcon.png"></div> -->
+<!-- 							<div class=peopleProfile> -->
+<!-- 								<div class="peopleNickName">포로리</div> -->
+<!-- 								<div class="peopleEmail">(asdf@naver.com)</div> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<%-- 					</c:forEach> --%>
 				</div>
 			</div>
 			<div id="maker">
@@ -70,15 +70,15 @@
 					</div>
 				</div>
 				<div class="peopleList">
-					<c:forEach begin="1" end="5">
-						<div class="people">
-							<div class="peopleImg"><img src="/resources/images/notification/followingIcon.png"></div>
-							<div class=peopleProfile>
-								<div class="peopleNickName">포로리</div>
-								<div class="peopleEmail">(asdf@naver.com)</div>
-							</div>
-						</div>
-					</c:forEach>
+<%-- 					<c:forEach begin="1" end="5"> --%>
+<!-- 						<div class="people"> -->
+<!-- 							<div class="peopleImg"><img src="/resources/images/notification/followingIcon.png"></div> -->
+<!-- 							<div class=peopleProfile> -->
+<!-- 								<div class="peopleNickName">포로리</div> -->
+<!-- 								<div class="peopleEmail">(asdf@naver.com)</div> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<%-- 					</c:forEach> --%>
 				</div>
 			</div>
 		</div>
