@@ -8,10 +8,6 @@ var chatWindow;
 // 채팅창마다의 각각의 window 객체를 저장
 var chatRoomWindowObj = {};
 
-// 수신자 아이디를 저장할 변수 선언(상대방과 채팅하기 클릭 시)
-var receiver_id;
-
-// --------------------------------------------------------------------
 
 $(function() {
 	// 채팅방 입장을 위한 웹소켓 연결
@@ -26,11 +22,9 @@ function openChatWindow() {
 }
 
 // 채팅방 오픈 메서드
-function openChatRoomWindow(receiver_id) {
-	chatRoomWindowObj[receiver_id] = window.open('/ChatRoom', receiver_id,
+function openChatRoomWindow(receiver_email) {
+	chatRoomWindowObj[receiver_email] = window.open('/ChatRoom', receiver_email,
 		'width=400, height=600, top=180, left=1300, status=no, location=no, menubar=no, toolbar=no');
-	
-	this.receiver_id = receiver_id; 
 }
 
 function connect() {
@@ -56,13 +50,13 @@ function onMessage(event) {
 	} 
 	
 	// 리시버아이디를 통해 해당 채팅방에만 메세지 전달을 위해
-	// event.data에서 receiver_id 추출
+	// event.data에서 receiver_email 추출
     let chatMessage = JSON.parse(event.data);
-    let receiver_id = chatMessage.receiver_id
+    let receiver_email = chatMessage.receiver_email
 	
 	// 메세지가 전달되어야할 채팅방에만 postMessage 호출
-    if (chatRoomWindowObj[receiver_id]) {
-        chatRoomWindowObj[receiver_id].postMessage(event.data);
+    if (chatRoomWindowObj[receiver_email]) {
+        chatRoomWindowObj[receiver_email].postMessage(event.data);
     }
 	
 }
@@ -76,14 +70,14 @@ function onError() {
 }
 
 // 전달받은 데이터를 하나의 json객체 문자열로 변환
-function toJsonString(type, sender_id, receiver_id, room_id, message, idx) {
-	let data = {type, sender_id, receiver_id, room_id, message, idx}
+function toJsonString(type, sender_email, receiver_email, room_id, message, idx) {
+	let data = {type, sender_email, receiver_email, room_id, message, idx}
 	return JSON.stringify(data);
 }
 
 // 전달받은 메세지를 웹소켓 서버측으로 전송하는 sendMessage() 함수
-function sendMessage(type, sender_id, receiver_id, room_id, message, idx) {
+function sendMessage(type, sender_email, receiver_email, room_id, message, idx) {
 	// 웹소켓 객체(ws)의 send() 메서드 호출하여 서버측으로 웹소켓 메세지 전송
-	ws.send(toJsonString(type, sender_id, receiver_id, room_id, message, idx));
+	ws.send(toJsonString(type, sender_email, receiver_email, room_id, message, idx));
 }
 
