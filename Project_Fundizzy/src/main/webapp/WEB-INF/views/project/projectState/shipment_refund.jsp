@@ -192,7 +192,7 @@
 		                            <c:when test="${order.refund_status eq 'REF01'}">
 				                		<td width="86px">신청</td>
 				                	</c:when>
-		                            <c:when test="${order.refund_status eq 'REF02'}">
+		                            <c:when test="${order.refund_status eq 'REF02' or order.refund_status eq 'REF03'}">
 				                		<td width="86px" style="color:blue">완료</td>
 				                	</c:when>
 		                            <c:when test="${order.refund_status eq 'REF03'}">
@@ -215,16 +215,7 @@
 				                            <th width="153px">리워드 금액</th>
 				                            <th width="138px">수량</th>
 				                            <th width="169px">펀딩금 반환</th>
-				                            <th width="117px">
-					                            <c:choose>
-			                           				<c:when test="${order.refund_status eq 'REF01'}">
-							                            <input type="button" value="확인하기" class="refundInfoBtn">
-					                            	</c:when>
-					                            	<c:otherwise>
-					                            		<!-- null일 시 공백 -->
-					                            	</c:otherwise>
-					                            </c:choose>
-				                            </th>
+				                            <th width="117px"></th>
 				                            <th width="45px"></th>
 				                        </tr>
 		            					<c:forEach begin="1" end="${order.fund_count}">
