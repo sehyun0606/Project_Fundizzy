@@ -161,7 +161,6 @@
 		
 	<select id="selectPaymentRewardList" resultType="map">
 		SELECT 
-			r.refund_code,
 			fh.fund_idx, 
 			fh.project_code, 
 			fh.member_email, 
@@ -177,18 +176,11 @@
 			fh.refund_date, 
 			fh.send_date, 
 			fh.product_count, 
-			fh.payment_code,
-			r.refund_request_date
+			fh.payment_code
 		FROM 
 			fund_history fh
-		JOIN 
-			refund r
-		ON 
-			fh.fund_idx = r.fund_idx
 		WHERE 
 			fh.payment_code = #{payment_code}
-		ORDER BY 
-			refund_request_date
 	</select>
 	
 	<select id="selectShipStateCount" resultType="map">

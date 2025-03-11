@@ -212,8 +212,8 @@
 				                        <tr>
 				                            <td>${status.index + 1}-${status2.index}<input type="hidden" class="refund_code"></td>
 				                            <td class="product_name"></td>
-				                            <td class="result_point">원</td>
-				                            <td class="product_count">개</td>
+				                            <td class="result_point"></td>
+				                            <td class="product_count"></td>
 				                            <td class="refund_status"></td>
 				                            <td class="statusBtn"></td>
 				                            <td></td>
@@ -232,38 +232,30 @@
 				<div class="modal-main">
 					<h3>발송 정보</h3>
 					<form action="ShipmentInfo">
-						<c:forEach var="reward" items="${paymentRewardList}">
-							<div class="reward-container">
-								<div class="reward-title">${reward.product_name}</div>
-								<div class="reward-info">
-									<span>${reward.price}원 / ${reward.order_count}개</span>
-								</div>
-							</div>
-						</c:forEach>
 						<div class="receiver-container">
 							<div class="receiver-info">
 								<span>결제번호</span>
-								<span>87</span>
+								<span></span>
 							</div>
 							<div class="receiver-info">
 								<span>총금액</span>
-								<span>108,000원</span>
+								<span></span>
 							</div>
 							<div class="receiver-info">
 								<span>수취인</span>
-								<span>김땡땡</span>
+								<span></span>
 							</div>
 							<div class="receiver-info">
 								<span>연락처</span>
-								<span>010-7484-9988</span>
+								<span></span>
 							</div>
 							<div class="receiver-info">
 								<span>우편번호</span>
-								<span>73652</span>
+								<span></span>
 							</div>
 							<div class="receiver-info">
 								<span>주소</span>
-								<span>부산광역시 부산진구 전포로 어디어디 삼한골든게이트 7층</span>
+								<span></span>
 							</div>
 						</div>
 						<div class="ship-container">
@@ -301,21 +293,17 @@
 						<div class="receiver-container">
 							<div class="receiver-info">
 								<span>결제번호</span>
-								<span>87</span>
+								<span></span>
 							</div>
 							<div class="receiver-info">
 								<span>서포터명</span>
-								<span>오렌지</span>
+								<span></span>
 							</div>
 						</div>
-						<c:forEach var="order" begin="1" end="1">
-							<div class="reward-container">
-								<div class="reward-title">[발받침대] 편안함을 선사하는 ${order}단 쿠션 발받침대</div>
-								<div class="reward-info">
-									<span>18,000원 / ${order}개</span>
-								</div>
-							</div>
-						</c:forEach>
+<!-- 						<div class="reward-container"> -->
+<!-- 							<div class="reward-title"></div> -->
+<!-- 							<div class="reward-info"></div> -->
+<!-- 						</div> -->
 						
 						<div class="refund-reason">
 							<h4>펀딩금 반환 신청 사유</h4>
@@ -426,13 +414,13 @@
 				for(let order of jsonOrderList) {
 					if(order.payment_code == payment_code) {
 						let address = order.address + " " + order.address1;
-						console.log(order);
-						$(".receiver-info:nth-child(1) span:nth-child(2)").text(order.payment_code);
-						$(".receiver-info:nth-child(2) span:nth-child(2)").text(order.payment_amount);
-						$(".receiver-info:nth-child(3) span:nth-child(2)").text(order.name);
-						$(".receiver-info:nth-child(4) span:nth-child(2)").text(order.phone_num);
-						$(".receiver-info:nth-child(5) span:nth-child(2)").text(order.post_code);
-						$(".receiver-info:nth-child(6) span:nth-child(2)").text(address);
+// 						console.log(order);
+						$("#ship-modal .receiver-info:nth-child(1) span:nth-child(2)").text(order.payment_code);
+						$("#ship-modal .receiver-info:nth-child(2) span:nth-child(2)").text(order.payment_amount);
+						$("#ship-modal .receiver-info:nth-child(3) span:nth-child(2)").text(order.name);
+						$("#ship-modal .receiver-info:nth-child(4) span:nth-child(2)").text(order.phone_num);
+						$("#ship-modal .receiver-info:nth-child(5) span:nth-child(2)").text(order.post_code);
+						$("#ship-modal .receiver-info:nth-child(6) span:nth-child(2)").text(address);
 					}
 				}
 				
@@ -443,15 +431,20 @@
 						payment_code
 					}
 				}).done(function(rewardList) {
-					
+					// 발송정보 입력 폼에 주문 리워드 정보 출력
+					$("#ship-modal .reward-container").empty()
+					for(let reward of rewardList) {
+						console.log(reward);
+						$("#ship-modal form").prepend(
+							"<div class='reward-container'>"
+							+ "<div class='reward-title'>" + reward.product_name + "</div>"
+							+ "<div class='reward-info'>" + reward.result_point + "원 / " + reward.product_count + "개</div>"
+							+ "</div>"		
+						)
+					}
 				}).fail(function() {
 					console.lof("실패");
 				});
-				
-				
-				
-				
-				
 				
 				
 			}); 
@@ -461,6 +454,41 @@
 				
 				$("#refund-modal").fadeIn();
 				$("#ship-modal").css("display", "none");
+				
+				let payment_code = $(this).closest("tr.details").prev("tr").find(".payment_code").val();
+				console.log(payment_code);
+				// 환불 요청 모달창에 정보 출력
+				for(let order of jsonOrderList) {
+					if(order.payment_code == payment_code) {
+						$("#refund-modal .receiver-info:nth-child(1) span:nth-child(2)").text(order.payment_code);
+						$("#refund-modal .receiver-info:nth-child(2) span:nth-child(2)").text(order.name);
+					}
+				}
+				
+				$.ajax({
+					type : "GET",
+					url : "PaymentRewardDetail",
+					data : {
+						payment_code
+					}
+				}).done(function(rewardList) {
+					// 환불 요청 폼에 주문 리워드 정보 출력
+					$("#refund-modal .reward-container").empty()
+					for(let reward of rewardList) {
+						console.log(reward);
+						if(reward.refund_stat == "REF01") {
+							$("#refund-modal .receiver-container").after(
+								"<div class='reward-container'>"
+								+ "<div class='reward-title'>" + reward.product_name + "</div>"
+								+ "<div class='reward-info'>" + reward.result_point + "원 / " + reward.product_count + "개</div>"
+								+ "</div>"		
+							);
+							$("#refund-modal .refund-info span:nth-child(2)").text(reward.result_point + "원");
+						}
+					}
+				}).fail(function() {
+					console.lof("실패");
+				});
 			});
 		
 	        // x 버튼 클릭 시 모달창 닫힘

@@ -239,7 +239,7 @@ h3 {
 }
 
 .reward-container {
-    margin-bottom: 20px;
+    margin: 30px 0;
 }
 
 .reward-title {
@@ -325,7 +325,7 @@ h4 {
 }
 .refund-reason {
 	padding-bottom: 20px; 
-	margin-top: 50px;
+	margin-top: 30px;
 }
 .refund-reason h4 {
 	letter-spacing: -1px;
