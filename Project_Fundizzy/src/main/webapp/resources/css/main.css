@@ -10,171 +10,449 @@ body {
     padding: 20px;
     border-bottom: 1px solid #ccc;
 }
-
-.nav ul {
-    list-style: none;
-    display: flex;
-    gap: 20px;
+/* ✅ 전체 컨테이너 (이 안에 계속 새로운 요소 추가 가능) */
+.main-container {
+    width: 100%;
+    background: white;
+    padding: 20px 0;
 }
 
-.search-bar input {
-    padding: 5px 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-.auth-buttons button {
-    margin-left: 10px;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 5px;
-}
-article{
-	width:100%;
-	height: 100%;
-	overflow: hidden;
-}
-
-.main-banner {
-    display: flex;
-    justify-content: space-around;
-    margin: 20px 0 20px 0;
-    height: 320px;
-    padding-top: 20px;
-    padding-bottom: 35px;
-    perspective:500px;
-    transform-style:preserve-3d;
-}
-
-.main-banner img {
-    width: 400px;
-    height: 300px;
-}
-
-.slide {
-  transition:0.5s;
-  width:390px;
-  box-shadow:0 10px 50px gray;
-  height:290px;
-  background:white;
-  border:1px solid rgba(0,0,0,0.1);
-  position:absolute;
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-50%)
-}
-.slide:nth-of-type(1),.slide:nth-of-type(2) {  
-  transform:translate(calc(-50%*5.1),-50%) translateZ(-100px);
-}
-.slide:nth-of-type(3){
-  transform:translate(calc(-50%*3.1),-50%) translateZ(-50px);
-}
-.slide:nth-of-type(4){
-   transform:translate(calc(-50%*1.1),-50%) translateZ(50px) ;
-}
-.slide:nth-of-type(5){
-    transform:translate(calc(-50%*-0.9),-50%) translateZ(-50px) ;
-}
-.slide:nth-of-type(6),.slide:nth-of-type(7){
-  transform:translate(calc(-50%*-2.9),-50%) translateZ(-100px) ;
-}
-
-.slide-button .prev {
-  position: absolute;
-  z-index: 9999; /* 가장 앞으로 배치 */
-  bottom: 33em;
-  left: 38%;
-  transform: translate(-50%);
-}
-
-  
-.slide-button .next {
-  position:absolute;
-  z-index:1;
-  bottom:33em;
-  left:60%;
-  transform:translate(-50%);
-}
-
-.category-nav {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    list-style: none;
-    margin: 20px 0;
-}
-.category-nav button{
-	width: 95px;
-	height: 95px;
-	line-height: 153px;
-	font-size: 0.8em;
-	padding: 5px;
-	display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-    border-radius: 8px;
+/* ✅ 검색 영역 */
+.search-section {
     text-align: center;
-    text-decoration: none;
-    color: #000;
-}
-
-
-.category-nav img {
-    max-width: 50px;
-    height: 69px;
-    margin-bottom: -58px;
-}
-.category-nav button e-book{
-	padding: 15px;
-}
-
-.filter-nav {
-    display: flex;
-    justify-content: flex-end;
-    margin: 20px;
-}
-#selectall{
-	border-color: white;
-    font-size: 1.0em;
-}
-
-.filter-nav button {
-    margin-left: 10px;
-    font-size: 1.0em;
-    border-color:white;
-    background-color: white;
-}
-
-.product-list {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    margin: 40px 140px 0px 140px;
-    
-}
-
-.product {
-    width: 23%;
     margin-bottom: 20px;
 }
-
-.product-img {
-    width: 350px;
-    height: 200px;
-    background-color: #ccc;
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
 }
 
-.product-info {
-    padding: 2px 0;
+/* ✅ 검색 박스 */
+.search-box {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 500px;
+}
+.search-box input {
+    width: 100%;
+    padding: 12px 40px 12px 12px; /* 오른쪽 공간 확보 */
+    border-radius: 20px;
+    border: 1px solid mediumpurple;
+    font-size: 16px;
+}
+.search-box input:focus {
+    outline: none;
+    border: 2px solid mediumpurple;
+}
+.search-icon {
+    position: absolute;
+    right: 15px;
+    font-size: 18px;
+    color: gray;
+    cursor: pointer;
+}
+.search-icon:hover {
+    color: mediumpurple;
+    transform: scale(1.2);
 }
 
-.discount {
-    color: purple;
+/* ✅ 검색 바 옆 카테고리 선택 */
+.category-selector {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+.category-number {
+    color: mediumpurple;
     font-weight: bold;
+    font-size: 20px;
+    margin-top: 3px;
+}
+.category-text {
+    font-size: 16px;
+    color: black;
+}
+.dropdown-icon {
+    font-size: 14px;
+    color: gray;
+    transition: transform 0.3s ease-in-out;
+}
+.category-selector:hover .dropdown-icon {
+    transform: rotate(180deg);
 }
 
-.rating {
-    color: #555;
+
+/* ✅ 카테고리 섹션 */
+.category-section {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+.category-list {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 10px 20px;
+    scrollbar-width: none;
+}
+.category-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    width: 80px;
+}
+.category-item img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+.category-item p {
+    font-size: 12px;
+    margin-top: 5px;
+    color: black;
+}
+.category-item:hover p {
+    color: mediumpurple;
+}
+
+/* ✅ 좌우 스크롤 버튼 */
+.scroll-btn {
+    position: absolute;
+    background: white;
+    border: none;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.scroll-btn.left {
+    left: 0;
+}
+.scroll-btn.right {
+    right: 0;
+}
+
+/* ✅ 하위 카테고리 섹션 */
+.sub-category-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    margin: 20px 0;
+}
+
+/* ✅ 카테고리를 가로 스크롤 가능하게 설정 */
+.sub-category-wrapper {
+    width: 60%;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    -ms-overflow-style: none; /* IE, Edge 스크롤바 숨김 */
+    scrollbar-width: none; /* Firefox 스크롤바 숨김 */
+}
+.sub-category-wrapper::-webkit-scrollbar {
+    display: none; /* Chrome, Safari 스크롤바 숨김 */
+}
+
+/* ✅ 카테고리 리스트 (갯수에 따라 자동 확장) */
+.sub-category {
+    display: flex;
+    gap: 20px;
+    font-size: 14px;
+    color: gray;
+    min-width: max-content; /* 컨텐츠 크기만큼 확장 */
+}
+
+/* ✅ 개별 카테고리 아이템 */
+.sub-category span {
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 15px;
+    transition: background-color 0.3s ease-in-out;
+}
+.sub-category span:hover {
+    background-color: rgba(147, 112, 219, 0.2);
+    color: black;
+}
+
+/* ✅ 좌우 스크롤 버튼 (배경 없이 아이콘만 보이게) */
+.sub-scroll-btn {
+    position: absolute;
+    background: transparent;  /* ✅ 배경 없애기 */
+    color: lightgray;  /* ✅ 기본 색상 연한 회색 */
+    border: none;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 100;
+    transition: color 0.3s ease-in-out;
+}
+
+/* ✅ 버튼 호버 시 아이콘 색상 변경 */
+.sub-scroll-btn:hover {
+    color: dimgray; /* ✅ 더 진한 회색 */
+}
+
+/* ✅ 왼쪽 버튼 위치 */
+.sub-scroll-btn.left {
+    left: 19%;
+}
+
+/* ✅ 오른쪽 버튼 위치 */
+.sub-scroll-btn.right {
+    right: 20%;
+    display: block; /* ✅ 처음에는 오른쪽 버튼만 보이도록 설정 */
+}
+/*---------------------------------------------*/
+/* ✅ 전체 콘텐츠를 2열로 정렬 */
+.content-wrapper {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: auto;
+    gap: 20px;
+}
+
+/* ✅ 왼쪽 (배너 + 취향 맞춤 프로젝트) */
+.left-content {
+    width: 70%;
+}
+
+/* ✅ 배너 스타일 */
+.banner-container {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+    border-radius: 10px;
+}
+.banner-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ✅ 취향 맞춤 프로젝트 */
+.custom-project-section h2 {
+    font-size: 20px;
+    margin-top: 20px;
+}
+.project-list {
+    display: flex;
+    gap: 10px;
+}
+.project-item {
+    width: 32%;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.project-item img {
+    width: 100%;
+    height: auto;
+}
+
+/* ✅ 오른쪽 (실시간 랭킹) */
+.ranking-section {
+    width: 30%;
+    background: white;
+    padding: 10px;
+}
+.ranking-tabs {
+    display: flex;
+    gap: 10px;
+    font-size: 14px;
+}
+.ranking-tabs span {
+    cursor: pointer;
+    padding: 5px 10px;
+}
+.ranking-tabs span.active {
+    font-weight: bold;
+    border-bottom: 2px solid black;
+}
+.ranking-list {
+    list-style: none;
+    padding: 0;
+}
+.ranking-list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0;
+}
+.rank-number {
+    font-size: 20px;
+    font-weight: bold;
+    color: black;
+}
+.rank-highlight {
+    font-weight: bold;
+    color: green;
+}
+.ranking-list img {
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+}/* ✅ 전체 콘텐츠를 2열로 정렬 */
+.content-wrapper {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: auto;
+    gap: 20px;
+}
+
+/* ✅ 왼쪽 (배너 + 취향 맞춤 프로젝트) */
+.left-content {
+    width: 70%;
+}
+
+/* ✅ 배너 스타일 */
+.banner-section {
+	margin-top: 30px;
+}
+.banner-container {
+    position: relative;
+    width: 100%;
+    height: 350px;
+    overflow: hidden;
+}
+.banner-img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+/* ✅ 배너 내비게이션 버튼 */
+.banner-prev,
+.banner-next {
+    position: absolute;
+    bottom: 10px;  /* 하단 여백 */
+    right: 10px;   /* 우측 정렬 */
+    background: rgba(0, 0, 0, 0.3);  /* 반투명 배경 */
+    color: white;
+    border: none;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    font-size: 18px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+/* ✅ 버튼 호버 효과 */
+.banner-prev:hover,
+.banner-next:hover {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+/* ✅ 좌우 버튼 위치 조정 */
+.banner-prev {
+    right: 50px;  /* 왼쪽 버튼은 오른쪽에서 약간 띄움 */
+}
+.banner-next {
+    right: 10px;  /* 오른쪽 버튼은 우측 끝 */
+}
+
+/* ✅ 취향 맞춤 프로젝트 */
+.custom-project-section h2 {
+    font-size: 20px;
+    margin-top: 20px;
+}
+.project-list {
+    display: flex;
+    gap: 10px;
+}
+.project-item {
+    width: 32%;
+    background: white;
+    overflow: hidden;
+    color: gray;
+    font-weight: 600;
+    text-align: left;
+}
+.project-item img {
+    width: 100%;
+    height: 150px;
+    border-radius: 10px;
+}
+
+/* ✅ 오른쪽 (실시간 랭킹) */
+.ranking-section {
+    width: 30%;
+    background: white;
+    padding: 10px;
+}
+.ranking-tabs {
+    display: flex;
+    gap: 10px;
+    font-size: 14px;
+}
+.ranking-tabs span {
+    cursor: pointer;
+    padding: 5px 10px;
+}
+.ranking-tabs span.active {
+    font-weight: bold;
+    border-bottom: 2px solid black;
+}
+.ranking-list {
+    list-style: none;
+    padding: 0;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+.ranking-list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0;
+}
+.rank-number {
+    font-size: 20px;
+    font-weight: bold;
+    color: black;
+}
+.rank-highlight {
+    font-weight: bold;
+ 	color: green;	
+    margin-bottom: auto;
+    margin-top: auto;
+}
+.ranking-list img {
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+}
+.rank-content p {
+	margin-bottom: auto;
+}
+/* ✅ 연한 회색 구분선 */
+.divider1 {
+    width: 100%;
+    height: 1px;
+    background-color: #ddd;  /* 연한 회색 */
+    margin: 0px 0;  /* 위아래 여백 */
+}
+/* ✅ 🔥 메인 배너 & 실시간 랭킹 사이의 구분선 */
+.divider2 {
+    width: 1px; /* 선의 두께 */
+    background-color: #ddd; /* 연한 회색 */
+    height: auto; /* 양쪽 콘텐츠 크기에 맞게 자동 조절 */
+    margin: 0 20px; /* 양쪽 여백 */
 }

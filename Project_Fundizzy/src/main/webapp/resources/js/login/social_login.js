@@ -66,9 +66,9 @@ function loginWithNaver() {
 	console.log("naverRedirectUrl:", naverRedirectUrl);
 	console.log("state:", state);
 
-	const CLIENT_ID = "nVS26rI05YiQysGlYd2m";
-	const CLIENT_SECRET = "iF7pkI7_dn";
-	const REDIRECT_URL = "http://localhost:8081/NaverCallback";
+//	const CLIENT_ID = "nVS26rI05YiQysGlYd2m";
+//	const CLIENT_SECRET = "iF7pkI7_dn";
+//	const REDIRECT_URL = "http://localhost:8081/NaverCallback";
 	
 	console.log("CLIENT_ID : " + naverClientId + " CLIENT_SECRET : " + naverClientSecret + " REDIRECT_URL : " + naverRedirectUrl + " state : " + state);
 	

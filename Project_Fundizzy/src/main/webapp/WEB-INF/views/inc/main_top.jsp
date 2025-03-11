@@ -135,7 +135,6 @@
 			    <a href="/HelpCenter" class="top-items <%= currentPath.contains("HelpCenter") ? "active" : "" %>">도움말센터</a>
 			</div>
     	</div>
-        <input type="text" class="search-bar  top-items"  placeholder="검색">
         <div class="log-in top-items">
 	        <div class="auth-links top-items">
 		        <c:choose>
