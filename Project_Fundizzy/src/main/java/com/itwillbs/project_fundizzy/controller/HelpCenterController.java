@@ -11,7 +11,7 @@ public class HelpCenterController {
 	@GetMapping("HelpCenter")
 	public String HelpCenter() {
 		
-		return "helpcenter/help_main";
+		return "helpCenter/help_main";
 	}
 	
 	
