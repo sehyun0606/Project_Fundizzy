@@ -28,6 +28,8 @@ $(document).ready(function () {
         },
         theme: "snow"
     });
+	quill1.enable(false);
+	quill2.enable(false);
 
     // **🔥 기존 데이터 불러와서 Quill 에디터에 삽입**
     let storyContent = $("#storyText").val();

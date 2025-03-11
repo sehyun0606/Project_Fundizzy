@@ -4,6 +4,38 @@ body {
     padding: 0;
     height: 100vh;
 }
+.input-box {
+    width: 96%;
+    padding: 10px;
+    margin-bottom: 5%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    
+}
+
+.input-box:disabled {
+	width: 70%;
+    background: #e0e0e0;
+    color: #666;
+}
+
+.input-group {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 5%;
+}
+
+.edit {
+	background: #d030f3;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    height: fit-content;
+}
+
 
 /* 컨테이너 스타일 */
 .profile-container {
@@ -46,7 +78,7 @@ body {
     margin-top: 10px;
 }
 
-.upload-btn, .delete-btn {
+.image-upload {
     background: none;
     border: none;
     font-size: 14px;
@@ -55,7 +87,7 @@ body {
     margin: 0 5px;
 }
 
-.upload-btn:hover, .delete-btn:hover {
+.image-upload:hover {
     color: #d030f3;
 }
 

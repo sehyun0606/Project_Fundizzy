@@ -466,7 +466,47 @@ public class ProjectMakerController {
 		return "redirect:/ProjectMaker";
 	}
 	
+	//읽기전용 리워드 확인
+	@GetMapping("ProjectRewardRead")
+	public String projectRewardRead(HttpSession session, Model model) {
+		
+		String projectCode = (String) session.getAttribute("project_code");
+		
+		List<RewardVO> rewardList = projectMakerService.getReward(projectCode);
+		
+		model.addAttribute("rewardList", rewardList);
+		
+		return "project/projectMaker/project_reward_read";
+	}
 	
+	//읽기전용 메이커 정보 확인
+	@GetMapping("MakerInfoRead")
+	public String makerInfoRead(HttpSession session, Model model) {
+		
+		String projectCode = (String) session.getAttribute("project_code");
+		
+		MakerInfoVO makerInfo = projectMakerService.getMakerInfo(projectCode);
+		
+		model.addAttribute("makerInfo", makerInfo);
+		
+		return "project/projectMaker/maker_info_read";
+	}
+	
+	@GetMapping("ProjectStoryRead")
+	public String projectStoryRead(HttpSession session, Model model) {
+		String project_code = (String) session.getAttribute("project_code");
+		
+		ProjectStoryVO projectStory = projectMakerService.getProjectStory(project_code);
+		
+		model.addAttribute("projectStory", projectStory);
+		
+		//다중파일 목록을 배열처리하기
+		String[] projectStoryArray = projectStory.getProduct_picture().split(",");
+		model.addAttribute("imgList", projectStoryArray);
+		
+		
+		return "project/projectMaker/project_story_read";
+	}
 	
 	//파일 업로드 및 다운로드를 위한 유틸리티 메서드
 	//파일 업로드에 사용될 실제 업로드 디렉토리 경로를 리턴하는 메서드

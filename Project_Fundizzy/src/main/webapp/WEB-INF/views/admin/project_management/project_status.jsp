@@ -18,7 +18,7 @@
 	<header>
 		<jsp:include page="/WEB-INF/views/admin/inc/admin_top.jsp" />
 	</header>
-	<article>
+	<article style="display: flex;">
 		<!-- sidebar.jsp -->
 		<jsp:include page="/WEB-INF/views/admin/inc/admin_sidebar.jsp" />
 	
@@ -183,8 +183,8 @@
 	            </div>
 	        </div>
 	        <div class="buttonSection">
-	        	<input type="button" value="거절하기">
-	        	<input type="button" value="허가하기">
+	        	<input type="button" class="deny" value="거절하기">
+	        	<input type="button" class="accept" value="허가하기">
 	        </div>
 	    </div>
 	</div>

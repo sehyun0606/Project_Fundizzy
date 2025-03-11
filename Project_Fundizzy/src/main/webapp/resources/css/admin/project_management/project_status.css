@@ -295,6 +295,32 @@ table tr:hover {
     justify-content: space-between;
 }
 
+.accept {
+  background-color: #90ee90; /* Light Green */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
 
+.accept:hover {
+  background-color: #76c776; /* Darker Light Green */
+}
+.deny {
+  background-color: #ff9999; /* Light Red */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
 
+.deny:hover {
+  background-color: #ff7777; /* Darker Light Red */
+}
 

@@ -9,4 +9,9 @@
 		WHERE member_email = #{id}
 		ORDER BY project_date desc
 	</select>
+	<select id="selectMemberInfo" resultType="Member">
+		SELECT *
+		FROM member
+		WHERE email = #{email}
+	</select>
 </mapper>

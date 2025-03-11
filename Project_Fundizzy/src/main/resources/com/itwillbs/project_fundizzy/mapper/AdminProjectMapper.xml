@@ -56,6 +56,26 @@
 			project_info
 		WHERE project_code = #{projectCode}
 	</select>
+	
+	<update id="projectAccept">
+		UPDATE 
+			project_list
+		SET
+			approve_stat = 'accept',
+			approved_date = NOW()
+		WHERE
+			project_code = #{project_code}
+	</update>
+	
+	<update id="projectDeny">
+		UPDATE
+			project_list
+		SET
+			approve_stat = 'deny',
+			approved_date = NOW()
+		WHERE
+			project_code = #{project_code}
+	</update>
 </mapper>
 
 

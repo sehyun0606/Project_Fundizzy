@@ -6,6 +6,7 @@ $(document).ready(function() {
          projectCode = $(this).closest("tr").find(".project_code").text();
          console.log(projectCode)
          
+
           $.ajax({
   			url : "AdminGetProjectInfo",
 			type : "GET",
@@ -158,4 +159,17 @@ $(document).ready(function() {
         link.download = fileName; // 다운로드 시 사용할 파일 이름
         link.click(); // 링크 클릭 이벤트 실행
     });
+	
+	$(".accept").click(function(){
+		
+		
+		location.href="ProjectAccept?project_code=" + projectCode;	
+	});
+	
+	
+	$(".deny").click(function(){
+		location.href="ProjectDeny?project_code=" + projectCode;
+	});
+	
+
  });

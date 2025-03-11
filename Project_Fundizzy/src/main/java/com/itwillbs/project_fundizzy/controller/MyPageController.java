@@ -18,6 +18,7 @@ import com.itwillbs.project_fundizzy.service.MypageService;
 import com.itwillbs.project_fundizzy.vo.BankAccount;
 import com.itwillbs.project_fundizzy.vo.BankToken;
 import com.itwillbs.project_fundizzy.vo.FundizzyPay;
+import com.itwillbs.project_fundizzy.vo.MemberVO;
 import com.itwillbs.project_fundizzy.vo.ProjectListVO;
 import com.mysql.cj.Session;
 
@@ -43,13 +44,21 @@ public class MyPageController {
 	
 	// 프로필 설정 - 설정메인에서 버튼을 통해 이동
 	@GetMapping("ProfileSettings")
-	public String ProfileSettings() {
+	public String ProfileSettings(Model model, HttpSession session) {
+		String email = (String)session.getAttribute("sId");
+		
+		MemberVO member = mypageService.getMemberInfo(email);
+		
+		model.addAttribute("member", member);
 		return "myPage/supporter/profile_settings";
 	}
 	
-	@GetMapping("MemberInfo")
-	public String memberInfo() {
-		return "myPage/supporter/member_info";
+	@PostMapping("ProfileInfoEdit")
+	public String profileInfoEdit(MemberVO member) {
+		
+		
+		
+		return "redirect:/SupporterPage";
 	}
 	
 	//메이커페이지 이동

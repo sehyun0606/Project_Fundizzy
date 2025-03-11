@@ -88,6 +88,22 @@ public class AdminProjectController {
 		
 		return gson.toJson(makerInfo);
 	}
+	
+	@GetMapping("ProjectAccept")
+	public String projectAccept(String project_code) {
+		
+		projectService.projectAccept(project_code);
+		
+		return "redirect:/AdminProjectStatus";
+	}
+	
+	@GetMapping("ProjectDeny")
+	public String projectDeny(String project_code) {
+		
+		projectService.projectDeny(project_code);
+		
+		return "redirect:/AdminProjectStatus";
+	}
 }
 
 

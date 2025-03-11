@@ -18,6 +18,7 @@
 		<typeAlias type="com.itwillbs.project_fundizzy.vo.ShipmentVO" alias="shipment"/>
 		<typeAlias type="com.itwillbs.project_fundizzy.vo.FundizzyPay" alias="fundizzyPay"/>
 		<typeAlias type="com.itwillbs.project_fundizzy.vo.RefundVO" alias="refund"/>
+		<typeAlias type="com.itwillbs.project_fundizzy.vo.MemberVO" alias="Member"/>
 		
 	</typeAliases>
 </configuration>

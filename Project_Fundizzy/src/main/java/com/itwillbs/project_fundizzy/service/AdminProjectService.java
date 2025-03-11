@@ -38,4 +38,12 @@ public class AdminProjectService {
 		return projectMapper.selectMakerInfo(projectCode);
 	}
 
+	public void projectAccept(String project_code) {
+		projectMapper.projectAccept(project_code);
+	}
+
+	public void projectDeny(String project_code) {
+		projectMapper.projectDeny(project_code);
+	}
+
 }
