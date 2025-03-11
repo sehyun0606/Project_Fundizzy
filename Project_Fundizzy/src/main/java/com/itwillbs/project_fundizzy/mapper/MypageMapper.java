@@ -14,4 +14,6 @@ public interface MypageMapper {
 
 	MemberVO selectMemberInfo(String email);
 
+	void updateProfile(MemberVO member);
+
 }

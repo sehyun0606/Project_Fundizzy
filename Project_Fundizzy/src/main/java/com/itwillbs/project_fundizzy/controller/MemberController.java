@@ -99,6 +99,7 @@ public class MemberController {
 		// 사용자 정보에서 필요한 값 추출
         String nickname = (String) ((Map<String, Object>) kakaoUserInfo.get("properties")).get("nickname");
         String email = (String) ((Map<String, Object>) kakaoUserInfo.get("kakao_account")).get("email");
+        String profile = memberService.getProfileImg(email);
         System.out.println("닉네임 : " + nickname + " 이메일 : " + email);
         
         // DB에서 유저 정보 가져오기
@@ -112,6 +113,7 @@ public class MemberController {
         
         session.setAttribute("DBKakaoUserInfo", DBKakaoUserInfo);
 		session.setAttribute("sId", email);
+		session.setAttribute("profileImg", profile);
         session.setAttribute("loginType", "kakao");
         
         // Model 객체에 사용자 정보를 추가하여 JSP로 전달
@@ -138,6 +140,7 @@ public class MemberController {
 		
 		String email = (String) ((Map<String, Object>) naverUserInfo.get("response")).get("email");
 		String nickname = (String) ((Map<String, Object>) naverUserInfo.get("response")).get("nickname");
+		String profile = memberService.getProfileImg(email);
 		System.out.println("email: " + email + " nickname: " + nickname);
 		
 		// DB에서 유저 정보 가져오기
@@ -152,6 +155,7 @@ public class MemberController {
         
         session.setAttribute("DBNaverUserInfo", DBNaverUserInfo);
 		session.setAttribute("sId", email);
+		session.setAttribute("profileImg", profile);
         session.setAttribute("loginType", "naver");
         
         // Model 객체에 사용자 정보를 추가하여 JSP로 전달
@@ -288,6 +292,7 @@ public class MemberController {
 				
 			} else {
 				session.setAttribute("sId", dbMember.get("email"));
+				session.setAttribute("profileImg", dbMember.get("profile"));
 				session.setAttribute("loginType", "local");
 				session.setMaxInactiveInterval(5000000);
 				System.out.println("아이디 저장하기 체크박스값 : " + rememberId);

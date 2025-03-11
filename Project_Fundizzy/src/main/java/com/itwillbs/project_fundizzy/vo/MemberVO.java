@@ -11,9 +11,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MemberVO {
 	private String profile;
-	private MultipartFile proFile;
+	private MultipartFile profileImg;
 	private String interests;
 	private String introduction;
 	private String phone;
 	private String email;
+	private String nickname;
 }

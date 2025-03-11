@@ -180,8 +180,12 @@
 			WHERE email = #{email} AND social_type = 'naver'
 		</select>
 
-
-
+	<!-- 작업자 : 정세현 -->
+	<select id="selectProfileImg" resultType="String">
+		SELECT profile
+		FROM member
+		WHERE email = #{email}
+	</select>
 
 
 

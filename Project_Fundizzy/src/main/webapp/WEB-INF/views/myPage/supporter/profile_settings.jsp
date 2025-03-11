@@ -18,17 +18,17 @@
 	<form action="ProfileInfoEdit" method="post" enctype="multipart/form-data">
 	    <!-- 프로필 이미지 업로드 -->
 	    <div class="profile-image-section">
-	        <input type="file" id="fileInput" name="proFile" accept="image/*" style="display: none;">
+	        <input type="file" id="fileInput" name="profileImg" accept="image/*" style="display: none;">
 	        <c:choose>
-	        	<c:when test="${empty member.profile}">
+	        	<c:when test="${empty memberInfo.profile}">
 			        <img id="previewImage" class="preview" src="" alt="미리보기" style="display:none;">
 	        	</c:when>
 	        	<c:otherwise>
-			        <img id="previewImage" class="preview" src="/resources/upload/${member.profile}" alt="미리보기" style="display:none;">
+			        <img id="previewImage" class="preview" src="/resources/upload/${memberInfo.profile}" alt="미리보기">
 	        	</c:otherwise>
 	        </c:choose>
 	        <div class="profile-buttons">
-	            <button class="image-upload">프로필 사진 등록하기</button>
+	            <button type="button" class="image-upload">프로필 사진 등록하기</button>
 	        </div>
 	    </div>
 	
@@ -36,19 +36,19 @@
 	    <!-- 입력 필드 -->
 	    <div class="input-section">
 			
-			<input type="text" placeholder="이름을 설정해주세요" class="input-box" value="${member.nickname}">
+			<input type="text" placeholder="이름을 설정해주세요" name="nickname" class="input-box" value="${memberInfo.nickname}">
 	           
            <div class="input-group">
-               <input type="email" value="${member.email }" class="input-box" readonly="readonly">
+               <input type="email" value="${memberInfo.email }" class="input-box" readonly="readonly">
            </div>
 
            <div class="input-group">
-               <input type="text" value="${member.phone}" class="input-box" readonly="readonly">
+               <input type="text" value="${memberInfo.phone}" name="phone" class="input-box" readonly="readonly">
                <button type="button" class="btn edit">변경</button>
            </div>
            
 	        <label>간단한 한 마디로 나를 소개해주세요</label>
-	        <textarea placeholder="" name="introduction">${member.introduction}</textarea>
+	        <textarea placeholder="" name="introduction">${memberInfo.introduction}</textarea>
 	    </div>
 	
 	    <!-- 버튼 -->

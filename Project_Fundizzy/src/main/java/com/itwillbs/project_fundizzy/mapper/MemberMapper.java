@@ -38,6 +38,9 @@ public interface MemberMapper {
 	Map<String, String> selectDBNaverUser(String email);
 
 	Map<String, String> selectDBNaverUserInfo(String email);
+		
+//	메서드 추가한사람 : 정세현
+	String selectProfileImg(String email);
 
 
 

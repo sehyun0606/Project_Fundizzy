@@ -13,14 +13,11 @@
 		
 		
 		.profile-image {
-		    background: #eee;
 		    padding: 10px;
 		    text-align: center;
 		    font-weight: bold;
 		    border-radius: 5px;
 		    margin-bottom: 20px;
-	        width: 25vh;
-		    height: 25vh;
 		}
 		
 		.number {
@@ -170,7 +167,16 @@
         <span class="toggle-label supporter">서포터</span>
         <span class="toggle-label maker">메이커</span>
     </label>
-        <div class="profile-image"></div>
+        <div class="profile-image">
+        	<c:choose>
+        		<c:when test="${empty sessionScope.profileImg }">
+        			<img src="/resources/images/myPage/noImg.jpeg"/>
+        		</c:when>
+        		<c:otherwise>
+        			<img src="/resources/upload/${sessionScope.profileImg}"/>
+        		</c:otherwise>
+        	</c:choose>
+        </div>
         <input type="button" class="settings" value="내 정보 설정" onclick="location.href='SettingMain'">
 
        <input type="button" value="페이" id="pay_btn" onclick="location.href='PayPage'">

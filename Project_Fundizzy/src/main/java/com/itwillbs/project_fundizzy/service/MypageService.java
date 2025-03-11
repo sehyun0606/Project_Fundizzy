@@ -21,4 +21,8 @@ public class MypageService {
 	public MemberVO getMemberInfo(String email) {
 		return mypageMapper.selectMemberInfo(email);
 	}
+
+	public void updateProfile(MemberVO member) {
+		mypageMapper.updateProfile(member);
+	}
 }

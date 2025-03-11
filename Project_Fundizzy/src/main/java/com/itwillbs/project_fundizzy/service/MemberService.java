@@ -74,6 +74,11 @@ public class MemberService {
 		return mapper.selectDBNaverUserInfo(email);
 	}
 
+//	메서드 추가한 사람 정세현
+	public String getProfileImg(String email) {
+		return mapper.selectProfileImg(email);
+	}
+
 	
 	
 	

@@ -14,4 +14,15 @@
 		FROM member
 		WHERE email = #{email}
 	</select>
+	
+	<update id="updateProfile">
+		UPDATE member
+		SET nickname = #{nickname},
+			phone = #{phone},
+			introduction = #{introduction}
+			<if test="profile != null and profile != ''">
+            	,profile = #{profile}
+        	</if>
+		WHERE email = #{email}
+	</update>
 </mapper>

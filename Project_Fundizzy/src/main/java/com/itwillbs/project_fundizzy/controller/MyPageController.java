@@ -1,8 +1,14 @@
 package com.itwillbs.project_fundizzy.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
@@ -12,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.itwillbs.project_fundizzy.service.Bankservice;
 import com.itwillbs.project_fundizzy.service.MypageService;
@@ -29,6 +36,9 @@ public class MyPageController {
 	private MypageService mypageService;
 	@Autowired
 	private Bankservice bankService;
+	
+	private String virtualPath = "/resources/upload/";
+	
 	// 서포터 메인
 	@GetMapping("SupporterPage")
 	public String SupporterPage(Model model) {
@@ -49,14 +59,45 @@ public class MyPageController {
 		
 		MemberVO member = mypageService.getMemberInfo(email);
 		
-		model.addAttribute("member", member);
+		model.addAttribute("memberInfo", member);
 		return "myPage/supporter/profile_settings";
 	}
 	
 	@PostMapping("ProfileInfoEdit")
-	public String profileInfoEdit(MemberVO member) {
+	public String profileInfoEdit(MemberVO member, HttpSession session) {
+		
+
+		String email = (String) session.getAttribute("sId");
+		String realPath = getRealPath(session, virtualPath);
+		
+		member.setEmail(email);
+		
+		//파일 업로드되는 서브 경로
+		String subDir = email + "/ProfileImg" ;
+		
+		realPath += subDir;
+		try {
+			Path path = Paths.get(realPath);
+			Files.createDirectories(path);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		MultipartFile profileImg = member.getProfileImg();
+		
+		member.setProfile("");
+		
+		String imgName = "";
+		
+		if(!profileImg.getOriginalFilename().equals("")) {
+			imgName = UUID.randomUUID().toString() + "_" + profileImg.getOriginalFilename();
+			member.setProfile(subDir + "/" + imgName);
+		}
+		
+		mypageService.updateProfile(member);
 		
 		
+		updateFile(profileImg, realPath, imgName);
 		
 		return "redirect:/SupporterPage";
 	}
@@ -214,4 +255,26 @@ public class MyPageController {
 	public String payTransfer() {
 		return "myPage/supporter/pay_transfer";
 	}
+	
+	//파일 업로드를 위한 메서드
+	private String getRealPath(HttpSession session, String virturalPath) {
+		return session.getServletContext().getRealPath(virturalPath);
+	}
+	
+	//파일 업데이트를 위한 메서
+	private void updateFile(MultipartFile img, String realPath, String imgName) {
+		try {
+			MultipartFile mFile = img;
+			
+			
+			if(!mFile.getOriginalFilename().equals("")) {
+				mFile.transferTo(new File(realPath,imgName));
+			}
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 }
