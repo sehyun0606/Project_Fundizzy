@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.itwillbs.project_fundizzy.mapper.FundMapper;
+import com.itwillbs.project_fundizzy.vo.FundHistoryVO;
+import com.itwillbs.project_fundizzy.vo.FundizzyPay;
 
 @Service
 public class FundService {
@@ -60,6 +62,35 @@ public class FundService {
 		return mapper.selectPaymentPayMember(email);
 	}
 	
+	//페이로 결제한 내역 계산 
+	public int registPaymentPay(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return mapper.insertPaymentPay(map);
+	}
+//	//페이 잔액 업데이트 
+////	public FundizzyPay registBalancePay(Map<String, Object> map) {
+//		// TODO Auto-generated method stub
+//		return mapper.updateBalancePay(map);
+//	}
+	
+	//펀딩내역 input 
+	public int registFundHistory(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return mapper.insertFundHistory(map);
+	}
+	//결제내역(payment테이블) input 
+	public int registPayment(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return mapper.insertPayment(map);
+	}
+	
+	
+	//배송내역(shipment테이블) input 
+	public int registShipMent(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return mapper.insertShipment(map);
+	}
+
 	
 	
 	

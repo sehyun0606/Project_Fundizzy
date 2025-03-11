@@ -19,4 +19,5 @@ public class ProjectStoryVO {
 	private String open_story;
 	private MultipartFile representativePicture;
 	private MultipartFile[] productPicture;
+
 }

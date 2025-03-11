@@ -2,6 +2,7 @@ package com.itwillbs.project_fundizzy.controller;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -17,8 +18,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.JsonObject;
 import com.itwillbs.project_fundizzy.service.Bankservice;
+import com.itwillbs.project_fundizzy.service.FundHistoryService;
 import com.itwillbs.project_fundizzy.service.FundService;
+import com.itwillbs.project_fundizzy.service.PaymentService;
+import com.itwillbs.project_fundizzy.service.ProjectInfoService;
+import com.itwillbs.project_fundizzy.service.ProjectStoryService;
+import com.itwillbs.project_fundizzy.service.RewardService;
+import com.itwillbs.project_fundizzy.service.PaymentService;
+import com.itwillbs.project_fundizzy.vo.FundHistoryVO;
 import com.itwillbs.project_fundizzy.vo.FundizzyPay;
+import com.itwillbs.project_fundizzy.vo.Payment;
+import com.itwillbs.project_fundizzy.vo.ProjectStoryVO;
 
 
 @Controller
@@ -29,6 +39,20 @@ public class FundController {
 	
 	@Autowired
 	private Bankservice bankService;
+	
+	@Autowired
+	private ProjectStoryService projectStoryService;
+	
+	@Autowired
+	private PaymentService paymentService;
+	
+	@Autowired
+	private RewardService rewardService;
+	
+	@Autowired
+	private ProjectInfoService projectInfoService;
+	
+	
 	
 //	왼쪽 
 	//fund 목록
@@ -186,10 +210,8 @@ public class FundController {
 	//리워드 선택 - get 
 	@GetMapping("PaymentReward")
 	public String paymentReward(String project_code, Model model) {
-		
 		Map<String, Object> reward = fundService.getPaymentReward(project_code);
 		System.out.println("reward map = " +  reward); // ok
-		
 		model.addAttribute("reward", reward);
 		return "merch/payment/payment_reward";
 	}
@@ -234,14 +256,69 @@ public class FundController {
 		return "merch/payment/payment_pay";
 	}
 	
+	//결제완료 창으로 이동
 	@PostMapping("PaymentComplete")
-	public String paymentComplete() {
-		//member 테이블 가져오기
+	public String paymentComplete(@RequestParam Map<String, Object> map, HttpSession session ,Model model) {
 		
-		//페이 결제 계산
+		String email = (String) session.getAttribute("sId");
+		System.out.println("* project_code = " + map.get("project_code") );
 		
-		//
+		//1. 페이로 결제한 내역 계산 후 pay table에 insert 작업 
+		map.put("email", email);
+		map.put("pay_tran_id", UUID.randomUUID().toString());
 		
+		System.out.println("ajax에서 받은 map 과연?? = " + map);
+		System.out.println("email: " + map.get("email"));
+		System.out.println("payment_price: " + map.get("payment_price"));
+		System.out.println("result_balance: " + map.get("result_balance"));
+		System.out.println("pay_tran_id: " + map.get("pay_tran_id"));  // 추가 확인
+		
+		int result = fundService.registPaymentPay(map);
+		if (result > 0) {
+		    System.out.println("1번 결제 정보 저장 성공 - registPaymentPay");
+		} else {
+		    System.out.println("결제 정보 저장 실패");
+		}
+		
+		// 페이 잔액 업데이트 
+//		fundizzyPay = fundService.registBalancePay(map);
+		
+		
+		// 2. 결제내역 input
+		map.put("payment_code", UUID.randomUUID().toString());
+		int pay_result = fundService.registPayment(map);
+		if(pay_result > 0) {
+			System.out.println("* 2번 결제내역 payment input 성공 *");
+		}
+		
+		
+		// 3. 배송지 input
+		int result_ship = fundService.registShipMent(map);
+		if(result_ship > 0) {
+			System.out.println("# 3번배송지 input 성공 @");
+		}
+		
+		// 4. 펀딩내역(fund-history) input 
+		
+		String projectTitle = projectStoryService.getProject_title((String) map.get("project_code"));
+		String representativePicture = projectStoryService.getRepresentativePicture((String) map.get("project_code"));
+	    String productName = rewardService.getproductName((String) map.get("project_code"));
+	    String rewardCode = rewardService.getrewardCode((String) map.get("project_code"));
+	    String paymentCode = paymentService.getPaymentCode((String)map.get("project_code"));
+//	    String businessName = projectInfoService.getBusinessName((String) map.get("project_code"));
+	    
+	    map.put("project_title", projectTitle);// 프로젝트 제목 추가 
+	    map.put("representative_picture", representativePicture); // 대표사진 추가 - 완료 
+	    map.put("product_name", productName);// 제품명 추가
+	    map.put("reward_code", rewardCode);// 리워드코드 추가
+	    map.put("payment_code", paymentCode);// 결제코드 추가
+//	    map.put("business_name", businessName);// 회사명 추가 
+
+		System.out.println("@@@MAP" + map);
+		int resultFundHistory = fundService.registFundHistory(map);
+		if(resultFundHistory > 0) {
+			System.out.println("# 4번  input 성공 @");
+		}
 		return "merch/payment/payment_complete";
 	}
 	

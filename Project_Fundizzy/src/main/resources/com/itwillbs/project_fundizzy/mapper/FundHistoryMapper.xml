@@ -57,4 +57,12 @@
  			fund_idx = #{fund_idx}
  	</update>
  	
+<!--  	회사명 가져오기 (결제)-->
+ 	<select id="selectBusinessName" resultType="String">
+ 		SELECT business_name
+ 		FROM fund_history
+ 		WHERE project_code = #{project_code}
+ 	
+ 	
+ 	</select>
  </mapper>

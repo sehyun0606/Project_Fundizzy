@@ -27,3 +27,5 @@ public class FundHistoryVO {
 	private int product_count;
 	private String payment_code;
 }
+
+

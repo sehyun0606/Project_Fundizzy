@@ -38,9 +38,12 @@
 			</div>
 			
 			<form action="PaymentComplete" id="complete-form" method="post">
-				<input type="hidden">
-			
-			
+<!-- 			순서대로 프로젝트코드, 리워드코드 ,리워드명, 리워드설명 ,수량  -->
+				<input type="hidden" id="project_code"  name = "project_code" value="${reward.project_code}"> 
+				<input type="hidden" id="reward_code"  name="reward_code" value="${reward.reward_code}"> 
+				<input type="hidden" id="product_name"  name="product_name" value="${reward.product_name}"> 
+				<input type="hidden" id="product_desc"  name="product_desc" value="${reward.product_desc}"> 
+				<input type="hidden" id="total_count" name="total_count" value="${total_count}"> 
 			</form>
 	       <div class="section-product">
 <!-- 	       완료 -->
@@ -50,7 +53,7 @@
 	        </div>
 	        <div class="section-price">
 <!-- 	        완료 -->
-	            <h4>결제 예약 금액</h4>
+	            <h4>결제 금액</h4>
 	            <p>리워드 금액 <span class="total_price"><fmt:formatNumber pattern="#,###원" value="${total_price}"></fmt:formatNumber></span></p>
 	            <p>배송비 <span class="price">${reward.delivery_fee}원</span></p>
 	            <p class="total">총 결제 금액 <span id="total_price_delivery"><fmt:formatNumber pattern="#,###원" value="${total_price + reward.delivery_fee}"></fmt:formatNumber></span></p>
@@ -70,18 +73,20 @@
 		            <div id="div_address">
 		            	<input type="radio" name="address" id="address" value="최근 배송지" checked="checked">
 		            	<label for="address">
-			            	<input type="text" placeholder="배송 받으실 분 이름을 입력해주세요." required="required"><br>
-			             	${member.phone}<br>
-			             	(${member.post_code}) ${member.address1} ${member.address2}
+			            	<input type="text" id="ship-name" placeholder="배송 받으실 분 이름을 입력해주세요." required="required"><br>
+	            	        <span id="ship-phone">${member.phone}</span><br>
+					        <span id="ship-postcode">(${member.post_code})</span> 
+					        <span id="ship-address1">${member.address1}</span> 
+					        <span id="ship-address2">${member.address2}</span>
 		             	</label>
 	             	</div>
 		            <div id="div_new_address">
-<!-- 		            해야ㅐ함 -->
+<!-- 		            해야함 -->
 			            <input type="radio" value="새로운 입력" name="address" id="new_address">
 			            <label for="new_address">새로입력</label>
 			            <div class="new_address_box">
-			            	<span id="address_name">이름</span><input type="text" required="required"><br>
-			            	<span id="address_phone">휴대폰</span><input type="text" required="required"><br> 
+			            	<span id="ship-new-name">이름</span><input type="text" id="ship-new-name" required="required"><br>
+			            	<span id="ship-new-phone">휴대폰</span><input type="text" id="ship-new-phone" required="required"><br> 
 			            	<span id="address_add">주소
 			            		<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
 			            	</span>
@@ -94,16 +99,16 @@
 		            <input type="text" class="shipment-box" placeholder="배송 시 요청사항(선택)">
 		        </div>
 	        </div>
+	        
 	        <div class="section-reservation">
 	            <h4>예약 결제</h4>
 	            <label><input type="radio" name="payment" checked> 펀디지 페이</label>
 	          <div class="upload-box">
 			     <p class="fundizzy-pay">Fundizzy Pay</p>
-			     <span id="pay_amt"><fmt:formatNumber pattern="#,###" value="${fundizzy_pay.pay_amt}"></fmt:formatNumber> 원</span>
+			     <span id="pay_amt"><fmt:formatNumber pattern="#,###원" value="${fundizzy_pay.pay_balance}"></fmt:formatNumber></span>
 			     <input type="button" id="charge-btn" value="충전" onclick="location.href='PayCharge'"> 
 			 </div>
 
-<!-- 	            <label><input type="radio" name="payment" checked> 직접입력</label> -->
 	        </div>
 	        <div class="section-now">
 	            <h4>지금 결제</h4>

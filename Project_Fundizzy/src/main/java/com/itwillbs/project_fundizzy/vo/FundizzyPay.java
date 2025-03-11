@@ -10,12 +10,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class FundizzyPay implements Serializable {
-	private String email;
-	private int pay_amt;
-	private String pay_type;
-	private String pay_date;
-	private String pay_tran_id;
-	private int pay_balance;
+	private String email; //이메일
+	private int pay_amt; //거래금액
+	private String pay_type; //거래타입
+	private String pay_date; // 거래일자
+	private String pay_tran_id; //거래고유번호 
+	private int pay_balance; //페이잔액
 	
 	//-----------------admin access token 조회로 인한 idx와 email 추가 ------------------------ (db에는 추가 안했음)
 	

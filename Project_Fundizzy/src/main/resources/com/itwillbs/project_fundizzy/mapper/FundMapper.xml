@@ -112,12 +112,154 @@
   		WHERE email = #{email}
   	</select>
   
+<!--   페이로 결제한 내역 계산  -->
+	<insert id="insertPaymentPay">
+		INSERT INTO fundizzy_pay(
+			email
+			,pay_amt
+			,pay_type
+			,pay_date
+			,pay_tran_id
+			,pay_balance
+		)
+		VALUES(
+			#{email}
+			,#{payment_price}
+			,'결제'
+			,NOW()
+			,#{pay_tran_id}
+			,#{result_balance}
+		) 
+	</insert>
   
-  
-  
-  
-  
-  
-  
-  
+<!--   	<update id="updateBalancePay"> -->
+<!--   		UPDATE fundizzy_pay -->
+<!--   		SET pay_balance = #{result_balance} -->
+<!--   		WHERE email = #{email} -->
+<!--   	</update> -->
+
+
+  	<!--   	결제내역 payment 테이블 insert -->
+	<insert id="insertPayment">
+		<selectKey keyProperty="idx" order="BEFORE" resultType="int">
+			SELECT IFNULL(MAX(idx),0)
+			FROM payment
+		</selectKey>
+		INSERT INTO payment(
+			idx
+			,common_code
+			,payment_code
+			,project_code
+			,billing_email
+			,payment_method
+			,payment_amount
+			,payment_request_date
+			,payment_complete_date
+			,participation_status
+	
+		) VALUES (
+			#{idx} + 1 
+			,"PAY01"
+			,#{payment_code}
+			,#{project_code}
+			,#{email}
+			,"PAY01"
+			,#{payment_price}
+			,NOW()
+			,NOW()
+			,"PAR02"
+		)
+	</insert>
+	<!-- 	배송내역 insert -->
+	<insert id="insertShipment">
+		<selectKey keyProperty="idx" order="BEFORE" resultType="int">
+			SELECT IFNULL(MAX(idx),0)
+			FROM shipment
+		</selectKey>
+		INSERT INTO shipment(
+			idx
+			,common_code
+			,project_code
+			,payment_code
+			,supporter_email
+			,name
+			,phone_num
+			,address
+			,address1
+			,post_code
+			,delivery_req
+			,new_name
+			,new_phone_num
+			,new_address
+			,new_address1
+			,extra_address
+			,new_post_code
+			
+		)VALUES (
+			#{idx} + 1
+			,"SHI01"
+			,#{project_code}
+			,#{payment_code}
+			,#{email}
+			,#{name}
+			,#{phone_num}
+			,#{address}
+			,#{address1}
+			,#{post_code}
+			,#{delivery_req}
+			,#{new_name}
+			,#{new_phone_num}
+			,#{new_address}
+			,#{new_address1}
+			,#{extra_address}
+			,#{new_post_code}
+		
+		)
+	</insert>
+	
+<!--   	펀딩내역 insert -->
+  	<insert id="insertFundHistory">
+  		<selectKey keyProperty="fund_idx" order="BEFORE" resultType="int">
+  			SELECT IFNULL(MAX(fund_idx),0)
+			FROM fund_history
+  		</selectKey>
+  		INSERT INTO fund_history
+  		(
+  			fund_idx
+  			,project_code
+  			,member_email
+  			,project_title
+  			,representative_picture
+  			,product_name
+  			,business_name
+  			,result_point
+  			,send_stat
+  			,refund_stat
+  			,reward_code
+  			,purchase_date
+  			,product_count
+  			,payment_code
+  		)VALUES(
+  			#{fund_idx} + 1
+  			,#{project_code} 
+  			,#{email}
+  			,#{project_title} 
+  			,#{representative_picture} 
+  			,#{product_name}
+  			,"N"
+  			,#{payment_price} 
+  			,"SHI01"
+  			,"N" 
+  			,#{reward_code} 
+  			,NOW() 
+  			,#{total_count} 
+  			,#{payment_code} 
+  		)
+  	
+  	
+  	</insert>
+
+	
+
+
   </mapper>

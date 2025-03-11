@@ -5,6 +5,9 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+
+import com.itwillbs.project_fundizzy.vo.FundHistoryVO;
+import com.itwillbs.project_fundizzy.vo.FundizzyPay;
 @Mapper
 public interface FundMapper {
 	//프로젝트 board 출력
@@ -35,6 +38,22 @@ public interface FundMapper {
 	
 	// 배송을 위한 맴버 가져오기 
 	Map<String, Object> selectPaymentPayMember(String email);
+
+	//페이로 결제한 내역 계산 
+	int insertPaymentPay(Map<String, Object> map);
+	
+//	//페이 잔액 업데이트 
+//	FundizzyPay updateBalancePay(Map<String, Object> map);
+
+	//펀딩내역 input - fundHistory 테이블
+	int insertFundHistory(Map<String, Object> map);
+
+	//결제내역 input - payment 테이블
+	int insertPayment(Map<String, Object> map);
+
+	//배송내역 input - shipment
+	int insertShipment(Map<String, Object> map);
+
 
 	
 }

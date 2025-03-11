@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.itwillbs.project_fundizzy.mapper.PaymentMapper">
+ 
+<!--  	결제코드 가져오기 -->
+ 	<select id="selectPaymentCode" resultType="String">
+		SELECT payment_code
+		FROM payment
+		WHERE project_code = #{project_code}
+		ORDER BY payment_request_date DESC
+		LIMIT 1;
+	</select>
+	
+ 	
+ </mapper>

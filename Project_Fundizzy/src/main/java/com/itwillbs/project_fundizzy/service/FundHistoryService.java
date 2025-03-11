@@ -35,4 +35,10 @@ public class FundHistoryService {
 		historyMapper.insertRefund(refund);
 		historyMapper.updateFundHistory(fundIdx);
 	}
+	
+//회사명 가져오기 
+	public String getBusinessName(String project_code) {
+		// TODO Auto-generated method stub
+		return historyMapper.selectBusinessName(project_code);
+	}
 }
