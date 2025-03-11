@@ -88,7 +88,7 @@
 		                    <span>신청</span>
 		                    <c:set var="found" value="false" />
 		                    <c:forEach var="refund" items="${refundStateCount}">
-			                    <c:if test="${refund.refund_status eq 'REF01'}">
+			                    <c:if test="${refund.refund_stat eq 'REF01'}">
 		                    		<span class="count">${refund.count}<span>건</span></span>
 				                    <c:set var="found" value="true" />
 		                    	</c:if>
@@ -102,7 +102,7 @@
 		                    <span>완료</span>
 		                    <c:set var="found" value="false" />
 		                    <c:forEach var="refund" items="${refundStateCount}">
-			                    <c:if test="${refund.refund_status eq 'REF02'}">
+			                    <c:if test="${refund.refund_stat eq 'REF02'}">
 		                    		<span class="count">${refund.count}<span>건</span></span>
 				                    <c:set var="found" value="true" />
 		                    	</c:if>
@@ -116,7 +116,7 @@
 		                    <c:set var="found" value="false" />
 		                    <span>거절</span>
 		                    <c:forEach var="refund" items="${refundStateCount}">
-			                    <c:if test="${refund.refund_status eq 'REF03'}">
+			                    <c:if test="${refund.refund_stat eq 'REF03'}">
 		                    		<span class="count">${refund.count}<span>건</span></span>
 				                    <c:set var="found" value="true" />
 		                    	</c:if>
@@ -146,7 +146,7 @@
 				<table class="list">
 					 <thead>
 			            <tr>
-			                <th width="103px">결제번호</th>
+			                <th width="103px">목록</th>
 			                <th width="171px">서포터 정보</th>
 			                <th width="120px">결제일</th>
 			                <th width="120px">결제 금액</th>
@@ -187,21 +187,11 @@
 						            	</c:when>
 						            </c:choose>
 			           			</td>
-				                <td width="86px">500671063724</td>
-				                <c:choose>
-		                            <c:when test="${order.refund_status eq 'REF01'}">
-				                		<td width="86px">신청</td>
-				                	</c:when>
-		                            <c:when test="${order.refund_status eq 'REF02' or order.refund_status eq 'REF03'}">
-				                		<td width="86px" style="color:blue">완료</td>
-				                	</c:when>
-		                            <c:when test="${order.refund_status eq 'REF03'}">
-				                		<td width="86px" style="color:red">거절</td>
-				                	</c:when>
-				                	<c:otherwise>
-				                		<td width="86px"></td>
-				                	</c:otherwise>
-				                </c:choose>
+				                <td width="86px"><c:if test="${not empty order.tracking_num}">${order.tracking_num}</c:if></td>
+		                		<td width="86px" 
+			                		<c:if test="${order.refund_status eq '완료'}">
+			                		style="color:blue;"</c:if>>
+		                		${order.refund_status}</td>
 				                <td width="50px" class="toggleBtn">
 				                	<button><img src="/resources/images/projectState/arrow_right.png" style="width: 10px; height: 10px;"></button>
 			                	</td>
@@ -210,7 +200,7 @@
 				                <td colspan="10">
 				                    <table>
 				                        <tr>
-				                            <th width="92px">결제번호</th>
+				                            <th width="92px"></th>
 				                            <th width="382px">리워드명</th>
 				                            <th width="153px">리워드 금액</th>
 				                            <th width="138px">수량</th>
@@ -218,9 +208,9 @@
 				                            <th width="117px"></th>
 				                            <th width="45px"></th>
 				                        </tr>
-		            					<c:forEach begin="1" end="${order.fund_count}">
+		            					<c:forEach begin="1" end="${order.fund_count}" varStatus="status2">
 				                        <tr>
-				                            <td>${status.index + 1}</td>
+				                            <td>${status.index + 1}-${status2.index}<input type="hidden" class="refund_code"></td>
 				                            <td class="product_name"></td>
 				                            <td class="result_point">원</td>
 				                            <td class="product_count">개</td>
@@ -280,19 +270,19 @@
 							<h4>발송방법</h4>
 							<div>택배</div>
 							<h4>택배사</h4>
-							<select>
+							<select name="courier">
 								<option selected>선택해주세요</option>
 								<c:forEach var="ship-company" begin="1" end="1">
-									<option>cj대한통운</option>
-									<option>로젠택배</option>
-									<option>롯데택배</option>
-									<option>한진택배</option>
-									<option>우체국택배</option>
+									<option value="01">cj대한통운</option>
+									<option value="02">로젠택배</option>
+									<option value="03">롯데택배</option>
+									<option value="">한진택배</option>
+									<option value="">우체국택배</option>
 								</c:forEach>
 							</select>
 							<div class="ship-info">
 								<h4>송장번호</h4>
-								<input type="number" class="ship-num" placeholder="운송장 번호 - 없이 입력">
+								<input type="number" class="ship-num" name="tracking_num" placeholder="운송장 번호 - 없이 입력">
 							</div>
 						</div>
 						<div class="btn-container">
@@ -357,6 +347,9 @@
 	<script>
 		$(function() {
 			
+			// json 객체로 저장된 오더리스트 변수에 저장
+			var jsonOrderList = ${jsonOrderList};
+			
 			// 아코디언 형식으로 주문 상세내역 표시
 	    	$(".toggleBtn button").click(function() {
 				let img = $(this).find("img");
@@ -365,7 +358,7 @@
 	    		let productName = detail.find(".product_name"); // details 행 내부의 .product_name 선택
 		        detail.toggle(); // 다음 .details 행들을 토글
 		        
-		        // 맨 오른쪽 아이콘 변경
+		        // 맨 오른쪽 토글 버튼 아이콘 변경
 		        if(detail.css("display") != "none") {
 		        	detail.css("display", "table-row");
 		        	img.attr("src", "/resources/images/projectState/arrow_down.png");
@@ -389,6 +382,7 @@
 					 
 				     rows.each(function(index) {
 				        if (index < rewardList.length) {
+				            $(this).find(".refund_code").val(rewardList[index].refund_code);
 				            $(this).find(".product_name").text(rewardList[index].product_name);
 				            $(this).find(".result_point").text(rewardList[index].result_point + "원");
 				            $(this).find(".product_count").text(rewardList[index].product_count + "개");
@@ -412,7 +406,6 @@
 				        }
 				     });
 				     
-				     openModal();
 				}).fail(function() {
 					console.log("실패");
 					
@@ -420,21 +413,56 @@
 
 	    	});
 			
-	    	// 버튼 클릭 시 모달창 생성 
-			function openModal() {
-				$(".shipInfoBtn").click(function() {
-					$("#ship-modal").css("display", "block");
-					$("#refund-modal").css("display", "none");
-				}); 
-
-				$(".refundInfoBtn").click(function() {
-					$("#refund-modal").css("display", "block");
-					$("#ship-modal").css("display", "none");
+	    	// (발송정보) 입력 버튼 클릭 시 모달창 생성 
+			$(document).on("click", ".shipInfoBtn", function() {
+				$("#ship-modal").fadeOut(0, function() {
+					$("#ship-modal").fadeIn();
 				});
-			}
-			
-			openModal();
-			
+				$("#refund-modal").css("display", "none");
+				
+				let payment_code = $(this).closest("tr").find(".payment_code").val();
+				
+				// 발송정보 입력 모달창에 정보 출력
+				for(let order of jsonOrderList) {
+					if(order.payment_code == payment_code) {
+						let address = order.address + " " + order.address1;
+						console.log(order);
+						$(".receiver-info:nth-child(1) span:nth-child(2)").text(order.payment_code);
+						$(".receiver-info:nth-child(2) span:nth-child(2)").text(order.payment_amount);
+						$(".receiver-info:nth-child(3) span:nth-child(2)").text(order.name);
+						$(".receiver-info:nth-child(4) span:nth-child(2)").text(order.phone_num);
+						$(".receiver-info:nth-child(5) span:nth-child(2)").text(order.post_code);
+						$(".receiver-info:nth-child(6) span:nth-child(2)").text(address);
+					}
+				}
+				
+				$.ajax({
+					type : "GET",
+					url : "PaymentRewardDetail",
+					data : {
+						payment_code
+					}
+				}).done(function(rewardList) {
+					
+				}).fail(function() {
+					console.lof("실패");
+				});
+				
+				
+				
+				
+				
+				
+				
+			}); 
+
+	    	// (환불) 확인하기 버튼 클릭 시 모달창 생성
+			$(document).on("click", ".refundInfoBtn", function() {
+				
+				$("#refund-modal").fadeIn();
+				$("#ship-modal").css("display", "none");
+			});
+		
 	        // x 버튼 클릭 시 모달창 닫힘
 			$(document).on("click", ".modal-close, .closeBtn", function() {
 				$(".modal-content").css("display", "none");
@@ -453,6 +481,7 @@
 					"padding-bottom": "0"
 				});
 			});
+	        
 			
 		});
 		

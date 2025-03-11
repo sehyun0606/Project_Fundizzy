@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.itwillbs.project_fundizzy.mapper.ProjectStateMapper;
+import com.itwillbs.project_fundizzy.vo.FundHistoryVO;
 import com.itwillbs.project_fundizzy.vo.NewsVO;
 import com.itwillbs.project_fundizzy.vo.RefundVO;
 import com.itwillbs.project_fundizzy.vo.ShipmentVO;
@@ -71,8 +72,16 @@ public class ProjectStateService {
 		return stateMapper.selectShipStateCount(project_code);
 	}
 
-	public List<RefundVO> getRefundStateCount(String project_code) {
+	public List<FundHistoryVO> getRefundStateCount(String project_code) {
 		return stateMapper.selectRefundStateCount(project_code);
+	}
+
+	public int getTotalPaylemtAmount(String project_code) {
+		return stateMapper.selectTotalPaymentAmount(project_code);
+	}
+
+	public List<RefundVO> getRefund(String project_code) {
+		return stateMapper.selectRefund(project_code);
 	}
 
 

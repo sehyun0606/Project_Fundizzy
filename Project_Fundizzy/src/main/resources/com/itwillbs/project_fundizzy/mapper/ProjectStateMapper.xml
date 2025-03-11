@@ -3,6 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.itwillbs.project_fundizzy.mapper.ProjectStateMapper">
+	<!-- ======================= 새소식 ======================= -->
 	<insert id="insertNewsBoard">
 		<selectKey keyProperty="news_code" resultType="int" order="BEFORE">
 			SELECT IFNULL(MAX(news_code), 0)
@@ -59,6 +60,13 @@
 			, news_content = #{news_content}
 		WHERE news_code = #{news_code}
 	</update>
+
+	<!-- ======================= 프로젝트 현황 ======================= -->
+	<select id="selectTotalPaymentAmount" resultType="int">
+		SELECT SUM(payment_amount)
+		FROM payment
+		WHERE project_code = #{project_code}
+	</select>
 
 	<select id="selectPaymentCountList" resultType="map">
 		SELECT
@@ -118,26 +126,42 @@
 		    s.address, 
 		    s.address1, 
 		    s.post_code,
+		    s.courier,
+		    s.tracking_num,
 		    (SELECT COUNT(*) 
 		     FROM fund_history fh 
 		     WHERE fh.payment_code = p.payment_code) AS fund_count,
-		    (SELECT r.refund_status 
-		     FROM fund_history fh 
-		     LEFT JOIN refund r 
-		     ON fh.fund_idx = r.fund_idx 
-		     WHERE fh.payment_code = p.payment_code 
-		     ORDER BY refund_request_date DESC
-		     LIMIT 1) AS refund_status
-		FROM payment p
-		JOIN shipment s
-		ON p.payment_code = s.payment_code
-		WHERE p.project_code = #{project_code}
-		ORDER BY p.payment_complete_date DESC
+		    (SELECT ( CASE 
+				WHEN SUM(status) = 0 then ''
+				WHEN SUM(status) != 0 AND MOD(SUM(status), 10) != 0 then "신청"
+				WHEN SUM(status) != 0 AND MOD(SUM(status), 10) = 0 then "완료"
+				END
+				) as refund_status
+				 FROM (SELECT CASE 
+							WHEN refund_status is null THEN 0
+							WHEN refund_status = 'REF01' THEN 1
+							WHEN refund_status = 'REF02' THEN 10
+							ELSE 100
+							END as status
+						FROM refund
+						WHERE payment_code = p.payment_code
+					) as refund_status_table) as refund_status
+		FROM 
+			payment p
+		JOIN 
+			shipment s
+		ON 
+			p.payment_code = s.payment_code
+		WHERE 
+			p.project_code = #{project_code}
+		ORDER BY 
+			p.payment_complete_date DESC
 		
 	</select>
 		
 	<select id="selectPaymentRewardList" resultType="map">
 		SELECT 
+			r.refund_code,
 			fh.fund_idx, 
 			fh.project_code, 
 			fh.member_email, 
@@ -153,12 +177,18 @@
 			fh.refund_date, 
 			fh.send_date, 
 			fh.product_count, 
-			fh.payment_code
-		FROM fund_history fh
-		JOIN refund r
-		ON fh.fund_idx = r.fund_idx
-		WHERE fh.payment_code = #{payment_code}
-		ORDER BY refund_request_date DESC
+			fh.payment_code,
+			r.refund_request_date
+		FROM 
+			fund_history fh
+		JOIN 
+			refund r
+		ON 
+			fh.fund_idx = r.fund_idx
+		WHERE 
+			fh.payment_code = #{payment_code}
+		ORDER BY 
+			refund_request_date
 	</select>
 	
 	<select id="selectShipStateCount" resultType="map">
@@ -170,12 +200,19 @@
 	</select>
 	
 	<select id="selectRefundStateCount" resultType="map">
-		SELECT refund_status, COUNT(*) AS count
+		SELECT refund_stat, COUNT(*) AS count
+		FROM fund_history
+		WHERE project_code = #{project_code}
+		GROUP BY refund_stat
+		ORDER BY refund_stat
+	</select>
+	
+	<select id="selectRefund" resultType="refund">
+		SELECT *
 		FROM refund
 		WHERE project_code = #{project_code}
-		GROUP BY refund_status
-		ORDER BY refund_status
 	</select>
+	
 
 </mapper>
 

@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
 import com.itwillbs.project_fundizzy.service.ProjectStateService;
+import com.itwillbs.project_fundizzy.vo.FundHistoryVO;
 import com.itwillbs.project_fundizzy.vo.NewsVO;
 import com.itwillbs.project_fundizzy.vo.PageInfo;
 import com.itwillbs.project_fundizzy.vo.RefundVO;
@@ -33,6 +35,14 @@ public class ProjectStateController {
 	public String projectState(HttpSession session, Model model) {
 		
 		String project_code = (String)session.getAttribute("project_code");
+		
+		// 총 펀딩 금액 조회
+		int totalPaymentAmount = stateService.getTotalPaylemtAmount(project_code);
+		model.addAttribute("totalPaymentAmount", totalPaymentAmount);
+		
+		// 주문 건수 조회
+		int orderCount = stateService.getOrderCount(project_code);
+		model.addAttribute("orderCount", orderCount);
 		
 		// 일일 누적 결제건수 리스트
 		List<Map<String, Object>> paymentCountList = stateService.getPaymentCountList(project_code);
@@ -65,7 +75,7 @@ public class ProjectStateController {
 
 	// 발송환불관리 페이지
 	@GetMapping("ShipmentRefund")
-	public String shipmentRefund(HttpSession session, Model model) {
+	public String shipmentRefund(HttpSession session, Model model, @RequestParam Map<String, String> map) {
 		String project_code = (String)session.getAttribute("project_code");
 		
 		// 주문 건수 조회
@@ -75,9 +85,11 @@ public class ProjectStateController {
 		// 결제내역, 발송정보 리스트 조회
 		List<Map<String, Object>> orderList = stateService.getOrderList(project_code);
 		model.addAttribute("orderList", orderList);
+		
+		Gson gson = new Gson();
+		String jsonOrderList = gson.toJson(orderList);
+		model.addAttribute("jsonOrderList", jsonOrderList);
 
-		
-		
 		// 주문한 리워드 정보 리스트 조회
 		List<Map<String, Object>> paymentRewardList = stateService.getPaymentRewardList(project_code, "");
 		model.addAttribute("paymentRewardList", paymentRewardList);
@@ -87,8 +99,16 @@ public class ProjectStateController {
 		model.addAttribute("shipStateCount", shipStateCount);
 		
 		// 환불상태 건수 조회
-		List<RefundVO> refundStateCount = stateService.getRefundStateCount(project_code);
+		List<FundHistoryVO> refundStateCount = stateService.getRefundStateCount(project_code);
 		model.addAttribute("refundStateCount", refundStateCount);
+		
+		// 환불 조회
+		List<RefundVO> refund = stateService.getRefund(project_code);
+		model.addAttribute("refund", refund);
+
+		
+		// 결제정보 조회
+//		Map<String, Object> payment = stateService.getPayment(project_code);
 			
 		return "project/projectState/shipment_refund";
 	}
@@ -98,9 +118,10 @@ public class ProjectStateController {
 	public List<Map<String, Object>> paymentRewardDetail(HttpSession session, Model model, String payment_code) {
 		String project_code = (String)session.getAttribute("project_code");
 		
+		// 구매한 리워드 정보 리스트 조회
 		List<Map<String, Object>> paymentRewardList = stateService.getPaymentRewardList(project_code, payment_code);
 		model.addAttribute("paymentRewardList", paymentRewardList);
-		System.out.println("rewardList : " + paymentRewardList);
+
 		return paymentRewardList;
 	}
 	
@@ -150,7 +171,7 @@ public class ProjectStateController {
 		try {
 			insertCount = stateService.registNewsBoard(map);
 			if(insertCount > 0) {
-				model.addAttribute("msg", "새소식이 등록되었습니다");
+//				model.addAttribute("msg", "새소식이 등록되었습니다");
 				model.addAttribute("targetURL", "NewsList");
 				return "result/result";
 			}
@@ -179,7 +200,7 @@ public class ProjectStateController {
 		try {
 			updateCount = stateService.modifyNewsBoard(map);
 			if(updateCount > 0) {
-				model.addAttribute("msg", "새소식이 수정되었습니다");
+//				model.addAttribute("msg", "새소식이 수정되었습니다");
 				model.addAttribute("targetURL", "NewsList");
 				return "result/result";
 			}

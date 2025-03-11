@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.itwillbs.project_fundizzy.vo.FundHistoryVO;
 import com.itwillbs.project_fundizzy.vo.NewsVO;
 import com.itwillbs.project_fundizzy.vo.RefundVO;
 import com.itwillbs.project_fundizzy.vo.ShipmentVO;
@@ -45,7 +46,11 @@ public interface ProjectStateMapper {
 
 	List<ShipmentVO> selectShipStateCount(String project_code);
 
-	List<RefundVO> selectRefundStateCount(String project_code);
+	List<FundHistoryVO> selectRefundStateCount(String project_code);
+
+	int selectTotalPaymentAmount(String project_code);
+
+	List<RefundVO> selectRefund(String project_code);
 
 
 

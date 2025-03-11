@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,7 +24,7 @@
 				<div class="state">
 					<div class="subtitle">펀딩 금액</div>
 					<div class="item-container">
-						<span class="item">1,000,000</span>
+						<span class="item"><fmt:formatNumber value="${totalPaymentAmount}" pattern="#,###" /></span>
 						<span class="unit">원</span>
 					</div>
 				</div>
@@ -37,7 +38,7 @@
 				<div class="state">
 					<div class="subtitle">펀딩 건수</div>
 					<div class="item-container">
-						<span class="item">71</span>
+						<span class="item">${orderCount}</span>
 						<span class="unit">건</span>
 					</div>
 				</div>
