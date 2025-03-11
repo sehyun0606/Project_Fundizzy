@@ -289,7 +289,7 @@ public class MemberController {
 			} else {
 				session.setAttribute("sId", dbMember.get("email"));
 				session.setAttribute("loginType", "local");
-				session.setMaxInactiveInterval(1800);
+				session.setMaxInactiveInterval(5000000);
 				System.out.println("아이디 저장하기 체크박스값 : " + rememberId);
 //				 --------- 쿠키 생성 코드 중복 제거 ----------
 				// 생성/삭제 관계없이 쿠키값을 무조건 로그인 한 아이디로 설정

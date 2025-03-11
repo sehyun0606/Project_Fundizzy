@@ -7,15 +7,6 @@
 <title>Fundizzy</title>
 <link rel="stylesheet" type="text/css" href="resources/css/main.css">
 </head>
-<script>
-// 	document.addEventListener('keydown', function(event) {
-// 	    // Enter 키(키 코드 13) 확인
-// 	    if (event.key === 'F1') {
-// 	        // 새 창 열기
-// 	        window.open('admin', '_blank', 'width=800,height=600,left=200,top=200'); // 새 창 URL을 여기에 입력하세요
-// 	    }
-// 	});
-</script>
 <body>
 	<header>
 		<jsp:include page="/WEB-INF/views/inc/top.jsp" />

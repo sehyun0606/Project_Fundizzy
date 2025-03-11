@@ -95,7 +95,7 @@
 			</div>
 			
 			<div class="member-info">
-		        <h2 class="member_info_title">회원 정보</h2>
+		        <h2 class="member_info_title">관리자 정보</h2>
 	        	<form action=""> 
 			        <div class="search-bar">
 			        	<select name="searchType" class="searchTypeAdmin">
