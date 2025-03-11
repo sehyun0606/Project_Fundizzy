@@ -1,0 +1,190 @@
+@charset "UTF-8";
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+	width: 100%;
+	height: 100%;
+}
+
+body {
+  width: 100%;
+  height: 99%;
+  box-sizing: border-box;
+  background-color: rgba(147, 112, 219, 0.5);
+
+}
+
+#topBar {
+	margin-top: 5px;
+	align-items: center;
+	height: 60px;
+	display: flex;
+	justify-content: space-between;
+}
+
+#topProfileImg {
+	margin-left: 10px;
+	height: 80%;
+	background-color: #FFF;
+	border-radius: 15px;
+}
+
+#topProfileImg img {
+	height: 100%;
+}
+
+#titleDiv {
+	margin-left: 10px;
+}
+
+#roomTitle {
+	font-size: 20px;
+}
+
+#topProfileEmail {
+	opacity: 0.6;
+}
+
+#exit {
+    height: 50px;
+    width: 50px;
+    display: flex;
+    justify-content: center; 
+    align-items: center;  
+    border-radius: 50%;
+    background-color: #fff;
+    margin-left: auto;
+	margin-right: 10px;
+	position: relative;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#exit img {
+	margin-left: 7px;
+	height: 30px;
+	cursor: pointer;
+}
+
+#dropdownMenu {
+	position: absolute;
+	z-index: 1;
+	top: 50px;
+	font-size: 10px;
+	width: 50px;
+    height: auto;
+    overflow: hidden;
+    transition: height 0.5s ease;
+    
+}
+
+#dropdownMenu.closed {
+    height: 0;
+}
+
+#dropdownMenu button {
+	margin-top: 5px;
+	border-radius: 50%;
+	width: 50px;
+	height: 50px;
+	border: none;
+	background-color: #9370DB;
+	color: #FFF;
+	font-size: 16px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#dropdownMenu button:hover {
+	background-color: #6A5ACD;
+}
+
+#chatMessageArea {
+	height: calc(100% - 60px - 150px);
+	overflow-y: auto;
+}
+
+#chatInputArea {
+	height: 150px;
+	background-color: #FFF;
+}
+
+#menuBar, #menuBar label {
+	height: 35px;
+    display: flex;
+    align-items: center;
+}
+
+#menuBar img {
+	margin-left: 10px;
+	height: 70%;
+    cursor: pointer;
+}
+
+#file {
+	display: none;
+}
+
+#sendBtn {
+    margin-left: auto;
+    margin-right: 10px;
+    height: 80%;
+    width: 80px;
+    font-size: 16px;
+    cursor: pointer;
+	border: none;
+	border-radius: 5px;
+	background-color: rgba(147, 112, 219, 0.5);
+}
+
+#sendBtn:hover {
+	background-color: #9370DB;
+}
+
+#chatInput {
+	height: 110px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#message {
+	font-size: 18px;
+	width: 95%;
+	height: 90%;
+	border: none;
+	outline: none;
+}
+
+/* 전체 스크롤바 스타일 */
+::-webkit-scrollbar {
+    width: 12px; /* 스크롤바 너비 */
+    height: 8px; /* 가로 스크롤바 높이 */
+}
+
+/* 스크롤바 트랙 (배경) 스타일 */
+::-webkit-scrollbar-track {
+    background: #f5f5f5; /* 트랙의 배경색 */
+    border-radius: 10px; /* 둥근 모서리 */
+}
+
+/* 스크롤바 슬라이더 (thumb) 스타일 */
+::-webkit-scrollbar-thumb {
+    background: #ccc; /* 슬라이더의 색상 */
+    border-radius: 10px; /* 둥근 모서리 */
+    border: 3px solid #f5f5f5; /* 슬라이더와 트랙 사이 여백 */
+}
+
+/* 스크롤바 슬라이더에 마우스를 올렸을 때 스타일 */
+::-webkit-scrollbar-thumb:hover {
+    background: #999; /* 슬라이더 색상 변화 */
+}
+
+/* 스크롤바 슬라이더를 클릭 중일 때 스타일 */
+::-webkit-scrollbar-thumb:active {
+    background: #666; /* 슬라이더 색상 변화 */
+}
+
+

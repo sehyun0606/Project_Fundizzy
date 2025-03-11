@@ -2,15 +2,16 @@ const TYPE_INIT_LIST = "TYPE_INIT_LIST"; // 채팅창 초기화
 
 var ws = opener.ws
 
+// 세션 아이디 저장
+const sender_email = $("#sId", opener.document).val();
+
 $(function() {
 	// 해당 페이지 선택 표시를 위해 사이드바의 다른 페이지 아이콘 연하게 표시
 	$("#people img").css("opacity", "0.3");
 	
-	// 세션 아이디 저장
-	sId = $("#sId", opener.document).val();
 	
 	// 로그인 안되어있을때 로그인 페이지로 이동, 챗 윈도우 클로즈
-	if(!sId) {
+	if(!sender_email) {
 		alert("로그인이 필요합니다.\n로그인 페이지로 이동합니다.")
 		opener.location.href = "Login";
 		window.close();
@@ -46,9 +47,9 @@ function initChatWindow() {
 }
 
 // 부모창의 sendMessage() 함수 호출하여 메세지 전송을 요청하는 함수
-function sendMessage(type, sender_id, receiver_id, room_id, message, idx) {
+function sendMessage(type, sender_email, receiver_email, room_id, message, idx) {
 	// 부모창의 sendMessage() 함수 호출
-	opener.sendMessage(type, sender_id, receiver_id, room_id, message, idx);
+	opener.sendMessage(type, sender_email, receiver_email, room_id, message, idx);
 }
 
 // 채팅리스트 출력 메서드
@@ -80,7 +81,7 @@ function appendChatRoom(room) {
 	
 	let divRoom = 
 		`<div class="chatRoom ${room.room_id}">
-			<input type="hidden" class="receiver_id" value=${room.receiver_email}>
+			<input type="hidden" class="receiver_email" value=${room.receiver_email}>
 			<div class="receiverImg">
 				<img src="/resources/images/notification/followingIcon.png">
 				<span class="messageCount"></span>
@@ -111,7 +112,7 @@ function appendChatRoom(room) {
 	// 채팅리스트 더블클릭시 해당 채팅방 뉴 윈도우로 오픈
 	$(".chatRoom." + room.room_id).on("dblclick", function() {
 		// 더블클릭시 부모창의 채팅방 오픈 메서드 호출
-		opener.openChatRoomWindow($(this).find(".receiver_id").val());
+		opener.openChatRoomWindow($(this).find(".receiver_email").val());
 	});
 
 }

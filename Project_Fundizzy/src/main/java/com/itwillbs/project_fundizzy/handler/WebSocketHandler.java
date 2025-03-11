@@ -65,6 +65,10 @@ public class WebSocketHandler extends TextWebSocketHandler {
 			chatMessage.setMessage(jsonChatRoomList);
 			// 메시지 전달
 			sendMessasge(session, chatMessage);
+		} else if (type.equals(ChatMessage.TYPE_INIT_CHATROOM)) {
+			System.out.println("채팅방 초기화 완료");
+			// 채팅 리스트 조회
+			System.out.println(chatMessage);
 		}
 	}
 
