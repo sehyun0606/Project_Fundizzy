@@ -248,18 +248,18 @@
 		WHERE refund_code = #{refund_code}
 	</update>
 	
-<!-- 	<insert id="insertRefundPay"> -->
-<!-- 		INSERT -->
-<!-- 		INTO funddizy_pay -->
-<!-- 		VALUES ( -->
-<!-- 			#{email} -->
-<!-- 			, #{pay_amt} -->
-<!-- 			, #{pay_type} -->
-<!-- 			, NOW() -->
-<!-- 			, #{pay_tran_id} -->
-<!-- 			, #{pay_balance} -->
-<!-- 		) -->
-<!-- 	</insert> -->
+	<insert id="insertRefundPay">
+		INSERT
+		INTO funddizy_pay
+		VALUES (
+			#{email}
+			, #{pay_amt}
+			, 'RE'
+			, NOW()
+			, #{pay_tran_id}
+			, #{pay_balance}
+		)
+	</insert>
 	
 	
 	

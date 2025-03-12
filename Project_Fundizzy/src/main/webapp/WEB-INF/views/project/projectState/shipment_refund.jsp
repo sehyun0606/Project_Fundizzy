@@ -381,6 +381,7 @@
 				            switch (rewardList[index].refund_stat) {
 							case "REF01" : 
 								refundStatus = "신청";
+								$(this).find(".statusBtn button").remove();
 				            	$(this).find(".statusBtn").prepend("<button class='refundInfoBtn'>확인하기</button>");
 								break;
 							case "REF02" : 
@@ -509,11 +510,9 @@
 				$(".reject-reason").empty();
 				
 				$("#refund-modal .btn-container").html(
-					`<div class="btn-container">
-						<input type="submit" value="환불 승인" class="approveBtn">
-   						<input type="button" value="거절" class="rejectBtn">
-   						<input type="button" value="닫기" class="closeBtn">
-					</div>`
+					`<input type="submit" value="환불 승인" class="approveBtn">
+					 <input type="button" value="거절" class="rejectBtn">
+  					 <input type="button" value="닫기" class="closeBtn">`
 				);
 				
 				$(".reject-reason").css({
@@ -522,9 +521,7 @@
 				});
 			});
 	        
-	        $(document).on("click", ".modal-back img", function() {
-				history.back();
-			});
+	        
 	        
 			
 		});
