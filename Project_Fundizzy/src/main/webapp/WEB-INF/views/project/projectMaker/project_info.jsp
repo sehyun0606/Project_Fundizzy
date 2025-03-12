@@ -64,11 +64,11 @@
 	        <label class="label" >신분증</label>
 	        <input type="file" class="input id-card" required="required">
 	       
-	        <label class="label license"style="display: none;" >사업자 등록 번호</label>
-	        <input type="text"  class="input license" placeholder="사업자 등록 번호" style="display: none;" required="required">
+	        <label class="label license license-num"style="display: none;" >사업자 등록 번호</label>
+	        <input type="text"  class="input license license-num" placeholder="사업자 등록 번호" style="display: none;" required="required">
 	        
-	        <label class="label license"style="display: none;" >상호명</label>
-	        <input type="text"  class="input license" placeholder="상호명" style="display: none;" required="required">
+	        <label class="label license license-name"style="display: none;" >상호명</label>
+	        <input type="text"  class="input license license-name" placeholder="상호명" style="display: none;" required="required">
 	        
 	        <label class="label">대표자명</label>
 	        <input type="text" class="input name" placeholder="대표자명" required="required">
