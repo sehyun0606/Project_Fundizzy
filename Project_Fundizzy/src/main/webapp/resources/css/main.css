@@ -170,8 +170,9 @@ body {
     display: flex;
     gap: 20px;
     font-size: 14px;
-    color: gray;
-    min-width: max-content; /* 컨텐츠 크기만큼 확장 */
+    color: dimgray;
+    min-width: max-content;
+    font-weight: 700;
 }
 
 /* ✅ 개별 카테고리 아이템 */
@@ -309,11 +310,10 @@ body {
 .content-wrapper {
     display: flex;
     justify-content: space-between;
-    max-width: 1200px;
+    max-width: 1130px;
     margin: auto;
     gap: 20px;
 }
-
 /* ✅ 왼쪽 (배너 + 취향 맞춤 프로젝트) */
 .left-content {
     width: 70%;
@@ -396,7 +396,7 @@ body {
 .ranking-section {
     width: 30%;
     background: white;
-    padding: 10px;
+    padding: 0px;
 }
 .ranking-tabs {
     display: flex;
@@ -405,28 +405,34 @@ body {
 }
 .ranking-tabs span {
     cursor: pointer;
-    padding: 5px 10px;
+    padding: 5px 0px;
+    color: gray;
+    font-weight: bold;
 }
 .ranking-tabs span.active {
     font-weight: bold;
     border-bottom: 2px solid black;
+    color: black;
 }
 .ranking-list {
-    list-style: none;
+   	list-style: none;
     padding: 0;
-    margin-top: auto;
+    margin-top: revert;
     margin-bottom: auto;
 }
 .ranking-list li {
     display: flex;
-    align-items: center;
+    justify-content: space-between;
     gap: 10px;
-    padding: 10px 0;
+    padding: 2px 0px;
+    align-items: flex-start;
+    cursor: pointer;
 }
 .rank-number {
     font-size: 20px;
     font-weight: bold;
     color: black;
+    margin-top: 3px;
 }
 .rank-highlight {
     font-weight: bold;
@@ -435,12 +441,16 @@ body {
     margin-top: auto;
 }
 .ranking-list img {
-    width: 50px;
+    width: 100px;
     height: 50px;
     border-radius: 5px;
 }
 .rank-content p {
-	margin-bottom: auto;
+   	margin-bottom: 6px;
+    margin-top: auto;
+    width: 200px;
+    font-size: 15px;
+    color: darkslategray;
 }
 /* ✅ 연한 회색 구분선 */
 .divider1 {
@@ -454,5 +464,5 @@ body {
     width: 1px; /* 선의 두께 */
     background-color: #ddd; /* 연한 회색 */
     height: auto; /* 양쪽 콘텐츠 크기에 맞게 자동 조절 */
-    margin: 0 20px; /* 양쪽 여백 */
+    margin: 0 15px; /* 양쪽 여백 */
 }
