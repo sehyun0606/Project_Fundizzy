@@ -216,6 +216,53 @@
 		WHERE project_code = #{project_code}
 	</select>
 	
+	<update id="updateFundHistoryStatus">
+		UPDATE fund_history fh
+		JOIN refund r
+		ON fh.fund_idx = r.fund_idx
+		SET 
+			<choose>
+				<when test="reject_reason == null">
+					refund_stat = 'REF02'
+				</when>
+				<otherwise>
+					refund_stat = 'REF03'
+				</otherwise>
+			</choose>
+		WHERE refund_code = #{refund_code}
+	</update>
+	
+	<update id="updateRefundStatus">
+		UPDATE refund
+		SET 
+			<choose>
+				<when test="reject_reason == null">
+					refund_status = 'REF02'
+				</when>
+				<otherwise>
+					refund_status = 'REF03',
+					reject_reason = #{reject_reason}
+				</otherwise>
+			</choose>
+			, refund_confirm_date = NOW()
+		WHERE refund_code = #{refund_code}
+	</update>
+	
+<!-- 	<insert id="insertRefundPay"> -->
+<!-- 		INSERT -->
+<!-- 		INTO funddizy_pay -->
+<!-- 		VALUES ( -->
+<!-- 			#{email} -->
+<!-- 			, #{pay_amt} -->
+<!-- 			, #{pay_type} -->
+<!-- 			, NOW() -->
+<!-- 			, #{pay_tran_id} -->
+<!-- 			, #{pay_balance} -->
+<!-- 		) -->
+<!-- 	</insert> -->
+	
+	
+	
 
 </mapper>
 

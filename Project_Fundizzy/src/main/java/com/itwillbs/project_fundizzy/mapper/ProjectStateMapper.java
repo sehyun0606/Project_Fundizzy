@@ -52,6 +52,14 @@ public interface ProjectStateMapper {
 
 	List<RefundVO> selectRefund(String project_code);
 
+	int updateRefundApprove(Map<String, String> map);
+
+	int updateFundHistoryStatus(Map<String, String> map);
+
+	void updateRefundStatus(Map<String, String> map);
+
+//	void insertRefundPay(Map<String, String> map);
+
 
 
 

@@ -99,7 +99,7 @@
 					        </c:if>
 		                </div>
 		                <div>
-		                    <span>완료</span>
+		                    <span>승인</span>
 		                    <c:set var="found" value="false" />
 		                    <c:forEach var="refund" items="${refundStateCount}">
 			                    <c:if test="${refund.refund_stat eq 'REF02'}">
@@ -286,10 +286,12 @@
 			</div>
 			<!-- 환불정보 확인/거절 모달창 -->
 			<div id="refund-modal" class="modal-content">
+				<div class="modal-back"><img src="/resources/images/projectState/backBtn.png"></div>
 				<div class="modal-close">x</div>
 				<div class="modal-main">
 					<h3>환불 요청 정보</h3>
 					<form action="RefundInfo" method="post">
+						<input type="hidden" name="refund_code" id="refund_code">
 						<div class="receiver-container">
 							<div class="receiver-info">
 								<span>결제번호</span>
@@ -461,7 +463,8 @@
 				let payment_code = $(this).closest("tr.details").prev("tr").find(".payment_code").val();
 				// 환불코드 저장
 				let refund_code = $(this).siblings(".refund_code").val();
-				
+				$("#refund_code").val(refund_code);
+				console.log(refund_code);
 				let detail =  $(this).closest("tr.details");
 				
 				$.ajax({
@@ -478,10 +481,8 @@
 					 
 				    rows.each(function(index) {
 				        if (index < rewardList.length) {
-						
 				        	// 주문한 리워드 정보 출력
 							if(rewardList[index].refund_code == refund_code) {
-					        	console.log("리워드코드 : " + rewardList[index].refund_code);
 								$("#refund-modal .receiver-container").after(
 									"<div class='reward-container'>"
 									+ "<div class='reward-title'>" + rewardList[index].product_name + "</div>"
@@ -509,7 +510,7 @@
 				
 				$("#refund-modal .btn-container").html(
 					`<div class="btn-container">
-						<input type="button" value="환불 승인" class="approveBtn">
+						<input type="submit" value="환불 승인" class="approveBtn">
    						<input type="button" value="거절" class="rejectBtn">
    						<input type="button" value="닫기" class="closeBtn">
 					</div>`
@@ -519,6 +520,10 @@
 					"border-top": "none",
 					"padding-bottom": "0"
 				});
+			});
+	        
+	        $(document).on("click", ".modal-back img", function() {
+				history.back();
 			});
 	        
 			

@@ -8,13 +8,6 @@ $(function() {
 	});
 	
 	// ======================= 환불 요청 처리 =======================
-	// 환불 승인 버튼 클릭 이벤트
-	$(document).on("click", ".approveBtn", function() {
-		if(confirm("환불 요청을 승인하시겠습니까?")) {
-
-		}
-	});
-	
 	// (환불)확인하기 버튼 클릭 이벤트
 	$(document).on("click", ".rejectBtn", function() {
 		// 환불 거절버튼 클릭 시 거절사유 폼 append
@@ -32,12 +25,21 @@ $(function() {
 		
 		// 기존 버튼 대신 완료, 닫기 버튼으로 변경
 		$("#refund-modal .btn-container").html(
-			`<div class="btn-container">
-				<input type="submit" value="완료" class="finBtn">
-				<input type="button" value="닫기" class="closeBtn">
-			</div>`
+			`<input type="submit" value="완료" class="finBtn">
+			 <input type="button" value="닫기" class="closeBtn">`
 		);
 		
+		// 뒤로가기 아이콘 생성
+		$(".modal-back img").css("display", "block");
+		
+	});
+	
+	// 환불 승인 버튼 클릭 이벤트
+	$(document).on("click", ".approveBtn", function() {
+		if(!confirm("환불 요청을 승인하시겠습니까?")) {
+//			location.reload();
+			return false;
+		}
 	});
 	
 	// textarea에 작성된 글자수 동적으로 업데이트

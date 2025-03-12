@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.itwillbs.project_fundizzy.mapper.ProjectStateMapper;
 import com.itwillbs.project_fundizzy.vo.FundHistoryVO;
@@ -82,6 +83,17 @@ public class ProjectStateService {
 
 	public List<RefundVO> getRefund(String project_code) {
 		return stateMapper.selectRefund(project_code);
+	}
+
+	@Transactional
+	public int modifyFundHistoryStatus(Map<String, String> map) {
+		
+		if(map.get("reject_reason") == null) {
+//			stateMapper.insertRefundPay(map);
+		}
+		stateMapper.updateRefundStatus(map);
+
+		return stateMapper.updateFundHistoryStatus(map);
 	}
 
 

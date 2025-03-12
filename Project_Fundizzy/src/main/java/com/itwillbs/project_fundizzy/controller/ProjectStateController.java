@@ -123,10 +123,19 @@ public class ProjectStateController {
 	}
 	
 	@PostMapping("RefundInfo")
-	public String refundInfo(HttpSession session, Model model) {
-		
-		
-		return "";
+	public String refundInfo(HttpSession session, Model model, @RequestParam Map<String, String> map) {
+		System.out.println("map : " + map);
+		int updateCount = stateService.modifyFundHistoryStatus(map);
+
+		if(updateCount > 0) {
+			model.addAttribute("msg", "환불 처리가 완료되었습니다");
+			model.addAttribute("targetURL", "ShipmentRefund");
+			return "result/result";
+		} else {
+			model.addAttribute("msg", "환불 처리에 실패하였습니다");
+			model.addAttribute("targetURL", "ShipmentRefund");
+			return "result/result";
+		}
 	}
 	
 	
