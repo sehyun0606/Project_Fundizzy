@@ -161,7 +161,7 @@
 	                    <span class="rank-number">1</span>
 	                    <div class="rank-content">
 	                        <p>[1.7억] 속눈썹 램핑밤</p>
-	                        <p class="rank-highlight">13,622% 달성</p>
+	                        <span class="rank-highlight">13,622% 달성</span>
 	                    </div>
 	                    <img src="/resources/images/main/KakaoTalk_20241113_223306690_12.jpg" alt="순위1">
 	                </li>
@@ -169,7 +169,7 @@
 	                    <span class="rank-number">2</span>
 	                    <div class="rank-content">
 	                        <p>미친 개발자의 555만톤 세럼</p>
-	                        <p class="rank-highlight">351명 참여</p>
+	                        <span class="rank-highlight">351명 참여</span>
 	                    </div>
 	                    <img src="/resources/images/main/KakaoTalk_20241113_223306690_12.jpg" alt="순위2">
 	                </li>
@@ -177,7 +177,47 @@
 	                    <span class="rank-number">3</span>
 	                    <div class="rank-content">
 	                        <p>비싼 시술 왜 해? 미백팩!</p>
-	                        <p class="rank-highlight">4,582% 달성</p>
+	                        <span class="rank-highlight">4,582% 달성</span>
+	                    </div>
+	                    <img src="/resources/images/main/KakaoTalk_20241113_223306690_12.jpg" alt="순위3">
+	                </li>
+	                <li>
+	                    <span class="rank-number">3</span>
+	                    <div class="rank-content">
+	                        <p>비싼 시술 왜 해? 미백팩!</p>
+	                        <span class="rank-highlight">4,582% 달성</span>
+	                    </div>
+	                    <img src="/resources/images/main/KakaoTalk_20241113_223306690_12.jpg" alt="순위3">
+	                </li>
+	                <li>
+	                    <span class="rank-number">3</span>
+	                    <div class="rank-content">
+	                        <p>비싼 시술 왜 해? 미백팩!</p>
+	                        <span class="rank-highlight">4,582% 달성</span>
+	                    </div>
+	                    <img src="/resources/images/main/KakaoTalk_20241113_223306690_12.jpg" alt="순위3">
+	                </li>
+	                <li>
+	                    <span class="rank-number">3</span>
+	                    <div class="rank-content">
+	                        <p>비싼 시술 왜 해? 미백팩!</p>
+	                        <span class="rank-highlight">4,582% 달성</span>
+	                    </div>
+	                    <img src="/resources/images/main/KakaoTalk_20241113_223306690_12.jpg" alt="순위3">
+	                </li>
+	                <li>
+	                    <span class="rank-number">3</span>
+	                    <div class="rank-content">
+	                        <p>비싼 시술 왜 해? 미백팩!</p>
+	                        <span class="rank-highlight">4,582% 달성</span>
+	                    </div>
+	                    <img src="/resources/images/main/KakaoTalk_20241113_223306690_12.jpg" alt="순위3">
+	                </li>
+	                <li>
+	                    <span class="rank-number">3</span>
+	                    <div class="rank-content">
+	                        <p>비싼 시술 왜 해? 미백팩!</p>
+	                        <span class="rank-highlight">4,582% 달성</span>
 	                    </div>
 	                    <img src="/resources/images/main/KakaoTalk_20241113_223306690_12.jpg" alt="순위3">
 	                </li>
