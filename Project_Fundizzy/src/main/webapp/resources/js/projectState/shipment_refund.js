@@ -10,20 +10,22 @@ $(function() {
 	// ======================= 환불 요청 처리 =======================
 	// 환불 승인 버튼 클릭 이벤트
 	$(document).on("click", ".approveBtn", function() {
-		alert("환불 요청을 승인하시겠습니까?");
+		if(confirm("환불 요청을 승인하시겠습니까?")) {
+
+		}
 	});
 	
 	// (환불)확인하기 버튼 클릭 이벤트
-	$(document).on("click", ".refuseBtn", function() {
+	$(document).on("click", ".rejectBtn", function() {
 		// 환불 거절버튼 클릭 시 거절사유 폼 append
-		$(".refuse-reason").append(
+		$(".reject-reason").append(
 			`<h4>반환 거절 사유</h4>
-			<textarea rows="7" cols="15" maxlength="600"></textarea>
+			<textarea rows="7" cols="15" maxlength="600" name="reject_reason"></textarea>
 			<div class="char-count">0/600</div>`
 		);
 
 		// 거절사유 폼 css
-		$(".refuse-reason").css({
+		$(".reject-reason").css({
 			"border-top": "1px solid #ddd",
 			"padding-bottom": "20px"
 		});

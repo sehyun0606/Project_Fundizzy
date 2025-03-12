@@ -296,7 +296,7 @@ h4 {
     width: 100%;
 }
 
-.finBtn, .closeBtn, .approveBtn, .refuseBtn {
+.finBtn, .closeBtn, .approveBtn, .rejectBtn {
 	width: 90%;
     padding: 10px;
     border: none;
@@ -316,7 +316,7 @@ h4 {
     background-color: #60cc60;
     color: white;
 }
-.refuseBtn {
+.rejectBtn {
     background-color: #d73931;
     color: white;
 }
@@ -333,13 +333,13 @@ h4 {
 .refund-reason > div {
 	font-size: 14px;
 }
-.refuse-reason textarea {
+.reject-reason textarea {
 	box-sizing: border-box;
 	width: 80%;
 	height: 100px;
 	resize: none;
 }
-.refuse-reason > div {
+.reject-reason > div {
 	font-size: 14px;
 	color: #a1a1a1;
 }

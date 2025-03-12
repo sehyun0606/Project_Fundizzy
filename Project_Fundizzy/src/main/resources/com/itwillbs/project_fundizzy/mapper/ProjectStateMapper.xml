@@ -176,7 +176,18 @@
 			fh.refund_date, 
 			fh.send_date, 
 			fh.product_count, 
-			fh.payment_code
+			fh.payment_code,
+			(SELECT refund_reason
+			 FROM refund r
+		     WHERE r.fund_idx = fh.fund_idx) as refund_reason,
+		    (SELECT refund_code
+			 FROM refund r
+		     WHERE r.fund_idx = fh.fund_idx) as refund_code,
+		    (SELECT DISTINCT nickname
+			 FROM refund r
+			 JOIN member m
+			 ON r.member_email = m.email
+			 WHERE payment_code = #{payment_code}) as nickname
 		FROM 
 			fund_history fh
 		WHERE 

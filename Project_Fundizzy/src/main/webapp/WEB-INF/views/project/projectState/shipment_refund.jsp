@@ -209,15 +209,15 @@
 				                            <th width="45px"></th>
 				                        </tr>
 		            					<c:forEach begin="1" end="${order.fund_count}" varStatus="status2">
-				                        <tr>
-				                            <td>${status.index + 1}-${status2.index}<input type="hidden" class="refund_code"></td>
-				                            <td class="product_name"></td>
-				                            <td class="result_point"></td>
-				                            <td class="product_count"></td>
-				                            <td class="refund_status"></td>
-				                            <td class="statusBtn"></td>
-				                            <td></td>
-				                        </tr>
+					                        <tr>
+					                            <td>${status.index + 1}-${status2.index}</td>
+					                            <td class="product_name"></td>
+					                            <td class="result_point"></td>
+					                            <td class="product_count"></td>
+					                            <td class="refund_status"></td>
+					                            <td class="statusBtn"><input type="hidden" class="refund_code"></td>
+					                            <td></td>
+					                        </tr>
 		          				  		</c:forEach>
 				                    </table>
 				                </td>
@@ -231,7 +231,7 @@
 				<div class="modal-close">x</div>
 				<div class="modal-main">
 					<h3>발송 정보</h3>
-					<form action="ShipmentInfo">
+					<form action="ShipmentInfo" method="post">
 						<div class="receiver-container">
 							<div class="receiver-info">
 								<span>결제번호</span>
@@ -289,7 +289,7 @@
 				<div class="modal-close">x</div>
 				<div class="modal-main">
 					<h3>환불 요청 정보</h3>
-					<form action="RefundInfo">
+					<form action="RefundInfo" method="post">
 						<div class="receiver-container">
 							<div class="receiver-info">
 								<span>결제번호</span>
@@ -307,9 +307,9 @@
 						
 						<div class="refund-reason">
 							<h4>펀딩금 반환 신청 사유</h4>
-							<div>받았는데 하자가 있네요 환불해주세요</div>
+							<div></div>
 						</div>
-						<div class="refuse-reason">
+						<div class="reject-reason">
 <!-- 							<h4>반환 거절 사유</h4> -->
 <!-- 							<textarea rows="7" cols="15" ></textarea> -->
 <!-- 							<div>600자</div> -->
@@ -318,12 +318,12 @@
 							<h4>반환 금액</h4>
 							<div class="refund-info">
 								<span>반환금 신청 금액</span>
-								<span>54,000원</span>
+								<span></span>
 							</div>
 						</div>
 						<div class="btn-container">
-							<input type="button" value="환불 승인" class="approveBtn">
-	   						<input type="button" value="거절" class="refuseBtn">
+							<input type="submit" value="환불 승인" class="approveBtn">
+	   						<input type="button" value="거절" class="rejectBtn">
 	   						<input type="button" value="닫기" class="closeBtn">
 						</div>
 					</form>
@@ -337,12 +337,12 @@
 			
 			// json 객체로 저장된 오더리스트 변수에 저장
 			var jsonOrderList = ${jsonOrderList};
-			
+
 			// 아코디언 형식으로 주문 상세내역 표시
 	    	$(".toggleBtn button").click(function() {
 				let img = $(this).find("img");
 	    		let detail =  $(this).closest("tr").next(".details");
-	    		
+
 	    		let productName = detail.find(".product_name"); // details 행 내부의 .product_name 선택
 		        detail.toggle(); // 다음 .details 행들을 토글
 		        
@@ -379,10 +379,10 @@
 				            switch (rewardList[index].refund_stat) {
 							case "REF01" : 
 								refundStatus = "신청";
-				            	$(this).find(".statusBtn").html("<button class='refundInfoBtn'>확인하기</button>");
+				            	$(this).find(".statusBtn").prepend("<button class='refundInfoBtn'>확인하기</button>");
 								break;
 							case "REF02" : 
-								refundStatus = "완료";
+								refundStatus = "승인";
 								break;
 							case "REF03" : 
 								refundStatus = "거절";
@@ -452,18 +452,17 @@
 	    	// (환불) 확인하기 버튼 클릭 시 모달창 생성
 			$(document).on("click", ".refundInfoBtn", function() {
 				
-				$("#refund-modal").fadeIn();
+				$("#refund-modal").fadeOut(0, function() {
+					$("#refund-modal").fadeIn();
+				});
 				$("#ship-modal").css("display", "none");
 				
+				// 결제코드 저장
 				let payment_code = $(this).closest("tr.details").prev("tr").find(".payment_code").val();
-				console.log(payment_code);
-				// 환불 요청 모달창에 정보 출력
-				for(let order of jsonOrderList) {
-					if(order.payment_code == payment_code) {
-						$("#refund-modal .receiver-info:nth-child(1) span:nth-child(2)").text(order.payment_code);
-						$("#refund-modal .receiver-info:nth-child(2) span:nth-child(2)").text(order.name);
-					}
-				}
+				// 환불코드 저장
+				let refund_code = $(this).siblings(".refund_code").val();
+				
+				let detail =  $(this).closest("tr.details");
 				
 				$.ajax({
 					type : "GET",
@@ -473,38 +472,50 @@
 					}
 				}).done(function(rewardList) {
 					// 환불 요청 폼에 주문 리워드 정보 출력
-					$("#refund-modal .reward-container").empty()
-					for(let reward of rewardList) {
-						console.log(reward);
-						if(reward.refund_stat == "REF01") {
-							$("#refund-modal .receiver-container").after(
-								"<div class='reward-container'>"
-								+ "<div class='reward-title'>" + reward.product_name + "</div>"
-								+ "<div class='reward-info'>" + reward.result_point + "원 / " + reward.product_count + "개</div>"
-								+ "</div>"		
-							);
-							$("#refund-modal .refund-info span:nth-child(2)").text(reward.result_point + "원");
-						}
-					}
+					$("#refund-modal .reward-container").empty();
+
+					let rows = detail.find("tr:gt(0)"); // 첫 번째 tr(제목 행) 이후의 모든 tr 선택
+					 
+				    rows.each(function(index) {
+				        if (index < rewardList.length) {
+						
+				        	// 주문한 리워드 정보 출력
+							if(rewardList[index].refund_code == refund_code) {
+					        	console.log("리워드코드 : " + rewardList[index].refund_code);
+								$("#refund-modal .receiver-container").after(
+									"<div class='reward-container'>"
+									+ "<div class='reward-title'>" + rewardList[index].product_name + "</div>"
+									+ "<div class='reward-info'>" + rewardList[index].result_point + "원 / " + rewardList[index].product_count + "개</div>"
+									+ "</div>"		
+								);
+								$("#refund-modal .refund-info span:nth-child(2)").text(rewardList[index].result_point + "원");
+								$("#refund-modal .refund-reason div").text(rewardList[index].refund_reason);
+								$("#refund-modal .receiver-info:nth-child(1) span:nth-child(2)").text(rewardList[index].payment_code);
+								$("#refund-modal .receiver-info:nth-child(2) span:nth-child(2)").text(rewardList[index].nickname);
+								
+							}
+				        }
+				     });
+					
 				}).fail(function() {
-					console.lof("실패");
+					console.log("실패");
 				});
 			});
 		
 	        // x 버튼 클릭 시 모달창 닫힘
 			$(document).on("click", ".modal-close, .closeBtn", function() {
 				$(".modal-content").css("display", "none");
-				$(".refuse-reason").empty();
+				$(".reject-reason").empty();
 				
 				$("#refund-modal .btn-container").html(
 					`<div class="btn-container">
 						<input type="button" value="환불 승인" class="approveBtn">
-   						<input type="button" value="거절" class="refuseBtn">
+   						<input type="button" value="거절" class="rejectBtn">
    						<input type="button" value="닫기" class="closeBtn">
 					</div>`
 				);
 				
-				$(".refuse-reason").css({
+				$(".reject-reason").css({
 					"border-top": "none",
 					"padding-bottom": "0"
 				});
