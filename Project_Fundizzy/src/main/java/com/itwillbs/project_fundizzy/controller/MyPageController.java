@@ -96,6 +96,8 @@ public class MyPageController {
 		
 		mypageService.updateProfile(member);
 		
+		session.setAttribute("profileImg", member.getProfile());
+		
 		
 		updateFile(profileImg, realPath, imgName);
 		
