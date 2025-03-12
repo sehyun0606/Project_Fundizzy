@@ -43,7 +43,6 @@ $(function() {
 		}
 	}
 	
-	
 	// 해당 페이지 선택 표시를 위해 사이드바의 다른 페이지 아이콘 연하게 표시
 	$("#chatRoom img").css("opacity", "0.3");
 	
@@ -65,6 +64,12 @@ $(function() {
 	            peopleList.removeClass("closed");
 	        }
 	    });
+	});
+	
+	// 회원 더블클릭시 대화방 오픈
+	$(".people").dblclick(function() {
+		let receiver_email = $(this).find(".email").val();
+		console.log(receiver_email); 
 	});
 
 });
@@ -106,6 +111,7 @@ function appendChatMember(makerList, supportList) {
 // 채팅멤버 추가시 필요한 div 생성 메서드
 function makeDivForAppendMember(people) {
 	let peopleDiv = `<div class="people">
+						<input type="hidden" class="email" value="${people.email}">
 						<div class="peopleImg"><img src="/resources/images/notification/followingIcon.png"></div>
 						<div class=peopleProfile>
 							<div class="peopleNickName">${people.nickname}</div>

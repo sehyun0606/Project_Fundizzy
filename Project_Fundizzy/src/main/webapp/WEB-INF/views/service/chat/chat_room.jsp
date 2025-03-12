@@ -18,8 +18,8 @@
 		<div id="exit">
 			<img src="/resources/images/chat/outIcon.png">
 			<span id="dropdownMenu" class="closed">
-				<button>닫기</button>
-				<button>채팅<br>종료</button>
+				<button id="closeChatRoom">닫기</button>
+				<button id="outChatRoom">채팅<br>종료</button>
 			</span>
 		</div>
 	</div>
@@ -30,10 +30,10 @@
 			<label for="file"><img src="/resources/images/chat/clip.png"></label>
 			<input type="file" id="file" accept="image/*" onchange="sendFile()">
 			<img src="/resources/images/chat/transferIcon.png">
-			<input type="button" id="sendBtn" value="전송">
+			<input type="button" id="sendBtn" value="전송" onclick="sendInputMessage()">
 		</div>
 		<div id="chatInput">
-			<textarea id="message" maxlength="1000" placeholder="메시지를 입력하여 주세요"></textarea>
+			<textarea id="message" maxlength="1000" placeholder="메시지를 입력하여 주세요" onkeyup="checkEnterKey(event)"></textarea>
 		</div>
 	</div>
 	<script src="/resources/js/jquery-3.7.1.js"></script>
