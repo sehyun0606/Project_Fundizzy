@@ -15,6 +15,11 @@ public class FundService {
 	@Autowired
 	private FundMapper mapper;
 	
+	//펀딩 리스트 출력 ( 펀딩+ 메인페이지 )
+	public List<Map<String, Object>> getFundList() {
+		// TODO Auto-generated method stub
+		return mapper.selectFundList();
+	}
 	
 	//프로젝트 board 출력
 	public Map<String, Object> getFundBoard(String project_code) {
@@ -90,6 +95,7 @@ public class FundService {
 		// TODO Auto-generated method stub
 		return mapper.insertShipment(map);
 	}
+
 
 	
 	

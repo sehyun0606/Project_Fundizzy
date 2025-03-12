@@ -10,6 +10,9 @@ import com.itwillbs.project_fundizzy.vo.FundHistoryVO;
 import com.itwillbs.project_fundizzy.vo.FundizzyPay;
 @Mapper
 public interface FundMapper {
+	//펀딩 리스트 출력
+	List<Map<String, Object>> selectFundList();
+	
 	//프로젝트 board 출력
 	Map<String, Object> selectFundBoard(String project_code);
 	
@@ -53,6 +56,8 @@ public interface FundMapper {
 
 	//배송내역 input - shipment
 	int insertShipment(Map<String, Object> map);
+
+
 
 
 	

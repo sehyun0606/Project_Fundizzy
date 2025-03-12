@@ -44,6 +44,7 @@
 				<input type="hidden" id="product_name"  name="product_name" value="${reward.product_name}"> 
 				<input type="hidden" id="product_desc"  name="product_desc" value="${reward.product_desc}"> 
 				<input type="hidden" id="total_count" name="total_count" value="${total_count}"> 
+				<input type="hidden" id="reward_price" name="reward_price" value="${reward.price}"> 
 			</form>
 	       <div class="section-product">
 <!-- 	       완료 -->
@@ -96,7 +97,7 @@
 							<input type="text" id="sample6_extraAddress" placeholder="참고항목" required="required">
 			            </div>
 		             </div>
-		            <input type="text" class="shipment-box" placeholder="배송 시 요청사항(선택)">
+		            <input type="text" id="shipment-box" placeholder="배송 시 요청사항(선택)">
 		        </div>
 	        </div>
 	        

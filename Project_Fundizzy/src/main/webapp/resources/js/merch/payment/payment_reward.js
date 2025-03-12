@@ -56,7 +56,8 @@ $(function() {
     function totalAmount() {
         totalInputValue = parseInt($(".totalCount").val());
         totalPrice = parseInt(totalInputValue * reward_price);
-
+		reward_price = $("#sell_price").val();
+		
         console.log(totalInputValue);
         console.log("totalPrice = " + totalPrice);
 

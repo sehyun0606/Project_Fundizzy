@@ -54,15 +54,18 @@ public class FundController {
 	
 	
 //	왼쪽 
-	//fund 목록
+	//fund 목록 (= 펀딩+ 누르면 이동하는 가장 첫 페이지)
 	@GetMapping("FundList")
-	public String fundList() {
+	public String fundList(Model model) {
+		List<Map<String, Object>> fundList = fundService.getFundList();
+		System.out.println("fundList = " + fundList);
+		model.addAttribute("fundList", fundList);
 		return "merch/funding/fund_list";
 	}
 	//fund 스토리
 	@GetMapping("FundBoardStory")
 	public String fundBoardStory(String project_code, Model model) {
-		
+		System.out.println("project_code = " + project_code);
 		Map<String, Object> fundStory = fundService.getFundBoard(project_code);
 		System.out.println("map == " + fundStory); // ok
 		model.addAttribute("fundStory", fundStory); //ok
@@ -268,9 +271,10 @@ public class FundController {
 		
 		System.out.println("ajax에서 받은 map 과연?? = " + map);
 		System.out.println("email: " + map.get("email"));
-		System.out.println("payment_price: " + map.get("payment_price"));
 		System.out.println("result_balance: " + map.get("result_balance"));
 		System.out.println("pay_tran_id: " + map.get("pay_tran_id"));  // 추가 확인
+		System.out.println("total_count: " + map.get("total_count"));  // 주문수량
+		System.out.println("payment_price: " + map.get("payment_price")); // 최종결제금액 (배송비포함)
 		
 		int result = fundService.registPaymentPay(map);
 		if (result > 0) {
@@ -289,7 +293,6 @@ public class FundController {
 		if(pay_result > 0) {
 			System.out.println("* 2번 결제내역 payment input 성공 *");
 		}
-		
 		
 		// 3. 배송지 input
 		int result_ship = fundService.registShipMent(map);
@@ -319,7 +322,13 @@ public class FundController {
 			System.out.println("# 4번  input 성공 @");
 		}
 		
-		model.addAttribute("reward", map);
+		//리워드 가져오기 
+		Map<String, Object> reward = fundService.getPaymentReward((String) map.get("project_code"));
+		System.out.println("pay reward = " + reward);
+		model.addAttribute("reward", reward);  // 리워드 데이터
+		
+		//map 값을 모두 리워드라는 키워드로 저장
+		model.addAttribute("map", map);     
 		return "merch/payment/payment_complete";
 	}
 	
@@ -328,10 +337,6 @@ public class FundController {
 	//결제 완료창 - get 비지니스 로직
 	@GetMapping("PaymentComplete")
 	public String paymentCompletePage(String project_code, Model model) {
-		System.out.println("결제완료창 = " + project_code);
-		Map<String, Object> reward = fundService.getPaymentReward(project_code);
-		System.out.println("reward map = " +  reward); // ok
-		model.addAttribute("reward", reward);
 		return "merch/payment/payment_complete";
 	}
 	

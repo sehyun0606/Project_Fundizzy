@@ -76,9 +76,11 @@ $(document).ready(function() {
 		let payment_price = parseInt(payment_price_text, 10) || 0; // 숫자로 변환 (NaN 방지)
 		let pay_balance_text = $("#pay_amt").text().replace(/[^0-9]/g, ""); // 현재 충전된 페이 금액
 		let pay_balance = parseInt(pay_balance_text, 10) || 0; // 숫자로 변환 (NaN 방지)
+	
 		
 		console.log("payment_price " + payment_price);
 		console.log("pay_balance " + pay_balance);
+		
 
 			if (pay_balance >= payment_price) {
 		    // 결제 가능
@@ -87,10 +89,12 @@ $(document).ready(function() {
 			let project_code = $("#project_code").val();
 			console.log("project_code: ", project_code); 
 			
-			//수량 보내기
+			//수량 및 리워드(개당) 가격 보내기
 			let total_count = $("#total_count").val();
 			console.log("total_count = " + total_count);
-			
+			let reward_price = $("#reward_price").val(); 
+			console.log("1개 가격 = " + reward_price);
+
 		    if (confirm("결제하시겠습니까?")) {
 		        // 1. 배송할 주소 및 정보 저장
 		        let name = '';
@@ -99,6 +103,7 @@ $(document).ready(function() {
 		        let address1 = '';
 		        let address2 = '';
 		        let extra_address = '';
+				let shipment_box = '';
 		
 		        // 새로 입력한 정보도 미리 정의
 		        let new_name = "";
@@ -107,7 +112,8 @@ $(document).ready(function() {
 		        let new_address1 = "";
 		        let new_address2 = "";
 		        let new_address3 = "";
-		
+				
+
 		        if ($("#address").prop("checked")) {
 		            // 회원정보를 기반으로 생성한 배송지 선택
 		            name = $("#ship-name").val();
@@ -125,7 +131,17 @@ $(document).ready(function() {
 		
 		            address2 = $("#ship-address2").text(); // 상세주소
 		            console.log("address2 = " + address2);
-		
+
+					if (!new_name) {
+						alert("배송받으시는 분의 성함을 입력해주세요");
+						location.reload();
+					}	
+					if (!phone_text || !post || !address1 ) {
+						alert("배송받으시는 분의 정보가 부족합니다. 새로 입력창을 통해 기입해 주세요.");
+						location.reload();
+					}
+				
+
 		        } else {
 		            // 새로 입력한 배송지 선택
 		            new_name = $("#ship-new-name + input").val();
@@ -145,7 +161,37 @@ $(document).ready(function() {
 		
 		            new_address3 = $("#sample6_extraAddress").val(); // 참조항목
 		            console.log("new_address3 = " + new_address3);
+					
+					//만약 새로 입력중 필수항목도 기입 안 한 경우
+					if (!new_name) {
+						alert("배송받으시는 분의 성함을 입력해주세요");
+						location.reload();
+					}
+					
+					if (!new_phone ) {
+						alert("배송받으시는 분의 전화번호를 입력해주세요");
+						location.reload();
+					}
+					
+					if (!new_post || !new_address1) {
+						alert("배송받을 주소 및 우편번호를 입력해주세요");
+						location.reload();
+					}
+					
+					
 		        }
+				
+				//배송요청사항 
+				
+				$("#shipment-box").on("input", function () {
+				    shipment_box = $(this).val();
+				    console.log("shipment_box = " + shipment_box);
+				});
+				
+				if(shipment_box != null){
+				  	shipment_box = $("#shipment-box").val(); // 배송 요청사항
+		            console.log("shipment_box = " + shipment_box);
+				}
 		
 		        // 2. 페이 결제
 		        let result_balance = pay_balance - payment_price;
@@ -168,6 +214,8 @@ $(document).ready(function() {
 		                post_code: post,
 		                address: address1,
 		                address1: address2,
+		                delivery_req: shipment_box,
+
 		
 		                new_name: new_name,
 		                new_phone: new_phone,
@@ -178,7 +226,11 @@ $(document).ready(function() {
 		
 		                payment_price: payment_price, // 총 결제 금액
 		                pay_balance: pay_balance, // 결제 전 페이 잔액
-		                result_balance: result_balance // 결제 후 페이 잔액
+		                result_balance: result_balance, // 결제 후 페이 잔액
+
+						//완료 페이지에 띄울 수량 및 리워드 금액 
+						total_count: total_count,
+						reward_price: reward_price
 		            }
 		        }).done(function (result) {
 		            console.log("결제 성공");
@@ -194,13 +246,9 @@ $(document).ready(function() {
 		    } else {
 		        location.reload();
 		    }
-		
 		} else {
 		    alert("페이 잔액 부족으로 인한 결제 불가 \n 충전 후 다시 시도해주세요.");
 		}
-
-	
-
 	});
 
 });

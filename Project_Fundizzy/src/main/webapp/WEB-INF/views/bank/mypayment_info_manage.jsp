@@ -60,7 +60,6 @@
 							</c:otherwise>
 						</c:choose>
 					>+ button<i class='fas fa-plus'></i></button>
-<%-- 					<img alt="계좌등록/추가" src="${pageContext.request.contextPath}/resources/images/bank/plus.png"> --%>
 				</div>
 			</div>
 		</div>
@@ -104,12 +103,12 @@
                             <th>${account.fintech_use_num}</th>
                             <th><input type="submit" value="계좌 등록"></th>
                         </form>
-                    </tr>
-                </c:forEach>
-            </table>
-   		 </div>
+	                    </tr>
+	                </c:forEach>
+	            </table>
+	   		 </div>
+		</div>
 	</div>
-</div>
 
 	<footer>
 		<jsp:include page="/WEB-INF/views/inc/footer.jsp" />

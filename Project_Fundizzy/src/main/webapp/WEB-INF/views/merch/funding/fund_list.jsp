@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -69,41 +71,23 @@
 	        <button>최신순</button>
 	        <button>마감임박순</button>
 	    </div>
-	
+	    <pre>${fundList}</pre>
+<!-- 	제품들 출력 -->
 	    <section class="product-list">
-	        <div class="product">
-	            <div class="product-img"></div>
-	            <div class="product-info">
-	                <p class="discount">4,541%달성 </p>
-	                <p class="name">[엑스트라 얼리버드] 티타늄 텀블러 싱글</p>
-	                <p class="rating">⭐ 4.7(148)</p>
-	            </div>
-	        </div>
-	        <div class="product">
-	            <div class="product-img"></div>
-	            <div class="product-info">
-	                <p class="discount">41%달성 29600원</p>
-	                <p class="name">[엑스트라 얼리버드] 티타늄 텀블러 싱글</p>
-	                <p class="rating">⭐ 4.7(148)</p>
-	            </div>
-	        </div>
-	        <div class="product">
-	            <div class="product-img"></div>
-	            <div class="product-info">
-	                <p class="discount">41%달성 29600원</p>
-	                <p class="name">[엑스트라 얼리버드] 티타늄 텀블러 싱글</p>
-	                <p class="rating">⭐ 4.7(148)</p>
-	            </div>
-	        </div>
-	        <div class="product">
-	            <div class="product-img"></div>
-	            <div class="product-info">
-	                <p class="discount">41%달성 29600원</p>
-	                <p class="name">[엑스트라 얼리버드] 티타늄 텀블러 싱글</p>
-	                <p class="rating">⭐ 4.7(148)</p>
-	            </div>
-	        </div>
+	        	<c:forEach var="list" items="${fundList}">
+	        		<div class="product">
+			            <div class="product-img">${list.representative_picture}</div>
+			            <div class="product-info">
+			                <p class="discount">${list.progress}</p>
+			                <p class="name">${list.project_title}</p>
+			                <p class="rating">⭐ 4.7(148)</p>
+			            </div>
+	       			 </div>
+	        	</c:forEach>
 	    </section>
+	    
+	    
+	    
 	</article>
 	<footer>
 		<jsp:include page="/WEB-INF/views/inc/footer.jsp" />
