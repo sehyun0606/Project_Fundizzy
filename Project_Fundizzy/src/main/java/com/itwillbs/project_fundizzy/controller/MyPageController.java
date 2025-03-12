@@ -126,7 +126,13 @@ public class MyPageController {
 	public String payPage(HttpSession session, Model model) {
 		//이메일 가져오기
 		String email = (String) session.getAttribute("sId");
-		
+		// 토큰 가져오기 
+		BankToken bankToken = (BankToken)session.getAttribute("token");
+		System.out.println("세션 = " + bankToken);
+		if(bankToken == null) {
+			model.addAttribute("msg", "금융 인증 후 사용 가능합니다.");
+			return "result/fail";
+		}
 		//페이 정보를 표시하기 위해 페이 가져오기
 		FundizzyPay fundizzy_pay = (FundizzyPay) bankService.getFundizzyPay(email);
 		
@@ -140,8 +146,11 @@ public class MyPageController {
 	public String payCharge(@RequestParam Map<String, Object> map, String tran_amt, HttpSession session, Model model ) {
 
 		// 토큰 가져오기 
-		BankToken bankToken = (BankToken) session.getAttribute("token");
-		
+		BankToken bankToken = (BankToken)session.getAttribute("token");
+		System.out.println("세션 = " + bankToken);
+		if(bankToken == null) {
+			return "result/fail";
+		}
 		// map에 토큰과 세션의 아이디 저장 
 		map.put("bankToken", bankToken);
 		map.put("email", session.getAttribute("sId"));

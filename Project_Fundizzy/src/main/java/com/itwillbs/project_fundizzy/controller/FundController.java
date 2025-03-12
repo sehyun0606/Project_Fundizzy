@@ -53,7 +53,6 @@ public class FundController {
 	private ProjectInfoService projectInfoService;
 	
 	
-	
 //	왼쪽 
 	//fund 목록
 	@GetMapping("FundList")
@@ -261,7 +260,7 @@ public class FundController {
 	public String paymentComplete(@RequestParam Map<String, Object> map, HttpSession session ,Model model) {
 		
 		String email = (String) session.getAttribute("sId");
-		System.out.println("* project_code = " + map.get("project_code") );
+		System.out.println("* project_code = " + map.get("project_code"));
 		
 		//1. 페이로 결제한 내역 계산 후 pay table에 insert 작업 
 		map.put("email", email);
@@ -319,6 +318,8 @@ public class FundController {
 		if(resultFundHistory > 0) {
 			System.out.println("# 4번  input 성공 @");
 		}
+		
+		model.addAttribute("reward", map);
 		return "merch/payment/payment_complete";
 	}
 	
@@ -326,7 +327,11 @@ public class FundController {
 	
 	//결제 완료창 - get 비지니스 로직
 	@GetMapping("PaymentComplete")
-	public String paymentCompletePage() {
+	public String paymentCompletePage(String project_code, Model model) {
+		System.out.println("결제완료창 = " + project_code);
+		Map<String, Object> reward = fundService.getPaymentReward(project_code);
+		System.out.println("reward map = " +  reward); // ok
+		model.addAttribute("reward", reward);
 		return "merch/payment/payment_complete";
 	}
 	

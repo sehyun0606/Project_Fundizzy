@@ -14,6 +14,7 @@
 		<jsp:include page="/WEB-INF/views/inc/top.jsp" />
 	</header>
 	<article>
+		<input type="hidden" id="total_count" name="total_count" value="${total_count}"> 
 		 <div class="container">
 			<div class="reward-step">
 		        <div class="step">리워드 선택</div>
