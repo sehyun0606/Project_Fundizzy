@@ -48,7 +48,7 @@
 					        </c:forEach>
 		                    <!-- status가 존재하지 않을 시 0건 -->
 					        <c:if test="${!found}">
-					            <span class="count">0건</span>
+					            <span class="count">0<span>건</span></span>
 					        </c:if>
 					    </div>
 		                <div>
@@ -62,7 +62,7 @@
 					        </c:forEach>
 		                    <!-- status가 존재하지 않을 시 0건 -->
 					        <c:if test="${!found}">
-					            <span class="count">0건</span>
+					            <span class="count">0<span>건</span></span>
 					        </c:if>
 		                </div>
 		                <div>
@@ -169,7 +169,16 @@
 				                </td>
 				                <td width="120px"><fmt:formatDate value="${order.payment_complete_date}" pattern="yyyy-MM-dd"/> </td>
 				                <td width="120px">${order.payment_amount}원</td>
-				                <td width="120px"><input type="button" value="입력" class="shipInfoBtn"></td>
+				                <td width="120px">
+				                	<c:choose>
+				                		<c:when test="${empty order.tracking_num}">
+							                <input type="button" value="입력" class="shipInfoBtn">
+				                		</c:when>
+				                		<c:when test="${not empty order.tracking_num}">
+							                <input type="button" value="삭제" class="shipDelBtn">
+				                		</c:when>
+				                	</c:choose>
+		                		</td>
 				                <td width="120px">2025-01-01</td>
 				                <td width="120px">
 					                <c:choose>
@@ -236,6 +245,7 @@
 							<div class="receiver-info">
 								<span>결제번호</span>
 								<span></span>
+								<input type="hidden" name="payment_code" class="payment_code">
 							</div>
 							<div class="receiver-info">
 								<span>총금액</span>
@@ -262,19 +272,17 @@
 							<h4>발송방법</h4>
 							<div>택배</div>
 							<h4>택배사</h4>
-							<select name="courier">
+							<select name="courier" class="courier">
 								<option selected>선택해주세요</option>
-								<c:forEach var="ship-company" begin="1" end="1">
-									<option value="01">cj대한통운</option>
-									<option value="02">로젠택배</option>
-									<option value="03">롯데택배</option>
-									<option value="">한진택배</option>
-									<option value="">우체국택배</option>
-								</c:forEach>
+								<option value="01">우체국택배</option>
+								<option value="04">cj대한통운</option>
+								<option value="05">한진택배</option>
+								<option value="06">로젠택배</option>
+								<option value="08">롯데택배</option>
 							</select>
 							<div class="ship-info">
 								<h4>송장번호</h4>
-								<input type="number" class="ship-num" name="tracking_num" placeholder="운송장 번호 - 없이 입력">
+								<input type="number" class="tracking-num" name="tracking_num" placeholder="운송장 번호 - 없이 입력">
 							</div>
 						</div>
 						<div class="btn-container">
@@ -300,6 +308,7 @@
 							<div class="receiver-info">
 								<span>서포터명</span>
 								<span></span>
+								<input type="hidden" name="email" class="email">
 							</div>
 						</div>
 <!-- 						<div class="reward-container"> -->
@@ -321,6 +330,7 @@
 							<div class="refund-info">
 								<span>반환금 신청 금액</span>
 								<span></span>
+								<input type="hidden" name="refund_amount" class="refund_amount">
 							</div>
 						</div>
 						<div class="btn-container">
@@ -359,7 +369,7 @@
 		        
 		        // 클릭한 테이블 목록의 결제 코드 받아오기
 				let payment_code = $(this).closest("tr").find(".payment_code").val();
-				
+		        
 		        $.ajax({
 					type : "GET",
 					url : "PaymentRewardDetail",
@@ -424,6 +434,8 @@
 						$("#ship-modal .receiver-info:nth-child(4) span:nth-child(2)").text(order.phone_num);
 						$("#ship-modal .receiver-info:nth-child(5) span:nth-child(2)").text(order.post_code);
 						$("#ship-modal .receiver-info:nth-child(6) span:nth-child(2)").text(address);
+
+						$("#ship-modal .payment_code").val(payment_code);
 					}
 				}
 				
@@ -460,6 +472,8 @@
 				});
 				$("#ship-modal").css("display", "none");
 				
+				 initModal();
+				
 				// 결제코드 저장
 				let payment_code = $(this).closest("tr.details").prev("tr").find(".payment_code").val();
 				// 환불코드 저장
@@ -495,6 +509,9 @@
 								$("#refund-modal .receiver-info:nth-child(1) span:nth-child(2)").text(rewardList[index].payment_code);
 								$("#refund-modal .receiver-info:nth-child(2) span:nth-child(2)").text(rewardList[index].nickname);
 								
+								$("#refund-modal .refund_amount").val(rewardList[index].result_point);
+								$("#refund-modal .email").val(rewardList[index].member_email);
+								
 							}
 				        }
 				     });
@@ -509,19 +526,25 @@
 				$(".modal-content").css("display", "none");
 				$(".reject-reason").empty();
 				
+				initModal();
+			});
+	        
+			function initModal() {
+				$(".reject-reason").empty();
+							
 				$("#refund-modal .btn-container").html(
 					`<input type="submit" value="환불 승인" class="approveBtn">
 					 <input type="button" value="거절" class="rejectBtn">
-  					 <input type="button" value="닫기" class="closeBtn">`
+					 <input type="button" value="닫기" class="closeBtn">`
 				);
 				
 				$(".reject-reason").css({
 					"border-top": "none",
 					"padding-bottom": "0"
 				});
-			});
-	        
-	        
+				
+				$(".modal-back img").css("display", "none");
+			}
 	        
 			
 		});

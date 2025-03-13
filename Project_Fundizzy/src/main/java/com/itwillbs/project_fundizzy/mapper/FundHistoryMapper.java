@@ -27,4 +27,8 @@ public interface FundHistoryMapper {
 	//회사명 가져오기 
 	String selectBusinessName(String project_code);
 
+	int updateShipCompleteStatus(String payment_code);
+
+	void updateFundHistoryStatus(int fund_idx);
+
 }

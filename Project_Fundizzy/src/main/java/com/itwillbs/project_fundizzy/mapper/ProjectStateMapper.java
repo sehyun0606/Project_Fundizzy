@@ -52,13 +52,21 @@ public interface ProjectStateMapper {
 
 	List<RefundVO> selectRefund(String project_code);
 
-	int updateRefundApprove(Map<String, String> map);
+	int updateRefundApprove(Map<String, Object> map);
 
-	int updateFundHistoryStatus(Map<String, String> map);
+	int updateRefundFundHistoryStatus(Map<String, Object> map);
 
-	void updateRefundStatus(Map<String, String> map);
+	void updateRefundStatus(Map<String, Object> map);
 
-//	void insertRefundPay(Map<String, String> map);
+	void insertRefundPay(Map<String, Object> map);
+
+	int updateShipmentStatus(Map<String, Object> map);
+
+	void updateShipFundHistoryStatus(Map<String, Object> map);
+
+	int deleteShipmentStatus(String payment_code);
+
+	void deleteShipFundHistoryStatus(String payment_code);
 
 
 
