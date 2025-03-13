@@ -17,10 +17,11 @@
 	   	<section class="search-section">
 		    <div class="search-container">
 		        <!-- ✅ 검색 바 -->
-		        <div class="search-box">
-		            <input type="text" placeholder="궁금한 내용을 입력해주세요">
-		            <i class="fas fa-search search-icon"></i>
-		        </div>
+				<div class="search-box">
+				    <input type="text" class="search-input" placeholder="검색">
+				    <i class="fas fa-search search-icon"></i> <!-- ✅ 돋보기 아이콘 추가 -->
+				</div>
+
 		
 		        <!-- ✅ 검색 바 옆 카테고리 (숫자 + 텍스트 + 화살표) -->
 		        <div class="category-selector">

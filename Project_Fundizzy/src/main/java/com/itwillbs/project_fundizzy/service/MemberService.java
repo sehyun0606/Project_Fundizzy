@@ -79,6 +79,7 @@ public class MemberService {
 		return mapper.selectProfileImg(email);
 	}
 
+
 	
 	
 	

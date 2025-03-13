@@ -50,10 +50,10 @@
 	</form>
 	
 	<div class="link-container">
-	    <a href="#">아이디/비밀번호 찾기</a> | <a href="SignUp">회원가입</a>
+	    <a href="FindEmail">아이디/비밀번호 찾기</a> | <a href="SignUp">회원가입</a>
 	</div>
     <script src="${pageContext.request.contextPath}/resources/js/login/social_login.js"></script>
-    <script>
+    <script>s
 	    window.config = {
   			kakaoClientId: "${kakaoClientId}", // Spring Model 값을 window 객체에 저장
   			kakaoRedirectUrl: "${kakaoRedirectUrl}", // Spring Model 값을 window 객체에 저장
