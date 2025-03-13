@@ -1,15 +1,17 @@
 $(function() {
 	// ======================= 발송 정보 입력 =======================
 	$(".finBtn").click(function(e) {
-		if($(".ship-num").val() == "") {
+		if($(".courier").val() == "선택해주세요") {
+			alert("택배사를 선택해주세요");
+			e.preventDefault();
+		} else if($(".tracking-num").val() == "") {
 			alert("송장번호를 입력해주세요");
 			e.preventDefault();
 		}
+		
 	});
 	
 	// ======================= 환불 요청 처리 =======================
-	// (환불)확인하기 버튼 클릭 이벤트
-	
 	$(document).on("click", ".rejectBtn", function() {
 		// 환불 거절버튼 클릭 시 거절사유 폼 append
 		$(".reject-reason").append(
@@ -44,7 +46,7 @@ $(function() {
 	});
 	
 	// textarea에 작성된 글자수 동적으로 업데이트
-	$(document).on("input", ".refuse-reason textarea", function() {
+	$(document).on("input", ".reject-reason textarea", function() {
 		let maxLength = 600;
 		let currentLength = $(this).val().length;
 
@@ -53,21 +55,46 @@ $(function() {
 	
 	// 뒤로가기 아이콘 클릭 시 환불모달 처음 상태로
 	$(document).on("click", ".modal-back img", function() {
-		$(".reject-reason > *").remove();
-		$(".reject-reason").css("border-top", "none");
-		$(".reject-reason").css("padding", "0px");
-		
-		$("#refund-modal .btn-container").html(
-			`<input type="submit" value="환불 승인" class="approveBtn">
-			 <input type="button" value="거절" class="rejectBtn">
-			 <input type="button" value="닫기" class="closeBtn">`
-		);
-		
-		$(".modal-back img").css("display", "none");
+		initModal();
 	});
 	
-		        
+	// 발송정보 입력 취소
+	$(".shipDelBtn").click(function() {
+		let payment_code = $(this).closest("tr").find(".payment_code").val();
 
+		if(!confirm("발송 정보를 삭제하시겠습니까?")) {
+			return false;
+		} else {
+			$.ajax({
+				type : "POST",
+				url : "ShipInfoDelete",
+				data : {
+					payment_code	
+				}
+			}).done(function(response) {
+				alert(response.msg);
+				location.href = response.targetURL;
+			});
+		}
+	});
+
+// 환불 모달창 초기화 함수        
+function initModal() {
+	$(".reject-reason").empty();
+				
+	$("#refund-modal .btn-container").html(
+		`<input type="submit" value="환불 승인" class="approveBtn">
+		 <input type="button" value="거절" class="rejectBtn">
+		 <input type="button" value="닫기" class="closeBtn">`
+	);
+	
+	$(".reject-reason").css({
+		"border-top": "none",
+		"padding-bottom": "0"
+	});
+	
+	$(".modal-back img").css("display", "none");
+}
 
 		        
 	

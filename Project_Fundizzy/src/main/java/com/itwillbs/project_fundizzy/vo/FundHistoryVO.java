@@ -26,6 +26,8 @@ public class FundHistoryVO {
 	private Timestamp send_date;
 	private int product_count;
 	private String payment_code;
+	private String courier;
+	private String tracking_num;
 }
 
 

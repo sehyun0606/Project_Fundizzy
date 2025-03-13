@@ -10,8 +10,30 @@
  	</select>
  	
  	<select id="selectFundList" resultType="FundHistory">
- 		SELECT *
- 		FROM fund_history
+ 		SELECT 
+			f.fund_idx, 
+		    f.project_code, 
+		    f.member_email, 
+		    f.project_title, 
+		    f.representative_picture, 
+		    f.product_name, 
+		    f.business_name, 
+		    f.result_point, 
+		    f.send_stat, 
+		    f.refund_stat, 
+		    f.reward_code,
+		    f.purchase_date, 
+		    f.refund_date, 
+		    f.send_date, 
+		    f.product_count, 
+		    f.payment_code, 
+		    (SELECT courier
+		     FROM shipment
+		     WHERE payment_code = 'PAR021') as courier,
+		    (SELECT tracking_num
+		     FROM shipment
+		     WHERE payment_code = 'PAR021') as tracking_num
+ 		FROM fund_history f
  		WHERE member_email = #{member_email}
  		ORDER BY
  			fund_idx DESC
@@ -65,4 +87,32 @@
  	
  	
  	</select>
+ 	
+ 	<!-- 배송완료 버튼 클릭 시 상태 변경 -->
+ 	<update id="updateShipCompleteStatus">
+ 		UPDATE shipment
+ 		SET common_code = 'SHI04'
+ 		WHERE payment_code = #{payment_code}
+ 	</update>
+
+ 	<update id="updateFundHistoryStatus">
+ 		UPDATE fund_history
+ 		SET send_stat = 'SHI04'
+ 		WHERE fund_idx = #{fund_idx}
+ 	</update>
  </mapper>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
