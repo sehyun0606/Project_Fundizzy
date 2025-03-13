@@ -19,11 +19,11 @@ body {
 }
 
 #topBar {
-	margin-top: 5px;
 	align-items: center;
 	height: 60px;
 	display: flex;
 	justify-content: space-between;
+	background-color: rgba(147, 112, 219, 0.2);
 }
 
 #topProfileImg {
@@ -35,6 +35,7 @@ body {
 
 #topProfileImg img {
 	height: 100%;
+	border-radius: 15px;
 }
 
 #titleDiv {
@@ -46,6 +47,7 @@ body {
 }
 
 #topProfileEmail {
+	font-size: 13px;
 	opacity: 0.6;
 }
 
@@ -150,12 +152,98 @@ body {
 	align-items: center;
 }
 
-#message {
+#messageBox {
 	font-size: 18px;
 	width: 95%;
 	height: 90%;
 	border: none;
 	outline: none;
+}
+
+.message {
+	margin: 15px 0;
+}
+
+.message.align_center {
+	text-align: center;
+}
+
+.message.align_center .messageContent {
+	background-color: #c2c2c2;
+	border-radius: 40px;
+	padding: 5px 15px;
+	font-size: 13px;
+}
+
+.message.align_right {
+	padding-right: 20px;
+	justify-content: flex-end;	
+	display: flex;
+}
+
+.message .messageDiv3 {
+	max-width: 70%;
+}
+
+.message.align_right .messageContent {
+	background-color: #FFEB3B;
+	padding: 5px 10px;
+	border-radius: 10px;
+	margin-bottom: 5px;
+	float: right;
+}
+
+.message.align_right .sendTime {
+	font-size: 10px;
+	float: left;
+}
+
+.message.align_left {
+	text-align: left;
+	padding-left: 20px;
+	display: flex;
+}
+
+span {
+	display: inline-block;
+}
+
+.message .messageDiv1 {
+	margin-right: 10px;
+}
+
+.receiverImg {
+	width: 50px;
+	height: 50px;
+	background-color: #FFF;
+	border-radius: 10px;
+}
+
+.receiverImg img {
+	border-radius: 10px;
+	width: 100%;
+	height: 100%;
+}
+
+.message .messageDiv2 {
+	margin-right: 10px;
+	max-width: 70%
+}
+
+.receiverNickname {
+	margin-bottom: 5px;
+}
+
+.message.align_left .messageContent {
+	background-color: #FFF;
+	padding: 5px 10px;
+	border-radius: 10px;
+	margin-bottom: 5px;
+}
+
+.message.align_left .sendTime {
+	font-size: 10px;
+	float: right;
 }
 
 /* 전체 스크롤바 스타일 */

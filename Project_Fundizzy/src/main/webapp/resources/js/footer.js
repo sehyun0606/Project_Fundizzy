@@ -30,9 +30,7 @@ function openChatRoomWindow(receiver_email) {
 
 function connect() {
 	// 웹소켓 요청 주소 생성
-	let ws_base_url = "ws://localhost:8081";
-//	let ws_base_url = "ws://c5d2409t1p2.itwillbs.com";
-	ws = new WebSocket(ws_base_url + "/echo")
+	ws = new WebSocket("/echo")
 	
 	ws.onopen = onOpen;
 	ws.onmessage = onMessage;
