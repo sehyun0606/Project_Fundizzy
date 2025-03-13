@@ -14,16 +14,18 @@ $(function() {
 	connect();
 });
 
-// --------------------------메서드-----------------------------------------------------------
-// 채팅창 오픈 메서드
+// --------------------------함수-----------------------------------------------------------
+// 채팅창 오픈 함수
 function openChatWindow() {
 	chatWindow = window.open('/ChatMain', 'chatWindow',
-		'width=400, height=600, top=200, left=1500, status=no, location=no, menubar=no, toolbar=no');
+		'width=400, height=600, top=200, left=1450, status=no, location=no, menubar=no, toolbar=no');
 }
 
-// 채팅방 오픈 메서드
-function openChatRoomWindow(receiver_email) {
-	chatRoomWindowObj[receiver_email] = window.open('/ChatRoom', receiver_email,
+// 채팅방 오픈 함수
+function openChatRoomWindow(room_id) {
+	console.log("room_id : " + room_id);
+	
+	chatRoomWindowObj.room_id = window.open('/ChatRoom', room_id,
 		'width=400, height=600, top=180, left=1300, status=no, location=no, menubar=no, toolbar=no');
 }
 
@@ -49,15 +51,13 @@ function onMessage(event) {
 		chatWindow.postMessage(event.data);
 	} 
 	
-	// 리시버아이디를 통해 해당 채팅방에만 메세지 전달을 위해
-	// event.data에서 receiver_email 추출
-    let chatMessage = JSON.parse(event.data);
-    let receiver_email = chatMessage.receiver_email
-	
-	// 메세지가 전달되어야할 채팅방에만 postMessage 호출
-    if (chatRoomWindowObj[receiver_email]) {
-        chatRoomWindowObj[receiver_email].postMessage(event.data);
-    }
+//    let chatMessage = JSON.parse(event.data);
+//	let room_id = chatMessage.room_id
+//	console.log("쳇메세지");
+//	console.log(chatMessage);
+//	
+//	console.log("윈도우 저장 객체");
+//	console.log(chatRoomWindowObj.room_id);
 	
 }
 

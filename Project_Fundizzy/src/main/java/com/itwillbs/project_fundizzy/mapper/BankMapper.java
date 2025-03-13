@@ -1,5 +1,6 @@
 package com.itwillbs.project_fundizzy.mapper;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.itwillbs.project_fundizzy.vo.BankAccount;
 import com.itwillbs.project_fundizzy.vo.BankToken;
 import com.itwillbs.project_fundizzy.vo.FundizzyPay;
+import com.itwillbs.project_fundizzy.vo.ProjectListVO;
 
 @Mapper
 public interface BankMapper {
@@ -30,7 +32,7 @@ public interface BankMapper {
 	BankAccount selectDBAccountInfo(String user_seq_no);
 	
 	//이체결과 저장 
-	void insertChargeResult(@Param("chargeResult") Map<String, Object> chargeResult, @Param("transactionType")String transactionType);
+	int insertChargeResult(@Param("chargeResult") Map<String, Object> chargeResult, @Param("transactionType")String transactionType);
 	// 대표계좌 등록
 	void insertBankAccount(Map<String, Object> bankAccount);
 	// 대표계좌가 있을경우 update 
@@ -42,7 +44,10 @@ public interface BankMapper {
 	void connectFundizzyPay(@Param("bankAccount") Map<String, Object> bankAccount, @Param("pay_tran_id")String pay_tran_id);
 	
 	//페이 충전결과 페이지 
-	Map<String, Object> insertFundizzyPay(Map<String, String> mapForPay);
+	int insertFundizzyPay(Map<String, String> mapForPay);
+	
+	//페이 충전 후 잔액 계산 
+	int updatePayAmtResult(@Param("chargeResult") Map<String, Object> chargeResult, @Param("payBalance")String payBalance, @Param("email")String email);
 
 	// 이용기관 토큰 조회
 	BankToken selectAdminToken(String id);
@@ -53,8 +58,11 @@ public interface BankMapper {
 	//db에 입금 결과 저장
 	void insertTransferResult(@Param("transferResult") Map<String, Object> transferResult, @Param("transactionType") String transactionType);
 	
-	//펀디지 페이 가져오기 
-	FundizzyPay selectFundizzyPay(String email);
+	//펀디지 페이 입출금 내역 가져오기 
+	List<FundizzyPay> selectFundizzyPay(String email);
+	
+	//펀디지 페이 정보 가져오기
+	FundizzyPay selectFundizzyPayInfo(String email);
 	
 
 }

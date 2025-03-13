@@ -24,10 +24,10 @@ body {
 
 .pay-info{
 	width: 370px;
-    height: 140px;
+    height: 190px;
     background-color: #e6cfffc4;
     position: absolute;
-    top: 25%;
+    top: 28%;
     left: 50%;
     transform: translate(-50%, -50%);
     border-radius: 8px;
@@ -52,12 +52,28 @@ body {
 	width: 150px;
 	height: 36px;
 	margin-right: 15px; 
+	position: absolute;
+    top: -70%;
+    left: 100%;
+    transform: translate(-105%, -177%);
 }
 .button-div #transfer{
 	width: 150px;
 	height: 36px;
+	position: absolute;
+    top: -70%;
+    left: 100%;
+    transform: translate(5%, -177%);
 }
 
+#Deposit_and_withdrawal_details{
+ 	width: 320px;
+	height: 36px;
+	position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
 .pay-detail{
 	width: 240px;
     height: 120px;
@@ -68,3 +84,86 @@ body {
     transform: translate(-50%, -50%);
     
 }
+
+/* 여기서 부턴 모달창 관련 css */
+.Deposit_and_withdrawal {
+	margin-top: 10px;
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.Deposit_and_withdrawal {
+    background-color: #fff;
+    margin: 4% 34%; 
+    padding: 9px;
+    border: 1px solid #888;
+    width: 567px; 
+    height: 760px; 
+    overflow-y: auto;
+    text-align: center;
+}
+.top {
+    display: flex;
+    justify-content: space-between; /* 제목과 버튼을 양쪽 끝으로 정렬 */
+    align-items: center; /* 수직 정렬 */
+    margin-top: 16px;
+    margin-bottom: 12px;
+}
+
+.subject {
+    font-weight: bold;
+    font-size: 18px;
+    text-align: center;
+    margin-left: 21px;
+}
+
+.x {
+    border: none;
+    background-color: white;
+    font-size: 30px;
+    cursor: pointer; /* 버튼 클릭 가능하도록 설정 */
+    margin-bottom: 6px;
+    margin-right: 17px;
+}
+
+/* 안내 문구 스타일 */
+.top b:last-child {
+    font-size: 16px; /* 기본 크기로 유지 */
+    font-weight: normal;
+    display: block; /* 줄바꿈 적용 */
+    margin-top: 5px; /* 제목과 간격 조정 */
+}
+
+.support_content p{
+	text-align: left;
+	padding-left: 20px;
+}
+.account_list_table table{
+	margin-top: 25px;
+	margin-bottom: 25px;
+	margin-left: 25px;
+	margin-right: 25px;
+	border: 1px solid black;
+}
+
+.account_list_table {
+  border-collapse: collapse; /* 테두리가 겹치지 않도록 설정 */
+}
+
+.account_list_table th,
+.account_list_table td {
+  border: 1px solid black;
+  padding:3px;
+}
+
+.pay_type{
+	width:70px;
+}
+

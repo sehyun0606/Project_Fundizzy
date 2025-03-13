@@ -17,9 +17,11 @@ $(function() {
 		window.close();
 	}
 	
+	
 	window.onmessage = (e) => {
 		// 전달받은 메세지 데이터 변수에 초기화
 		let data = JSON.parse(e.data);
+		console.log(data);
 		
 		// 타입이 TYPE_INIT_LIST인경우 채팅리스트 출력
 		if(data.type == TYPE_INIT_LIST) {
@@ -28,7 +30,6 @@ $(function() {
 	}
 	
 	initChatWindow();
-	
 });
 
 // 채팅창 초기화 메서드
@@ -80,7 +81,7 @@ function appendChatRoom(room) {
 	}
 	
 	let divRoom = 
-		`<div class="chatRoom ${room.room_id}">
+		`<div class="chatRoom ${room.room_id}" ondblclick="openChatRoom(${room.room_id})">
 			<input type="hidden" class="receiver_email" value=${room.receiver_email}>
 			<div class="receiverImg">
 				<img src="/resources/images/notification/followingIcon.png">
@@ -109,10 +110,10 @@ function appendChatRoom(room) {
 		$(".chatRoom." + room.room_id).find(".messageCount").hide();
 	}
 	
-	// 채팅리스트 더블클릭시 해당 채팅방 뉴 윈도우로 오픈
-	$(".chatRoom." + room.room_id).on("dblclick", function() {
-		// 더블클릭시 부모창의 채팅방 오픈 메서드 호출
-		opener.openChatRoomWindow($(this).find(".receiver_email").val());
-	});
 
+}
+
+// 채팅리스트 더블클릭시 해당 채팅방 뉴 윈도우로 오픈
+function openChatRoom(room_id) {
+	opener.openChatRoomWindow(room_id);
 }

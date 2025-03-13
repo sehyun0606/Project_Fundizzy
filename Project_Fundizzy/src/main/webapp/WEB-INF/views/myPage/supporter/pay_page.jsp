@@ -8,23 +8,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>pay</title>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/myPage/supporter/pay_page.css">
+	<!-- js연결 -->
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/mypage/supporter/pay_page.js"></script>
 <body>
 	<jsp:include page="/WEB-INF/views/inc/top.jsp"></jsp:include>
 	<div class="pay-container">
 		<p>${sessionScope.sId} 님의 페이</p>
 	  <div class="pay-info">
 	  	<div class="fundizy-pay">Fundizy Pay</div> <br>
-	  	<div class="pay-money"><fmt:formatNumber pattern="#,###원" value="${fundizzy_pay.pay_amt}"></fmt:formatNumber></div>  	
+	  	<div class="pay-money"><fmt:formatNumber pattern="#,###원" value="${fundizzy_pay_info.pay_balance}"></fmt:formatNumber></div>  	
 	  	<div class="button-div">
 		  <input type="button" value="충전" id="charge" onclick="location.href='PayCharge'"> 
-		  <input type="button" value="송금" id="transfer" onclick="location.href='PayTransfer'"> 
+		  <input type="button" value="송금" id="transfer" onclick="location.href='PayTransfer'">
 	  	</div>
-	  </div>
-	  <div class="pay-detail">
-	  	입출금 내역 
-	  
+<!-- 		  모달창으로 띄우기 -->
+		  <input type="button" value="입출금 내역" id="Deposit_and_withdrawal_details"> 
 	  </div>
 	</div>
-<%-- 	<jsp:include page="/WEB-INF/views/inc/footer.jsp"></jsp:include> --%>
+	
+<!-- 	입출금 내역 모달창  -->
+	<div class="Deposit_and_withdrawal" id="Deposit_and_withdrawal">
+	    <div class="Deposit_and_withdrawal">
+	        <div class="top">
+	            <b class="subject">${sessionScope.sId} 님의 페이 입출금 내역 목록</b>
+	            <button type="button" class="x">x</button>
+	        </div>
+        <div class="account_list_table">
+            <table>
+                <tr>
+                    <th class="pay_date">거래일자</th>
+                    <th class="pay_type">거래타입</th>
+                    <th>거래금액</th>
+                    <th>페이잔액</th>
+                </tr>
+                <c:forEach var="account" items="${fundizzy_pay}">
+                    <tr>
+	                    <th>${account.pay_date}</th>
+	                    <th>${account.pay_type}</th>
+	                    <th><fmt:formatNumber pattern="#,###원" value="${account.pay_amt}"></fmt:formatNumber></th>
+	                    <th><fmt:formatNumber pattern="#,###원" value="${account.pay_balance}"></fmt:formatNumber></th>
+                    </tr>
+                </c:forEach>
+            </table>
+   		 </div>
+		</div>
+	</div>
+	
+	<jsp:include page="/WEB-INF/views/inc/footer.jsp"></jsp:include>
 </body>
 </html>

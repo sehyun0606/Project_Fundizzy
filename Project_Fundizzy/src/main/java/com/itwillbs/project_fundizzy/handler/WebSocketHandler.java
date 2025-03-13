@@ -94,10 +94,15 @@ public class WebSocketHandler extends TextWebSocketHandler {
 			sendMessasge(session, chatMessage);
 		// 채팅방 초기화 메시지
 		} else if (type.equals(ChatMessage.TYPE_INIT_CHATROOM)) {
-			System.out.println("채팅방 초기화 완료");
-			
-			// 채팅방 채팅내역 조회
-//			chatService.getChatRoomRecord(chatMessage);
+//			System.out.println("채팅방 초기화 완료");
+//			// 수신자 정보 조회
+//			Map<String, String> receiverInfo = memberService.getMember(receiver_email);
+//			
+			// 회원의 현재 상태 판별후 비활성화일때 에러메세지 전달
+//			if(receiverInfo.get("member_status").equals("1")) {
+				ChatMessage errorMessage = new ChatMessage(0, ChatMessage.TYPE_ERROR, receiver_email, sender_email, "", "휴면회원이거나 탈퇴한 회원입니다.\\n채팅을 종료합니다", getDateTimeForNow(), 0, "", "");
+				sendMessasge(session, errorMessage);
+//			}
 		}
 	}
 
@@ -136,5 +141,13 @@ public class WebSocketHandler extends TextWebSocketHandler {
 	// 각 웹소켓 세션에게 메세지 전송하는 메서드
 	private void sendMessasge(WebSocketSession session, ChatMessage chatMessage) throws Exception {
 		session.sendMessage(new TextMessage(messageToJson(chatMessage)));
+	}
+	
+	// 현재 시스템 날짜 및 시각 정보를 문자열로 리턴하는 메서드
+	// => 표현 형식 : yyyy-MM-dd HH:mm:ss
+	private String getDateTimeForNow() {
+		// LocalDateTime 클래스 활용 및 포맷팅을 위해 DateTimeFormatter 클래스 활용
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		return LocalDateTime.now().format(dtf);
 	}
 }

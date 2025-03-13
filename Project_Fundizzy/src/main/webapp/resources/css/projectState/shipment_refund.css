@@ -207,14 +207,27 @@ th, td {
 	display: none;
 	position: fixed;
 	background-color: white;
-	width: 370px;
-	min-height: 500px;
+	width: 320px;
+	min-height: 400px;
 	max-height: 710px;
 	padding: 10px 20px;
-	border-radius: 5px;
-	border: 1px solid #b9b9b9;
+	border-radius: 20px;
+	border: none;
+	box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 	overflow-y: auto;
 }
+
+.modal-back img {
+	display: none;
+	position: absolute;
+	z-index: 9001;
+	top: 20px;
+	left: 10px;
+	width: 30px;
+	height: 30px;
+	cursor: pointer;
+}
+
 .modal-close {
 	position: absolute;
 	z-index: 9999;
@@ -222,7 +235,7 @@ th, td {
 	height: 30px;
 	font-size: 20px;
 	text-align: center;
-	top: 10px;
+	top: 15px;
 	right: 10px;
 	cursor: pointer;
 }
@@ -239,7 +252,7 @@ h3 {
 }
 
 .reward-container {
-    margin: 30px 0;
+    margin: 10px 0;
 }
 
 .reward-title {
@@ -292,11 +305,11 @@ h4 {
 	align-items: center;
 	justify-content: space-between;
 	gap: 10px;
-    margin-top: 30px;
+    margin-top: 50px;
     width: 100%;
 }
 
-.finBtn, .closeBtn, .approveBtn, .refuseBtn {
+.finBtn, .closeBtn, .approveBtn, .rejectBtn {
 	width: 90%;
     padding: 10px;
     border: none;
@@ -316,7 +329,7 @@ h4 {
     background-color: #60cc60;
     color: white;
 }
-.refuseBtn {
+.rejectBtn {
     background-color: #d73931;
     color: white;
 }
@@ -333,13 +346,13 @@ h4 {
 .refund-reason > div {
 	font-size: 14px;
 }
-.refuse-reason textarea {
+.reject-reason textarea {
 	box-sizing: border-box;
 	width: 80%;
 	height: 100px;
 	resize: none;
 }
-.refuse-reason > div {
+.reject-reason > div {
 	font-size: 14px;
 	color: #a1a1a1;
 }

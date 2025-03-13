@@ -205,7 +205,7 @@ public class BankApiClient {
 		//uri 생성
 		URI uri = UriComponentsBuilder
 				.fromUriString(base_url)
-				.path("/v2.0/transfer/withdraw/fin_num")
+				.path("/v2.0/transfer/deposit/fin_num")
 				.encode()
 				.build()
 				.toUri();
@@ -222,10 +222,10 @@ public class BankApiClient {
 		joreq.addProperty("bank_tran_id", bank_tran_id);//거래 고유번호
 		joreq.addProperty("fintech_use_num", ((BankAccount)map.get("bankAccount")).getFintech_use_num());
 		joreq.addProperty("print_content", "펀디지"); //입금계좌인자내역
-		joreq.addProperty("tran_amt", 2409); 
-		joreq.addProperty("req_client_name",((BankAccount)map.get("bankAccount")).getAccount_holder_name() );
+		joreq.addProperty("tran_amt", 12000); 
+		joreq.addProperty("req_client_name",((BankAccount)map.get("bankAccount")).getAccount_holder_name());
 		joreq.addProperty("req_client_fintech_use_num", ((BankAccount) map.get("bankAccount")).getFintech_use_num());//요청 고객 핀테크 이용번호
-		joreq.addProperty("req_client_num", email.toUpperCase());
+		joreq.addProperty("req_client_num", ((BankAccount) map.get("bankAccount")).getUser_seq_no());
 		joreq.addProperty("transfer_purpose", "TR"); //이체목적 
 		
 		//2) 입금 이체 1건의 정보를 리스트 형식으로 관리할 JsonArray 객체 생성

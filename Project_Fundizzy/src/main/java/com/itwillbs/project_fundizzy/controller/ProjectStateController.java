@@ -107,9 +107,6 @@ public class ProjectStateController {
 		model.addAttribute("refund", refund);
 
 		
-		// 결제정보 조회
-//		Map<String, Object> payment = stateService.getPayment(project_code);
-			
 		return "project/projectState/shipment_refund";
 	}
 	
@@ -121,10 +118,25 @@ public class ProjectStateController {
 		// 구매한 리워드 정보 리스트 조회
 		List<Map<String, Object>> paymentRewardList = stateService.getPaymentRewardList(project_code, payment_code);
 		model.addAttribute("paymentRewardList", paymentRewardList);
-
+		
 		return paymentRewardList;
 	}
 	
+	@PostMapping("RefundInfo")
+	public String refundInfo(HttpSession session, Model model, @RequestParam Map<String, String> map) {
+		System.out.println("map : " + map);
+		int updateCount = stateService.modifyFundHistoryStatus(map);
+
+		if(updateCount > 0) {
+			model.addAttribute("msg", "환불 처리가 완료되었습니다");
+			model.addAttribute("targetURL", "ShipmentRefund");
+			return "result/result";
+		} else {
+			model.addAttribute("msg", "환불 처리에 실패하였습니다");
+			model.addAttribute("targetURL", "ShipmentRefund");
+			return "result/result";
+		}
+	}
 	
 	
 	@GetMapping("NewsList")

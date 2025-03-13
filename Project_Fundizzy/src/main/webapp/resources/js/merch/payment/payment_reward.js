@@ -56,7 +56,8 @@ $(function() {
     function totalAmount() {
         totalInputValue = parseInt($(".totalCount").val());
         totalPrice = parseInt(totalInputValue * reward_price);
-
+		reward_price = $("#sell_price").val();
+		
         console.log(totalInputValue);
         console.log("totalPrice = " + totalPrice);
 
@@ -77,8 +78,8 @@ $(function() {
 	    let totalPrice = parseInt(totalInputValue * reward_price);
 	
 	    // input에 값 설정 (jsp hidden 아이디에 값 넣었음)
-	    $("#total_price").val(totalPrice);
 	    $("#total_count").val(totalInputValue);
+	    $("#total_price").val(totalPrice);
 	
 	    console.log("폼 제출 전 최종 가격:", $("#total_price").val());
 	    console.log("폼 제출 전 최종 수량:", $("#total_count").val());

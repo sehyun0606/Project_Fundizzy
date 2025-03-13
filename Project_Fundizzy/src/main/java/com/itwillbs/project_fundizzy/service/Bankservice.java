@@ -1,8 +1,10 @@
 package com.itwillbs.project_fundizzy.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -71,11 +73,18 @@ public class Bankservice {
 	}
 	
 	//이체결과 저장 
-	public void registChargeResult(Map<String, Object> chargeResult) {
+	public int registChargeResult(Map<String, Object> chargeResult) {
 		//uuid 만들기 - 이체한거 들고오기 위해 
 		chargeResult.put("tran_id", BankValueGenerator.getTranId());
-		mapper.insertChargeResult(chargeResult, "WI");
+		return mapper.insertChargeResult(chargeResult, "WI");
 	}
+	
+	//페이 충전 후 잔액 계산 
+	public int registPayAmtResult(Map<String, Object> chargeResult,String payBalance, String email) {
+		// TODO Auto-generated method stub
+		return mapper.updatePayAmtResult(chargeResult, payBalance, email);
+	}
+
 	
 	//대표계좌 등록 
 	@Transactional
@@ -99,10 +108,10 @@ public class Bankservice {
 	}
 	
 	// 페이 거래 내역 입력 메서드
-	public void payTransaction(Map<String, String> mapForPay) {
+	public int payTransaction(Map<String, String> mapForPay) {
 		mapForPay.put("tran_id", BankValueGenerator.getTranId());
 		
-		mapper.insertFundizzyPay(mapForPay);
+		return mapper.insertFundizzyPay(mapForPay);
 	}
 	
 	//입금 요청
@@ -130,10 +139,15 @@ public class Bankservice {
 		mapper.insertTransferResult(transferResult, "DE");
 	}
 	
-	//페이 가져오기 
-	public FundizzyPay getFundizzyPay(String email) {
+	//페이 입출금 거래내역 가져오기 
+	public List<FundizzyPay> getFundizzyPay(String email) {
 		// TODO Auto-generated method stub
 		return mapper.selectFundizzyPay(email);
+	}
+	//페이 정보 가져오기 
+	public FundizzyPay getFundizzyPayInfo(String email) {
+		// TODO Auto-generated method stub
+		return mapper.selectFundizzyPayInfo(email);
 	}
 
 

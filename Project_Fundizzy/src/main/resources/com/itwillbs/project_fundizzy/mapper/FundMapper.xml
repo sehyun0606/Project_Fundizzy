@@ -3,7 +3,13 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.itwillbs.project_fundizzy.mapper.FundMapper">
-  
+<!--   펀딩 리스트 출력 -->
+	<select id="selectFundList" resultType="map">
+		SELECT *
+		FROM project_story ps
+		JOIN project_list pl ON ps.project_title = pl.project_title
+		WHERE approved_date IS NOT NULL
+	</select>
 <!--   프로젝트 보드 출력 -->
 	<select id="selectFundBoard" resultType="map">
 		SELECT pi.project_code,
@@ -18,7 +24,7 @@
 		FROM project_info pi 
 		JOIN project_date pd ON pi.project_code = pd.project_code
 		JOIN project_story ps ON pd.project_code = ps.project_code
-		WHERE ps.project_code = "18152PRO01";
+		WHERE ps.project_code = #{ps.project_code};
 	</select>
 <!--   	지지서명 조회 후 목록 출력 -->
   	<select id="selectSupportList" resultType="map">
@@ -125,7 +131,7 @@
 		VALUES(
 			#{email}
 			,#{payment_price}
-			,'결제'
+			,'PA'
 			,NOW()
 			,#{pay_tran_id}
 			,#{result_balance}
@@ -255,8 +261,6 @@
   			,#{total_count} 
   			,#{payment_code} 
   		)
-  	
-  	
   	</insert>
 
 	

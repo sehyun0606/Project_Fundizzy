@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.itwillbs.project_fundizzy.service.Bankservice;
+import com.itwillbs.project_fundizzy.service.FundizzyPayService;
 import com.itwillbs.project_fundizzy.service.MypageService;
 import com.itwillbs.project_fundizzy.vo.BankAccount;
 import com.itwillbs.project_fundizzy.vo.BankToken;
@@ -36,6 +37,9 @@ public class MyPageController {
 	private MypageService mypageService;
 	@Autowired
 	private Bankservice bankService;
+	
+	@Autowired
+	private FundizzyPayService fundizzyService;
 	
 	private String virtualPath = "/resources/upload/";
 	
@@ -126,9 +130,22 @@ public class MyPageController {
 	public String payPage(HttpSession session, Model model) {
 		//이메일 가져오기
 		String email = (String) session.getAttribute("sId");
+		// 토큰 가져오기 
+		BankToken bankToken = (BankToken)session.getAttribute("token");
+		System.out.println("세션 = " + bankToken);
+		if(bankToken == null) {
+			model.addAttribute("msg", "금융 인증 후 사용 가능합니다.");
+			return "result/fail";
+		}
 		
 		//페이 정보를 표시하기 위해 페이 가져오기
-		FundizzyPay fundizzy_pay = (FundizzyPay) bankService.getFundizzyPay(email);
+		FundizzyPay fundizzy_pay_info = bankService.getFundizzyPayInfo(email);
+		System.out.println("@@fundizzy_pay_info = " + fundizzy_pay_info);
+		model.addAttribute("fundizzy_pay_info", fundizzy_pay_info);
+		
+		
+		//페이 입출금 정보를 표시하기 위해 페이 가져오기
+		List<FundizzyPay> fundizzy_pay = bankService.getFundizzyPay(email);
 		
 		model.addAttribute("fundizzy_pay", fundizzy_pay);
 		return "myPage/supporter/pay_page";
@@ -139,12 +156,17 @@ public class MyPageController {
 	@PostMapping("PayCharge")
 	public String payCharge(@RequestParam Map<String, Object> map, String tran_amt, HttpSession session, Model model ) {
 
-		// 토큰 가져오기 
-		BankToken bankToken = (BankToken) session.getAttribute("token");
+		// 토큰 및 이메일 가져오기 
+		BankToken bankToken = (BankToken)session.getAttribute("token");
+		String email = (String) session.getAttribute("sId");
+		System.out.println("세션 = " + bankToken);
+		if(bankToken == null) {
+			return "result/fail";
+		}
 		
 		// map에 토큰과 세션의 아이디 저장 
 		map.put("bankToken", bankToken);
-		map.put("email", session.getAttribute("sId"));
+		map.put("email", email);
 		map.put("tran_amt", tran_amt);
 		
 		// DB에서 등록된 계좌정보 들고와서 map에 저장
@@ -153,17 +175,35 @@ public class MyPageController {
 		
 		// map에 출금이체(=충전) 요청을 리턴
 		Map<String, Object> chargeResult = bankService.requestCharge(map);
-		System.out.println("chargeResult = " + chargeResult);
-		System.out.println("map = " + map);
+		System.out.println("!!!!chargeResult = " + chargeResult);
+		System.out.println("****map = " + map);
+		
 		if(!chargeResult.get("rsp_code").equals("A0000")) {
 			model.addAttribute("msg", "rsp_code 오류발생 \\n 다시 시도하세요." + chargeResult.get("rsp_message"));
 			return "result/fail";
 		}
-		//충전 결과 map에 사용자 일련번호 저장 
+		//충전 결과 map에 사용자 일련번호 및 이메일 저장 
 		chargeResult.put("user_seq_no", bankToken.getUser_seq_no());
+		chargeResult.put("email", email);
 		
 		//이체결과 저장 요청
-		bankService.registChargeResult(chargeResult);
+		int charge_result = bankService.registChargeResult(chargeResult);
+		
+		//페이 잔액 업데이트를 위한 fundizzy_pay 들고오기
+		String payBalance = fundizzyService.getPayBalance(email);
+		System.out.println("payBalance " + payBalance);
+		map.put("payBalance", payBalance);
+		
+		if(charge_result > 0) {
+			System.out.println("충전 성공");
+			System.out.println("*****세션에 저장된 sId: " + session.getAttribute("sId"));
+			System.out.println("bankToken의 이메일: " + bankToken.getEmail());
+			//충전 성공시 잔액과 충전금액 더한값 페이 잔액에 update
+			int pay_amt_result = bankService.registPayAmtResult(chargeResult, payBalance,email);
+			if(pay_amt_result > 0) {
+				System.out.println("잔액 업데이트 성공 ");
+			}
+		}
 		model.addAttribute("bank_tran_id", chargeResult.get("bank_tran_id"));
 		
 		// pay 테이블 인설트를 위한 맵객체 생성
@@ -187,14 +227,18 @@ public class MyPageController {
 	
 //	페이 충전결과 페이지 (정유나 -> 아이티윌)
 	@GetMapping("PayChargeResult")
-	public String payChargeResult(String bank_tran_id , Model model) {
+	public String payChargeResult(HttpSession session, String bank_tran_id , Model model) {
 		System.out.println("bank_tran_id " + bank_tran_id);
 		
+		String email = (String) session.getAttribute("sId"); 
 		//db에 거래결과 저장
 		Map<String, Object> chargeResult = bankService.getDBTransactionResult(bank_tran_id);
 		model.addAttribute("chargeResult", chargeResult);
 		
-		//페이 테이블 가져오기 
+		//페이 테이블에서 잔액 가져오기 
+		int payBalance = fundizzyService.getPayBalanceInt(email);
+		System.out.println("payBalance" + payBalance);
+		model.addAttribute("payBalance", payBalance);
 		
 		return "myPage/supporter/pay_charge_result";
 	}
@@ -256,6 +300,24 @@ public class MyPageController {
 	@GetMapping("PayTransfer")
 	public String payTransfer() {
 		return "myPage/supporter/pay_transfer";
+	}
+	
+	//페이 입금 완료(결과) 페이지
+	@GetMapping("PayTransferResult")
+	public String payTransferResult(HttpSession session, String bank_tran_id , Model model) {
+		System.out.println("bank_tran_id " + bank_tran_id);
+		
+		String email = (String) session.getAttribute("sId"); 
+		//db에 거래결과 저장
+//		Map<String, Object> chargeResult = bankService.getDBTransactionResult(bank_tran_id);
+//		model.addAttribute("chargeResult", chargeResult);
+		
+		//페이 테이블에서 잔액 가져오기 
+		int payBalance = fundizzyService.getPayBalanceInt(email);
+		System.out.println("payBalance" + payBalance);
+		model.addAttribute("payBalance", payBalance);
+		
+		return "myPage/supporter/pay_charge_result";
 	}
 	
 	//파일 업로드를 위한 메서드
