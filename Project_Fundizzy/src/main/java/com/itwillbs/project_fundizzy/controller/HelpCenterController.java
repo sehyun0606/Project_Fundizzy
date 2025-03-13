@@ -15,6 +15,10 @@ public class HelpCenterController {
 	}
 	
 	
+	@GetMapping("Notice") 
+	public String Notice() {
+		return "helpCenter/notice/notice_main";
+	}
 	
 	
 	

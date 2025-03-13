@@ -144,6 +144,11 @@
 	                        <p class="rank-highlight">16,662% 달성</p>
 	                        <span>대용량 앵콜! 스마트한 주방 필수템</span>
 	                    </div>
+	                    <div class="project-item">
+	                        <img src="/resources/images/main/KakaoTalk_20241113_223306690_10.jpg" alt="프로젝트3">
+	                        <p class="rank-highlight">16,662% 달성</p>
+	                        <span>대용량 앵콜! 스마트한 주방 필수템</span>
+	                    </div>
 	                </div>
 	            </section>
 	        </div>
@@ -222,6 +227,20 @@
 	                    <img src="/resources/images/main/KakaoTalk_20241113_223306690_12.jpg" alt="순위3">
 	                </li>
 	            </ul>
+	            <!-- 🔹 실시간 랭킹 아래 배너 영역 -->
+				<section class="ranking-banner-section">
+				    <div class="ranking-banner">
+				        <img src="/resources/images/main/KakaoTalk_20241113_223306690_12.jpg" alt="와디즈 체험단 이벤트">
+				        <div class="banner-text">
+				            <span class="badge">기획전</span>
+				        </div>
+				    </div>
+				    <div class="ranking-banner">
+				        <img src="/resources/images/main/KakaoTalk_20241113_223306690_12.jpg" alt="출판 제작비 지원">
+				        <div class="banner-text">
+				        </div>
+				    </div>
+				</section>
 	        </aside>
 	    </div>
 	    
