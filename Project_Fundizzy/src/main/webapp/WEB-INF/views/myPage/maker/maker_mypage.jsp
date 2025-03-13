@@ -72,6 +72,13 @@
 			    					<c:if test="${project.approve_stat eq 'request' }">
 						                <div class="project-status">등록 요청 중</div>
 			    					</c:if>
+			    					<c:if test="${project.approve_stat eq 'accept' }">
+						                <div class="project-status">기간 설정 필요</div>
+			    					</c:if>
+			    					<c:if test="${project.approve_stat eq 'deny' }">
+						                <div class="project-status">반려됨</div>
+			    					</c:if>
+			    					
 				            	</div>
 			    			</c:forEach>
 				        </div>

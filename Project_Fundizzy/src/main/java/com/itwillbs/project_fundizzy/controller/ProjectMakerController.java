@@ -532,6 +532,12 @@ public class ProjectMakerController {
 		return "project/projectMaker/project_plan_read";
 	}
 	
+	@GetMapping("ProjectDate")
+	public String projectDate() {
+		
+		return "project/projectMaker/project_date";
+	}
+	
 	//파일 업로드 및 다운로드를 위한 유틸리티 메서드
 	//파일 업로드에 사용될 실제 업로드 디렉토리 경로를 리턴하는 메서드
 	private String getRealPath(HttpSession session, String virturalPath) {

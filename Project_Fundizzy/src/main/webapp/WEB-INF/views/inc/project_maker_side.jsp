@@ -10,12 +10,6 @@
     <style type="text/css">
 	    
 		
-		.sidebar {
-		    width: 250px;
-		    background: #f9f9f9;
-		    padding: 15px;
-		    border-right: 1px solid #ddd;
-		}
 		
 		.project-number {
 		    background: #eee;
@@ -32,7 +26,7 @@
 		}
 		
 		 .sidebar {
-            width: 250px;
+            width: 210px;
             background: #f8f8f8;
             padding: 10px;
             border-right: 1px solid #ddd;
@@ -100,6 +94,9 @@
                 <div class="submenu-item"><a href="ProjectReward">리워드 설계</a> <span>작성전</span></div>
                 <div class="submenu-item"><a href="MakerInfo">메이커 정보</a> <span>작성전</span></div>
             </div>
+        </div>
+        <div class="menu-item">
+        	<span class="menu-title"><a href="ProjectDate">프로젝트 기간 설정</a></span>
         </div>
         <div class="menu-item">
         	<span class="menu-title">프로젝트 현황</span>
