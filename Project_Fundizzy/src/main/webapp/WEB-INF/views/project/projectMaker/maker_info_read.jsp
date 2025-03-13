@@ -15,7 +15,7 @@
 		<jsp:include page="/WEB-INF/views/inc/project_maker_top.jsp"></jsp:include>
 	    <div class="container">
 	        <div class="title-section">
-		        <h2 class="title">스토리 정보</h2>
+		        <h2 class="title">스토리 정보 확인</h2>
 	    	</div>
 	        <label for="maker-name">메이커 명</label>
 	        <input type="text" id="maker-name" name="maker_name" disabled="disabled" value="${makerInfo.maker_name}">

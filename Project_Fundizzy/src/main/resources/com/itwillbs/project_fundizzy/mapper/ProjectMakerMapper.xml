@@ -216,12 +216,54 @@
 		WHERE project_code = #{project_code}
 	</update>
 	
+	<update id="updateProjectInfo">
+		UPDATE project_info
+		SET category = #{category},
+			sub_category = #{sub_category},
+			adult_check = #{adult_check},
+			representative_email = #{representative_email},
+			target_amount = #{target_amount},
+			maker_type = #{maker_type},
+			<if test="registration_card != null and registration_card != ''">
+            	registration_card = #{registration_card},
+        	</if>
+        	business_number = #{business_number},
+        	business_name = #{business_name},
+        	representative_name = #{representative_name}
+        WHERE
+        	project_code = #{project_code}
+			
+	</update>
+	
 	<delete id="deleteReward">
 		DELETE
 		FROM reward
 		WHERE reward_code = #{reward_code}
 	</delete>
 	
+	<select id="selectDate" resultType="map">
+		SELECT *
+		FROM project_date
+		WHERE project_code = #{projectCode}
+	</select>
+	
+	<select id="selectRequestInfo" resultType="String">
+		SELECT approve_stat
+		FROM project_list
+		WHERE project_code = #{projectCode}
+	</select>
+	
+	<insert id="insertProjectDate">
+		INSERT
+		INTO project_date
+		VALUES(
+			#{project_code},
+			#{open_start_date},
+			#{open_end_date},
+			#{project_start_date},
+			#{project_end_date}
+		)
+	</insert>
 	
 </mapper>
 

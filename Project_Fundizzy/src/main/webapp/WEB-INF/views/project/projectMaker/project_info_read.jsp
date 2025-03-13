@@ -14,7 +14,7 @@
 	<div class="main">
 		<jsp:include page="/WEB-INF/views/inc/project_maker_top.jsp"></jsp:include>
 	    <div class="container">
-	        <h1 class="title">프로젝트 정보</h1>
+	        <h1 class="title">프로젝트 정보 확인</h1>
 	        <!-- 카테고리 선택 -->
 	        <label class="label">카테고리 선택</label> 
 	        <select class="select main-category" disabled="disabled">
@@ -59,7 +59,7 @@
 	
 	        <!-- 신청폼 -->
 	        <label class="label" >신분증</label>
-	        <img  src="resources/upload/${projectInfo.registration_card}" style="width: 200px; height: 200px;">
+	        <img  src="/resources/upload/${projectInfo.registration_card}" style="width: 200px; height: 200px;">
 	       
 	        <label class="label license"style="display: none;" >사업자 등록 번호</label>
 	        <input type="text"  class="input license" placeholder="사업자 등록 번호" style="display: none;" value="${projectInfo.business_number}" disabled="disabled">
@@ -108,7 +108,6 @@ $(document).ready(function() {
         }
     }
 
-    // disabled 속성이 있는 버튼도 active 변경 가능하도록 설정
 });
 
 </script>

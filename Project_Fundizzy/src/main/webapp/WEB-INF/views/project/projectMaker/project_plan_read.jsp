@@ -80,7 +80,7 @@
 	<div style="width: 100%;">
 		<jsp:include page="/WEB-INF/views/inc/project_maker_top.jsp"></jsp:include>
  	<div class="container">
-        <div class="title">서비스 요금</div>
+        <div class="title">서비스 요금 확인</div>
         
         <div class="pricing-card pro">
             <div class="pricing-info">

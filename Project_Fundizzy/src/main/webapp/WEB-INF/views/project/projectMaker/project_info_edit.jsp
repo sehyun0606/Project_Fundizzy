@@ -73,27 +73,42 @@
 	
 	        <!-- 신청폼 -->
 	        <label class="label" >신분증</label>
-	        <input type="file" class="input id-card" required="required">
+	        <input type="file" id="fileInput" class="input id-card" required="required" >
+	        <img id="previewImage" src="/resources/upload/${projectInfo.registration_card}" style="width: 200px; height: 200px;">
+	        
 	       
 	        <label class="label license"style="display: none;" >사업자 등록 번호</label>
-	        <input type="text"  class="input license" placeholder="사업자 등록 번호" style="display: none;" required="required">
+	        <input type="text"  class="input license" placeholder="사업자 등록 번호" style="display: none;" value="${projectInfo.business_number}" required="required">
 	        
 	        <label class="label license"style="display: none;" >상호명</label>
-	        <input type="text"  class="input license" placeholder="상호명" style="display: none;" required="required">
+	        <input type="text"  class="input license" placeholder="상호명" style="display: none;"  value="${projectInfo.business_name}" required="required">
 	        
 	        <label class="label">대표자명</label>
-	        <input type="text" class="input name" placeholder="대표자명" required="required">
+	        <input type="text" class="input name" placeholder="대표자명" value="${projectInfo.representative_name}" required="required">
 	
 	        <label class="label">대표자 이메일</label>
-	        <input type="email" class="input email" placeholder="이메일" required="required">
+	        <input type="email" class="input email" placeholder="이메일" value="${projectInfo.representative_email}" required="required">
 	
 	        <!-- 목표 금액 -->
 	        <label class="label">목표 금액</label>
-	        <input type="number" id="amount" class="input" placeholder="최소 50만원 ~ 1억원 사이에서 설정해주세요." required="required">
+	        <input type="number" id="amount" class="input" placeholder="최소 50만원 ~ 1억원 사이에서 설정해주세요."  value="${projectInfo.target_amount}"required="required">
 	    </div>
 	</div>
 <script type="text/javascript">
 	$(document).ready(function() {
+		let makerType = "${projectInfo.maker_type}";
+	    if (makerType) {
+	        $(".button-group .btn").removeClass("active");
+	        let selectedButton = $("#" + makerType);
+	        selectedButton.addClass("active");
+	        $("#maker_type").val(makerType);
+	        
+	        if (makerType === 'sole-proprietor' || makerType === 'proprietor') {
+	            $(".license").css("display", "block");
+	        } else {
+	            $(".license").css("display", "none");
+	        }
+	    }
 	    $(".button-group .btn").click(function() {
 	        $(".button-group .btn").removeClass("active"); // 모든 버튼에서 'active' 제거
 	        $(this).addClass("active"); // 클릭한 버튼에 'active' 추가
@@ -181,13 +196,6 @@
 	            }
 	        }
 
-	        // 모든 file input 검사
-	        $(".id-card").each(function() {
-	            if ($(this)[0].files.length === 0) {
-	                isValid = false;
-	                emptyFields.push("파일 업로드 (신분증 또는 사업자 등록증)");
-	            }
-	        });
 
 	        // 모든 text, number, email input 검사
 	        $(".name, input[type='number'], input[type='email']").each(function() {
@@ -214,6 +222,21 @@
 
 	        $("#info-form").submit(); // 모든 검사가 통과되면 제출
 	    });
+		$("#fileInput").change(function(event) {
+		    let file = event.target.files[0]; 
+		    if (file) {
+		        let reader = new FileReader();
+		        reader.onload = function(e) {
+		            $("#previewImage").attr("src", e.target.result).show(); 
+		            $(".image-upload").hide(); 
+		        };
+		        reader.readAsDataURL(file); 
+		        $("#fileName").text(file.name);
+		    } else {
+		        $("#previewImage").hide(); 
+		        $(".image-upload").show(); 
+		    }
+		});
 
 
 	});	

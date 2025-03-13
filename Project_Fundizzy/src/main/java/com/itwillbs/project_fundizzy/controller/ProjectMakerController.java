@@ -27,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 import com.itwillbs.project_fundizzy.service.ProjectMakerService;
 import com.itwillbs.project_fundizzy.vo.MakerInfoVO;
+import com.itwillbs.project_fundizzy.vo.ProjectDateVO;
 import com.itwillbs.project_fundizzy.vo.ProjectInfoVO;
 import com.itwillbs.project_fundizzy.vo.ProjectStoryVO;
 import com.itwillbs.project_fundizzy.vo.RewardVO;
@@ -100,7 +101,14 @@ public class ProjectMakerController {
 		
 		String serviceType = projectMakerService.getServiceType(projectCode);
 		
+		String requestInfo = projectMakerService.getRequestInfo(projectCode);
+		
+		
 		model.addAttribute("serviceType", serviceType);
+		
+		if(requestInfo.equals("accept") || requestInfo.equals("request")) {
+			return "project/projectMaker/project_plan_read";
+		}
 		
 		return "project/projectMaker/project_plan";
 	}
@@ -119,7 +127,26 @@ public class ProjectMakerController {
 	
 	//프로젝트 정보 입력 폼
 	@GetMapping("ProjectInfo")
-	public String projectInfo() {
+	public String projectInfo(HttpSession session, Model model) {
+		
+		String projectCode = (String)session.getAttribute("project_code");
+		
+		String requestInfo = projectMakerService.getRequestInfo(projectCode);
+		
+		
+		Map<String, String> projectConfig = projectMakerService.getSettingInfo(projectCode);
+		
+		String projectInfoConfig = projectConfig.get("project_info_config");
+		
+		
+		
+		if(requestInfo.equals("accept") || requestInfo.equals("request")) {
+			return "redirect:/ProjectInfoRead";
+		}else if(requestInfo.equals("before") && projectInfoConfig.equals("Y")) {
+			return "redirect:/ProjectInfoEdit";
+		}
+		
+		
 		return "project/projectMaker/project_info";
 	}
 	
@@ -180,11 +207,69 @@ public class ProjectMakerController {
 		return "project/projectMaker/project_info_edit";
 	}
 	
-			
+	@PostMapping("ProjectInfoEdit")	
+	public String projectInfoEdit(ProjectInfoVO projectInfo, HttpSession session) {
+		
+		String projectCode = projectInfo.getProject_code();
+		String realPath = getRealPath(session, virtualPath);
+		//파일 업로드되는 서브 경로
+		String subDir = projectCode + "/registrationCard" ;
+		
+		realPath += subDir;
+		
+		//실제 파일 업로드 경로 생성
+		try {
+			Path path = Paths.get(realPath);
+			Files.createDirectory(path);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		MultipartFile registrationCardImg = projectInfo.getRegistrationCard();
+		
+		projectInfo.setRegistration_card("");
+		
+		String registrationCardName = "";
+		
+		if(!registrationCardImg.getOriginalFilename().equals("")) {
+			registrationCardName = UUID.randomUUID().toString() + "_" + registrationCardImg.getOriginalFilename();
+			projectInfo.setRegistration_card(subDir + "/" + registrationCardName);
+		}
+		projectMakerService.updateProjectInfo(projectInfo);
+		
+		try {
+			if(!registrationCardImg.getOriginalFilename().equals("")) {
+				registrationCardImg.transferTo(new File(realPath,registrationCardName));
+			}
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return "redirect:/ProjectMaker";
+	}
 	
 	
 	@GetMapping("ProjectStory")
-	public String projectStory(){
+	public String projectStory(HttpSession session){
+		
+		String projectCode = (String)session.getAttribute("project_code");
+		
+		String requestInfo = projectMakerService.getRequestInfo(projectCode);
+		
+		
+		Map<String, String> projectConfig = projectMakerService.getSettingInfo(projectCode);
+		
+		String storyConfig = projectConfig.get("story_config");
+		
+		
+		
+		if(requestInfo.equals("accept") || requestInfo.equals("request")) {
+			return "redirect:/ProjectStoryRead";
+		}else if(requestInfo.equals("before") && storyConfig.equals("Y")) {
+			return "redirect:/ProjectStoryEdit";
+		}
 		
 		return "project/projectMaker/project_story";
 	}
@@ -329,6 +414,14 @@ public class ProjectMakerController {
 		
 		model.addAttribute("rewardList", rewardList);
 		
+		
+		String requestInfo = projectMakerService.getRequestInfo(projectCode);
+		
+		if(requestInfo.equals("accept") || requestInfo.equals("request")) {
+			return "redirect:/ProjectRewardRead";
+		}
+		
+		
 		return "project/projectMaker/project_reward";
 	}
 	
@@ -376,7 +469,23 @@ public class ProjectMakerController {
 	}
 	
 	@GetMapping("MakerInfo")
-	public String makerInfo() {
+	public String makerInfo(HttpSession session) {
+		String projectCode = (String)session.getAttribute("project_code");
+		
+		String requestInfo = projectMakerService.getRequestInfo(projectCode);
+		
+		
+		Map<String, String> projectConfig = projectMakerService.getSettingInfo(projectCode);
+		
+		String makerConfig = projectConfig.get("maker_config");
+		
+		
+		
+		if(requestInfo.equals("accept") || requestInfo.equals("request")) {
+			return "redirect:/MakerInfoRead";
+		}else if(requestInfo.equals("before") && makerConfig.equals("Y")) {
+			return "redirect:/MakerInfoEdit";
+		}
 		return "project/projectMaker/maker_info";
 	}
 	
@@ -533,9 +642,38 @@ public class ProjectMakerController {
 	}
 	
 	@GetMapping("ProjectDate")
-	public String projectDate() {
+	public String projectDate(HttpSession session, Model model) {
 		
-		return "project/projectMaker/project_date";
+		String projectCode = (String)session.getAttribute("project_code");
+		
+		Map<String, Object> dateMap = projectMakerService.getDate(projectCode);
+		
+		String requestInfo = projectMakerService.getRequestInfo(projectCode);
+		
+		if (requestInfo.equals("accept")) {
+		    if (dateMap == null || dateMap.isEmpty()) {
+		        return "project/projectMaker/project_date";
+		    } else {
+		        model.addAttribute("date", dateMap);
+		        return "project/projectMaker/project_date_read";
+		    }
+		} else {
+		    model.addAttribute("msg", "프로젝트 승인 후 설정해주세요");
+		    return "result/result";
+		}
+		
+	}
+	
+	@PostMapping("ProjectDate")
+	public String projectDateRegist(HttpSession session, Model model, ProjectDateVO date) {
+		
+		String projectCode = (String) session.getAttribute("project_code");
+		
+		date.setProject_code(projectCode);
+		
+		projectMakerService.setProjectDate(date);
+		
+		return "redirect:/ProjectDate";
 	}
 	
 	//파일 업로드 및 다운로드를 위한 유틸리티 메서드

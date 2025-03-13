@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.itwillbs.project_fundizzy.vo.MakerInfoVO;
+import com.itwillbs.project_fundizzy.vo.ProjectDateVO;
 import com.itwillbs.project_fundizzy.vo.ProjectInfoVO;
 import com.itwillbs.project_fundizzy.vo.ProjectStoryVO;
 import com.itwillbs.project_fundizzy.vo.RewardVO;
@@ -61,6 +62,14 @@ public interface ProjectMakerMapper {
 	void updateProjectStory(ProjectStoryVO projectStory);
 
 	void updateProjectList(String projectCode);
+
+	Map<String, Object> selectDate(String projectCode);
+
+	String selectRequestInfo(String projectCode);
+
+	void updateProjectInfo(ProjectInfoVO projectInfo);
+
+	void insertProjectDate(ProjectDateVO date);
 
 
 }

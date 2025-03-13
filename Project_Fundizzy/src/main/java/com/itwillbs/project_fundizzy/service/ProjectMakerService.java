@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.itwillbs.project_fundizzy.mapper.ProjectMakerMapper;
 import com.itwillbs.project_fundizzy.vo.MakerInfoVO;
+import com.itwillbs.project_fundizzy.vo.ProjectDateVO;
 import com.itwillbs.project_fundizzy.vo.ProjectInfoVO;
 import com.itwillbs.project_fundizzy.vo.ProjectStoryVO;
 import com.itwillbs.project_fundizzy.vo.RewardVO;
@@ -128,6 +129,22 @@ public class ProjectMakerService {
 
 	public void updateProjectList(String projectCode) {
 		makerMapper.updateProjectList(projectCode);
+	}
+
+	public Map<String, Object> getDate(String projectCode) {
+		return makerMapper.selectDate(projectCode);
+	}
+
+	public String getRequestInfo(String projectCode) {
+		return makerMapper.selectRequestInfo(projectCode);
+	}
+
+	public void updateProjectInfo(ProjectInfoVO projectInfo) {
+		makerMapper.updateProjectInfo(projectInfo);
+	}
+
+	public void setProjectDate(ProjectDateVO date) {
+		makerMapper.insertProjectDate(date);
 	}
 	
 

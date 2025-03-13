@@ -17,7 +17,7 @@
 		<jsp:include page="/WEB-INF/views/inc/project_maker_top.jsp"></jsp:include>	
 	    <div class="container">
 	    	<div class="title-section">
-		        <h2 class="title">리워드 설계</h2>
+		        <h2 class="title">리워드 설계 확인</h2>
 	    	</div>
 	        <c:forEach items="${rewardList}" var="reward">
 		        <div class="reward-card">

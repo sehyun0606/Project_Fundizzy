@@ -8,7 +8,7 @@
     <title>메이커 정보</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/projectMaker/maker_info.css">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/projectMaker/maker_info.js"></script>
+    <script src="/resources/js/projectMaker/maker_info.js"></script>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/inc/project_maker_side.jsp"></jsp:include>

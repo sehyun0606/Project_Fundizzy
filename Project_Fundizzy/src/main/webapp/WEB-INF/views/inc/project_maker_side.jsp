@@ -26,7 +26,7 @@
 		}
 		
 		 .sidebar {
-            width: 210px;
+            width: 250px;
             background: #f8f8f8;
             padding: 10px;
             border-right: 1px solid #ddd;
@@ -88,11 +88,11 @@
         <div class="menu-item">
         	<span class="menu-title">프로젝트 관리 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <button class="side-button" onclick="location.href='ProjectMaker'"> 관리 홈</button>
             <div class="submenu">
-                <div class="submenu-item"><a href="ProjectPlan">서비스 요금</a> <span>작성중</span></div>
-                <div class="submenu-item"><a href="ProjectInfo">프로젝트 정보</a> <span>작성전</span></div>
-                <div class="submenu-item"><a href="ProjectStory">스토리 작성</a> <span>작성전</span></div>
-                <div class="submenu-item"><a href="ProjectReward">리워드 설계</a> <span>작성전</span></div>
-                <div class="submenu-item"><a href="MakerInfo">메이커 정보</a> <span>작성전</span></div>
+                <div class="submenu-item"><a href="ProjectPlan">서비스 요금</a> </div>
+                <div class="submenu-item"><a href="ProjectInfo">프로젝트 정보</a> </div>
+                <div class="submenu-item"><a href="ProjectStory">스토리 작성</a> </div>
+                <div class="submenu-item"><a href="ProjectReward">리워드 설계</a> </div>
+                <div class="submenu-item"><a href="MakerInfo">메이커 정보</a> </div>
             </div>
         </div>
         <div class="menu-item">

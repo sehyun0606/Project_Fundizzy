@@ -77,16 +77,13 @@
     <div class="main">
         <jsp:include page="/WEB-INF/views/inc/project_maker_top.jsp"></jsp:include>
         <div class="container">
-            <form action="ProjectDate" method="post">
             <div class="title-section">
-	            <h2>프로젝트 기간 설정</h2>
-	            <button  class="btn" >기간 설정 제출</button>
+	            <h2>프로젝트 기간 확인</h2>
             </div>
            
-            <h4>오픈예정 기간 설정</h4>
-             <p style="color: #666; font-size: 14px;"> 오픈예정 기간은 원하는 날짜부터 최소 2주 최대 1달동안 진행할 수 있어요!</p>
+            <h4>오픈예정 기간 확인</h4>
             <label for="startDate">시작 날짜</label>
-            <input type="date" id="openStartDate" name="open_start_date" required="required">
+            <input type="text" id="openStartDate" name="open_start_date" value="${date.open_start_date}">
             <label for="endDate">종료 날짜</label>
             <input type="date" id="openEndDate" name="open_end_date" required="required">
     
@@ -97,14 +94,13 @@
             <p style="color: #666; font-size: 14px;"> 펀딩 기간은 오픈예정이 끝난 다음날부터 최소 2주 최대 1달동안 진행할 수 있어요!</p>
             <label for="startDate">시작 날짜</label>
             <input type="date" id="fundStartDate"  disabled required="required">
-            <input type="hidden" id="fundStartDate2" name="project_start_date" >
+            <input type="date" id="fundStartDate2" name="project_start_date" style="display: none">
     
             <label for="endDate">종료 날짜</label>
             <input type="date" id="fundEndDate" name="project_end_date" required="required">
     
             <button type="button" class="btn" id="fundSetDates" >설정 완료</button>
             <p id="fundResult"></p>
-            </form>
         </div>
     </div>
     
