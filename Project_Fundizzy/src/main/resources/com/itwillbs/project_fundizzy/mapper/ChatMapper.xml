@@ -46,6 +46,7 @@
 		ORDER BY c.last_accessed_time ASC
 	</select>
 	
+	<!-- 나와 연관된 메이커의 정보 조회 -->
 	<select id="selectMyMakerInfo" resultType="map">
 		SELECT *
 		FROM member
@@ -64,6 +65,7 @@
 		-- 찜, 팔로잉, 참여한 프로젝트의 메이커 조회 추후 작업
 	</select>
 	
+	<!-- 나의 서포터의 정보 조회 -->
 	<select id="selectMySupportInfo" resultType="map">
 		SELECT *
 		FROM member
@@ -79,4 +81,61 @@
 								p.member_email = #{sender_email}
 						)
 	</select>
+	
+	<!-- 채팅방 정보 조회 -->
+	<select id="selectChatRoom" resultType="chatRoom">
+		SELECT
+			r1.room_id
+			, r1.title
+			, r1.member_email AS sender_email
+			, r2.member_email AS receiver_email
+			, r1.status
+			, r1.last_accessed_time
+		FROM chat_room r1
+		JOIN chat_room r2
+			ON r1.room_id = r2.room_id
+			AND r1.member_email = #{sender_email}
+			AND r2.member_email = #{receiver_email}
+	</select>
+	
+	<!-- 채팅방의 채팅 내역 조회 -->
+	<select id="selectChatMessageList" resultType="chatMessage">
+		SELECT *
+		FROM chat_message
+		WHERE room_id = #{room_id}
+		ORDER BY send_time ASC;
+	</select>
+	
+	<!-- 채팅시작시 새로운 채팅방 생성 -->
+	<insert id="insertNewChatRoom">
+		INSERT INTO chat_room
+		VALUES (
+				#{room_id}
+				, CONCAT(#{receiver_email}, '님과의 채팅방')
+				, #{sender_email}
+				, 1
+				, now()
+			)
+			,(
+				#{room_id}
+				, CONCAT(#{sender_email}, '님과의 채팅방')
+				, #{receiver_email}
+				, 1
+				, now()
+			)
+	</insert>
+	
+	<insert id="insertChatMessage">
+		INSERT INTO chat_message
+		VALUES (
+			null
+			, #{room_id}
+			, #{sender_email}
+			, #{receiver_email}
+			, #{message}
+			, #{type}
+			, #{send_time}
+			, 0
+		)
+	</insert>
 </mapper>

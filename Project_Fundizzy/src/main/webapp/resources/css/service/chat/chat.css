@@ -160,6 +160,7 @@
 
 .people div {
 	display: inline-block;
+	cursor: pointer;
 }
 
 .peopleImg {

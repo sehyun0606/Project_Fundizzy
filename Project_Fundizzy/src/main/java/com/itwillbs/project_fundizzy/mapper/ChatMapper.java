@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.itwillbs.project_fundizzy.vo.ChatMessage;
 import com.itwillbs.project_fundizzy.vo.ChatRoom;
 
 @Mapper
@@ -17,5 +18,17 @@ public interface ChatMapper {
 	
 	// 내 프로젝트를 참여 및 지지선언한 서포터의 정보 조회
 	List<Map<String, String>> selectMySupportInfo(String sender_email);
-
+	
+	// 상대방과의 채팅방 정보 조회
+	ChatRoom selectChatRoom(ChatMessage chatMessage);
+	
+	// 채팅방의 채팅내역 조회
+	List<ChatMessage> selectChatMessageList(String room_id);
+	
+	// 새로운 채팅방 생성
+	int insertNewChatRoom(ChatRoom room);
+	
+	// 전송된 채팅 디비에 저장
+	void insertChatMessage(ChatMessage chatMessage);
+	
 }

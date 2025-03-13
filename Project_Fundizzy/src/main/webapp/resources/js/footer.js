@@ -22,10 +22,9 @@ function openChatWindow() {
 }
 
 // 채팅방 오픈 함수
-function openChatRoomWindow(room_id) {
-	console.log("room_id : " + room_id);
-	
-	chatRoomWindowObj.room_id = window.open('/ChatRoom', room_id,
+// 채팅상대방의 이름으로 윈도우 네임설정
+function openChatRoomWindow(receiver_email) {
+	chatRoomWindowObj[receiver_email] = window.open('/ChatRoom', receiver_email,
 		'width=400, height=600, top=180, left=1300, status=no, location=no, menubar=no, toolbar=no');
 }
 
@@ -49,15 +48,21 @@ function onMessage(event) {
 	// 채팅창이 연결 되어있을 경우 postMessage()로 전송
 	if(chatWindow) {
 		chatWindow.postMessage(event.data);
-	} 
+	}
 	
-//    let chatMessage = JSON.parse(event.data);
-//	let room_id = chatMessage.room_id
-//	console.log("쳇메세지");
-//	console.log(chatMessage);
-//	
-//	console.log("윈도우 저장 객체");
-//	console.log(chatRoomWindowObj.room_id);
+	// 전달된 메시지 파싱
+	let data = JSON.parse(event.data);
+	console.log(data);
+	
+	// 해당 채팅방이 열려있으면 메세지 전달
+	if(chatRoomWindowObj[data.receiver_email]) {
+		chatRoomWindowObj[data.receiver_email].postMessage(event.data);
+		// 상대방과의 채팅방 윈도우의 이름이 상대방의 이메일이므로
+		// 상대방이 송신한 채팅을 수신하기위해 sender_email도 윈도우객체의 속성명과 비교하여
+		// 메시지 전달
+	} else if(chatRoomWindowObj[data.sender_email]) {
+		chatRoomWindowObj[data.sender_email].postMessage(event.data);
+	}
 	
 }
 
@@ -80,4 +85,3 @@ function sendMessage(type, sender_email, receiver_email, room_id, message, idx) 
 	// 웹소켓 객체(ws)의 send() 메서드 호출하여 서버측으로 웹소켓 메세지 전송
 	ws.send(toJsonString(type, sender_email, receiver_email, room_id, message, idx));
 }
-

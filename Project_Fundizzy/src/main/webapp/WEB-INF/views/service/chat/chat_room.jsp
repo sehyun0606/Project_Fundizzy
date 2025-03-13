@@ -9,11 +9,10 @@
 <body>
 	<div id="topBar">
 		<div id="topProfileImg">
-			<img src="/resources/images/chat/personIcon.png">
 		</div>
 		<div id="titleDiv">
-			<div id="roomTitle">보노보노님과의 대화방</div>
-			<div id="topProfileEmail">(kwodud95@naver.com)</div>
+			<div id="roomTitle"></div>
+			<div id="topProfileEmail"></div>
 		</div>
 		<div id="exit">
 			<img src="/resources/images/chat/outIcon.png">

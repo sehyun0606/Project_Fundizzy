@@ -17,13 +17,14 @@ public class ChatMessage {
 	private String message; // 메세지 내용
 	private String send_time; // 메세지 전송 시각
 	private int read_state; // 메세지 읽음 여부
-	private String sender_info; // 송신자의 정보
-	private String reciever_info; // 수신자의 정보
+	private String myInfo; // 내 정보
+	private String otherInfo; // 상대방 정보
 	
 	// 메세지 타입으로 사용할 값을 상수로 생성
 	public static final String TYPE_ENTER = "TYPE_ENTER";
 	public static final String TYPE_LEAVE = "TYPE_LEAVE";
 	public static final String TYPE_TALK = "TYPE_TALK"; // 대화 메세지
+	public static final String TYPE_SYSTEM = "TYPE_SYSTEM"; // 시스템 메세지
 	public static final String TYPE_INIT_MAIN = "TYPE_INIT_MAIN"; // 채팅창 초기화 요청(메인페이지)
 	public static final String TYPE_INIT_LIST = "TYPE_INIT_LIST"; // 채팅창 초기화 요청(채팅리스트페이지)
 	public static final String TYPE_INIT_CHATROOM = "TYPE_INIT_CHATROOM"; // 채팅창 초기화 요청(채팅방페이지)

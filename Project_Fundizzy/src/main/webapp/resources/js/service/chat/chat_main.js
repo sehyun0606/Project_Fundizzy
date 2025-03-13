@@ -1,11 +1,11 @@
 const TYPE_INIT_MAIN = "TYPE_INIT_MAIN";
 
 var ws = opener.ws;
-const sender_email = $("#sId", opener.document).val();
+const sEmail = $("#sId", opener.document).val();
 
 $(function() {
 	// 로그인 안되어있을때 로그인 페이지로 이동, 챗 윈도우 클로즈
-	if(!sender_email) {
+	if(!sEmail) {
 		alert("로그인이 필요합니다.\n로그인 페이지로 이동합니다.")
 		opener.location.href = "Login";
 		window.close();
@@ -20,7 +20,7 @@ $(function() {
 		// 타입이 TYPE_INIT_MAIN인경우 회원정보 및 메이커, 서포터 정보 채팅창메인에 출력
 		if(data.type == TYPE_INIT_MAIN) {
 			// 메세지안의 정보들 변수에 저장
-			let senderInfo = JSON.parse(data.sender_info)
+			let senderInfo = JSON.parse(data.myInfo)
 			let message = JSON.parse(data.message);
 			let makerList = message.makerList;
 			let supportList = message.supportList;
@@ -41,6 +41,13 @@ $(function() {
 			    $(this).text("▼");
 			});
 		}
+		
+		// 회원 더블클릭시 채팅창 오픈
+		$(".people").dblclick(function() {
+			receiver_email = $(this).find(".email").val();
+			// 부모창의 채티방오픈 함수 호출
+			opener.openChatRoomWindow(receiver_email);
+		});
 	}
 	
 	// 해당 페이지 선택 표시를 위해 사이드바의 다른 페이지 아이콘 연하게 표시
@@ -66,11 +73,6 @@ $(function() {
 	    });
 	});
 	
-	// 회원 더블클릭시 대화방 오픈
-	$(".people").dblclick(function() {
-		let receiver_email = $(this).find(".email").val();
-		console.log(receiver_email); 
-	});
 
 });
 

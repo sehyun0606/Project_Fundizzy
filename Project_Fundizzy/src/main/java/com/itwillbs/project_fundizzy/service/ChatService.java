@@ -3,10 +3,12 @@ package com.itwillbs.project_fundizzy.service;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.itwillbs.project_fundizzy.mapper.ChatMapper;
+import com.itwillbs.project_fundizzy.vo.ChatMessage;
 import com.itwillbs.project_fundizzy.vo.ChatRoom;
 
 @Service
@@ -28,4 +30,25 @@ public class ChatService {
 	public List<Map<String, String>> getMySupportInfo(String sender_email) {
 		return chatMapper.selectMySupportInfo(sender_email);
 	}
+	
+	// 채팅방 정보 조회
+	public ChatRoom getChatRoomInfo(ChatMessage chatMessage) {
+		return chatMapper.selectChatRoom(chatMessage);
+	}
+	
+	// 채팅 내역 조회
+	public List<ChatMessage> getChatMessageList(String room_id) {
+		return chatMapper.selectChatMessageList(room_id);
+	}
+	
+	// 채팅방 생성
+	public int addChatRoomForStart(ChatRoom room) {
+		return chatMapper.insertNewChatRoom(room);
+	}
+	
+	// DB에 채팅내용 저장
+	public void addChatMessage(ChatMessage chatMessage) {
+		chatMapper.insertChatMessage(chatMessage);
+	}
+	
 }

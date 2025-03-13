@@ -3,7 +3,7 @@ const TYPE_INIT_LIST = "TYPE_INIT_LIST"; // 채팅창 초기화
 var ws = opener.ws
 
 // 세션 아이디 저장
-const sender_email = $("#sId", opener.document).val();
+const sEmail = $("#sId", opener.document).val();
 
 $(function() {
 	// 해당 페이지 선택 표시를 위해 사이드바의 다른 페이지 아이콘 연하게 표시
@@ -11,7 +11,7 @@ $(function() {
 	
 	
 	// 로그인 안되어있을때 로그인 페이지로 이동, 챗 윈도우 클로즈
-	if(!sender_email) {
+	if(!sEmail) {
 		alert("로그인이 필요합니다.\n로그인 페이지로 이동합니다.")
 		opener.location.href = "Login";
 		window.close();
@@ -81,7 +81,7 @@ function appendChatRoom(room) {
 	}
 	
 	let divRoom = 
-		`<div class="chatRoom ${room.room_id}" ondblclick="openChatRoom(${room.room_id})">
+		`<div class="chatRoom" id="${room.room_id}" ondblclick="openChatRoom(${room.room_id})">
 			<input type="hidden" class="receiver_email" value=${room.receiver_email}>
 			<div class="receiverImg">
 				<img src="/resources/images/notification/followingIcon.png">
@@ -114,6 +114,9 @@ function appendChatRoom(room) {
 }
 
 // 채팅리스트 더블클릭시 해당 채팅방 뉴 윈도우로 오픈
-function openChatRoom(room_id) {
+function openChatRoom(room) {
+	let room_id = room.id;
+	
+	// 부모창의 뉴윈도우오픈 함수 실행
 	opener.openChatRoomWindow(room_id);
 }
