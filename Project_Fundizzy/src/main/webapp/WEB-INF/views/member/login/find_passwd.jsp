@@ -59,6 +59,15 @@
     </footer>
 
     <script>
+	    $(document).ready(function () {
+	        // Enter 키 입력 시 폼 제출 방지
+	        $(".input-field").on("keydown", function (event) {
+	            if (event.key === "Enter") {
+	                event.preventDefault(); // 기본 이벤트(폼 제출) 방지
+	                $(".confirm-btn").click(); // 대신 "확인" 버튼 클릭 이벤트 실행
+	            }
+	        });
+	    });
         $(document).ready(function () {
             $(".tab-btn").click(function () {
                 $(".tab-btn").removeClass("active");
@@ -70,9 +79,9 @@
         $(document).ready(function () {
 		    $(".confirm-btn").click(function () {
 		        let email = $("#email").val().trim();
-		
 		        if (email == "") {
 		            showModal("입력 오류", "이메일을 입력하세요.");
+		        	event.preventDefault(); // 폼 제출 방지
 		            return;
 		        }
 		
@@ -87,7 +96,7 @@
 		                } else {
 			            	console.log(result);
 			            	console.log("이메일 : " + result.email);
- 		                    showModal("발송 완료", "작성하신 이메일로 비밀번호를 등록할 수 있는 링크를 발송했으니 이메일을 확인해주세요.");
+ 		                    showModal("발송 완료", "작성하신 이메일로 비밀번호를 변경할 수 있는 링크를 발송했으니 이메일을 확인해주세요.");
 		                }
 		            },
 		            error: function () {
