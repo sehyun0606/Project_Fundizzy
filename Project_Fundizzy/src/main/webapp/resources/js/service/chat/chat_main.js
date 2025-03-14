@@ -48,12 +48,6 @@ $(function() {
 			});
 		}
 		
-		// 회원 더블클릭시 채팅창 오픈
-		$(".people").dblclick(function() {
-			receiver_email = $(this).find(".email").val();
-			// 부모창의 채티방오픈 함수 호출
-			opener.openChatRoomWindow(receiver_email);
-		});
 	}
 	
 	// 해당 페이지 선택 표시를 위해 사이드바의 다른 페이지 아이콘 연하게 표시
@@ -126,8 +120,7 @@ function makeDivForAppendMember(people) {
 	// 회원의 프로필 이미지 주소
 	let src = people.profile ? "/resources/upload/" + people.profile : "/resources/images/chat/profileIcon.png";
 	
-	let peopleDiv = `<div class="people">
-						<input type="hidden" class="email" value="${people.email}">
+	let peopleDiv = `<div class="people" ondblclick="openChatRoom('${people.email}')">
 						<div class="peopleImg"><img src="${src}"></div>
 						<div class=peopleProfile>
 							<div class="peopleNickName">${people.nickname}</div>
@@ -135,4 +128,10 @@ function makeDivForAppendMember(people) {
 						</div>
 					</div>`;
 	return peopleDiv
+}
+
+function openChatRoom(receiver_email) {
+	console.log("zzzzzzzzzzz  " + receiver_email);
+	// 부모창의 채티방오픈 함수 호출
+	opener.openChatRoomWindow(receiver_email);
 }

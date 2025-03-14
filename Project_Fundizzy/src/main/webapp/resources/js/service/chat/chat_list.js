@@ -73,6 +73,9 @@ function showChatList(data) {
 function appendChatRoom(room) {
 	let last_message;
 	
+	// 채팅방의 상대방 정보
+	let receiverInfo = JSON.parse(room.receiverInfo);
+	
 	// 마지막 메세지 존재 여부 판단 후 글자수 조절
 	if(!room.last_message) {
 		last_message = "<br>";
@@ -81,8 +84,7 @@ function appendChatRoom(room) {
 	}
 	
 	let divRoom = 
-		`<div class="chatRoom" id="${room.room_id}" ondblclick="openChatRoom(${room.room_id})">
-			<input type="hidden" class="receiver_email" value=${room.receiver_email}>
+		`<div class="chatRoom" ondblclick="openChatRoom('${room.receiver_email}')">
 			<div class="receiverImg">
 				<img src="/resources/images/notification/followingIcon.png">
 				<span class="messageCount"></span>
@@ -114,9 +116,7 @@ function appendChatRoom(room) {
 }
 
 // 채팅리스트 더블클릭시 해당 채팅방 뉴 윈도우로 오픈
-function openChatRoom(room) {
-	let room_id = room.id;
-	
+function openChatRoom(receiver_email) {
 	// 부모창의 뉴윈도우오픈 함수 실행
-	opener.openChatRoomWindow(room_id);
+	opener.openChatRoomWindow(receiver_email);
 }

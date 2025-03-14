@@ -26,6 +26,7 @@
 					room_id = c.room_id
 		            AND sender_email != c.member_email
 		            AND read_state = 0
+		            AND type != 'TYPE_SYSTEM'
 			) as unread_count
 			, (
 				SELECT DISTINCT(message)
@@ -70,19 +71,29 @@
 	<select id="selectMyMakerInfo" resultType="map">
 		SELECT *
 		FROM member
-		WHERE email IN ( -- 내가 지지한 프로젝트의 메이커 조회
-							SELECT                    
-								p.member_email
-							FROM 
-								support s
-							JOIN 
-								project_list p
-							on 
-								s.project_code = p.project_code
-							WHERE 
-								s.email = #{sender_email}
-						)
-		-- 찜, 팔로잉, 참여한 프로젝트의 메이커 조회 추후 작업
+		WHERE email IN (
+						SELECT 
+							DISTINCT(member_email)
+						FROM 
+							project_list
+						WHERE
+							project_code IN (  -- 내가 찜한 프로젝트 메이커 조회
+												SELECT project_code
+												FROM keep
+												WHERE email = #{sender_email}
+											) 
+						OR project_code IN ( -- 내가 참여한 프로젝트 메이커 조회
+												SELECT project_code
+												FROM payment
+												WHERE billing_email = #{sender_email}
+												
+											)
+						OR project_code IN ( -- 내가 지지선언한 프로젝트 메이커 조회
+												SELECT project_code
+												FROM support
+												WHERE email = #{sender_email}
+											)
+					)
 	</select>
 	
 	<!-- 나의 서포터의 정보 조회 -->
@@ -131,19 +142,40 @@
 		INSERT INTO chat_room
 		VALUES (
 				#{room_id}
-				, CONCAT(#{receiver_email}, '님과의 채팅방')
+				, CONCAT((	
+							SELECT nickname
+							FROM member
+							where email = #{sender_email}
+							)
+							, '님과의 채팅방'
+						)
 				, #{sender_email}
 				, 1
 				, now()
 			)
 			,(
 				#{room_id}
-				, CONCAT(#{sender_email}, '님과의 채팅방')
+				, CONCAT((	
+							SELECT nickname
+							FROM member
+							where email = #{receiver_email}
+							)
+							, '님과의 채팅방'
+						)
 				, #{receiver_email}
 				, 1
 				, now()
 			)
 	</insert>
+	
+	<!-- 채팅방 마지막 접근 시간 업데이트 -->
+	<!-- 내가 보낸 메세지일경우 상대방의 방은 그대로 유지하고 내방만 마지막 접근 시간 변경 -->
+	<update id="updateLastAccessTime">
+		UPDATE chat_room
+		SET last_accessed_time = #{send_time}
+		WHERE room_id = #{room_id}
+			AND member_email = #{sender_email}
+	</update>
 	
 	<insert id="insertChatMessage">
 		INSERT INTO chat_message
@@ -158,4 +190,14 @@
 			, 0
 		)
 	</insert>
+	
+	<!-- 회원의 방별 읽지 않은 메세지 수 조회 -->
+	<select id="selectUnReadCountList" resultType="map">
+		SELECT sender_email, COUNT(*)
+		FROM chat_message
+		GROUP BY sender_email
+		WHERE
+			receiver_email = #{sender_email}
+			AND type != 'TYPE_SYSTEM'
+	</select>
 </mapper>

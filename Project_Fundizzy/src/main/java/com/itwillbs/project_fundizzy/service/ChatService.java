@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.itwillbs.project_fundizzy.mapper.ChatMapper;
 import com.itwillbs.project_fundizzy.vo.ChatMessage;
@@ -52,7 +53,16 @@ public class ChatService {
 	}
 	
 	// DB에 채팅내용 저장
+	@Transactional
 	public void addChatMessage(ChatMessage chatMessage) {
+		// 채팅내용 저장시 해당 채팅방의 last_access_time 업데이트
+		chatMapper.updateLastAccessTime(chatMessage);
+		// 채팅내용 채팅 테이블에 저장
 		chatMapper.insertChatMessage(chatMessage);
+	}
+	
+	// 회원의 안읽은 메세지수 조회
+	public List<Map<String, Integer>> getUnReadCount(String sender_email) {
+		return chatMapper.selectUnReadCountList(sender_email);
 	}
 }
