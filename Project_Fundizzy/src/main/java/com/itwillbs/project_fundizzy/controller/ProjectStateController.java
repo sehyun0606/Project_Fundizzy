@@ -83,12 +83,12 @@ public class ProjectStateController {
 		model.addAttribute("totalAmount", totalAmount);
 		
 		// 수수료 계산
-//		int settlementFee = stateService.getSettlementFee(project_code);
-//		model.addAttribute("settlementFee", settlementFee);
+		int settlementFee = stateService.getSettlementFee(project_code);
+		model.addAttribute("settlementFee", settlementFee);
 		
 		// 선정산 금액(60%)
-		Map<String, Object> preSettlement = stateService.getPreSettlement(project_code);
-		model.addAttribute("preSettlement", preSettlement);
+		int preAmount = stateService.getPreSettlement(project_code);
+		model.addAttribute("preAmount", preAmount);
 		
 		return "project/projectState/settlement_detail";
 	}

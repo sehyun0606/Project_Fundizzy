@@ -72,7 +72,7 @@ public interface ProjectStateMapper {
 
 	int selectSettlementFee(String project_code);
 
-	Map<String, Object> selectPreSettlement(String project_code);
+	int selectPreSettlement(String project_code);
 
 
 

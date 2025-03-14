@@ -338,32 +338,6 @@
 		FROM payment
 		WHERE project_code = #{project_code}
 	</select>
-	
-	<select id="selectPreSettlement" resultType="map">
-		SELECT 
-		    FLOOR(SUM(p.payment_amount) * service_type) as fee,
-		    FLOOR(SUM(p.payment_amount) * 0.6) as pre_amount
-		FROM 
-		    payment p
-		JOIN 
-		    (
-		        SELECT 
-		            CASE 
-		                WHEN service_type = 'pro' THEN 0.1
-		                WHEN service_type = 'basic' THEN 0.05
-		                ELSE 0
-		            END as service_type
-		        FROM 
-		            project_list
-		        WHERE 
-		            project_code = #{project_code}
-		    ) pl
-		ON 
-		    p.project_code = pl.project_code
-		WHERE 
-		    p.project_code = #{project_code};
-		
-	</select>
 
 </mapper>
 

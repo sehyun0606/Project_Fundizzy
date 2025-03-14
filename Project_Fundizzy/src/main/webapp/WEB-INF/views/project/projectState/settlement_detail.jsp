@@ -120,9 +120,9 @@
 												<div class="amount">
 												<!-- 총 결제금액 백만원 이상이면 기본이용료 9만원 차감 -->
 												<c:if test="${totalAmount > 1000000}">
-													<fmt:formatNumber value="${preSettlement.pre_amount - preSettlement.fee - 90000}" pattern="#,###" />원
+													<fmt:formatNumber value="${preAmount - settlementFee - 90000}" pattern="#,###" />원
 												</c:if>
-												<fmt:formatNumber value="${preSettlement.pre_amount - preSettlement.fee}" pattern="#,###" />원
+												<fmt:formatNumber value="${preAmount - settlementFee}" pattern="#,###" />원
 												</div>
 												<input type="hidden" name="payment_code" class="payment_code">
 											</div>
@@ -132,7 +132,29 @@
 											</div>
 											<div class="set-info">
 												<div class="title">수수료</div>
-												<div class="amount"><fmt:formatNumber value="${preSettlement.fee}" pattern="#,###" />원</div>
+												<div class="amount"><fmt:formatNumber value="${settlementFee}" pattern="#,###" />원</div>
+												<div class="msg">펀디지 수수료(5%)<c:if test="${totalAmount > 1000000}"> + 기본이용료 90,000원</c:if></div>
+											</div>
+										</c:when>
+										<c:when test="false">
+											<div class="set-info">
+												<div class="title">최종정산 지급액</div>
+												<div class="amount">
+												<!-- 총 결제금액 백만원 이상이면 기본이용료 9만원 차감 -->
+												<c:if test="${totalAmount > 1000000}">
+													<fmt:formatNumber value="${preAmount - settlementFee - 90000}" pattern="#,###" />원
+												</c:if>
+												<fmt:formatNumber value="${preAmount - settlementFee}" pattern="#,###" />원
+												</div>
+												<input type="hidden" name="payment_code" class="payment_code">
+											</div>
+											<div class="set-info">
+												<div class="title">총 결제금액</div>
+												<div class="amount"><fmt:formatNumber value="${totalAmount}" pattern="#,###" />원</div>
+											</div>
+											<div class="set-info">
+												<div class="title">수수료</div>
+												<div class="amount"><fmt:formatNumber value="${settlementFee}" pattern="#,###" />원</div>
 												<div class="msg">펀디지 수수료(5%)<c:if test="${totalAmount > 1000000}"> + 기본이용료 90,000원</c:if></div>
 											</div>
 										</c:when>

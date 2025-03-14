@@ -114,7 +114,7 @@ public class ProjectStateService {
 		return stateMapper.selectSettlementFee(project_code);
 	}
 
-	public Map<String, Object> getPreSettlement(String project_code) {
+	public int getPreSettlement(String project_code) {
 		return stateMapper.selectPreSettlement(project_code);
 	}
 
