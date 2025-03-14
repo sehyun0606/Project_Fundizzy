@@ -8,8 +8,9 @@
 <meta charset="UTF-8">
 <title>메인</title>
 <link rel="stylesheet" type="text/css" href="resources/css/merch/funding/fund_list.css">
+<!-- js 연결 -->
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/merch/fund_list.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/merch/funding/fund_list.js"></script>
 </head>
 <body>
 	<header>
@@ -71,19 +72,18 @@
 	        <button>최신순</button>
 	        <button>마감임박순</button>
 	    </div>
-	    <pre>${fundList}</pre>
 <!-- 	제품들 출력 -->
 	    <section class="product-list">
-	        	<c:forEach var="list" items="${fundList}">
-	        		<div class="product">
-			            <div class="product-img">${list.representative_picture}</div>
-			            <div class="product-info">
-			                <p class="discount">${list.progress}</p>
-			                <p class="name">${list.project_title}</p>
-			                <p class="rating">⭐ 4.7(148)</p>
-			            </div>
-	       			 </div>
-	        	</c:forEach>
+        	<c:forEach var="list" items="${fundList}">
+        		<div class="product">
+        			<input type="hidden" class ="project_code" value="${list.project_code}">
+		            <div class="product-img">${list.representative_picture}</div>
+		            <div class="product-info">
+		                <p class="discount">${list.progress}%</p>
+		                <p class="name">${list.project_title}</p>
+		            </div>
+       			 </div>
+        	</c:forEach>
 	    </section>
 	    
 	    

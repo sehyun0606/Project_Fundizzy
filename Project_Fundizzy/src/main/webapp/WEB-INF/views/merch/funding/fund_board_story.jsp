@@ -37,14 +37,7 @@
 			    <img src="resources/images/fund/image5.jpg" alt="메인 이미지">
 			    <img src="resources/images/fund/image3.jpg" alt="메인 이미지">
 			</div>
-            <div class="content-left-under">
-                 <div class="content-left-under1">
-                    <img src="" alt="특별구성">
-               </div>
-                 <div class="content-left-under2">
-                    <img src="" alt="프리오더">
-               </div>
-            </div>
+			
             <div class="project-story">
                 <p>프로젝트 스토리</p>
                 <img src="story.jpg" alt="프로젝트 스토리 이미지">
@@ -161,6 +154,7 @@
                 </div>
             </div>
         </div>
+<!--         오른쪽 부분 -->
         <div class="content-right">
             <div class="purchase-section">
                 <h3>${fundStory.project_title}</h3>
@@ -168,35 +162,41 @@
                    ${fundStory.project_content}
                 </div>
                 <p><strong>139</strong>명 참여</p>
-                <p><strong>50,000</strong>원 달성</p>
+                <p><strong>${fundStory.progress}</strong>% 달성</p>
                 <div class="btn-group">
                    <button class="btn-small" id="btn-like"><i class="fa fa-heart" style="font-size:24px"></i>찜</button>
                    <button class="btn-small" id="btn-support"><i class='far fa-handshake' style='font-size:24px'></i>지지</button>
-                   <button class="purchase-btn" onclick="location.href='PaymentReward'">펀딩하기</button>
+                   <button class="purchase-btn">펀딩하기</button>
                 </div>
             </div>
+<!--             회사정보 div -->
             <div class="project-info">
                 <div class="company-info">
-                   <h4>(주)붐코리아</h4><br>
-<!--                    143,242명 팔로우 중 -->
-                   <button class="btn-midium">♡ 팔로우</button>
+                   <h4>${fundStory.business_name}</h4><br>
                 </div>
-                <p>프로젝트 설명</p>
-                   <button class="btn">문의하기</button>
+                <button class="btn">문의하기</button>
             </div>
+            
             <div class="reward-selection">
+<!--             리워드 목록 -->
                 <h3>리워드 선택</h3>
                 <div class="reward-list">
-				  	<div class="reward">
-		               <h4>13,900원</h4>
-		               <p>헤어스타일러 외 4종 스타일링 툴</p>
-		               <p>드라이기 + 고속노즐 + 일반노즐 + 스타일링 빗</p>
-		               <hr>
-		               <p>배송비 </p>
-		               <p>발송 시작일</p>
-		               <p>제한 수량</p>
-		            </div>
+                	<c:forEach var="reward" items="${reward}">
+	                	<div class="reward">
+		<!--             	해당 프로젝트 코드를 넘기기 위한 hidden 속성 -->
+						   <input type="hidden" id="project_code" name="project_code" value="${reward.project_code}">
+			               <h4><fmt:formatNumber pattern="#,###원 " value="${reward.price}"></fmt:formatNumber></h4>
+			               <p>${reward.product_name}</p>
+			               <p>${reward.product_desc}</p>
+			               <hr>
+			               <p>배송비 ${reward.delivery_fee}</p>
+			               <p>발송 시작일</p>
+			               <p>제한수량 ${reward.product_limit}</p>
+			               <hr>
+			            </div>
+                	</c:forEach>
                 </div>
+<!--                 구매 및 지지서명, 찜버튼 -->
                 <div class="btn-group">
                    <button class="btn-small" id="btn-like"><i class="fa fa-heart" style="font-size:24px"></i>찜</button>
                    <button class="btn-small" id="btn-support"><i class='far fa-handshake' style='font-size:24px'></i>지지</button>
@@ -208,7 +208,7 @@
 	</article>
 	<div class="support_modal" id="support_modal">
 		<form action="SupportSignature" method="POST" class="support_content">
-			<input type="hidden" id="project_code" name="project_code" value="83652PRO01">
+<%-- 			<input type="hidden" id="project_code" name="project_code" value="${reward.project_code }"> --%>
 			<input type="hidden" id="sessionUserEmail" name="email" value="${sessionScope.sId}">
 			
 			<div class="top">

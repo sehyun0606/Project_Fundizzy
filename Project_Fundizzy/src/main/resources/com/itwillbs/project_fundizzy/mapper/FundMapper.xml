@@ -3,6 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.itwillbs.project_fundizzy.mapper.FundMapper">
+  
 <!--   펀딩 리스트 출력 -->
 	<select id="selectFundList" resultType="map">
 		SELECT *
@@ -10,6 +11,7 @@
 		JOIN project_list pl ON ps.project_title = pl.project_title
 		WHERE approved_date IS NOT NULL
 	</select>
+	
 <!--   프로젝트 보드 출력 -->
 	<select id="selectFundBoard" resultType="map">
 		SELECT pi.project_code,
@@ -20,12 +22,23 @@
 		ps.project_title,
 		ps.project_content,
 		pd.project_start_date,
-		pd.project_end_date
+		pd.project_end_date,
+		pi.business_name,
+		pl.progress
 		FROM project_info pi 
 		JOIN project_date pd ON pi.project_code = pd.project_code
 		JOIN project_story ps ON pd.project_code = ps.project_code
+		JOIN project_list pl ON pl.project_code = ps.project_code
 		WHERE ps.project_code = #{ps.project_code};
 	</select>
+	
+<!-- 	프로젝트 board 출력 - 리워드 테이블 가져오기  -->
+	<select id="selectReward" resultType="map">
+		SELECT *
+		FROM reward 
+		WHERE project_code = #{project_code}
+	</select>
+	
 <!--   	지지서명 조회 후 목록 출력 -->
   	<select id="selectSupportList" resultType="map">
   		SELECT
@@ -82,6 +95,7 @@
 			    0 
 		)
 	</insert>
+	
 <!-- 	지지서명 댓글 목록 출력 -->
 	<select id="selectReplyList" resultType="map">
 		SELECT reply_content, maker_email, reply_date
@@ -109,8 +123,21 @@
 	<select id="selectPaymentReward" resultType="map">
 		SELECT *
 		FROM reward
-		WHERE reward_code = 1;
+		WHERE project_code = #{project_code}
+		ORDER BY reward_code
 	</select>
+<!-- 	선택한 리워드 정보 가져오기 -->
+	<select id="selectPaymentSelectedReward" parameterType="map" resultType="reward">
+	    SELECT * 
+	    FROM reward
+	    WHERE project_code = #{project_code}
+	    AND reward_code IN 
+	    <foreach collection="reward_codes" item="reward_code" open="(" separator="," close=")">
+	        #{reward_code}
+	    </foreach>
+	    ORDER BY reward_code
+	</select>
+
 <!--   배송을 위한 맴버 정보 가져오기 -->
   	<select id="selectPaymentPayMember">
   		SELECT *
@@ -138,13 +165,6 @@
 		) 
 	</insert>
   
-<!--   	<update id="updateBalancePay"> -->
-<!--   		UPDATE fundizzy_pay -->
-<!--   		SET pay_balance = #{result_balance} -->
-<!--   		WHERE email = #{email} -->
-<!--   	</update> -->
-
-
   	<!--   	결제내역 payment 테이블 insert -->
 	<insert id="insertPayment">
 		<selectKey keyProperty="idx" order="BEFORE" resultType="int">

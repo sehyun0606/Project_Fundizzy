@@ -1,4 +1,13 @@
 $(function() {
+	// 프로젝트 코드 보내기
+	let project_code = $("#project_code").val();
+	alert(project_code);
+	console.log("project_code: ", project_code); 
+	
+	$(".back").on("click", function(){
+		location.href="PaymentReward?project_code=" + project_code;
+	});
+	
     //주소 - 새로입력 누르면 div 뜨도록
     $("#new_address").on("click", function() {
         $(".new_address_box").css("display", "block");
@@ -85,10 +94,6 @@ $(document).ready(function() {
 			if (pay_balance >= payment_price) {
 		    // 결제 가능
 				
-			// 프로젝트 코드 보내기
-			let project_code = $("#project_code").val();
-			console.log("project_code: ", project_code); 
-			
 			//수량 및 리워드(개당) 가격 보내기
 			let total_count = $("#total_count").val();
 			console.log("total_count = " + total_count);
@@ -132,7 +137,7 @@ $(document).ready(function() {
 		            address2 = $("#ship-address2").text(); // 상세주소
 		            console.log("address2 = " + address2);
 
-					if (!new_name) {
+					if (!name) {
 						alert("배송받으시는 분의 성함을 입력해주세요");
 						location.reload();
 					}	

@@ -5,7 +5,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
 
@@ -129,6 +131,25 @@ public class FundHistoryController {
 			e.printStackTrace();
 		}
 		return "redirect:/FundHistory";
+	}
+	
+	// 배송완료로 상태변경
+	@ResponseBody
+	@PostMapping("ShipComplete")
+	public Map<String, String> shipComplete(String payment_code, int fund_idx) {
+		Map<String, String> response = new HashMap<>();
+		
+		int updateCount = historyService.modifyShipCompleteStatus(payment_code, fund_idx);
+		System.out.println("updateCount : " + updateCount);
+		
+		if (updateCount > 0) {
+			response.put("msg", "배송완료 처리되었습니다");
+			response.put("targetURL", "FundHistory");
+	    } else {
+	    	response.put("msg", "다시 시도해주세요");
+	    	response.put("targetURL", "FundHistory");
+	    }
+		return response;
 	}
 	
 	//파일 업로드 및 다운로드를 위한 유틸리티 메서드

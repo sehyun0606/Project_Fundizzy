@@ -1,8 +1,16 @@
 $(function(){
 //	찜버튼 클릭시 
 	$("#btn-like").click(function(){
-		console.log("like")
+		alert("like");
 	});
+	
+	//리워드 미선택 - 펀딩하기 클릭 시
+	$(".purchase-btn").on("click", function(){
+		let project_code = $("#project_code").val();
+		location.href="PaymentReward?project_code=" + project_code;
+	});
+	
+	//리워드 선택 후 펀딩하기 클릭 시
 
 $(document).ready(function(){
     console.log("jQuery 로드됨!"); 

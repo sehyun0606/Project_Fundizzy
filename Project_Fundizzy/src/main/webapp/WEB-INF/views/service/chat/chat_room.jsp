@@ -23,6 +23,8 @@
 		</div>
 	</div>
 	<div id="chatMessageArea">
+		<input type="hidden" id="myLastSendTime" value="2000-01-01 00:00">
+		<input type="hidden" id="otherLastSendTiem" value="2000-01-01 00:00">
 	</div>
 	<div id="chatInputArea">
 		<div id="menuBar">
@@ -32,7 +34,7 @@
 			<input type="button" id="sendBtn" value="전송" onclick="sendInputMessage()">
 		</div>
 		<div id="chatInput">
-			<textarea id="message" maxlength="1000" placeholder="메시지를 입력하여 주세요" onkeyup="checkEnterKey(event)"></textarea>
+			<textarea id="messageBox" maxlength="1000" placeholder="메시지를 입력하여 주세요" onkeyup="checkEnterKey(event)"></textarea>
 		</div>
 	</div>
 	<script src="/resources/js/jquery-3.7.1.js"></script>

@@ -58,11 +58,14 @@ public interface BankMapper {
 	//db에 입금 결과 저장
 	void insertTransferResult(@Param("transferResult") Map<String, Object> transferResult, @Param("transactionType") String transactionType);
 	
+	//펀디지 페이 정보 가져오기
+	FundizzyPay selectFundizzyPayInfo(String email);
+	
 	//펀디지 페이 입출금 내역 가져오기 
 	List<FundizzyPay> selectFundizzyPay(String email);
 	
-	//펀디지 페이 정보 가져오기
-	FundizzyPay selectFundizzyPayInfo(String email);
+	//결제할 페이 가져오기
+	Map<String, Object> selectFundizzyPayLast(String email);
 	
 
 }

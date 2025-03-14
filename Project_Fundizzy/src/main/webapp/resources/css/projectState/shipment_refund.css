@@ -150,14 +150,23 @@ th, td {
 	padding: 13px;
 }
 
-.shipInfoBtn {
-	background-color: mediumpurple;
-	border: none;
+.shipInfoBtn, .shipDelBtn {
 	border-radius: 5px;
 	width: 50px;
 	height: 30px;
 	cursor: pointer;
+}
+
+.shipInfoBtn {
+	background-color: mediumpurple;
+	border: none;
 	color: #fff;
+}
+
+.shipDelBtn {
+	background-color: #fff;
+	border: 1px solid mediumpurple;
+	color: mediumpurple;
 }
 
 .details {
@@ -196,10 +205,10 @@ th, td {
 	cursor: pointer;
 	color: mediumpurple;
 }
-.refundInfoBtn:hover {
-	background-color: mediumpurple;
-	color: #fff;
-}
+/* .refundInfoBtn:hover { */
+/* 	background-color: mediumpurple; */
+/* 	color: #fff; */
+/* } */
 .modal-content {
 	z-index: 9000;
 	right: 20px;
@@ -285,13 +294,13 @@ h3 {
 	flex-shrink: 0;
 }
 
-.ship-num::-webkit-outer-spin-button, 
-.ship-num::-webkit-inner-spin-button {
+.tracking-num::-webkit-outer-spin-button, 
+.tracking-num::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
 
-.ship-num {
+.tracking-num {
     -moz-appearance: textfield;
 }
 

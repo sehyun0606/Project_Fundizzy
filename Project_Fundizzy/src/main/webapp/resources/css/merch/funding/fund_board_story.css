@@ -240,25 +240,33 @@ body {
 }
 
 .btn-midium{
-    flex: 1;
+    flex: 0;
     background-color: #9370db;
     color: white;
     border: none;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 6px;
     text-align: center;
-    float: right;
-   width: auto;
-    padding: 0.5em 0em 0.5em 0em; 
+    padding: 1em 1em 1em 1em; 
     white-space: nowrap; /* 내용 줄바꿈 방지 */
     flex-shrink: 0; /* 내용이 줄어들지 않도록 설정 */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(590%, 16%);
 }
 .btn-midium:hover {
     background-color: #b08ae6;
 }
 
+/* 리워드 선택부분 */
 .reward-selection .btn {
     margin-top: 20px;
+}
+
+.reward-list .reward{
+	background-color: #cccc;
+		
 }
 
 .project-info h4{
@@ -269,6 +277,17 @@ body {
     align-items: center; /* 세로 정렬 */
     gap: 10px; /* 버튼과 다른 요소 사이 간격 */
 }
+
+.company-info #follow{
+	margin-left: 2px;
+	font-size: 14px;
+	position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(69%, 221%);
+	
+}
+
 .reward-selection h3{
    margin-top: 0px;
 }

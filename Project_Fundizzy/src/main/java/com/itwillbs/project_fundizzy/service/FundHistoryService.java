@@ -41,4 +41,9 @@ public class FundHistoryService {
 		// TODO Auto-generated method stub
 		return historyMapper.selectBusinessName(project_code);
 	}
+
+	public int modifyShipCompleteStatus(String payment_code, int fund_idx) {
+		historyMapper.updateFundHistoryStatus(fund_idx);
+		return historyMapper.updateShipCompleteStatus(payment_code);
+	}
 }

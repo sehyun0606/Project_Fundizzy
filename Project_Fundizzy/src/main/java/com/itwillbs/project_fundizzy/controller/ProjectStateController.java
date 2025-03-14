@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -123,9 +125,18 @@ public class ProjectStateController {
 	}
 	
 	@PostMapping("RefundInfo")
-	public String refundInfo(HttpSession session, Model model, @RequestParam Map<String, String> map) {
-		System.out.println("map : " + map);
-		int updateCount = stateService.modifyFundHistoryStatus(map);
+	public String refundInfo(Model model, @RequestParam Map<String, Object> map) {
+
+		// 환불 금액 int로 형변환
+		String stringAmount = ((String) map.get("refund_amount")).replace(",", "");
+		int refundAmount = Integer.parseInt(stringAmount);
+		map.put("pay_amt", refundAmount);
+		
+		String uuid = UUID.randomUUID().toString();
+		map.put("pay_tran_id", uuid);
+		
+		// 환불 상태 업데이트
+		int updateCount = stateService.modifyRefundFundHistoryStatus(map);
 
 		if(updateCount > 0) {
 			model.addAttribute("msg", "환불 처리가 완료되었습니다");
@@ -138,6 +149,62 @@ public class ProjectStateController {
 		}
 	}
 	
+	// 발송정보 업데이트
+	@PostMapping("ShipmentInfo")
+	public String shipmentInfo(Model model, @RequestParam Map<String, Object> map) {
+		
+		String courier = (String) map.get("courier");
+		
+		if(courier.equals("01")) {
+			map.put("courier", "우체국택배");
+		} else if(courier.equals("04")) {
+			map.put("courier", "cj대한통운");
+		} else if(courier.equals("05")) {
+			map.put("courier", "한진택배");
+		} else if(courier.equals("06")) {
+			map.put("courier", "로젠택배");
+		} else if(courier.equals("08")) {
+			map.put("courier", "롯데택배");
+		}
+		
+		// 발송코드
+		String uuid = UUID.randomUUID().toString().substring(0, 5);
+		map.put("shipping_code", uuid);
+		
+		System.out.println("map : " + map);
+		
+		
+		int updateCount = stateService.modifyShipmentStatus(map);
+		
+		if(updateCount > 0) {
+			model.addAttribute("msg", "발송 정보가 입력되었습니다");
+			model.addAttribute("targetURL", "ShipmentRefund");
+			return "result/result";
+		} else {
+			model.addAttribute("msg", "발송 정보 입력에 실패하였습니다");
+			model.addAttribute("targetURL", "ShipmentRefund");
+			return "result/result";
+		}
+		
+	}
+	
+	@ResponseBody
+	@PostMapping("ShipInfoDelete")
+	public Map<String, String> shipInfoDelete(String payment_code) {
+	    Map<String, String> response = new HashMap<>();
+
+	    int deleteCount = stateService.removeShipmentStatus(payment_code);
+	    
+	    if (deleteCount > 0) {
+	        response.put("msg", "삭제되었습니다\n발송 정보를 다시 입력해주세요");
+	        response.put("targetURL", "ShipmentRefund");
+	    } else {
+	        response.put("msg", "삭제에 실패하였습니다\n다시 시도해주세요");
+	        response.put("targetURL", "ShipmentRefund");
+	    }
+	    return response;
+	}
+
 	
 	@GetMapping("NewsList")
 	public String newsList(@RequestParam(defaultValue = "1") int pageNum, Model model, HttpSession session) {

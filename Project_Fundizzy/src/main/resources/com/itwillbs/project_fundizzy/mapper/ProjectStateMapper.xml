@@ -99,6 +99,7 @@
 		ORDER BY DATE(payment_complete_date)
 	</select>
 	
+	<!-- ======================= 발송 환불 관리 ======================= -->
 	<select id="selectOrderCount" resultType="int">
 		SELECT COUNT(*)
 		FROM shipment
@@ -158,7 +159,8 @@
 			p.payment_complete_date DESC
 		
 	</select>
-		
+	
+	<!-- 구매한 리워드 정보 조회 -->
 	<select id="selectPaymentRewardList" resultType="map">
 		SELECT 
 			fh.fund_idx, 
@@ -210,13 +212,15 @@
 		ORDER BY refund_stat
 	</select>
 	
+	<!-- 환불 정보 조회 -->
 	<select id="selectRefund" resultType="refund">
 		SELECT *
 		FROM refund
 		WHERE project_code = #{project_code}
 	</select>
 	
-	<update id="updateFundHistoryStatus">
+	<!-- fund_history 테이블 - 환불 상태 업데이트 -->
+	<update id="updateRefundFundHistoryStatus">
 		UPDATE fund_history fh
 		JOIN refund r
 		ON fh.fund_idx = r.fund_idx
@@ -229,9 +233,11 @@
 					refund_stat = 'REF03'
 				</otherwise>
 			</choose>
+			, refund_date = NOW()
 		WHERE refund_code = #{refund_code}
 	</update>
 	
+	<!-- refund 테이블 - 환불 상태, 날짜, 거절 사유 업데이트 -->
 	<update id="updateRefundStatus">
 		UPDATE refund
 		SET 
@@ -248,21 +254,63 @@
 		WHERE refund_code = #{refund_code}
 	</update>
 	
+	<!-- 환불 금액 입금 -->
 	<insert id="insertRefundPay">
+		<selectKey order="BEFORE" keyProperty="pay_balance" resultType="int">
+			SELECT pay_balance
+			FROM fundizzy_pay
+			WHERE email = #{email}
+			AND pay_date = (SELECT MAX(pay_date)
+							FROM fundizzy_pay
+							WHERE email = #{email})
+		</selectKey>
 		INSERT
-		INTO funddizy_pay
+		INTO fundizzy_pay
 		VALUES (
 			#{email}
 			, #{pay_amt}
 			, 'RE'
 			, NOW()
 			, #{pay_tran_id}
-			, #{pay_balance}
+			, #{pay_balance} + #{pay_amt}
 		)
 	</insert>
 	
+	<!-- 발송 정보 업데이트 -->
+	<update id="updateShipmentStatus">
+		UPDATE shipment
+		SET shipping_code = #{shipping_code}
+			, common_code = 'SHI03'
+			, courier = #{courier}
+			, tracking_num = #{tracking_num}
+			, shipping_date = NOW()
+		WHERE payment_code = #{payment_code}		
+	</update>
 	
+	<update id="updateShipFundHistoryStatus">
+		UPDATE fund_history
+		SET send_stat = 'SHI03'
+			, send_date = NOW()
+		WHERE payment_code = #{payment_code}
+	</update>
 	
+	<!-- 발송정보 입력 취소 -->
+	<update id="deleteShipmentStatus">
+		UPDATE shipment
+		SET shipping_code = null
+			, common_code = 'SHI01'
+			, courier = null
+			, tracking_num = null
+			, shipping_date = null
+		WHERE payment_code = #{payment_code}		
+	</update>
+	
+	<update id="deleteShipFundHistoryStatus">
+		UPDATE fund_history
+		SET send_stat = 'SHI01'
+			, send_date = null
+		WHERE payment_code = #{payment_code}
+	</update>
 
 </mapper>
 

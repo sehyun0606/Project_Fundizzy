@@ -131,15 +131,15 @@ function checkEnterKey(event) {
 
 // 입력한 채팅 전달
 function sendInputMessage() {
-	let message = $("#message").val().trim();
+	let message = $("#messageBox").val().trim();
 	
 	// 채팅이 입력되었을 때에만 메세지 전송
 	if(message) {
 		sendMessage(TYPE_TALK, sEmail, receiver_email, room_id, message);
 	}
 	
-	$("#message").val("");
-	$("#message").focus();
+	$("#messageBox").val("");
+	$("#messageBox").focus();
 }
 
 // 전송된 채팅 실시간 추가 함수
@@ -149,11 +149,19 @@ function appendMesage(data) {
 	// 시스템메시지
 	if(data.type == TYPE_SYSTEM) {
 		// 메세지내용 span
-		let spanMessage = `<span class='messageContent'>&lt;${data.message}&gt;</span>`
+		let spanMessage = `<span class='messageContent'>${data.message}</span>`
 		messageDiv = `<div class='message ${ALIGN_CENTER}'>${spanMessage}</div>`;
 	} else {
 		// 메세지내용 span
-		let spanMessage = `<span class='messageContent'>${data.message}</span>`
+		let spanMessage = `<span class='messageContent'>${data.message}</span><br>`
+		
+		// 마지막 메세지와 같은 시간:분인지 체크후 같은 시간이면 다음에 메시지 스팬만 추가
+		// 시간span은 추가하지 않음
+		if(data.sender_email == sEmail && isSameTime(data.send_time, isMyMessage)) {
+			
+		} else if(data.sender_email != sEmail && isSameTime(data.send_time)) {
+			
+		}
 		
 		// 메세지 전송날짜시간
 		let date = new Date(data.send_time);
@@ -162,7 +170,18 @@ function appendMesage(data) {
 		let now = new Date();
 		
 		// 기본적으로 시:분은 무조건 표시되도록 먼저 전송시각 변수에 저장
-		sendTime = date.getHours() + "시 " + date.getMinutes() + "분";
+		let hour = date.getHours();
+		
+		// 시간 오전 오후 판별
+		if(hour > 12) {
+			hour = "오후 " + (hour - 12);
+		} else if(hour == 12) {
+			hour = "오후 " + hour;
+		} else {
+			hour = "오전 " + hour;
+		}
+		
+		sendTime =  hour + ":" + date.getMinutes();
 		
 		// 올해의 오늘이 아닐 경우 날짜 추가
 		// 추가로, 메세지 전송일자가 올해가 아니면 연도도 추가
@@ -176,31 +195,72 @@ function appendMesage(data) {
 		
 		let timeSpan = `<span class="sendTime">${sendTime}</span>`;
 		
-		// 수신자가 본인일 경우
+		// 송신자가 본인일 경우
 		if(data.sender_email == sEmail) {
-			messageDiv = `<div class='message ${ALIGN_RIGHT}'>${spanMessage}${timeSpan}</div>`;
-		// 수신자가 상대방일 경우
+			let lastTime = $("#myLastSendTime").val();
+			// 현재 추가할 메세지의 send_time과 마지막 메시지의 send_time과
+			// 비교하여 같은 분(시간)이면 메시지 내용만 추가
+			messageDiv = `<div class='message ${ALIGN_RIGHT}'><div class="messageDiv3">${spanMessage}${timeSpan}</div></div>`;
+			
+			// 나의 마지막 메세지 전달 시간 input[type=hidden]에 저장 메서드
+			inputLastSendTime(data.send_time, true);
+		// 송신자가 상대방일 경우
 		} else {
-			// 이미지 주소
+			// 이미지 주소저장할 변수
 			let src;
+			
+			// 마이페이지 프로필 사진설정 유무 판별
 			if(receiverInfo.profile) {
 				src = "/resources/upload/" + receiverInfo.profile;
 			} else {
 				src = "/resources/images/chat/profileIcon.png";
 			}
-			let receiverProfileDiv = `<div class="receiverProfile">
-										<span class="receiverImg">
-											<img src="${src}">
-										<span>
-										<span class="receiverNickname">
-											${receiverInfo.nickname}
-										</span>
-									</div>`;
 			
-			messageDiv = `<div class='message ${ALIGN_LEFT}'>${receiverProfileDiv}${spanMessage}${timeSpan}</div>`;
+			// 상대방 프로필 이미지 span
+			let receiverImgSpan = `<span class="receiverImg">
+										<img src="${src}">
+									</span>`;
+									
+			let receiverNickSpan = `<span class="receiverNickname">
+										${receiverInfo.nickname}
+									</span><br>`
+			
+			// 메세지 div
+			messageDiv = `<div class='message ${ALIGN_LEFT}'>
+								<div class="messageDiv1">
+									${receiverImgSpan}
+								</div>
+								<div class="messageDiv2">
+									${receiverNickSpan}
+									${spanMessage}
+									${timeSpan}
+								</div>
+							</div>`;
 		}
+		
+		// 상대의 마지막 메세지 전달 시간 input[type=hidden]에 저장 메서드
+		inputLastSendTime(data.send_time);
 	}
 	
 	$("#chatMessageArea").append(messageDiv);
+	
+	// 메시지표시영역 스크롤바 항상 맨 밑으로 유지
+	$("#chatMessageArea").scrollTop($("#chatMessageArea")[0].scrollHeight);
 }
 
+// 메시지가 같은시간인지 판별을 위해 "yyyy-MM-dd HH:mm" 패턴으로 input[type=hidde]에 저장
+function inputLastSendTime(send_time, isMyMessage) {
+	if(isMyMessage) {
+		$("#myLastSendTime").val(send_time.substring(0, 16));
+	} else {
+		$("#otherLastSendTiem").val(send_time.substring(0, 16));
+	}
+}
+
+function isSameTime(send_time, isMyMessage) {
+//	Date sendTime = new Date(send_time.substring(0, 16));
+	
+	if(isMyMessage) {
+		
+	}
+}

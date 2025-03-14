@@ -47,11 +47,11 @@
         }
         .top-menu {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 20px;
-            border-bottom: 1px solid #ddd;
-            height: 60px;
+		    justify-content: space-between;
+		    align-items: center;
+		    padding: 0px 20px 0px 10px;
+		    border-bottom: 1px solid #ddd;
+		    height: 60px;
         }
         .logo {
             font-size: 20px;
@@ -75,12 +75,43 @@
 		    font-weight: bold;
 		}
 
-        .search-bar {
-            border: 1px solid mediumpurple;
-            padding: 5px 10px;
-            border-radius: 15px;
-            width: 300px;
-        }
+        /* ✅ 검색 바 스타일 */
+		.search-box2 {
+		    position: relative;
+		    display: flex;
+		    align-items: center;
+		    width: 250px;
+		}
+		
+		.search-bar2 {
+		    width: 100%;
+		    padding: 10px 35px 10px 12px;
+		    border-radius: 15px;
+		    border: 1px solid mediumpurple;
+		    font-size: 14px;
+		    height: 30px;
+		}
+		
+		.search-bar2:focus {
+		    outline: none;
+		    border: 2px solid mediumpurple;
+		}
+		
+		/* ✅ 돋보기 아이콘 */
+		.search-icon2 {
+		    position: absolute;
+		    right: 12px; /* 🔥 오른쪽 정렬 */
+		    font-size: 16px;
+		    color: gray;
+		    cursor: pointer;
+		}
+		
+		/* ✅ 돋보기 아이콘 hover 효과 */
+		.search-icon:hover {
+		    color: mediumpurple;
+		    transform: scale(1.1);
+		}
+
         .auth-links {
             display: flex;
             gap: 10px;
@@ -96,17 +127,17 @@
         }
         .nav{
         	margin-left: 15%;
-        	display: flex;
-        	width: 23%;
-        	justify-content: space-between;
-        	font-size: large;
+		    display: flex;
+		    width: 29%;
+		    justify-content: space-between;
+		    font-size: large;
         }
         .log-in{
         	display: flex;
-        	width: 400px;
-        	justify-content: space-between;
-        	margin-right: 150px;
-        	align-items: center;
+		    width: 400px;
+		    justify-content: space-between;
+		    margin-right: 100px;
+		    align-items: center;
         }
         .auth-links a{
         	text-decoration: none;
@@ -135,7 +166,12 @@
 			    <a href="/HelpCenter" class="top-items <%= currentPath.contains("HelpCenter") ? "active" : "" %>">도움말센터</a>
 			</div>
     	</div>
-        <input type="text" class="search-bar  top-items"  placeholder="검색">
+        <!-- ✅ 검색 바 -->
+		<div class="search-box2">
+		    <input type="text" class="search-bar2 top-items" placeholder="검색">
+		    <i class="fas fa-search search-icon2"></i> <!-- ✅ 돋보기 아이콘 추가 -->
+		</div>
+
         <div class="log-in top-items">
 	        <div class="auth-links top-items">
 		        <c:choose>

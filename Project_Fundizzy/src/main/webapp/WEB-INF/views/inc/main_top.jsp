@@ -49,7 +49,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 20px;
+            padding: 0px 20px 0px 20px;
             border-bottom: 1px solid #ddd;
             height: 60px;
         }
@@ -97,7 +97,7 @@
         .nav{
         	margin-left: 15%;
         	display: flex;
-        	width: 23%;
+        	width: 29%;
         	justify-content: space-between;
         	font-size: large;
         }

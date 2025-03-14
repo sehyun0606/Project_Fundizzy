@@ -341,8 +341,29 @@ public class MemberController {
 			
 			return "main";
 		}
-	
 		
+		// 아이디 찾기 페이지 이동
+		@GetMapping("FindEmail")
+		public String FindEmail() {
+			return "member/login/find_email";
+		}
+		
+		// 비밀번호 찾기 페이지 이동
+		@GetMapping("FindPasswd")
+		public String FindPasswd() {
+			return "member/login/find_passwd";
+		}
+		
+		@GetMapping("ActionFindEmail")
+		public String ActionFindEmail(String email, Model model) {
+			// DB 정보조회
+			Map<String, String> DBInfo = memberService.getMember(email);
+			System.out.println("가져온 정보 : " + DBInfo);
+			
+			model.addAttribute("DBInfo", DBInfo);
+			
+			return "member/login/find_success_email";
+		}
 		
 		
 	

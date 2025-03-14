@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.itwillbs.project_fundizzy.vo.FundHistoryVO;
 import com.itwillbs.project_fundizzy.vo.FundizzyPay;
+import com.itwillbs.project_fundizzy.vo.RewardVO;
 @Mapper
 public interface FundMapper {
 	//펀딩 리스트 출력
@@ -15,6 +16,9 @@ public interface FundMapper {
 	
 	//프로젝트 board 출력
 	Map<String, Object> selectFundBoard(String project_code);
+	
+	//프로젝트 board 출력 - 리워드 테이블 가져오기 
+	List<Map<String, Object>> selectReward(String project_code);
 	
 	//지지서명 글 목록 
 	List<Map<String, Object>> selectSupportList();
@@ -37,16 +41,16 @@ public interface FundMapper {
 	//---------------오른쪽 부분 ----------------------
 	
 	//리워드 가져오기 
-	Map<String, Object> selectPaymentReward(String project_code);
+	List<Map<String, Object>> selectPaymentReward(String project_code);
+	
+	//선택한 리워드 가져오기
+	List<RewardVO> selectPaymentSelectedReward(@Param("project_code") String project_code, @Param("reward_codes") String[] reward_codes);
 	
 	// 배송을 위한 맴버 가져오기 
 	Map<String, Object> selectPaymentPayMember(String email);
 
 	//페이로 결제한 내역 계산 
 	int insertPaymentPay(Map<String, Object> map);
-	
-//	//페이 잔액 업데이트 
-//	FundizzyPay updateBalancePay(Map<String, Object> map);
 
 	//펀딩내역 input - fundHistory 테이블
 	int insertFundHistory(Map<String, Object> map);
@@ -56,6 +60,8 @@ public interface FundMapper {
 
 	//배송내역 input - shipment
 	int insertShipment(Map<String, Object> map);
+
+
 
 
 

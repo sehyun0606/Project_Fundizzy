@@ -62,7 +62,7 @@
         .refund {
             position: absolute;
             right: 20px;
-            bottom: 20px;
+            top: 20px;
             color: #8a2be2;
             font-size: 14px;
             font-weight: bold;
@@ -104,7 +104,7 @@
         .info{
 	        display: flex;
 		    justify-content: space-between;
-		    margin-bottom: 30px;
+		    margin-bottom: 20px;
         }
         
         .payment-info {
@@ -238,6 +238,24 @@
 		    cursor: not-allowed;
 		    width: fit-content;
 		}
+		
+/* 		.underContainer { */
+/* 			display: flex; */
+/* 			justify-content: flex-end; */
+/* 		} */
+		
+		/* 배송완료, 배송조회 버튼 */
+		.ship {
+			display: flex;
+			justify-content: flex-end;
+			gap: 10px;
+		}
+		
+		.shipCompleteBtn, .shipCheckBtn {
+			margin: 0;
+			width: unset;
+			cursor: pointer;
+		}
     </style>
    	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
@@ -255,6 +273,7 @@
 		    <div class="product-box">
 		    	<input type="hidden" value="${fund.reward_code}" class="reward_code">
 		    	<input type="hidden" value="${fund.fund_idx}" class="fund_idx">
+		    	<input type="hidden" value="${fund.payment_code}" class="payment_code">
 		        <div class="category">${fund.project_title}</div>
 		        <div class="product-name">${fund.product_name}</div>
 		        <div class="info">
@@ -284,7 +303,23 @@
 		        <c:if test="${fund.send_stat eq 'SHI04'}">
 		        	<div class="refund">환불신청</div>
 		        </c:if>
+				<div class="ship">
+			        <c:if test="${fund.send_stat eq 'SHI03'}">
+						<input type="button" value="배송완료" class="shipCompleteBtn">
+			        </c:if>
+			        <c:if test="${fund.send_stat eq 'SHI03' || fund.send_stat eq 'SHI04'}">
+					        <input type="hidden" id="t_key" name="t_key" value="2n3pmCsoZ4CJC0Fqu54m1Q">
+					        <input type="hidden" name="t_code" id="t_code" <c:choose><c:when test="${fund.courier eq '우체국택배'}">value="01"</c:when>
+																			    	<c:when test="${fund.courier eq 'cj대한통운'}">value="04"</c:when>
+																			    	<c:when test="${fund.courier eq '한진택배'}">value="05"</c:when>
+																			    	<c:when test="${fund.courier eq '로젠택배'}">value="06"</c:when>
+																			    	<c:when test="${fund.courier eq '롯데택배'}">value="08"</c:when></c:choose>>
+					        <input type="hidden" name="t_invoice" id="t_invoice" value="${fund.tracking_num}">
+							<input type="button" value="배송조회" class="shipCheckBtn">
+			        </c:if>
+				</div>
 		    </div>
+		    
 	    </c:forEach>
 		<div class="page_btn_group">
        		<div class="page_btn">
@@ -309,45 +344,46 @@
 	</div>
 	
 </div>
-	<div id="myModal" class="modal">
-        <div class="modal-content">
-            <form action="RefundReqeust" method="POST" enctype="multipart/form-data">
-            	<input type="hidden" value="${sessionScope.sId}" name="member_email">
-            	<input type="hidden" name="reward_code" id="reward_code">
-            	<input type="hidden"  name="fund_idx" id="fund_idx">
-            	<input type="hidden"  name="project_code" id="project_code">
-            	<input type="hidden"  name="payment_code" id="payment_code">
-            	<div class="title-section">
-	            	<h2 class="title">환불 신청</h2>
-        		</div>
-        		
-                <label for="amount">환불 금액</label>
-                <div class="input-group">
-                    <input type="number" id="amount" value="환불 금액 들고오기" name="refund_amound" readonly="readonly" required="required">
-                    <span>원</span>
-                </div>
-                <!-- 리워드 명 -->
-                <label for="rewardName">리워드 명</label>
-                <input type="text" id="rewardName"  maxlength="60" name="product_name" readonly="readonly" required="required">
+<div id="myModal" class="modal">
+       <div class="modal-content">
+           <form action="RefundReqeust" method="POST" enctype="multipart/form-data">
+           	<input type="hidden" value="${sessionScope.sId}" name="member_email">
+           	<input type="hidden" name="reward_code" id="reward_code">
+           	<input type="hidden"  name="fund_idx" id="fund_idx">
+           	<input type="hidden"  name="project_code" id="project_code">
+           	<input type="hidden"  name="payment_code" id="payment_code">
+           	<div class="title-section">
+            	<h2 class="title">환불 신청</h2>
+       		</div>
+       		
+               <label for="amount">환불 금액</label>
+               <div class="input-group">
+                   <input type="number" id="amount" value="환불 금액 들고오기" name="refund_amound" readonly="readonly" required="required">
+                   <span>원</span>
+               </div>
+               <!-- 리워드 명 -->
+               <label for="rewardName">리워드 명</label>
+               <input type="text" id="rewardName"  maxlength="60" name="product_name" readonly="readonly" required="required">
 
-                <!-- 리워드 설명 -->
-                <label for="rewardDesc">환불 사유</label>
-                <textarea id="rewardDesc" placeholder="환불 사유를 설명해 주세요" maxlength="500" name="refund_reason" required="required"></textarea>
-                <small class="text-count">500자</small>
+               <!-- 리워드 설명 -->
+               <label for="rewardDesc">환불 사유</label>
+               <textarea id="rewardDesc" placeholder="환불 사유를 설명해 주세요" maxlength="500" name="refund_reason" required="required"></textarea>
+               <small class="text-count">500자</small>
 
-                <!-- 제한 수량 -->
-                <label for="limit">제한 수량</label>
-                <div class="input-group">
-                    <input type="file" id="limit" name="refundImg" required="required">
-                </div>
-				
-			<div class="button-section">
-	            <button type="button" class="close-btn">닫기</button>
-				<button type="submit" class="submit-btn">제출</button>			
-			</div>
-            </form>
-        </div>
-    </div>
+               <!-- 제한 수량 -->
+               <label for="limit">제한 수량</label>
+               <div class="input-group">
+                   <input type="file" id="limit" name="refundImg" required="required">
+               </div>
+			
+		<div class="button-section">
+            <button type="button" class="close-btn">닫기</button>
+			<button type="submit" class="submit-btn">제출</button>			
+		</div>
+           </form>
+       </div>
+   </div>
+   
 <script type="text/javascript">
 	$(document).ready(function () {
 	    // 모달 열기
@@ -388,6 +424,40 @@
 	            $("#myModal").fadeOut();
 	        }
 	    });
+	    
+	    $(document).on("click", ".shipCompleteBtn", function() {
+			let payment_code = $(this).parent().parents().children().filter(".payment_code").val();
+			let fund_idx = $(this).parent().parents().children().filter(".fund_idx").val();
+	    	
+			if(!confirm("정말 배송이 완료되었나요?\n확정 후엔 변경하실 수 없습니다")) {
+				return false;
+			} else {
+				$.ajax({
+					type : "POST",
+					url : "ShipComplete",
+					data : {
+						payment_code,
+						fund_idx
+					}
+				}).done(function(response) {
+					alert(response.msg);
+					location.href = response.targetURL;
+				});
+			}
+		});
+	    
+	    // 배송조회창 열림
+	    $(".shipCheckBtn").click(function() {
+	    	let courier = $("#t_code").val();
+	    	let tracking_num = $("#t_invoice").val();
+	    	
+			window.open("https://info.sweettracker.co.kr/tracking/4?t_key=2n3pmCsoZ4CJC0Fqu54m1Q&t_code="
+					+ courier + "&t_invoice=" + tracking_num, "_blank", "width=500,height=700,top=100,left=200");
+				
+		});
+	    
+
+	    
 	});
 </script>
 </body>

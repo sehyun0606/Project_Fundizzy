@@ -86,14 +86,24 @@ public class ProjectStateService {
 	}
 
 	@Transactional
-	public int modifyFundHistoryStatus(Map<String, String> map) {
+	public int modifyRefundFundHistoryStatus(Map<String, Object> map) {
 		
 		if(map.get("reject_reason") == null) {
-//			stateMapper.insertRefundPay(map);
+			stateMapper.insertRefundPay(map);
 		}
 		stateMapper.updateRefundStatus(map);
 
-		return stateMapper.updateFundHistoryStatus(map);
+		return stateMapper.updateRefundFundHistoryStatus(map);
+	}
+
+	public int modifyShipmentStatus(Map<String, Object> map) {
+		stateMapper.updateShipFundHistoryStatus(map);
+		return stateMapper.updateShipmentStatus(map);
+	}
+
+	public int removeShipmentStatus(String payment_code) {
+		stateMapper.deleteShipFundHistoryStatus(payment_code);
+		return stateMapper.deleteShipmentStatus(payment_code);
 	}
 
 

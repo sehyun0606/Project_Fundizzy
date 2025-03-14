@@ -28,7 +28,7 @@
 	</header>
 	<article>
 		 <div class="container">
-			<button class="back" onclick="location.href='PaymentReward'">&lt; 스토리로 돌아가기</button>
+			<button class="back">&lt; 스토리로 돌아가기</button>
 			<div class="reward-step">
 		        <div class="step">리워드 선택</div>
 		        <span class="arrow">→</span>
@@ -39,25 +39,25 @@
 			
 			<form action="PaymentComplete" id="complete-form" method="post">
 <!-- 			순서대로 프로젝트코드, 리워드코드 ,리워드명, 리워드설명 ,수량  -->
-				<input type="hidden" id="project_code"  name = "project_code" value="${reward.project_code}"> 
-				<input type="hidden" id="reward_code"  name="reward_code" value="${reward.reward_code}"> 
-				<input type="hidden" id="product_name"  name="product_name" value="${reward.product_name}"> 
-				<input type="hidden" id="product_desc"  name="product_desc" value="${reward.product_desc}"> 
+				<input type="hidden" id="project_code"  name ="project_code" value="${project_code}"> 
+				<input type="hidden" id="reward_code"  name="reward_code" value="${reward_code}"> 
+				<input type="hidden" id="product_name"  name="product_name" value="${selectedReward.product_name}"> 
+				<input type="hidden" id="product_desc"  name="product_desc" value="${selectedReward.product_desc}"> 
 				<input type="hidden" id="total_count" name="total_count" value="${total_count}"> 
-				<input type="hidden" id="reward_price" name="reward_price" value="${reward.price}"> 
+				<input type="hidden" id="reward_price" name="reward_price" value="${selectedReward.price}"> 
 			</form>
 	       <div class="section-product">
 <!-- 	       완료 -->
-	            <h3>${reward.product_name}</h3>
-	            <p>${reward.product_desc}</p>
+	            <h3>${selectedReward.product_name}</h3>
+	            <p>${selectedReward.product_desc}</p>
 	            <p>수량: ${total_count}개<br><span id="total_price" class="totalPrice"><fmt:formatNumber pattern="#,###원" value="${total_price}"></fmt:formatNumber></span></p>
 	        </div>
 	        <div class="section-price">
 <!-- 	        완료 -->
 	            <h4>결제 금액</h4>
 	            <p>리워드 금액 <span class="total_price"><fmt:formatNumber pattern="#,###원" value="${total_price}"></fmt:formatNumber></span></p>
-	            <p>배송비 <span class="price">${reward.delivery_fee}원</span></p>
-	            <p class="total">총 결제 금액 <span id="total_price_delivery"><fmt:formatNumber pattern="#,###원" value="${total_price + reward.delivery_fee}"></fmt:formatNumber></span></p>
+	            <p>배송비 <span class="price">${selectedReward.delivery_fee}원</span></p>
+	            <p class="total">총 결제 금액 <span id="total_price_delivery"><fmt:formatNumber pattern="#,###원" value="${total_price + selectedReward.delivery_fee}"></fmt:formatNumber></span></p>
 	        </div>
 	        <div class="support-ship">
 		        <div class="section-supporter">

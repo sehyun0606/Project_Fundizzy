@@ -178,14 +178,6 @@
 			, #{pay_tran_id} 
 		)
 	</insert>
-	
-<!-- 	펀디지 페이 입출금내역 가져오기  -->
-	<select id="selectFundizzyPay" resultType="fundizzyPay">
-		SELECT *
-		FROM fundizzy_pay
-		WHERE email = #{email}
-		ORDER BY pay_date DESC
-	</select>
 <!-- 	펀디지 페이 정보 가져오기 -->
 	<select id="selectFundizzyPayInfo" resultType="fundizzyPay">
 		SELECT *
@@ -197,5 +189,21 @@
 			WHERE email = #{email}
 		)
 	</select>
-
+	
+<!-- 	펀디지 페이 입출금내역 가져오기  -->
+	<select id="selectFundizzyPay" resultType="fundizzyPay">
+		SELECT *
+		FROM fundizzy_pay
+		WHERE email = #{email}
+		ORDER BY pay_date DESC
+	</select>
+	
+<!-- 	결제할 페이 정보 가져오기 -->
+	<select id="selectFundizzyPayLast" resultType="map">
+		SELECT *
+		FROM fundizzy_pay
+		WHERE email = #{email}
+		ORDER BY pay_date DESC
+		LIMIT 1
+	</select>
 </mapper>

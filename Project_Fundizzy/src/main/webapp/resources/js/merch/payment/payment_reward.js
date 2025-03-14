@@ -1,17 +1,12 @@
 $(function() {
-    let totalInput = 1; // 기본 수량 
-    let currentCount; // 현재 설정한 수량 
-    let totalInputValue; // 최종 수량
-    let totalPrice; // 최종 가격
-    let reward_price; // 1개당 가격
-
     // + 버튼 클릭 시 개수 증가
     $(".plus_btn").on("click", function() {
-        console.log("plus버튼 클릭됨");
-        totalInput = $(".totalCount");
-        productCount = $("#product_count");
+        let $rewardItem = $(this).closest(".reward-item"); // 클릭한 버튼이 속한 상품만 선택
+        let $totalInput = $rewardItem.find(".totalCount"); // 해당 상품의 개수 입력란
+        let $totalPrice = $rewardItem.find(".totalPrice"); // 해당 상품의 총 금액 표시 영역
+        let reward_price = parseInt($rewardItem.find(".sell_price").val()); // 해당 상품의 가격
 
-        currentCount = parseInt(totalInput.val());
+        let currentCount = parseInt($totalInput.val());
 
         // 5개 이상 선택 불가
         if (currentCount >= 5) {
@@ -19,73 +14,96 @@ $(function() {
             return;
         }
 
-        totalInput.val(currentCount + 1);
-        productCount.val(currentCount + 1);
-        $(".minus_btn").prop("disabled", false);
-        totalAmount();
+        $totalInput.val(currentCount + 1);
+        $rewardItem.find(".minus_btn").prop("disabled", false); // - 버튼 활성화
+
+        updateTotalPrice($totalInput, $totalPrice, reward_price);
     });
 
     // - 버튼 클릭 시 개수 감소
     $(".minus_btn").on("click", function() {
-        totalInput = $(".totalCount");
-        productCount = $("#product_count");
-        currentCount = parseInt(totalInput.val());
+        let $rewardItem = $(this).closest(".reward-item");
+        let $totalInput = $rewardItem.find(".totalCount");
+        let $totalPrice = $rewardItem.find(".totalPrice");
+        let reward_price = parseInt($rewardItem.find(".sell_price").val());
 
-        console.log(currentCount);
+        let currentCount = parseInt($totalInput.val());
 
-        totalInput.val(currentCount - 1);
-        productCount.val(currentCount - 1);
+        if (currentCount <= 1) {
+            return; // 1개 이하로 줄일 수 없음
+        }
+
+        $totalInput.val(currentCount - 1);
+
         // 개수가 1이면 버튼 비활성화
         if (currentCount - 1 <= 1) {
             $(this).prop("disabled", true);
         }
 
-        totalAmount();
+        updateTotalPrice($totalInput, $totalPrice, reward_price);
     });
 
     // 페이지 로드 시 - 버튼 초기 상태 설정 (1이면 비활성화)
-    if ($(".totalCount").val() == "1") {
-        $(".minus_btn").prop("disabled", true);
-    }
+    $(".totalCount").each(function() {
+        if ($(this).val() == "1") {
+            $(this).closest(".reward-item").find(".minus_btn").prop("disabled", true);
+        }
+    });
 
-    // 1개당 가격
-    reward_price = $("#sell_price").val();
-    console.log("1개 가격 = " + reward_price);
-
-    // 최종 금액 
-    function totalAmount() {
-        totalInputValue = parseInt($(".totalCount").val());
-        totalPrice = parseInt(totalInputValue * reward_price);
-		reward_price = $("#sell_price").val();
-		
-        console.log(totalInputValue);
-        console.log("totalPrice = " + totalPrice);
+    // 총 금액 업데이트 함수
+    function updateTotalPrice($input, $totalPrice, pricePerItem) {
+        let totalInputValue = parseInt($input.val());
+        let totalPrice = totalInputValue * pricePerItem;
 
         let formattedPrice = totalPrice.toLocaleString('ko-KR');
-
-        $(".totalPrice").html(`
-            <div> 총금액 : ${formattedPrice}</div>
-        `);
-
-        $("#total_price").val(formattedPrice);
-  	    $("#total_count").val(totalInputValue);
+        $totalPrice.html(`<div> 총금액 : ${formattedPrice}</div>`);
     }
 
-	   $("#next-button").on("click", function() {
-		
-	    // 수량과 가격을 계산
-	    let totalInputValue = parseInt($(".totalCount").val());
-	    let totalPrice = parseInt(totalInputValue * reward_price);
+	$("#next-button").on("click", function() {
+    let totalCount = 0;
+    let totalPrice = 0;
+
+
 	
-	    // input에 값 설정 (jsp hidden 아이디에 값 넣었음)
-	    $("#total_count").val(totalInputValue);
-	    $("#total_price").val(totalPrice);
+    // 기존에 추가된 input 요소 삭제 (중복 방지)
+    $("#pay-form").find(".dynamic-input").remove();	
+
+	$(".reward-item").each(function() {
+	    if ($(this).find("input[type='checkbox']").is(":checked")) {
+	        let rewardCode = $(this).find(".reward_code").val(); // 리워드 코드 가져오기
+	        let pricePerItem = parseInt($(this).find(".sell_price").val()); // 1개당 가격
+	        let itemCount = parseInt($(this).find(".totalCount").val()); // 선택된 수량
 	
-	    console.log("폼 제출 전 최종 가격:", $("#total_price").val());
-	    console.log("폼 제출 전 최종 수량:", $("#total_count").val());
+	        // 전체 수량 & 가격 계산
+	        totalCount += itemCount;
+	        totalPrice += itemCount * pricePerItem;
 	
-	    // 폼 제출
-	    $("#pay-form").submit();
+	        // 체크된 상품만 pay-form 안에 추가
+	        let hiddenInputs = `
+	            <input type="hidden" class="dynamic-input" name="reward_code[]" value="${rewardCode}">
+	            <input type="hidden" class="dynamic-input" name="item_count_${rewardCode}" value="${itemCount}">
+	            <input type="hidden" class="dynamic-input" name="item_price_${rewardCode}" value="${pricePerItem}">
+	        `;
+	        $("#pay-form").append(hiddenInputs);
+	    }
+	});
+
+	// 최소 한개 이상의 리워드 선택 여부 체크
+	if (totalCount === 0) {
+	    alert("최소 한개 이상의 리워드를 선택해 주세요.");
+	    location.reload; // 폼 제출을 중단
+	}
+	
+	// 최종 수량 & 금액 업데이트
+	$("#total_count").val(totalCount);
+	$("#total_price").val(totalPrice);
+	
+	// 금액 표시 (천 단위 콤마)
+	let formattedPrice = totalPrice.toLocaleString('ko-KR');
+	$("#total_price_display").text(`총 금액: ${formattedPrice}`);
+	
+	// 폼 제출
+	$("#pay-form").submit();
 	});
 
 });

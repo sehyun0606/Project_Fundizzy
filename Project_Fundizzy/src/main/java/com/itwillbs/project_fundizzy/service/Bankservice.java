@@ -139,15 +139,21 @@ public class Bankservice {
 		mapper.insertTransferResult(transferResult, "DE");
 	}
 	
+	//페이 정보 가져오기 
+	public FundizzyPay getFundizzyPayInfo(String email) {
+		// TODO Auto-generated method stub
+		return mapper.selectFundizzyPayInfo(email);
+	}
+	
 	//페이 입출금 거래내역 가져오기 
 	public List<FundizzyPay> getFundizzyPay(String email) {
 		// TODO Auto-generated method stub
 		return mapper.selectFundizzyPay(email);
 	}
-	//페이 정보 가져오기 
-	public FundizzyPay getFundizzyPayInfo(String email) {
+	//결제할 페이 가져오기 
+	public Map<String, Object> getFundizzyPayLast(String email) {
 		// TODO Auto-generated method stub
-		return mapper.selectFundizzyPayInfo(email);
+		return mapper.selectFundizzyPayLast(email);
 	}
 
 
