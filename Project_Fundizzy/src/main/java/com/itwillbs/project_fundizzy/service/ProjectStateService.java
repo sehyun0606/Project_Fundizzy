@@ -77,7 +77,7 @@ public class ProjectStateService {
 		return stateMapper.selectRefundStateCount(project_code);
 	}
 
-	public int getTotalPaylemtAmount(String project_code) {
+	public int getTotalPayemtAmount(String project_code) {
 		return stateMapper.selectTotalPaymentAmount(project_code);
 	}
 
@@ -105,6 +105,19 @@ public class ProjectStateService {
 		stateMapper.deleteShipFundHistoryStatus(payment_code);
 		return stateMapper.deleteShipmentStatus(payment_code);
 	}
+
+	public Map<String, Object> getProjectInfoJoinStory(String project_code) {
+		return stateMapper.selectProjectInfoJoinStory(project_code);
+	}
+
+	public int getSettlementFee(String project_code) {
+		return stateMapper.selectSettlementFee(project_code);
+	}
+
+	public int getPreSettlement(String project_code) {
+		return stateMapper.selectPreSettlement(project_code);
+	}
+
 
 
 

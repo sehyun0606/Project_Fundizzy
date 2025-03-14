@@ -171,5 +171,20 @@ $(document).ready(function() {
 		location.href="ProjectDeny?project_code=" + projectCode;
 	});
 	
+	$(".delete").click(function(){
+		let accept = confirm("해당 프로젝트를 삭제하시겠습니까?")
+		if(accept){
+			location.href="ProjectDelete?project_code=" + projectCode;
+		}
+	})
+	$(".project-restore").click(function(){
+		let accept = confirm("해당 프로젝트를 복구하시겠습니까?")
+		if(accept){
+			location.href="ProjectRestore?project_code=" + projectCode;
+		}
+	})
+    
+	
+    
 
  });

@@ -14,6 +14,9 @@
             margin: 0px;
             display: flex;
         }
+        .footer{
+        	display: none;
+        }
         .container {
             width: 50%;
             background: #ffffff;

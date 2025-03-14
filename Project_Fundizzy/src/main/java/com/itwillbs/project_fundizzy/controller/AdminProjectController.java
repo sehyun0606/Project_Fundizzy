@@ -58,6 +58,48 @@ public class AdminProjectController {
 		
 		return "admin/project_management/project_status";
 	}
+	@GetMapping("AdminProjectList")
+	public String adminProjectList(@RequestParam(defaultValue = "1") int pageNum,  Model model) {
+		int listLimit = 10;
+		int startRow = (pageNum - 1) * listLimit;
+		int listCount = projectService.getprojectListCount();
+		int pageListLimit = 5;
+		
+		int maxPage = listCount / listLimit + (listCount % listLimit > 0 ? 1 : 0);
+		if(maxPage == 0) {
+			maxPage = 1;
+		}
+		int startPage = (pageNum - 1) / pageListLimit * pageListLimit + 1;
+		int endPage = startPage + pageListLimit - 1;
+		
+		if(endPage > maxPage) {
+			endPage = maxPage;
+		}
+		
+		if(pageNum < 1 || pageNum > maxPage) {
+			model.addAttribute("msg", "존재하지 않는 페이지");
+			model.addAttribute("targetURL","AdminNotice?pageNum=1");
+			return "result/result";
+		}
+		PageInfo pageInfo = new PageInfo(listCount,pageListLimit,maxPage,startPage,endPage,pageNum);
+		model.addAttribute("pageInfo",pageInfo);
+		
+		
+		List<Map<String, Object>> projectList = projectService.getAllProjectList(startRow,listLimit);
+		
+		model.addAttribute("projectList", projectList);
+		
+		return "admin/project_management/project_list";
+	}
+	
+	@GetMapping("ProjectDelete")
+	public String projectDelete(String project_code) {
+		
+		
+		projectService.deleteProject(project_code);
+		
+		return "redirect:/AdminProjectList";
+	}
 	
 	//ajax를 활용하여 기본 프로젝트 정보 확인
 	@ResponseBody
@@ -103,6 +145,13 @@ public class AdminProjectController {
 		projectService.projectDeny(project_code);
 		
 		return "redirect:/AdminProjectStatus";
+	}
+	@GetMapping("ProjectRestore")
+	public String projectRestore(String project_code) {
+		
+		projectService.restoreProject(project_code);
+		
+		return "redirect:/AdminProjectList";
 	}
 }
 

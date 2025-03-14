@@ -36,7 +36,7 @@
 		
 		       <label>소개 이미지 (다중 파일 업로드)</label>
 			   <div class="file-upload">
-			       <input type="file" id="multiFileInput" name="productPicture" accept="image/*" multiple >
+			       <input type="file" id="multiFileInput" name="productPicture" accept="image/*" style="display: none;" multiple >
 			       <input type="button" class="multi-upload" value="사진 여러 개 추가">
 			       <div class="multi-preview-container" id="multiPreviewContainer"></div>
 			       <p id="multiFileCount">0/10</p>
@@ -69,7 +69,7 @@
 			
 			  <!-- 편집기 -->
 			  <div id="editor-container"></div>
-			  <input id="storyText" type="text" name="project_story">
+			  <input id="storyText" type="hidden" name="project_story">
 			  
 			 <label for="story">오픈예정 스토리</label>
 		        <span class="helper-text">이미지의 너비는 720px 이상으로 등록해야 상세페이지 스토리에 여백이 생기지 않아요</span>
@@ -89,10 +89,13 @@
 				    <button class="ql-image"></button>
 			  	</div>
 			  	<div id="editor-container2"></div>
-			  	<input id="openText" type="text" name="open_story">
+			  	<input id="openText" type="hidden" name="open_story">
 	        </form>
 	    </div>
     </div>
+    <footer>
+		<jsp:include page="/WEB-INF/views/inc/footer.jsp" />
+	</footer>
      <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
 </body>
 </html>

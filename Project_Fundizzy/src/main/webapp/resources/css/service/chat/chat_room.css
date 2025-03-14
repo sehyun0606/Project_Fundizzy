@@ -169,20 +169,22 @@ body {
 }
 
 .message.align_center .messageContent {
-	background-color: #c2c2c2;
+	background-color: rgba(68, 68, 68, 0.3);
 	border-radius: 40px;
 	padding: 5px 15px;
 	font-size: 13px;
+	color: #FFF;
 }
 
 .message.align_right {
+	justify-content: flex-end;
 	padding-right: 20px;
-	justify-content: flex-end;	
 	display: flex;
+	text-align: right;
 }
 
 .message .messageDiv3 {
-	max-width: 70%;
+	max-width: 71%;
 }
 
 .message.align_right .messageContent {
@@ -190,12 +192,13 @@ body {
 	padding: 5px 10px;
 	border-radius: 10px;
 	margin-bottom: 5px;
-	float: right;
+	justify-content: flex-end;
+	text-align: left;
 }
 
 .message.align_right .sendTime {
 	font-size: 10px;
-	float: left;
+	float: right;
 }
 
 .message.align_left {
@@ -243,7 +246,7 @@ span {
 
 .message.align_left .sendTime {
 	font-size: 10px;
-	float: right;
+	float: left;
 }
 
 /* 전체 스크롤바 스타일 */

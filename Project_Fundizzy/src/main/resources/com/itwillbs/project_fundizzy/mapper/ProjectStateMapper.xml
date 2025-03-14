@@ -311,6 +311,34 @@
 			, send_date = null
 		WHERE payment_code = #{payment_code}
 	</update>
+	
+	<select id="selectProjectInfoJoinStory" resultType="map">
+		SELECT i.*, s.*, l.*
+		FROM project_info i
+		JOIN project_story s
+		ON i.project_code = s.project_code
+		JOIN project_list l
+		ON i.project_code = l.project_code
+		WHERE i.project_code = #{project_code}
+	</select>
+	
+	<select id="selectSettlementFee" resultType="int">
+		SELECT FLOOR(SUM(payment_amount) * (SELECT CASE 
+														WHEN service_type = 'pro' THEN 0.1
+														WHEN service_type = 'basic' THEN 0.05
+												   END as type
+											FROM project_list
+											WHERE project_code = #{project_code})) as fee
+		FROM payment
+		WHERE project_code = #{project_code}
+	</select>
+	
+	<select id="selectPreSettlement" resultType="int">
+		SELECT FLOOR(SUM(payment_amount) * 0.6) as pre_amount
+		FROM payment
+		WHERE project_code = #{project_code}
+	</select>
+	
 
 </mapper>
 

@@ -17,6 +17,9 @@
             width: 60%;
             margin: auto;
         }
+        .footer{
+        	display: none;
+        }
         .title {
             font-size: 24px;
             font-weight: bold;
@@ -130,6 +133,9 @@
 		</div>
     </div>	
 	</div>
+	<footer>
+		<jsp:include page="/WEB-INF/views/inc/footer.jsp" />
+	</footer>
    <script type="text/javascript">
 		$(function(){
 			//버튼 클릭 시 ajax 활용해서 서비스 등록

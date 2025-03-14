@@ -81,6 +81,9 @@
 	        <input type="number" id="amount" class="input" placeholder="최소 50만원 ~ 1억원 사이에서 설정해주세요." required="required">
 	    </div>
 	</div>
+	<footer>
+		<jsp:include page="/WEB-INF/views/inc/footer.jsp" />
+	</footer>
 <script type="text/javascript">
 	$(document).ready(function() {
 	    $(".button-group .btn").click(function() {

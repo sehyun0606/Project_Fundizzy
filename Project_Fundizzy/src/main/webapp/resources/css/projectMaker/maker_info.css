@@ -6,6 +6,9 @@ body {
 .main{
 	width: 100%;
 }
+.footer{
+	display: none;
+}
 .container {
     width: 50%;
     background: #fff;

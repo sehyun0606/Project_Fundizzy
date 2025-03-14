@@ -29,4 +29,5 @@ public class ProjectListVO {
 	private String story_config;
 	private String reward_config;
 	private String maker_config;
+	private String settlement_status;
 }

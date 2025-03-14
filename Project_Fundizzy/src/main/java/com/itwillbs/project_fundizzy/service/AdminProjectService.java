@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.itwillbs.project_fundizzy.mapper.AdminProjectMapper;
 import com.itwillbs.project_fundizzy.vo.ProjectListVO;
@@ -46,4 +47,16 @@ public class AdminProjectService {
 		projectMapper.projectDeny(project_code);
 	}
 
+	public List<Map<String, Object>> getAllProjectList(int startRow, int listLimit) {
+		return projectMapper.selectAllProjectList(startRow,listLimit);
+	}
+	
+	@Transactional
+	public void deleteProject(String projectCode) {
+		projectMapper.updateDeleteStat(projectCode);
+	}
+
+	public void restoreProject(String project_code) {
+		projectMapper.restoreProject(project_code);
+	}
 }

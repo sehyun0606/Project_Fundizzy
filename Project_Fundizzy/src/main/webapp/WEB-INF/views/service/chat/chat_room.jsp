@@ -24,7 +24,8 @@
 	</div>
 	<div id="chatMessageArea">
 		<input type="hidden" id="myLastSendTime" value="2000-01-01 00:00">
-		<input type="hidden" id="otherLastSendTiem" value="2000-01-01 00:00">
+		<input type="hidden" id="otherLastSendTime" value="2000-01-01 00:00">
+		<input type="hidden" id="lastSendMember" >
 	</div>
 	<div id="chatInputArea">
 		<div id="menuBar">

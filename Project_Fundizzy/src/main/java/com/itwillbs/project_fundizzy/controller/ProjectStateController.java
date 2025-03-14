@@ -39,7 +39,7 @@ public class ProjectStateController {
 		String project_code = (String)session.getAttribute("project_code");
 		
 		// 총 펀딩 금액 조회
-		int totalPaymentAmount = stateService.getTotalPaylemtAmount(project_code);
+		int totalPaymentAmount = stateService.getTotalPayemtAmount(project_code);
 		model.addAttribute("totalPaymentAmount", totalPaymentAmount);
 		
 		// 주문 건수 조회
@@ -71,7 +71,33 @@ public class ProjectStateController {
 
 	// 정산관리 페이지
 	@GetMapping("SettlementDetail")
-	public String settlementDetail() {
+	public String settlementDetail(HttpSession session, Model model) {
+		String project_code = (String) session.getAttribute("project_code");
+		
+		// 프로젝트 정보
+		Map<String, Object> projectInfo = stateService.getProjectInfoJoinStory(project_code);
+		model.addAttribute("projectInfo", projectInfo);
+		
+		// 총 결제금액
+		int totalAmount = stateService.getTotalPayemtAmount(project_code);
+		model.addAttribute("totalAmount", totalAmount);
+		
+		// 수수료 계산
+		int settlementFee = stateService.getSettlementFee(project_code);
+		model.addAttribute("settlementFee", settlementFee);
+		
+		// 선정산 금액(60%)
+		int preAmount = stateService.getPreSettlement(project_code);
+		model.addAttribute("preAmount", preAmount);
+		
+		// 최종정산 금액
+		int finalAmount;
+		if(totalAmount > 1000000) {
+			finalAmount = totalAmount - preAmount - settlementFee - 90000;
+		}
+		finalAmount = totalAmount - preAmount - settlementFee;
+		model.addAttribute("finalAmount", finalAmount);
+		
 		return "project/projectState/settlement_detail";
 	}
 
@@ -188,6 +214,7 @@ public class ProjectStateController {
 		
 	}
 	
+	// 발송정보 삭제
 	@ResponseBody
 	@PostMapping("ShipInfoDelete")
 	public Map<String, String> shipInfoDelete(String payment_code) {
@@ -205,6 +232,9 @@ public class ProjectStateController {
 	    return response;
 	}
 
+	
+	
+	
 	
 	@GetMapping("NewsList")
 	public String newsList(@RequestParam(defaultValue = "1") int pageNum, Model model, HttpSession session) {
