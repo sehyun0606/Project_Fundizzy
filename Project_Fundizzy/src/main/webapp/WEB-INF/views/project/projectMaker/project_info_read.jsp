@@ -78,6 +78,9 @@
 	        <input type="number" id="amount" class="input" value="${projectInfo.target_amount}" disabled="disabled">
 	    </div>
 	</div>
+	<footer>
+		<jsp:include page="/WEB-INF/views/inc/footer.jsp" />
+	</footer>
 <script type="text/javascript">
 function handleButtonClick() {
     $(".button-group .btn").removeClass("active"); // 모든 버튼에서 'active' 제거

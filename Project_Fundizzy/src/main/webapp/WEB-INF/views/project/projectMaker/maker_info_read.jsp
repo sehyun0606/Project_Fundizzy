@@ -38,5 +38,8 @@
 	        <input type="text" name="instagram_address" disabled="disabled" placeholder="instagram 주소 입력" value="${makerInfo.instagram_address }">
 	    </div>
     </div>
+    <footer>
+		<jsp:include page="/WEB-INF/views/inc/footer.jsp" />
+	</footer>
 </body>
 </html>

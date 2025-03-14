@@ -6,12 +6,34 @@
 	<select id="selectProjectListCount" resultType="int">
 		SELECT COUNT(*)
 		FROM project_list
+		WHERE approve_stat = "accept"
 	</select>
 	
 	<select id="selectProjectList" resultType="ProjectList">
 		SELECT *
  		FROM project_list
  		WHERE approve_stat = "request"
+ 		ORDER BY
+ 			project_date DESC
+ 		LIMIT
+ 			#{startRow}
+ 			,#{listLimit}
+	</select>
+	<select id="selectAllProjectList" resultType="map">
+		SELECT 
+			project_list.project_code,
+			project_list.project_title,
+			project_list.representative_picture,
+			project_list.delete_stat,
+			project_date.open_start_date,
+			project_date.open_end_date,
+			project_date.project_start_date,
+			project_date.project_end_date
+ 		FROM project_list
+ 		INNER JOIN 
+			project_date
+		ON
+			project_list.project_code = project_date.project_code
  		ORDER BY
  			project_date DESC
  		LIMIT
@@ -75,6 +97,21 @@
 			approved_date = NOW()
 		WHERE
 			project_code = #{project_code}
+	</update>
+	
+	<update id="updateDeleteStat">
+		UPDATE
+			project_list
+		SET
+			delete_stat = 'Y'
+		WHERE project_code = #{projectCode}
+	</update>
+	<update id="restoreProject">
+		UPDATE
+			project_list
+		SET
+			delete_stat = 'N'
+		WHERE project_code = #{projectCode}
 	</update>
 </mapper>
 

@@ -102,6 +102,9 @@
 	        </form>
 	    </div>
     </div>
+    <footer>
+		<jsp:include page="/WEB-INF/views/inc/footer.jsp" />
+	</footer>
      <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
 </body>
 </html>

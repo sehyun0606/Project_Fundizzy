@@ -27,11 +27,10 @@
 			<li onclick="location.href='AdminProjectStatus'">프로젝트 승인</li>
 		</ul>
 		<div class="menu">
-			결제 방법 관리
+			정산 관리
 		</div>
 		<ul class="submenu">
-			<li>결제 수단 추가</li>
-			<li>결제 내역</li>
+			<li onclick="location.href='SettlementManage'">정산 관리</li>
 		</ul>
 		<div class="menu">
 			커뮤니티 관리

@@ -196,11 +196,12 @@ table tr:hover {
 .prev-btn, .next-btn {
     font-weight: bold;
 }
-
-.project_img{
-    height: 90px;
+.buttonSection2{
+	display: flex;
+	width: 100%;
+	justify-content: center;
+	margin-top: 10px;
 }
-
 
 /* 모달 스타일 */
 .modal-overlay {
@@ -309,7 +310,7 @@ table tr:hover {
 .accept:hover {
   background-color: #76c776; /* Darker Light Green */
 }
-.deny {
+.deny, .delete {
   background-color: #ff9999; /* Light Red */
   color: white;
   border: none;

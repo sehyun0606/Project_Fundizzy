@@ -26,5 +26,13 @@ public interface AdminProjectMapper {
 	void projectAccept(String project_code);
 
 	void projectDeny(String project_code);
+
+	List<Map<String, Object>> selectAllProjectList(@Param("startRow") int startRow, 
+										  @Param("listLimit") int listLimit);
+
+
+	void updateDeleteStat(String projectCode);
+
+	void restoreProject(String project_code);
 	
 }

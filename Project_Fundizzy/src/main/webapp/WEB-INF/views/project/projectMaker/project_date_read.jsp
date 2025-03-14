@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -19,6 +20,9 @@
             background: #ffffff;
             padding: 30px;
             border-radius: 10px;
+        }
+        .footer{
+        	display: none;
         }
         h2 {
             color: #6a1b9a;
@@ -83,24 +87,18 @@
            
             <h4>오픈예정 기간 확인</h4>
             <label for="startDate">시작 날짜</label>
-            <input type="text" id="openStartDate" name="open_start_date" value="${date.open_start_date}">
+            <p><fmt:formatDate value="${date.open_start_date}" pattern="yyyy-MM-dd"/></p>
             <label for="endDate">종료 날짜</label>
-            <input type="date" id="openEndDate" name="open_end_date" required="required">
+            <p><fmt:formatDate value="${date.open_end_date}" pattern="yyyy-MM-dd"/></p>
     
-            <button type="button" class="btn" id="openSetDates">설정 완료</button>
-            <p id="openResult"></p>
             
             <h4>펀딩 기간 설정</h4>
-            <p style="color: #666; font-size: 14px;"> 펀딩 기간은 오픈예정이 끝난 다음날부터 최소 2주 최대 1달동안 진행할 수 있어요!</p>
             <label for="startDate">시작 날짜</label>
-            <input type="date" id="fundStartDate"  disabled required="required">
-            <input type="date" id="fundStartDate2" name="project_start_date" style="display: none">
+            <p><fmt:formatDate value="${date.project_start_date}" pattern="yyyy-MM-dd"/></p>
     
             <label for="endDate">종료 날짜</label>
-            <input type="date" id="fundEndDate" name="project_end_date" required="required">
+            <p><fmt:formatDate value="${date.project_end_date}" pattern="yyyy-MM-dd"/></p>
     
-            <button type="button" class="btn" id="fundSetDates" >설정 완료</button>
-            <p id="fundResult"></p>
         </div>
     </div>
     

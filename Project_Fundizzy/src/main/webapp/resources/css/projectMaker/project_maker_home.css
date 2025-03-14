@@ -8,6 +8,9 @@
     width: 50%;
     margin: auto;
 }
+.footer{
+	display: none;
+}
 .header {
     font-size: 24px;
     font-weight: bold;
