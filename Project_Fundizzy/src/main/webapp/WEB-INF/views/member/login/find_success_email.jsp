@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -11,7 +12,7 @@
 </head>
 <body>
     <header>
-        <jsp:include page="/WEB-INF/views/inc/main_top.jsp" />
+        <jsp:include page="/WEB-INF/views/inc/top.jsp" />
     </header>
 
     <article class="main-container">
@@ -26,9 +27,17 @@
 
             <!-- ✅ 내용 박스 -->
             <div class="content-box">
-            	<h3>${DBInfo.email}</h3>
-                <p><b>회원으로 등록된 이메일 아이디입니다.<br>
-				해당 이메일로 로그인하고 펀디즈를 이용하세요!</b></p>
+            <c:choose>
+            	<c:when test="${not empty DBInfo.email}">
+	            	<h3>${DBInfo.email}</h3>
+	                <p><b>회원으로 등록된 이메일 아이디입니다.<br>
+					해당 이메일로 로그인하고 펀디즈를 이용하세요!</b></p>
+            	</c:when>
+            	<c:otherwise>
+	            	<h3>${email}</h3>
+	                <p><b>해당 이메일은 펀디즈에 등록되지 않은 계정입니다.</b></p>
+            	</c:otherwise>
+            </c:choose>
 
                 <!-- ✅ 이메일 입력 필드 -->
                 <button class="login-button" onclick="location.href='Login'">로그인 하러가기</button>

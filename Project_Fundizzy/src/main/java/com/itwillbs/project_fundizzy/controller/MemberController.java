@@ -1,9 +1,12 @@
 package com.itwillbs.project_fundizzy.controller;
 
+import java.io.IOException;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
 import com.itwillbs.project_fundizzy.handler.GenerateRandomCode;
 import com.itwillbs.project_fundizzy.handler.KakaoApiClient;
 import com.itwillbs.project_fundizzy.service.Bankservice;
@@ -225,9 +229,6 @@ public class MemberController {
 		String responseData = "false";
 		
 		if(map != null) {
-			// ----------------- 인증 메일 발송 작업 추가 --------------------
-			// MailService - sendAuthMail() 메서드 호출하여 인증메일 발송 요청
-			// => 파라미터 : MemberVO 객체   리턴타입 : MailAuthInfo(mailAuthInfo)
 			Map<String, String> mailAuthInfo = mailService.sendAuthMail(map);
 			System.out.println("member : " + map);
 			System.out.println("인증메일 정보 : " + mailAuthInfo);
@@ -361,10 +362,36 @@ public class MemberController {
 			System.out.println("가져온 정보 : " + DBInfo);
 			
 			model.addAttribute("DBInfo", DBInfo);
+			model.addAttribute("email", email);
 			
 			return "member/login/find_success_email";
 		}
 		
 		
+		@ResponseBody
+		@PostMapping("ActionFindPasswd")
+		public String ActionFindPasswd(String email, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			String responseData = "false";
+			System.out.println("ajax로 받아온 거 " + email);
+			
+			Map<String, String> info = memberService.getMember(email);
+			System.out.println("db에서 받아온 거 " + info);
+			
+			if(info != null) {
+				Map<String, String> passwdMail = mailService.sendPasswdMail(request, response, info);
+				responseData = "true";
+				return responseData;
+			}
+			return responseData;
+		}
+		
+		
+		
+		
+		
+		@GetMapping("testMailJSP")
+		public String testMailJSP() {
+			return "member/mail/mail";
+		}
 	
 }

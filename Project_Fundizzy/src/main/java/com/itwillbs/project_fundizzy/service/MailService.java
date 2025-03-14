@@ -1,7 +1,16 @@
 package com.itwillbs.project_fundizzy.service;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletResponseWrapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -69,5 +78,67 @@ public class MailService {
 		
 		return mailAuthInfo;
 	}
+	
+	 public String renderJSPToString(HttpServletRequest request, HttpServletResponse response, String email) throws ServletException, IOException {
+	        // JSP 파일에서 사용할 데이터 설정
+	        request.setAttribute("email", email);
+
+	        // JSP를 실행하고 결과를 가져오기 위한 StringWriter 생성
+	        StringWriter stringWriter = new StringWriter();
+	        PrintWriter writer = new PrintWriter(stringWriter);
+	        
+	        // JSP 렌더링을 위한 RequestDispatcher 설정
+	        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/member/mail/mail.jsp");
+	        
+	        // 응답 내용을 캐치할 Custom Response Wrapper 생성
+	        HttpServletResponseWrapper responseWrapper = new HttpServletResponseWrapper(response) {
+	            public PrintWriter getWriter() { return writer; }
+	        };
+
+	        // JSP 실행 및 결과 저장
+	        dispatcher.include(request, responseWrapper);
+	        writer.flush();
+	        
+	        return stringWriter.toString(); // JSP의 HTML을 문자열로 반환
+	    }
+
+	public Map<String, String> sendPasswdMail(HttpServletRequest request, HttpServletResponse response, Map<String, String> info) throws ServletException, IOException {
+		String subject = "[Fundizzy] 비밀번호 재설정 안내";
+		
+		// 인증코드만 발송하여 사용자가 인증 페이지에서 직접 코드값을 입력해야할 경우 사용
+		String content = renderJSPToString(request, response, info.get("email"));
+		
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				// 별도의 쓰레드로 수행할 작업 => 메일 발송 코드 기술
+				mailClient.sendMail(info.get("email"), subject, content);
+			}
+			
+		}).start();
+		
+        // 메일 발송에 사용한 정보를 Map으로 반환
+        Map<String, String> sendPasswdMail = new HashMap<>();
+        sendPasswdMail.put("email", info.get("email"));
+        return sendPasswdMail;
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }

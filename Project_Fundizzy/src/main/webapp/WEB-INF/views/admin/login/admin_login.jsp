@@ -52,7 +52,7 @@
             font-size: 14px;
         }
         .login-btn {
-            width: 100%;
+            width: 96.845%;
             padding: 12px;
             margin-top: 10px;
             border: none;
