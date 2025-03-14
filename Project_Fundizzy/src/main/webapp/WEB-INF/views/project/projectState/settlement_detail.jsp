@@ -83,7 +83,31 @@
 						<tr>
 							<td>[발받침대] 편안함을 선사하는 2단 쿠션 발받침대</td>
 							<td>130%</td>
-							<td>선정산</td>
+							<td>
+								<c:choose>
+									<c:when test="${projectInfo.settlement_status eq 'SET01'}">
+										진행중
+									</c:when>
+									<c:when test="${projectInfo.settlement_status eq 'SET02'}">
+										선정산 가능
+									</c:when>
+									<c:when test="${projectInfo.settlement_status eq 'SET03'}">
+										선정산 신청
+									</c:when>
+									<c:when test="${projectInfo.settlement_status eq 'SET04'}">
+										선정산 완료
+									</c:when>
+									<c:when test="${projectInfo.settlement_status eq 'SET05'}">
+										최종정산 가능
+									</c:when>
+									<c:when test="${projectInfo.settlement_status eq 'SET06'}">
+										최종정산 신청
+									</c:when>
+									<c:when test="${projectInfo.settlement_status eq 'SET07'}">
+										정산 완료
+									</c:when>
+								</c:choose>
+							</td>
 							<td><input type="button" class="btnDetail" value="확인"></td>
 							<td><input type="button" class="btnSettlement" value="선정산 내역서">
 							<br><br><input type="button" class="btnSettlement" value="최종정산 내역서"></td>
@@ -110,11 +134,12 @@
 										</tr>
 									</table>
 									<div class="msg">* 정산된 금액은 페이에 point로 입금됩니다</div>
-									<div class="msg">* 총 결제금액이 백만원 이상일 경우 기본이용료가 부과됩니다</div>
+									<div class="msg">* 총 결제금액이 100만원 이상일 경우 기본이용료가 부과됩니다</div>
 								</div>
 								<div class="set-container">
 									<c:choose>
-										<c:when test="${projectInfo.settlement_status eq 'SET01' or projectInfo.settlement_status eq 'SET02' or projectInfo.settlement_status eq 'SET03'}">
+<%-- 										<c:when test="${projectInfo.settlement_status eq 'SET01' or projectInfo.settlement_status eq 'SET02' or projectInfo.settlement_status eq 'SET03'}"> --%>
+										<c:when test="false">
 											<div class="set-info">
 												<div class="title">선정산 지급액</div>
 												<div class="amount">
@@ -133,10 +158,15 @@
 											<div class="set-info">
 												<div class="title">수수료</div>
 												<div class="amount"><fmt:formatNumber value="${settlementFee}" pattern="#,###" />원</div>
-												<div class="msg">펀디지 수수료(5%)<c:if test="${totalAmount > 1000000}"> + 기본이용료 90,000원</c:if></div>
+												<div class="msg"><c:choose>
+																	 <c:when test="${projectInfo.service_type eq 'pro'}">펀디지 수수료(10%)</c:when>
+																	 <c:when test="${projectInfo.service_type eq 'basic'}">펀디지 수수료(5%)</c:when>
+																 </c:choose>
+													<c:if test="${totalAmount > 1000000}"> + 기본이용료 90,000원</c:if>
+												</div>
 											</div>
 										</c:when>
-										<c:when test="false">
+										<c:otherwise>
 											<div class="set-info">
 												<div class="title">최종정산 지급액</div>
 												<div class="amount">
@@ -144,7 +174,7 @@
 												<c:if test="${totalAmount > 1000000}">
 													<fmt:formatNumber value="${preAmount - settlementFee - 90000}" pattern="#,###" />원
 												</c:if>
-												<fmt:formatNumber value="${preAmount - settlementFee}" pattern="#,###" />원
+												<fmt:formatNumber value="${finalAmount}" pattern="#,###" />원
 												</div>
 												<input type="hidden" name="payment_code" class="payment_code">
 											</div>
@@ -153,23 +183,24 @@
 												<div class="amount"><fmt:formatNumber value="${totalAmount}" pattern="#,###" />원</div>
 											</div>
 											<div class="set-info">
-												<div class="title">수수료</div>
-												<div class="amount"><fmt:formatNumber value="${settlementFee}" pattern="#,###" />원</div>
-												<div class="msg">펀디지 수수료(5%)<c:if test="${totalAmount > 1000000}"> + 기본이용료 90,000원</c:if></div>
+												<div class="title">환불 금액</div>
+												<div class="amount"><fmt:formatNumber value="${totalAmount}" pattern="#,###" />원</div>
 											</div>
-										</c:when>
+										</c:otherwise>
 									</c:choose>
-<%-- 									<c:choose> --%>
-<%-- 										<c:when test="${}"> --%>
-										
-<%-- 										</c:when> --%>
-<%-- 										<c:otherwise> --%>
-<%-- 										</c:otherwise> --%>
-<%-- 									</c:choose> --%>
+									
 								</div>
 								<div class="btn-container">
-									<input type="submit" value="선정산 신청" class="finBtn">
-									<input type="submit" value="최종정산 신청" class="finBtn">
+									<c:choose>
+<%-- 										<c:when test="${projectInfo.settlement_status eq 'SET02'}"> --%>
+										<c:when test="true">
+											<input type="submit" value="선정산 신청" class="preBtn">
+										</c:when>
+<%-- 										<c:when test="${projectInfo.settlement_status eq 'SET05'}"> --%>
+										<c:when test="true">
+											<input type="submit" value="최종정산 신청" class="finalBtn">
+										</c:when>
+									</c:choose>
 			   						<input type="button" value="닫기" class="closeBtn">
 								</div>
 							</div>
@@ -183,6 +214,7 @@
 	
 	
 	</div>
+	<jsp:include page="/WEB-INF/views/inc/footer.jsp" />
 	<script>
 		$(function() {
 			// 새소식 작성하기 버튼 클릭 시 모달창 생성 

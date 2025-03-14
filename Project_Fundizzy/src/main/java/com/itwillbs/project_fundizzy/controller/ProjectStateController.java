@@ -90,6 +90,14 @@ public class ProjectStateController {
 		int preAmount = stateService.getPreSettlement(project_code);
 		model.addAttribute("preAmount", preAmount);
 		
+		// 최종정산 금액
+		int finalAmount;
+		if(totalAmount > 1000000) {
+			finalAmount = totalAmount - preAmount - settlementFee - 90000;
+		}
+		finalAmount = totalAmount - preAmount - settlementFee;
+		model.addAttribute("finalAmount", finalAmount);
+		
 		return "project/projectState/settlement_detail";
 	}
 

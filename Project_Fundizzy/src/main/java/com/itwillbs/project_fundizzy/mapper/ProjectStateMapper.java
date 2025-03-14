@@ -68,11 +68,14 @@ public interface ProjectStateMapper {
 
 	void deleteShipFundHistoryStatus(String payment_code);
 
+	
+	// ================================== 정산관리 ==================================
 	Map<String, Object> selectProjectInfoJoinStory(String project_code);
 
 	int selectSettlementFee(String project_code);
 
 	int selectPreSettlement(String project_code);
+
 
 
 
