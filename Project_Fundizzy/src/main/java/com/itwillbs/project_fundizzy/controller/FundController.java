@@ -1,5 +1,6 @@
 package com.itwillbs.project_fundizzy.controller;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -29,6 +30,7 @@ import com.itwillbs.project_fundizzy.vo.FundHistoryVO;
 import com.itwillbs.project_fundizzy.vo.FundizzyPay;
 import com.itwillbs.project_fundizzy.vo.Payment;
 import com.itwillbs.project_fundizzy.vo.ProjectStoryVO;
+import com.itwillbs.project_fundizzy.vo.RewardVO;
 
 
 @Controller
@@ -62,6 +64,7 @@ public class FundController {
 		model.addAttribute("fundList", fundList);
 		return "merch/funding/fund_list";
 	}
+	
 	//fund 스토리
 	@GetMapping("FundBoardStory")
 	public String fundBoardStory(String project_code, Model model) {
@@ -70,18 +73,24 @@ public class FundController {
 		System.out.println("map == " + fundStory); // ok
 		model.addAttribute("fundStory", fundStory); //ok
 		
+		List<Map<String, Object>> reward = fundService.getReward(project_code);
+		System.out.println("map = " + reward);
+		model.addAttribute("reward", reward);
 		return "merch/funding/fund_board_story";
 	}
+	
 	//fund 새소식 
 	@GetMapping("FundBoardNew")
 	public String fundBoardNew() {
 		return "merch/funding/fund_board_new";
 	}
+	
 	//fund 새소식 - 글 
 	@GetMapping("FundBoardNewBoard")
 	public String fundBoardNewBoard() {
 		return "merch/funding/fund_board_new_board";
 	}
+	
 	//fund 지지서명
 	@GetMapping("FundBoardSupport")
 	public String fundBoardSupport(@RequestParam Map<String, Object> map , Model model ) {
@@ -212,7 +221,7 @@ public class FundController {
 	//리워드 선택 - get 
 	@GetMapping("PaymentReward")
 	public String paymentReward(String project_code, Model model) {
-		Map<String, Object> reward = fundService.getPaymentReward(project_code);
+		List<Map<String, Object>> reward = fundService.getPaymentReward(project_code);
 		System.out.println("reward map = " +  reward); // ok
 		model.addAttribute("reward", reward);
 		return "merch/payment/payment_reward";
@@ -220,36 +229,43 @@ public class FundController {
 	
 	//결제창으로 이동 - post 
 	@PostMapping("PaymentPay")
-	public String paymentPay(String reward_code, int total_count, int total_price, String project_code, Model model, HttpSession session) {
-		
-		//이메일 가져오기
-		String email = (String) session.getAttribute("sId");
-		
-	   //히든값 가져오기 
-	   System.out.println("!!!!!!!!!최종 수량: " + total_count);
-	   System.out.println("!!!!!!!!!최종 가격: " + total_price); 
-	   System.out.println("**********리워드 코드: " + reward_code); //ok
+	public String paymentPay(@RequestParam("reward_code[]") String[] rewardCodes, int total_count, int total_price, String project_code, Model model, HttpSession session) {
+	    
+	    // 이메일 가져오기
+	    String email = (String) session.getAttribute("sId");
 	   
-	   //히든값 모델에 저장 후 jsp 에 ~>..
-	   model.addAttribute("total_count", total_count);
-	   model.addAttribute("total_price", total_price);
-	   
-		//리워드 가져오기 
-		Map<String, Object> reward = fundService.getPaymentReward(project_code);
-		System.out.println("pay reward = " + reward);
-		model.addAttribute("reward", reward);
-		
-		
-		//배송을 위한 member 정보 가져오기 
-		Map<String, Object> member = fundService.getPaymentPayMember(email);
-		System.out.println("payment member = " + member);
-		model.addAttribute("member", member);
-		
-		//결제를 위한 펀디지 페이 들고오기 
-		FundizzyPay fundizzy_pay = (FundizzyPay) bankService.getFundizzyPay(email);
-		model.addAttribute("fundizzy_pay", fundizzy_pay);
-		
-		return "merch/payment/payment_pay";
+	    // 히든값 가져오기 
+	    System.out.println("!!!!!!!!!최종 수량: " + total_count);
+	    System.out.println("!!!!!!!!!최종 가격: " + total_price);
+	    
+	    // 받은 reward_code 배열 출력
+	    System.out.println("Received reward_codes: " + Arrays.toString(rewardCodes));
+	    
+	    // 히든값 모델에 저장 후 jsp에 전달
+	    model.addAttribute("total_count", total_count);
+	    model.addAttribute("total_price", total_price);
+	    
+	    // 선택한 리워드 가져오기 (배열을 사용해서 여러 개의 리워드 처리)
+	    List<RewardVO> rewardList = fundService.getPaymentSelectedReward(project_code, rewardCodes);
+	    if (!rewardList.isEmpty()) { 
+	        RewardVO selectedReward = rewardList.get(0);  
+	        System.out.println("selectedReward = " + selectedReward);
+	        model.addAttribute("selectedReward", selectedReward);
+	    } else {
+	        model.addAttribute("selectedReward", null);
+	        System.out.println("**리스트가 비어있어요");
+	    }
+
+	    // 배송을 위한 member 정보 가져오기 
+	    Map<String, Object> member = fundService.getPaymentPayMember(email);
+	    System.out.println("payment member = " + member);
+	    model.addAttribute("member", member);
+	    
+	    // 결제를 위한 펀디지 페이(가장 최근꺼 하나만) 들고오기 
+	    Map<String, Object> fundizzy_pay  = bankService.getFundizzyPayLast(email);
+	    model.addAttribute("fundizzy_pay", fundizzy_pay);
+	    System.out.println("list fundizzy_pay " + fundizzy_pay);
+	    return "merch/payment/payment_pay";
 	}
 	
 	//결제창으로 이동 - get 비지니스 로직
@@ -282,10 +298,6 @@ public class FundController {
 		} else {
 		    System.out.println("결제 정보 저장 실패");
 		}
-		
-		// 페이 잔액 업데이트 
-//		fundizzyPay = fundService.registBalancePay(map);
-		
 		
 		// 2. 결제내역 input
 		map.put("payment_code", UUID.randomUUID().toString());
@@ -323,9 +335,9 @@ public class FundController {
 		}
 		
 		//리워드 가져오기 
-		Map<String, Object> reward = fundService.getPaymentReward((String) map.get("project_code"));
-		System.out.println("pay reward = " + reward);
-		model.addAttribute("reward", reward);  // 리워드 데이터
+//		Map<String, Object> reward = fundService.getPaymentReward((String) map.get("project_code"));
+//		System.out.println("pay reward = " + reward);
+//		model.addAttribute("reward", reward);  // 리워드 데이터
 		
 		//map 값을 모두 리워드라는 키워드로 저장
 		model.addAttribute("map", map);     

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.itwillbs.project_fundizzy.mapper.FundMapper;
 import com.itwillbs.project_fundizzy.vo.FundHistoryVO;
 import com.itwillbs.project_fundizzy.vo.FundizzyPay;
+import com.itwillbs.project_fundizzy.vo.RewardVO;
 
 @Service
 public class FundService {
@@ -25,6 +26,12 @@ public class FundService {
 	public Map<String, Object> getFundBoard(String project_code) {
 		// TODO Auto-generated method stub
 		return mapper.selectFundBoard(project_code);
+	}
+	
+	//프로젝트 board 출력 - 리워드 테이블 가져오기 
+	public List<Map<String, Object>> getReward(String project_code) {
+		// TODO Auto-generated method stub
+		return mapper.selectReward(project_code);
 	}
 	//지지서명 목록 출력 
 	public List<Map<String, Object>> getSupportList() {
@@ -58,10 +65,16 @@ public class FundService {
 	}
 	//-------------------------------------------------오른쪽 부분 --------------------------------------
 	//리워드 가져오기 
-	public Map<String, Object> getPaymentReward(String project_code) {
+	public List<Map<String, Object>> getPaymentReward(String project_code) {
 		// TODO Auto-generated method stub
 		return mapper.selectPaymentReward(project_code);
 	}
+	//선택한 리워드 가져오기 
+	public List<RewardVO> getPaymentSelectedReward(String project_code, String[] reward_codes) {
+		// TODO Auto-generated method stub
+		return mapper.selectPaymentSelectedReward(project_code, reward_codes);
+	}
+	
 	public Map<String, Object> getPaymentPayMember(String email) {
 		// TODO Auto-generated method stub
 		return mapper.selectPaymentPayMember(email);
@@ -72,11 +85,6 @@ public class FundService {
 		// TODO Auto-generated method stub
 		return mapper.insertPaymentPay(map);
 	}
-//	//페이 잔액 업데이트 
-////	public FundizzyPay registBalancePay(Map<String, Object> map) {
-//		// TODO Auto-generated method stub
-//		return mapper.updateBalancePay(map);
-//	}
 	
 	//펀딩내역 input 
 	public int registFundHistory(Map<String, Object> map) {
@@ -95,6 +103,8 @@ public class FundService {
 		// TODO Auto-generated method stub
 		return mapper.insertShipment(map);
 	}
+
+
 
 
 	

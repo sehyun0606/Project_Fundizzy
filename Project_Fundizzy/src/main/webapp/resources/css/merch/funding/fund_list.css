@@ -154,9 +154,8 @@ article{
 
 .product-list {
     display: flex;
-    justify-content: space-around;
     flex-wrap: wrap;
-    margin: 40px 140px 0px 140px;
+    margin: 40px 164px 0px 164px;
     
 }
 
@@ -173,6 +172,7 @@ article{
 
 .product-info {
     padding: 2px 0;
+    cursor: pointer;
 }
 
 .discount {

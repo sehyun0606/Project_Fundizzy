@@ -19,6 +19,7 @@
 		<typeAlias type="com.itwillbs.project_fundizzy.vo.FundizzyPay" alias="fundizzyPay"/>
 		<typeAlias type="com.itwillbs.project_fundizzy.vo.RefundVO" alias="refund"/>
 		<typeAlias type="com.itwillbs.project_fundizzy.vo.MemberVO" alias="Member"/>
+		<typeAlias type="com.itwillbs.project_fundizzy.vo.RewardVO" alias="reward"/>
 		
 	</typeAliases>
 </configuration>
