@@ -129,7 +129,7 @@ public class MailService {
 		        "        </div>" +
 
 		        "        <h2 style='color: black;'>비밀번호 재설정 안내</h2>" +
-		        "        <p style='color: black;'>WADIZ를 이용해 주셔서 감사합니다.</p>" +
+		        "        <p style='color: black;'>Fundizzy를 이용해 주셔서 감사합니다.</p>" +
 		        "        <p style='color: black;'>고객님의 개인정보 보호를 위해 비밀번호를 재설정합니다.<br>아래 버튼을 눌러서 다시 설정해 주세요.</p>" +
 
 		        // ✅ 버튼을 <table>을 사용하여 안정적인 스타일 적용
@@ -147,7 +147,7 @@ public class MailService {
 
 		        "        <p class='notice'>본 메일은 비밀번호 변경을 위해 발송한 전용 메일입니다.<br>문의사항은 고객센터로 문의해주세요.</p>" +
 		        "        <p class='footer'>" +
-		        "            와디즈(주) | 사업자등록번호 258-87-01370 | 대표 신혜성 | 고객센터 1661-9056 | " +
+		        "            펀디즈(주) | 사업자등록번호 258-87-01370 | 대표 정세현 | 고객센터 1001-1111 | " +
 		        "            이메일 <a href='mailto:info@wadiz.kr'>info@wadiz.kr</a> | " +
 		        "            주소 경기 성남시 분당구 판교로 242 PDC A동 402호" +
 		        "        </p>" +
