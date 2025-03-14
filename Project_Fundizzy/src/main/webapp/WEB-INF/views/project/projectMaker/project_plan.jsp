@@ -85,13 +85,13 @@
         <div class="pricing-card pro">
             <div class="pricing-info">
                 <span class="plan-title">프로</span>
-                <span class="price">$100</span>
-                <span class="description">프로 요금에 관한 요약</span>
+                <span class="price">10%</span>
+                <span class="description">프로 요금제에 따른 혜택</span>
                 <ul class="list-items">
-                    <li>List item</li>
-                    <li>List item</li>
-                    <li>List item</li>
-                    <li>List item</li>
+                    <li>메인페이지에 자주 노출됨</li>
+                    <li>마이페이지에서 광고가 진행됨</li>
+                    <li>검색 시 상단에 위치함</li>
+                    <li>기본 요금제 혜택 전부 보유</li>
                 </ul>
             </div>
             <input class="service-type" type="hidden" value="pro">
@@ -108,13 +108,12 @@
         <div class="pricing-card basic">
             <div class="pricing-info">
                 <span class="plan-title">기본</span>
-                <span class="price">$50</span>
-                <span class="description">기본 요금에 관한 요약</span>
+                <span class="price">5%</span>
+                <span class="description">기본 요금에 관한 혜택</span>
                 <ul class="list-items">
-                    <li>List item</li>
-                    <li>List item</li>
-                    <li>List item</li>
-                    <li>List item</li>
+                    <li>오픈예정을 통해 펀딩 예정자 모집 가능</li>
+                    <li>지지서명을 통해 서포터간의 소통</li>
+                    <li>100%이상 진행된 펀딩일시 메인페이지에 노출</li>
                 </ul>
             </div>
             <input class="service-type" type="hidden" value="basic">

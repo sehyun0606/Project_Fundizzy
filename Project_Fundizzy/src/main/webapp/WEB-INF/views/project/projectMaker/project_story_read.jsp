@@ -22,7 +22,6 @@
         		<input type="hidden" name="project_code" value="${sessionScope.project_code}">
 		    	<div class="title-section">
 			        <h2>스토리 정보 확인</h2>
-		    		<button class="side-button" type="submit"> 제출하기</button>
 		    	</div>
 		        <label for="title">프로젝트 제목</label>
 		        <input type="text" id="title" name="project_title" value="${projectStory.project_title}" disabled="disabled">

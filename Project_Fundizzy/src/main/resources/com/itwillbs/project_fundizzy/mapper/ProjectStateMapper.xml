@@ -63,7 +63,7 @@
 
 	<!-- ======================= 프로젝트 현황 ======================= -->
 	<select id="selectTotalPaymentAmount" resultType="int">
-		SELECT SUM(payment_amount)
+		SELECT ifnull(SUM(payment_amount),0)
 		FROM payment
 		WHERE project_code = #{project_code}
 	</select>
