@@ -10,7 +10,7 @@
 </head>
 <body>
 	<header>
-		<jsp:include page="/WEB-INF/views/inc/main_top.jsp" />
+		<jsp:include page="/WEB-INF/views/inc/top.jsp" />
 	</header>
 	<article class="notice-container">
 	    <!-- 🔹 왼쪽 사이드바 -->
@@ -59,10 +59,10 @@
 	    <!-- 🔹 오른쪽 컨텐츠 -->
 	    <section class="notice-content">
 	        <nav class="notice-breadcrumb">
-	            와디즈 도움말 센터 / 서포터 / <strong>회원정보</strong>
+	            펀디즈 도움말 센터 / 공지사항
 	        </nav>
 	        
-	        <h2 class="notice-title">회원정보</h2>
+	        <h2 class="notice-title">공지사항</h2>
 	
 	        <!-- 🔹 FAQ 리스트 -->
 	        <div class="notice-faq-list">

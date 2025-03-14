@@ -7,6 +7,7 @@
 <title>Fundizzy</title>
 <link rel="stylesheet" type="text/css" href="resources/css/helpCenter/helpCenter_main.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 	<header>
@@ -30,11 +31,11 @@
 	    <section class="faq-section">
 	        <h2 class="faq-title">자주 묻는 질문</h2>
 	
-	        <!-- 서포터 / 메이커 탭 -->
-	        <div class="faq-tabs">
-	            <span class="active">서포터</span>
-	            <span>메이커</span>
-	        </div>
+	        <!-- ✅ 서포터 / 메이커 탭 -->
+			<div class="faq-tabs">
+			    <span class="tab-btn active" data-target="supporter">서포터</span>
+			    <span class="tab-btn" data-target="maker">메이커</span>
+			</div>
 	
 	        <!-- 카테고리 버튼 -->
 	        <div class="faq-categories">
@@ -45,29 +46,65 @@
 	            <button>사이트 위치/기능 문의</button>
 	        </div>
 	
-	        <!-- FAQ 리스트 -->
-	        <div class="faq-list">
-	            <div class="faq-item">
-	                <h3>📌 배송지 정보를 어떻게 바꿀 수 있나요?</h3>
-   					<p>A. <span class="check-icon">✔</span>로그인 후 '내 정보'에서 배송지 정보를 수정할 수 있습니다.</p>
-	            </div>
-	            <div class="faq-item">
-	                <h3>Q. 배송은 얼마나 걸리나요?</h3>
-	                <p>A: 일반적으로 결제 후 3~5일 소요됩니다.</p>
-	            </div>
-	            <div class="faq-item">
-	                <h3>Q. 환불은 어떻게 진행되나요?</h3>
-	                <p>A: 결제 후 7일 이내에 요청하시면 환불이 가능합니다.</p>
-	            </div>
-	            <div class="faq-item">
-	                <h3>Q. 제품 A/S 신청은 어디서 하나요?</h3>
-	                <p>A: 고객센터를 통해 A/S 신청이 가능합니다.</p>
-	            </div>
-	        </div>
+	        <!-- ✅ 서포터 FAQ 리스트 -->
+			<div class="faq-list tab-content active" id="supporter">
+			    <div class="faq-item">
+			        <h3>📌 배송지 정보를 어떻게 바꿀 수 있나요?</h3>
+			        <p>A. <span class="check-icon">✔</span> 로그인 후 '내 정보'에서 배송지 정보를 수정할 수 있습니다.</p>
+			    </div>
+			    <div class="faq-item">
+			        <h3>📌 배송은 얼마나 걸리나요?</h3>
+			        <p>A. <span class="check-icon">✔</span> 일반적으로 결제 후 3~5일 소요됩니다.</p>
+			    </div>
+			    <div class="faq-item">
+			        <h3>📌 환불은 어떻게 진행되나요?</h3>
+			        <p>A. <span class="check-icon">✔</span> 결제 후 7일 이내에 요청하시면 환불이 가능합니다.</p>
+			    </div>
+			    <div class="faq-item">
+			        <h3>📌 제품 A/S 신청은 어디서 하나요?</h3>
+			        <p>A. <span class="check-icon">✔</span> 고객센터를 통해 A/S 신청이 가능합니다.</p>
+			    </div>
+			    <div class="faq-item">
+			        <h3>📌 회원 정보 변경은 어디서 하나요?</h3>
+			        <p>A. <span class="check-icon">✔</span> 마이페이지에서 변경 가능합니다.</p>
+			    </div>
+			    <div class="faq-item">
+			        <h3>📌 포인트는 어떻게 적립되나요?</h3>
+			        <p>A. <span class="check-icon">✔</span> 결제 금액의 일정 비율이 적립됩니다.</p>
+			    </div>
+			</div>
+			
+			<!-- ✅ 메이커 FAQ 리스트 -->
+			<div class="faq-list tab-content" id="maker">
+			    <div class="faq-item">
+			        <h3>📌 프로젝트 심사는 얼마나 걸리나요?</h3>
+			        <p>A. 심사는 평균 5~7일 소요됩니다.</p>
+			    </div>
+			    <div class="faq-item">
+			        <h3>📌 프로젝트 심사 기준이 무엇인가요?</h3>
+			        <p>A. 펀딩의 목적과 리워드의 명확성을 기준으로 평가합니다.</p>
+			    </div>
+			    <div class="faq-item">
+			        <h3>📌 프로젝트 개설 비용은 얼마인가요?</h3>
+			        <p>A. 개설 비용은 무료이며, 펀딩 성공 시 일정 수수료가 부과됩니다.</p>
+			    </div>
+			    <div class="faq-item">
+			        <h3>📌 정산은 언제 이루어지나요?</h3>
+			        <p>A. 프로젝트 종료 후 약 14일 이내에 정산됩니다.</p>
+			    </div>
+			    <div class="faq-item">
+			        <h3>📌 프로젝트 취소는 어떻게 하나요?</h3>
+			        <p>A. 프로젝트 시작 전에는 자유롭게 취소할 수 있습니다.</p>
+			    </div>
+			    <div class="faq-item">
+			        <h3>📌 리워드 배송 지연 시 어떻게 해야 하나요?</h3>
+			        <p>A. 서포터들에게 공지 및 고객센터에 문의하세요.</p>
+			    </div>
+			</div>
 	
 	        <!-- 전체 보기 버튼 -->
 	        <div class="view-more">
-	            <button>전체 보기</button>
+	            <button onclick="location.href='Notice'">전체 보기</button>
 	        </div>
 	    </section>
 	
@@ -87,7 +124,7 @@
 		    <!-- 고객센터 -->
 		    <div class="customer-center">
 		        <h3>고객센터</h3>
-		        <p class="phone-number">📞 <b>1661-9056</b></p>
+		        <p class="phone-number">📞 <b>1001-2233</b></p>
 		        <p class="center-info">상담 가능시간: 평일 오전 9시 ~ 오후 6시 <br> (주말, 공휴일 제외)</p>
 		    </div>
 		
@@ -106,5 +143,19 @@
 	<footer>
 		<jsp:include page="/WEB-INF/views/inc/footer.jsp" />
 	</footer>
+	
+	<script>
+	    $(document).ready(function () {
+	        // ✅ 탭 버튼 클릭 시 FAQ 리스트 변경
+	        $(".tab-btn").click(function () {
+	            $(".tab-btn").removeClass("active"); // 기존 active 제거
+	            $(this).addClass("active"); // 클릭된 탭에 active 추가
+	            
+	            let target = $(this).data("target"); // 클릭한 탭의 data-target 값 가져오기
+	            $(".faq-list").removeClass("active"); // 기존 FAQ 리스트 숨기기
+	            $("#" + target).addClass("active"); // 클릭된 탭에 해당하는 FAQ 리스트 보이기
+	        });
+	    });
+	</script>
 </body>
 </html>
