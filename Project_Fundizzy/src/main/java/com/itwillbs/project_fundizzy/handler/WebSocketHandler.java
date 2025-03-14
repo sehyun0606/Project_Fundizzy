@@ -102,6 +102,13 @@ public class WebSocketHandler extends TextWebSocketHandler {
 		} else if(type.equals(ChatMessage.TYPE_INIT_LIST)) {
 			// 채팅방 리스트 조회
 			List<ChatRoom> chatRoomList = chatService.getChatRoomList(sender_email);
+			
+			// 채팅리스트페이지에서 채팅방마다 상대방의 정보를 표시하기 위해 각 방의 수신자정보 조회
+			for(ChatRoom room : chatRoomList) {
+				// 조회된 상대방정보 ChatRoom의 멤버변수에 저장
+				Map<String, String> receiverInfo = memberService.getMember(room.getReceiver_email());
+				room.setReceiverInfo(gson.toJson(receiverInfo));
+			}
 			// 조회결과를 json타입으로 변환후 chatMessage의 message에 초기화
 			String jsonChatRoomList = gson.toJson(chatRoomList);
 			chatMessage.setMessage(jsonChatRoomList);
@@ -169,6 +176,17 @@ public class WebSocketHandler extends TextWebSocketHandler {
 				
 				//전송된 메세지에도 위에 만들어진 채팅방아이디 초기화
 				chatMessage.setRoom_id(Room_id);
+				
+				// 새로운 방생성일경우 첫 채팅과 채팅시작 시스템 채팅과 시간이 같아서 
+				// 메세지 전송시간을 채팅방 생성 후 시간으로 설정하기위해 다시 변수에 초기화
+				// 1초 대기
+				try {
+				    Thread.sleep(1000);
+				} catch (InterruptedException e) {
+				    e.printStackTrace();
+				}
+				
+				chatMessage.setSend_time(getSysDateTime());
 			}
 			
 			// 전송된 메세지 디비에 저장
@@ -178,6 +196,10 @@ public class WebSocketHandler extends TextWebSocketHandler {
 			// 수신자는 채팅 접속시에만 메세지 전송
 			sendMessasge(session, chatMessage);
 			sendMessageAfterSearchReceiver(receiver_email, chatMessage);
+			
+			// 회원의 읽지않은 메시지 수 조회
+		} else if(type.equals(ChatMessage.TYPE_REQUEST_UNREADMESSAGE)) {
+			List<Map<String, Integer>> unReadChatCountList = chatService.getUnReadCount(sender_email);
 		}
 	}
 

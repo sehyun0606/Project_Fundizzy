@@ -5,6 +5,7 @@ const TYPE_ERROR = "TYPE_ERROR" // 채팅 에러
 const TYPE_SYSTEM = "TYPE_SYSTEM" // 채팅 시습템 메세지
 const TYPE_READ_MESSAGE = "TYPE_READ_MESSAGE" // 채팅읽음표시
 
+
 // 채팅 메세지 정렬 위치 구분을 위한 상수 설정
 const ALIGN_CENTER = "align_center";
 const ALIGN_LEFT = "align_left";

@@ -33,4 +33,10 @@ public interface ChatMapper {
 	
 	// 전송된 채팅 디비에 저장
 	void insertChatMessage(ChatMessage chatMessage);
+	
+	// 채팅방 마지막 접근 시간 업데이트
+	void updateLastAccessTime(ChatMessage chatMessage);
+	
+	// 읽지않은 메세지 수 조회
+	List<Map<String, Integer>> selectUnReadCountList(String sender_email);
 }
