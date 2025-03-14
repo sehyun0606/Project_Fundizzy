@@ -13,6 +13,9 @@ public interface ChatMapper {
 	// 채팅방 리스트 조회
 	List<ChatRoom> selectChatRoomList(String sender_email);
 	
+	// 최근 채팅멤버리스트 조회
+	List<Map<String, String>> selectRecentlyChatMemberList(String sender_email);
+	
 	// 내가 참여한 프로젝트의 메이커, 찜한 메이커, 팔로잉한 메이커의 정보 조회 
 	List<Map<String, String>> selectMyMakerInfo(String sender_email);
 	
@@ -30,5 +33,4 @@ public interface ChatMapper {
 	
 	// 전송된 채팅 디비에 저장
 	void insertChatMessage(ChatMessage chatMessage);
-	
 }

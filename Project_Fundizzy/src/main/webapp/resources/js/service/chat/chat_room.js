@@ -3,6 +3,7 @@ const TYPE_START = "TYPE_START" // 채팅시작
 const TYPE_TALK = "TYPE_TALK"; // 채팅
 const TYPE_ERROR = "TYPE_ERROR" // 채팅 에러
 const TYPE_SYSTEM = "TYPE_SYSTEM" // 채팅 시습템 메세지
+const TYPE_READ_MESSAGE = "TYPE_READ_MESSAGE" // 채팅읽음표시
 
 // 채팅 메세지 정렬 위치 구분을 위한 상수 설정
 const ALIGN_CENTER = "align_center";
@@ -152,15 +153,27 @@ function appendMesage(data) {
 		let spanMessage = `<span class='messageContent'>${data.message}</span>`
 		messageDiv = `<div class='message ${ALIGN_CENTER}'>${spanMessage}</div>`;
 	} else {
+		// 마지막메세지 송신자
+		lastSender = $("#lastSendMember").val();
+		console.log(lastSender);
+		console.log(data.sender_email);
+		
 		// 메세지내용 span
 		let spanMessage = `<span class='messageContent'>${data.message}</span><br>`
 		
 		// 마지막 메세지와 같은 시간:분인지 체크후 같은 시간이면 다음에 메시지 스팬만 추가
 		// 시간span은 추가하지 않음
-		if(data.sender_email == sEmail && isSameTime(data.send_time, isMyMessage)) {
+		// 단, 마지막 메세지 송신자와 전달할 메세지 송신자와 같을때에만 작업
+		if(data.sender_email == sEmail && isSameTime(data.send_time, true) && lastSender == data.sender_email) {
+			$(".message.align_right").last().find(".sendTime").before(spanMessage);
 			
-		} else if(data.sender_email != sEmail && isSameTime(data.send_time)) {
-			
+			// 메세지 추가작업후 마지막 메세지 전송자 이메일 input[type=hidden]에저장
+			afterSendMesage(data.sender_email);
+			return;
+		} else if(data.sender_email != sEmail && isSameTime(data.send_time) && lastSender == data.sender_email) {
+			$(".message.align_left").last().find(".sendTime").before(spanMessage);
+			afterSendMesage(data.sender_email);
+			return;
 		}
 		
 		// 메세지 전송날짜시간
@@ -197,9 +210,6 @@ function appendMesage(data) {
 		
 		// 송신자가 본인일 경우
 		if(data.sender_email == sEmail) {
-			let lastTime = $("#myLastSendTime").val();
-			// 현재 추가할 메세지의 send_time과 마지막 메시지의 send_time과
-			// 비교하여 같은 분(시간)이면 메시지 내용만 추가
 			messageDiv = `<div class='message ${ALIGN_RIGHT}'><div class="messageDiv3">${spanMessage}${timeSpan}</div></div>`;
 			
 			// 나의 마지막 메세지 전달 시간 input[type=hidden]에 저장 메서드
@@ -244,8 +254,7 @@ function appendMesage(data) {
 	
 	$("#chatMessageArea").append(messageDiv);
 	
-	// 메시지표시영역 스크롤바 항상 맨 밑으로 유지
-	$("#chatMessageArea").scrollTop($("#chatMessageArea")[0].scrollHeight);
+	afterSendMesage(data.sender_email);
 }
 
 // 메시지가 같은시간인지 판별을 위해 "yyyy-MM-dd HH:mm" 패턴으로 input[type=hidde]에 저장
@@ -253,14 +262,38 @@ function inputLastSendTime(send_time, isMyMessage) {
 	if(isMyMessage) {
 		$("#myLastSendTime").val(send_time.substring(0, 16));
 	} else {
-		$("#otherLastSendTiem").val(send_time.substring(0, 16));
+		$("#otherLastSendTime").val(send_time.substring(0, 16));
 	}
 }
 
 function isSameTime(send_time, isMyMessage) {
-//	Date sendTime = new Date(send_time.substring(0, 16));
+	let sendTime = new Date(send_time.substring(0, 16)).getTime();
 	
+	// 내가 보낸 메세지 일때
 	if(isMyMessage) {
+		let lastTime = new Date($("#myLastSendTime").val()).getTime();;
 		
+		if(sendTime == lastTime) {
+			return true;
+		}
+		return "";
 	}
+	
+	// 상대방이 보낸 메세지 일때
+	let lastTime = new Date($("#otherLastSendTime").val()).getTime();;
+	
+	if(sendTime == lastTime) {
+		return true;
+	}
+	
+	return "";
+}
+
+// 메세지영역에 메세지 추가후 공통적으로 할작업
+function afterSendMesage(sender_email) {
+	// 메세지 추가작업후 마지막 메세지 전송자 이메일 input[type=hidden]에저장
+	$("#lastSendMember").val(sender_email);
+	
+	// 메시지표시영역 스크롤바 항상 맨 밑으로 유지
+	$("#chatMessageArea").scrollTop($("#chatMessageArea")[0].scrollHeight);
 }

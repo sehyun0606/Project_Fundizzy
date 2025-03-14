@@ -46,6 +46,26 @@
 		ORDER BY c.last_accessed_time ASC
 	</select>
 	
+	<!-- 최근 채팅한 멤버의 정보 조회 -->
+	<select id="selectRecentlyChatMemberList" resultType="map">
+		SELECT * 
+		FROM member m 
+		JOIN chat_room c 
+		ON m.email = c.member_email 
+		WHERE c.room_id IN (
+			SELECT room_id
+			FROM ( -- IN 과 LIMIT 동시 사용 불가로 서브쿼리사용
+			    SELECT room_id 
+			    FROM chat_room 
+			    WHERE member_email = #{sender_email}
+			    ORDER BY last_accessed_time DESC 
+			    LIMIT 5
+			) as recently_chat_table
+		) 
+		AND m.email != #{sender_email}
+		ORDER BY c.last_accessed_time DESC;
+	</select>
+	
 	<!-- 나와 연관된 메이커의 정보 조회 -->
 	<select id="selectMyMakerInfo" resultType="map">
 		SELECT *

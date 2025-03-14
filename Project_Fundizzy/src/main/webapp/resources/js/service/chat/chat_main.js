@@ -20,17 +20,23 @@ $(function() {
 		// 타입이 TYPE_INIT_MAIN인경우 회원정보 및 메이커, 서포터 정보 채팅창메인에 출력
 		if(data.type == TYPE_INIT_MAIN) {
 			// 메세지안의 정보들 변수에 저장
-			let senderInfo = JSON.parse(data.myInfo)
+			let myInfo = JSON.parse(data.myInfo)
 			let message = JSON.parse(data.message);
 			let makerList = message.makerList;
 			let supportList = message.supportList;
+			let recentlyChatMemberList = message.recentlyChatMemberList;
 			
 			//회원정보 채팅메인창에 표시
-			$("#myNickName").text(senderInfo.nickname);
-			$("#myEmail").text(senderInfo.email);
+			$("#myNickName").text(myInfo.nickname);
+			$("#myEmail").text(myInfo.email);
+			
+			//채팅메인창 상단의 이미지 표시
+			let src = myInfo.profile ? "/resources/upload/" + myInfo.profile : "/resources/images/chat/profileIcon.png";
+			let imgTag = "<img src='" + src + "'>"
+			$("#myProfileImg").append(imgTag);
 			
 			//채팅 회원목록 추가 메서드
-			appendChatMember(makerList, supportList);
+			appendChatMember(makerList, supportList, recentlyChatMemberList);
 			
 			//채팅 회원목록 추가 완료 후 폴딩 펼침
 			//(scrollHeight 측정을 위해 회원목록 추가 작업 완료 후 작업)
@@ -98,7 +104,12 @@ function sendMessage(type, sender_email, receiver_email, room_id, message, idx) 
 }
 
 // 채팅창메인에 채팅멤버 추가 메서드
-function appendChatMember(makerList, supportList) {
+function appendChatMember(makerList, supportList, recentlyChatMemberList) {
+	// 최근 채팅 멤버중 5명 최근 채팅 목록에 추가
+	for(let member of recentlyChatMemberList) {
+		$("#recentPeople .peopleList").append(makeDivForAppendMember(member));
+	}
+	
 	// 메이커 회원 목록 추가
 	for(let maker of makerList) {
 		$("#maker .peopleList").append(makeDivForAppendMember(maker));
@@ -112,9 +123,12 @@ function appendChatMember(makerList, supportList) {
 
 // 채팅멤버 추가시 필요한 div 생성 메서드
 function makeDivForAppendMember(people) {
+	// 회원의 프로필 이미지 주소
+	let src = people.profile ? "/resources/upload/" + people.profile : "/resources/images/chat/profileIcon.png";
+	
 	let peopleDiv = `<div class="people">
 						<input type="hidden" class="email" value="${people.email}">
-						<div class="peopleImg"><img src="/resources/images/notification/followingIcon.png"></div>
+						<div class="peopleImg"><img src="${src}"></div>
 						<div class=peopleProfile>
 							<div class="peopleNickName">${people.nickname}</div>
 							<div class="peopleEmail">(${people.email})</div>

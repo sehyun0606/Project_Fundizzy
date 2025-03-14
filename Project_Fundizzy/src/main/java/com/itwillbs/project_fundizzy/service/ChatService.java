@@ -21,6 +21,11 @@ public class ChatService {
 		return chatMapper.selectChatRoomList(sender_email);
 	}
 	
+	// 최근 채팅 멤버 조회
+	public List<Map<String, String>> getRecentlyChatMemberList(String sender_email) {
+		return chatMapper.selectRecentlyChatMemberList(sender_email);
+	}
+	
 	// 내가 참여한 프로젝트의 메이커, 찜한 메이커, 팔로잉한 메이커의 정보 조회
 	public List<Map<String, String>> getMyMakerInfo(String sender_email) {
 		return chatMapper.selectMyMakerInfo(sender_email);
@@ -50,5 +55,4 @@ public class ChatService {
 	public void addChatMessage(ChatMessage chatMessage) {
 		chatMapper.insertChatMessage(chatMessage);
 	}
-	
 }

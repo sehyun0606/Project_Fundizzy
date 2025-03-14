@@ -28,9 +28,7 @@ public class ChatMessage {
 	public static final String TYPE_INIT_MAIN = "TYPE_INIT_MAIN"; // 채팅창 초기화 요청(메인페이지)
 	public static final String TYPE_INIT_LIST = "TYPE_INIT_LIST"; // 채팅창 초기화 요청(채팅리스트페이지)
 	public static final String TYPE_INIT_CHATROOM = "TYPE_INIT_CHATROOM"; // 채팅창 초기화 요청(채팅방페이지)
-	public static final String TYPE_INIT_COMPLETE = "TYPE_INIT_COMPLETE"; // 채팅창 초기화 완료
 	public static final String TYPE_ERROR = "TYPE_ERROR"; // 채팅 관련 에러
-	public static final String TYPE_REQUEST_CHAT_LIST = "TYPE_REQUEST_CHAT_LIST"; // 지난 대화내역 조회 요청
 	public static final String TYPE_FILE = "TYPE_FILE"; // 파일 전송
 	public static final String TYPE_READ_MESSAGE = "TYPE_READ_MESSAGE"; // 메세지 읽음
 }

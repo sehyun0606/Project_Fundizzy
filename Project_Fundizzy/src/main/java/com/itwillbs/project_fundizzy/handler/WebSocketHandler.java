@@ -76,6 +76,9 @@ public class WebSocketHandler extends TextWebSocketHandler {
 		
 		// 채팅창 메인 페이지 초기화 메시지
 		if(type.equals(ChatMessage.TYPE_INIT_MAIN)) {
+			// 최근 채팅 멤버 조회
+			List<Map<String, String>> recentlyChatMemberList = chatService.getRecentlyChatMemberList(sender_email);
+			
 			// chat_main에 표시할 내가 팔로잉, 찜 및 참여한 프로젝트의 메이커의 정보 조회
 			List<Map<String, String>> makerList = chatService.getMyMakerInfo(sender_email);
 			
@@ -85,6 +88,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
 			
 			// 조회한 메이커, 서포터의 정보를 메세지로 전달하기위해 하나의 맵객체안에 속성값으로 저장
 			Map<String, List<Map<String, String>>> memberList = new HashMap<String, List<Map<String,String>>>();
+			memberList.put("recentlyChatMemberList", recentlyChatMemberList);
 			memberList.put("makerList", makerList);
 			memberList.put("supportList", supportList);
 			
@@ -131,7 +135,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
 			// 채팅 메세지 전송
 		} else if(type.equals(ChatMessage.TYPE_TALK)) {
 			// 채팅방 아이디가 존재하지 않으면 새로 채팅방 생성
-			if(chatMessage.getRoom_id().equals("")) {
+			if(chatMessage.getRoom_id() == null) {
 				ChatRoom room = new ChatRoom();
 				String Room_id = generateRoomId();
 				room.setRoom_id(Room_id);

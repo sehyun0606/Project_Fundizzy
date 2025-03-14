@@ -82,16 +82,19 @@
 }
 
 #myProfileImg {
-	background-color: #000000;
+	background-color: #FFF;
 	height: 50px;
 	width: 50px;
 	vertical-align: middle;
 	text-align: center;
 	margin-right: 10px;
+	border-radius: 10px;
 }
 
 #myProfileImg img {
+	border: 1px solid;
 	height: 100%;
+	border-radius: 10px;
 }
 
 #memberTitle>div{
@@ -139,6 +142,7 @@
 
 .semiTitle {
 	font-size: 15px;
+	margin-bottom: 4px;
 }
 
 .titleDescription {
@@ -167,9 +171,11 @@
 	height: 40px;
 	width: 40px;
 	text-align: center;
+	border-radius: 10px;
 }
 
 .peopleImg img {
+	border-radius: 10px;
 	height: 100%;
 }
 

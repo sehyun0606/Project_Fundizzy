@@ -15,7 +15,7 @@
 				Fundizzy Chat
 			</div>
 			<div id="memberTitle">
-				<div id=myProfileImg><img src="/resources/images/notification/followingIcon.png"></div>
+				<div id=myProfileImg></div>
 				<div id=myProfile>
 					<div id="myNickName"></div>
 					<div id="myEmail"></div>
@@ -33,15 +33,6 @@
 					<span class="foldingBtn"></span>
 				</div>
 				<div class="peopleList">
-					<c:forEach begin="1" end="5">
-						<div class="people">
-							<div class="peopleImg"><img src="/resources/images/notification/followingIcon.png"></div>
-							<div class=peopleProfile>
-								<div class="peopleNickName">포로리</div>
-								<div class="peopleEmail">(asdf@naver.com)</div>
-							</div>
-						</div>
-					</c:forEach>
 				</div>
 			</div>
 			<div id="support">
