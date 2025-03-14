@@ -39,19 +39,48 @@
 		WHERE project_code = #{project_code}
 	</select>
 	
+<!-- 	프로젝트 board 출력 - 찜 테이블 가져오기  -->
+	<select id="selectKeep" resultType="map">
+		SELECT *
+		FROM keep 
+		WHERE project_code = #{project_code}
+		AND email = #{email}
+	</select>
+	
+<!-- 	찜 등록 -->
+	<insert id="insertKeep">
+		INSERT INTO keep
+		VALUES(
+			#{project_code}
+			 ,#{email}
+		)
+	</insert>
+	
+<!-- 	찜 삭제 -->
+	<delete id="deleteKeep">
+		DELETE FROM keep
+		WHERE email = #{email}
+		AND project_code = #{project_code}
+	</delete>
+	
+<!-- 	새소식 목록 출력 -->
+ 	<select id="selectNews" resultType="map">
+		SELECT *
+		FROM news
+		WHERE project_code = #{project_code}
+	</select>
+	
 <!--   	지지서명 조회 후 목록 출력 -->
   	<select id="selectSupportList" resultType="map">
   		SELECT
-		s.support_num, 
-	    s.support_content, 
-	    s.support_tag, 
-	    s.support_date,
-	    s.email,   
-  		p.project_code,
-  		m.maker_email
-  		FROM support s
-  		JOIN project_list p ON p.project_code = s.project_code
-  		JOIN maker_info m ON m.project_code = s.project_code
+		support_num, 
+	    support_content, 
+	    support_tag, 
+	    support_date,
+	    email,   
+  		project_code
+  		FROM support 
+  		WHERE project_code = #{project_code}
   	</select>
   	
 <!--   	지지서명 등록  -->
@@ -102,12 +131,14 @@
 		FROM reply
 		WHERE project_code = "83652PRO01";
 	</select>
+	
 <!-- 	지지서명 댓글 삭제 -->
 	<delete id="deleteSupportReply">
 		DELETE
 		FROM reply
 		WHERE 
 	</delete>
+	
 <!-- 	지지서명 댓글 작성자 출력 -->
 <!-- 어짜피 댓글 작성자는 프로젝트코드 판매자 한명이라서 프로젝트 코드로 조건 걸었음 -->
 	<select id="selectReplyWriter" resultType="map">
@@ -131,10 +162,11 @@
 	    SELECT * 
 	    FROM reward
 	    WHERE project_code = #{project_code}
-	    AND reward_code IN 
-	    <foreach collection="reward_codes" item="reward_code" open="(" separator="," close=")">
-	        #{reward_code}
-	    </foreach>
+	    AND reward_code IN (
+		    <foreach collection="reward_codes" item="reward_code" separator=",">
+		        #{reward_code}
+		    </foreach>
+	    )
 	    ORDER BY reward_code
 	</select>
 
@@ -147,6 +179,13 @@
   
 <!--   페이로 결제한 내역 계산  -->
 	<insert id="insertPaymentPay">
+		<selectKey keyProperty="pay_balance" order="BEFORE" resultType="int">
+			SELECT pay_balance
+			from fundizzy_pay
+			WHERE email = #{email}
+			ORDER BY pay_date DESC
+			limit 1	
+		</selectKey>
 		INSERT INTO fundizzy_pay(
 			email
 			,pay_amt
@@ -161,7 +200,7 @@
 			,'PA'
 			,NOW()
 			,#{pay_tran_id}
-			,#{result_balance}
+			, #{pay_balance} - #{payment_price}
 		) 
 	</insert>
   
@@ -173,27 +212,27 @@
 		</selectKey>
 		INSERT INTO payment(
 			idx
-			,common_code
-			,payment_code
-			,project_code
-			,billing_email
-			,payment_method
-			,payment_amount
-			,payment_request_date
-			,payment_complete_date
-			,participation_status
+			, common_code
+			, payment_code
+			, project_code
+			, billing_email
+			, payment_method
+			, payment_amount
+			, payment_request_date
+			, payment_complete_date
+			, participation_status
 	
 		) VALUES (
 			#{idx} + 1 
-			,"PAY01"
-			,#{payment_code}
-			,#{project_code}
-			,#{email}
-			,"PAY01"
-			,#{payment_price}
-			,NOW()
-			,NOW()
-			,"PAR02"
+			, #{common_code}
+			, CONCAT(#{common_code}, #{idx} + 1)
+			, #{project_code}
+			, #{email}
+			, '계좌결제'
+			, #{payment_price}
+			, NOW()
+			, NOW()
+			, "PAR02"
 		)
 	</insert>
 	<!-- 	배송내역 insert -->
@@ -214,31 +253,21 @@
 			,address1
 			,post_code
 			,delivery_req
-			,new_name
-			,new_phone_num
-			,new_address
-			,new_address1
 			,extra_address
-			,new_post_code
 			
 		)VALUES (
 			#{idx} + 1
 			,"SHI01"
 			,#{project_code}
-			,#{payment_code}
+			,CONCAT('SHI01', #{idx} + 1)
 			,#{email}
 			,#{name}
 			,#{phone_num}
-			,#{address}
 			,#{address1}
+			,#{address2}
 			,#{post_code}
 			,#{delivery_req}
-			,#{new_name}
-			,#{new_phone_num}
-			,#{new_address}
-			,#{new_address1}
 			,#{extra_address}
-			,#{new_post_code}
 		
 		)
 	</insert>
@@ -269,7 +298,11 @@
   			#{fund_idx} + 1
   			,#{project_code} 
   			,#{email}
-  			,#{project_title} 
+  			, (
+  				SELECT project_title
+  				FROM project_list
+  				WHERE project_code = #{project_code}
+  			)
   			,#{representative_picture} 
   			,#{product_name}
   			,"N"

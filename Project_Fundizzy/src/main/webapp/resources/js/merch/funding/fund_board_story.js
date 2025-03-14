@@ -1,20 +1,87 @@
 $(function(){
+	let email = $("#keep_email").val();
+	let keep_project_code = $("#keep_project_code").val();
+	let project_code = $("#project_code").val();
+	
+	//상단 메뉴바 선택 시 
+	$(".story").on("click", function(e){
+		location.href="FundBoardStory?project_code=" + project_code;
+	});
+	
+	$(".new").on("click", function(e){
+		location.href="FundBoardNew?project_code=" + project_code;
+	});
+	
+	$(".support").on("click", function(e){
+		location.href="FundBoardSupport?project_code=" + project_code;
+	});
+	
+	$(".supporter").on("click", function(e){
+		location.href="FundBoardSupporter?project_code=" + project_code;
+	});
+	
+	$(".refund").on("click", function(e){
+		location.href="FundBoardRefund?project_code=" + project_code;
+	});
+	
+	$(".reward").on("click", function(e){
+		location.href="FundBoardReward?project_code=" + project_code;
+	});
+	
+	
 //	찜버튼 클릭시 
 	$("#btn-like").click(function(){
-		alert("like");
+//	    alert("email: " + email + "project_code: " + project_code );
+		if($(this).hasClass("clicked")){
+			$(this).removeClass("clicked")
+	      	let iElement = $(this).find('i');
+			iElement.removeClass("fa-heart");
+			iElement.addClass("fa-heart-o");
+			//테이블에 이름 , 프젝 코드 넣기 
+			$.ajax({
+				type: "POST",
+				url: "FundBoardStoryKeepDelete",
+				data: {
+					email: email,
+					project_code: keep_project_code
+				}
+			}).done(function(result){
+			}).fail(function(){
+		        alert("@찜 등록 중 오류가 발생했습니다. 다시 시도해주세요.");
+				location.reload();
+			})
+	    } else {
+		
+			$(this).addClass("clicked")
+	      	let iElement = $(this).find('i');
+			iElement.removeClass("fa-heart-o");
+			iElement.addClass("fa-heart");
+			//테이블에 이름 , 프젝 코드 넣기 
+			$.ajax({
+				type: "POST",
+				url: "FundBoardStoryKeep",
+				data: {
+					email: email,
+					project_code: keep_project_code
+				}
+			}).done(function(result){
+				alert("상품 찜 등록이 완료되었습니다.");
+			}).fail(function(){
+		        alert("!찜 등록 중 오류가 발생했습니다. 다시 시도해주세요.");
+				location.reload();
+			})
+	    }
+		
 	});
 	
 	//리워드 미선택 - 펀딩하기 클릭 시
 	$(".purchase-btn").on("click", function(){
-		let project_code = $("#project_code").val();
 		location.href="PaymentReward?project_code=" + project_code;
 	});
 	
-	//리워드 선택 후 펀딩하기 클릭 시
-
+//리워드 선택 후 펀딩하기 클릭 시
 $(document).ready(function(){
-    console.log("jQuery 로드됨!"); 
-
+	
     $("#btn-support").click(function(){
         console.log("btn-support 버튼 클릭됨!"); 
         $(".support_modal").css("display", "block");
@@ -66,7 +133,7 @@ $(document).ready(function(){
 	
 });
 
-//웹 페이지가 완전 로드되기전에 실행되는 코드 
+
 // html이 다 로드 된 후 js가 실행되기에 안전함 
  document.addEventListener("DOMContentLoaded", function () { 
 			// btn-support-list의 버튼들 모두를 변수 buttons에 저장

@@ -1,5 +1,32 @@
 //오른쪽 
 $(function(){
+		let project_code = $("#project_code").val();
+	
+	//상단 메뉴바 선택 시 
+	$(".story").on("click", function(e){
+		location.href="FundBoardStory?project_code=" + project_code;
+	});
+	
+	$(".new").on("click", function(e){
+		location.href="FundBoardNew?project_code=" + project_code;
+	});
+	
+	$(".support").on("click", function(e){
+		location.href="FundBoardSupport?project_code=" + project_code;
+	});
+	
+	$(".supporter").on("click", function(e){
+		location.href="FundBoardSupporter?project_code=" + project_code;
+	});
+	
+	$(".refund").on("click", function(e){
+		location.href="FundBoardRefund?project_code=" + project_code;
+	});
+	
+	$(".reward").on("click", function(e){
+		location.href="FundBoardReward?project_code=" + project_code;
+	});
+	
 //	찜버튼 클릭시 
 	$("#btn-like").click(function(){
 		console.log("like")

@@ -14,7 +14,7 @@
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
   <script src="${pageContext.request.contextPath}/resources/js/merch/funding/fund_board_story.js"></script>
 <!--   지지서명 아이콘 관련 script -->
-  <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 </head>
 <body>
 	<header>
@@ -22,12 +22,12 @@
 	</header>
 	<article>
 		<div class="fund-top">
-	        <a href="FundBoardStory" class="story">스토리</a>
-	        <a href="FundBoardNew" class="new">새소식</a>
-	        <a href="FundBoardSupport" class="support">지지서명</a>
-	       	<a href="FundBoardSupporter" class="supporter">서포터</a>
-	        <a href="FundBoardRefund" class="refund">환불·정책</a>
-	        <a href="FundBoardReward" class="reward">리워드정보</a>
+	        <a href="#" class="story">스토리</a>
+	        <a href="#" class="new">새소식</a>
+	        <a href="#" class="support">지지서명</a>
+	       	<a href="#" class="supporter">서포터</a>
+	        <a href="#" class="refund">환불·정책</a>
+	        <a href="#" class="reward">리워드정보</a>
 	 	</div>
 	    <hr>
     <div class="container">
@@ -164,7 +164,17 @@
                 <p><strong>139</strong>명 참여</p>
                 <p><strong>${fundStory.progress}</strong>% 달성</p>
                 <div class="btn-group">
-                   <button class="btn-small" id="btn-like"><i class="fa fa-heart" style="font-size:24px"></i>찜</button>
+	                <input type="hidden" value="${sessionScope.sId }" id="keep_email">
+	                <input type="hidden" value="${param.project_code}" id="keep_project_code">
+	                <input type="hidden" value="${keep.email}" class="keep">
+	                <c:choose>
+	                	<c:when test="${empty keep.email}">
+		                   <button class="btn-small" id="btn-like"><i class="fa fa-heart-o" style="font-size:24px"></i>찜</button>
+	                	</c:when>
+	                	<c:otherwise>
+		                   <button class="btn-small clicked" id="btn-like"><i class="fa fa-heart" style="font-size:24px"></i>찜</button>
+	                	</c:otherwise>
+	                </c:choose>
                    <button class="btn-small" id="btn-support"><i class='far fa-handshake' style='font-size:24px'></i>지지</button>
                    <button class="purchase-btn">펀딩하기</button>
                 </div>
@@ -208,7 +218,7 @@
 	</article>
 	<div class="support_modal" id="support_modal">
 		<form action="SupportSignature" method="POST" class="support_content">
-<%-- 			<input type="hidden" id="project_code" name="project_code" value="${reward.project_code }"> --%>
+			<input type="hidden" id="project_code" name="project_code" value="${param.project_code}">
 			<input type="hidden" id="sessionUserEmail" name="email" value="${sessionScope.sId}">
 			
 			<div class="top">
@@ -220,7 +230,7 @@
 				<button type="button" class="like" value="like">취향저격</button>
 				<button type="button" class="life" value="life">삶의질급상승</button>
 				<button type="button" class="useful"  value="useful">유용템</button>
-				<button type="button" class="littleMoney"  value="littleMoney">가성비</button>
+				<button type="button" class="littleMoney" value="littleMoney">가성비</button>
 				<button type="button" class="cheerup"  value="cheerup">응원해요</button>
 				<input type="checkbox" class="like-check" name="like" style="display: none;">
 				<input type="checkbox" class="life-check" name="life" style="display: none;">

@@ -231,6 +231,8 @@ public class MyPageController {
 		System.out.println("bank_tran_id " + bank_tran_id);
 		
 		String email = (String) session.getAttribute("sId"); 
+		System.out.println("이메일!!!! " + email );
+		
 		//db에 거래결과 저장
 		Map<String, Object> chargeResult = bankService.getDBTransactionResult(bank_tran_id);
 		model.addAttribute("chargeResult", chargeResult);
@@ -249,30 +251,31 @@ public class MyPageController {
 		// 세션에서 토큰 가져오기
 		String email = (String) session.getAttribute("sId");
 		BankToken bankToken = (BankToken) session.getAttribute("token");
-		System.out.println("###### banktoken = " + bankToken);
+//		System.out.println("###### banktoken = " + bankToken);
 		
 		//map 객체에 세션 아이디 추가 
 		map.put("email",email);
+		System.out.println("###### map = " + map);
 		
 		// DB에서 등록된 계좌정보 들고와서 
 		BankAccount bankAccount = bankService.getDBAccountInfo(bankToken.getUser_seq_no());
-		System.out.println("user_seq - no == " + bankToken.getUser_seq_no());
+//		System.out.println("user_seq - no == " + bankToken.getUser_seq_no());
 		
 		//map에 대표계좌 정보 저장
 		map.put("bankAccount", bankAccount);
 		
 		//requestTransfer() 요청해서 map의 transferResult에 저장 
 		Map<String, Object> transferResult = bankService.requestDeposit(map);
-		System.out.println("@@@@@@@@@transfer result = " + transferResult);
+//		System.out.println("@@@@@@@@@transfer result = " + transferResult);
 		
 		//@응답데이터가 map 객체로 저장되어있으며 객체내에 res_list값이 리스트 형태로 저장됨
 		//1. res_list값에 해당하는 list 객체 꺼내기
 		List<Object> res_list = (List<Object>)transferResult.get("res_list");
-		System.out.println("*****res_list == " + res_list);
+//		System.out.println("*****res_list == " + res_list);
 		
 		//2. res_list내의 첫번째 이체 결과정보 객체 꺼내서 map으로 저장 
 		Map<String, Object> result = (Map<String, Object>)res_list.get(0);
-		System.out.println("****result == " + result);
+//		System.out.println("****result == " + result);
 		
 		//@api응답코드가 "A0000"가 아닌 경우엔 오류메시지 띄우기 - String msg 써서 하는거라 보고하기
 		if(!transferResult.get("rsp_code").equals("A0000")) {
@@ -284,6 +287,8 @@ public class MyPageController {
 		
 		//transferResult에 입금이체 결과 db에 저장 
 		transferResult.put("user_seq_no", bankToken.getUser_seq_no());
+		
+		transferResult.put("email", email);
 		
 		//서비스에 registTransferResult(transferResult) 저장 요청 - 리턴타입 보이드
 		bankService.registTransferResult(transferResult);
@@ -309,15 +314,15 @@ public class MyPageController {
 		
 		String email = (String) session.getAttribute("sId"); 
 		//db에 거래결과 저장
-//		Map<String, Object> chargeResult = bankService.getDBTransactionResult(bank_tran_id);
-//		model.addAttribute("chargeResult", chargeResult);
+		Map<String, Object> chargeResult = bankService.getDBTransactionResult(bank_tran_id);
+		model.addAttribute("chargeResult", chargeResult);
 		
 		//페이 테이블에서 잔액 가져오기 
 		int payBalance = fundizzyService.getPayBalanceInt(email);
 		System.out.println("payBalance" + payBalance);
 		model.addAttribute("payBalance", payBalance);
 		
-		return "myPage/supporter/pay_charge_result";
+		return "myPage/supporter/pay_transfer_result";
 	}
 	
 	//파일 업로드를 위한 메서드

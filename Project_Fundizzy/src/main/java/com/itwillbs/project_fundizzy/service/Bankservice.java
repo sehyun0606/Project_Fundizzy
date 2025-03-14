@@ -134,7 +134,8 @@ public class Bankservice {
 				// => 파라미터 : 사용자일련번호(BankToken 객체에서 꺼내기)
 				//    리턴타입 : BankAccount(bankAccount)
 		BankAccount bankAccount = mapper.selectBankAccount((String)transferResult.get("user_seq_no"));
-		
+
+		System.out.println("transferResult : " + transferResult);
 		//DE = 입금 이체 
 		mapper.insertTransferResult(transferResult, "DE");
 	}

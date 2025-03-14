@@ -14,7 +14,7 @@
 		<jsp:include page="/WEB-INF/views/inc/top.jsp" />
 	</header>
 	<article>
-		<input type="hidden" id="total_count" name="total_count" value="${reward.total_count}"> 
+		<input type="hidden" id="total_count" name="total_count" value="${total_count}"> 
 		 <div class="container">
 			<div class="reward-step">
 		        <div class="step">리워드 선택</div>
@@ -26,14 +26,14 @@
 	        <div class="payment-complete">
 	           <h3>결제가 완료되었습니다.</h3>
       	       	<div class="section-product">
-		            <h4>${reward.product_name}</h4>
-		            <p>${reward.product_desc}</p>
+		            <h4>${rewardList.product_name}</h4>
+		            <p>${rewardList.product_desc}</p>
 		            <p>수량: ${map.total_count}개<br><span id="total_price" class="totalPrice"><fmt:formatNumber pattern="#,###원" value="${map.total_price}"></fmt:formatNumber></span></p>
 	        	</div>
        	        <div class="section-price">
 		            <h4>결제 금액</h4>
 		             <p>리워드 금액 <span class="total_price"><fmt:formatNumber pattern="#,###원" value="${map.total_price}"></fmt:formatNumber></span></p>
-		             <p>배송비 <span class="price">${reward.delivery_fee}원</span></p>
+<%-- 		             <p>배송비 <span class="price">${delivery_fee}원</span></p> --%>
 		             <p class="total">총 결제 금액 <span id="total_price_delivery"><fmt:formatNumber pattern="#,###원" value="${map.payment_price}"></fmt:formatNumber></span></p>
 	        	</div>
 	        	<div class="two-button">

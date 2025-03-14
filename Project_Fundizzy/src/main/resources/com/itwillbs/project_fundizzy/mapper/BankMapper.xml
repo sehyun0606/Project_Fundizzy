@@ -151,7 +151,7 @@
 		AND pay_date IN (SELECT MAX(pay_date) FROM (SELECT * FROM fundizzy_pay) AS temp WHERE email = #{email})
 		
 	</update>
-<!-- 	이용기관 토큰 조회 -->
+<!-- 	입금 - 이용기관 토큰 조회 -->
 	<select id="selectAdminToken" resultType="bankToken">
 		SELECT *
 		FROM bank_access_token
@@ -169,13 +169,12 @@
 	<insert id="insertTransferResult">
 		INSERT INTO fundizzy_pay
 		VALUES(
-			#{email}
+			#{transferResult.email}
 			, 0
 			, 'DE'
 			, NOW()
-			, null
+			, #{transferResult.tran_id} 
 			, 0
-			, #{pay_tran_id} 
 		)
 	</insert>
 <!-- 	펀디지 페이 정보 가져오기 -->

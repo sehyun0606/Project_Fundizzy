@@ -89,9 +89,9 @@ $(function() {
 	});
 
 	// 최소 한개 이상의 리워드 선택 여부 체크
-	if (totalCount === 0) {
+	if (totalCount == 0) {
 	    alert("최소 한개 이상의 리워드를 선택해 주세요.");
-	    location.reload; // 폼 제출을 중단
+	    location.reload(); 
 	}
 	
 	// 최종 수량 & 금액 업데이트

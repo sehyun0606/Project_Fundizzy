@@ -16,12 +16,12 @@
 	</header>
 	<article>
 		<div class="fund-top">
-	        <a href="FundBoardStory" class="story">스토리</a>
-	        <a href="FundBoardNew" class="new">새소식</a>
-	        <a href="FundBoardSupport" class="support">지지서명</a>
-	       	<a href="FundBoardSupporter" class="supporter">서포터</a>
-	        <a href="FundBoardRefund" class="refund">환불·정책</a>
-	        <a href="FundBoardReward" class="reward">리워드정보</a>
+	        <a href="#" class="story">스토리</a>
+	        <a href="#" class="new">새소식</a>
+	        <a href="#" class="support">지지서명</a>
+	       	<a href="#" class="supporter">서포터</a>
+	        <a href="#" class="refund">환불·정책</a>
+	        <a href="#" class="reward">리워드정보</a>
 	 	</div>
 	    <hr>
 		<div class="container">

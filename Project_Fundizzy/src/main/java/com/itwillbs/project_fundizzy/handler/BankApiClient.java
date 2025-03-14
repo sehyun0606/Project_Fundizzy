@@ -153,8 +153,8 @@ public class BankApiClient {
 		 jsonObject.addProperty("cntr_account_num", cntr_account_num);//약정 계좌번호
 		 
 		 //입금계좌인자내역 (아이티윌에 출력할 메시지) 
-		 jsonObject.addProperty("dps_print_content", "페이 충전");
-		 System.out.println("라라라라랄 _ " + (String)map.get("email"));
+		 jsonObject.addProperty("dps_print_content", "페이충전");
+//		 System.out.println("라라라라랄 _ " + (String)map.get("email"));
 		 
 		 //출금계좌 정보
 		 jsonObject.addProperty("fintech_use_num", ((BankAccount)map.get("bankAccount")).getFintech_use_num());// 출금계좌 핀테크 이용번호

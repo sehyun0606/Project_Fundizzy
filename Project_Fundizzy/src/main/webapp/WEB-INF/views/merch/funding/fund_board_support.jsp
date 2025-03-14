@@ -17,19 +17,17 @@
 	</header>
 	<article>
 		<div class="fund-top">
-	        <a href="FundBoardStory" class="story">스토리</a>
-	        <a href="FundBoardNew" class="new">새소식</a>
-	        <a href="FundBoardSupport" class="support">지지서명</a>
-	       	<a href="FundBoardSupporter" class="supporter">서포터</a>
-	        <a href="FundBoardRefund" class="refund">환불·정책</a>
-	        <a href="FundBoardReward" class="reward">리워드정보</a>
+	        <a href="#" class="story">스토리</a>
+	        <a href="#" class="new">새소식</a>
+	        <a href="#" class="support">지지서명</a>
+	       	<a href="#" class="supporter">서포터</a>
+	        <a href="#" class="refund">환불·정책</a>
+	        <a href="#" class="reward">리워드정보</a>
 	 	</div>
 	    <hr>
 <!-- 	    지지서명 영역 -->
     <div class="container">
 	    <div class="content-left">
-<!-- 	    임시로 프로젝트 코드 값 줌  -->
-	    	<input type="hidden" value="83652PRO01">
 	    	<h3>지지서명 -글 개수 출력</h3>
 	    	<hr>
 <!-- 	    	글이 없을 경우엔 등록된 지지서명이 존재하지 않습니다. 글이 있는경우엔 띄우기  -->
@@ -128,7 +126,7 @@
 	</article>
 	<div class="support_modal" id="support_modal">
 		<form action="SupportSignature" method="POST" class="support_content">
-			<input type="hidden" id="project_code" name="project_code" value="83652PRO01">
+			<input type="hidden" id="project_code" name="project_code" value="${param.project_code}">
 			<input type="hidden" id="sessionUserEmail" name="email" value="${sessionScope.sId}">
 			
 			<div class="top">

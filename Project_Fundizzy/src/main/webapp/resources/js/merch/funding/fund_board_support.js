@@ -1,5 +1,32 @@
 //왼쪽 
 $(function(){
+		let project_code = $("#project_code").val();
+	
+	//상단 메뉴바 선택 시 
+	$(".story").on("click", function(e){
+		location.href="FundBoardStory?project_code=" + project_code;
+	});
+	
+	$(".new").on("click", function(e){
+		location.href="FundBoardNew?project_code=" + project_code;
+	});
+	
+	$(".support").on("click", function(e){
+		location.href="FundBoardSupport?project_code=" + project_code;
+	});
+	
+	$(".supporter").on("click", function(e){
+		location.href="FundBoardSupporter?project_code=" + project_code;
+	});
+	
+	$(".refund").on("click", function(e){
+		location.href="FundBoardRefund?project_code=" + project_code;
+	});
+	
+	$(".reward").on("click", function(e){
+		location.href="FundBoardReward?project_code=" + project_code;
+	});
+	
 	//지지서명 댓글 보여주기 & 숨기기
 	$(".reply-show").on("click", function(){
 	 let replyWrite = document.querySelector(".reply-write");

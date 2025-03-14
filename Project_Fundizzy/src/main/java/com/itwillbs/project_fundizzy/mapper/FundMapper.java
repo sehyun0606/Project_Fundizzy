@@ -20,11 +20,23 @@ public interface FundMapper {
 	//프로젝트 board 출력 - 리워드 테이블 가져오기 
 	List<Map<String, Object>> selectReward(String project_code);
 	
+	//프로젝트 board 출력 - 찜 테이블 가져오기 
+	Map<String, Object> selectKeep(@Param("email")String email, @Param("project_code")String project_code);
+	
+	//찜 등록
+	int insertKeep(@Param("email")String email, @Param("project_code")String project_code);
+	
+	//찜 삭제
+	void deleteKeep(@Param("email")String email, @Param("project_code")String project_code);
+	
+	// 새소식 가져오기 
+	List<Map<String, Object>> selectNews(String project_code);
+	
 	//지지서명 글 목록 
-	List<Map<String, Object>> selectSupportList();
+	List<Map<String, Object>> selectSupportList(String project_code);
 	
 	//지지서명 글 등록
-	int insertSupportSignature(@Param("project_code") int project_code, @Param("email")String email, 
+	int insertSupportSignature(@Param("project_code") String project_code, @Param("email")String email, 
 			@Param("supportContent") String supportContent, @Param("supportKeyword") String supportKeyword);
 
 	//지지서명 댓글 등록 
@@ -60,6 +72,12 @@ public interface FundMapper {
 
 	//배송내역 input - shipment
 	int insertShipment(Map<String, Object> map);
+	
+	
+	
+	
+
+
 
 
 
