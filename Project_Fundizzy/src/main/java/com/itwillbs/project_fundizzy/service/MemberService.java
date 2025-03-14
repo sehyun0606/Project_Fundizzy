@@ -79,6 +79,10 @@ public class MemberService {
 		return mapper.selectProfileImg(email);
 	}
 
+	public int updatePassword(Map<String, String> map) {
+		return mapper.updatePassword(map);
+	}
+
 
 	
 	

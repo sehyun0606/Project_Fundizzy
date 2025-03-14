@@ -187,7 +187,11 @@
 		WHERE email = #{email}
 	</select>
 
-
+	<update id="updatePassword">
+		UPDATE member
+		SET passwd = #{password}
+		WHERE email = #{email}
+	</update>
 
 
 

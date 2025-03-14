@@ -370,28 +370,59 @@ public class MemberController {
 		
 		@ResponseBody
 		@PostMapping("ActionFindPasswd")
-		public String ActionFindPasswd(String email, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			String responseData = "false";
+		public String ActionFindPasswd(String email) {
 			System.out.println("ajax로 받아온 거 " + email);
 			
 			Map<String, String> info = memberService.getMember(email);
 			System.out.println("db에서 받아온 거 " + info);
 			
 			if(info != null) {
-				Map<String, String> passwdMail = mailService.sendPasswdMail(request, response, info);
-				responseData = "true";
-				return responseData;
+				Map<String, String> passwdMail = mailService.sendPasswdMail(info);
+				System.out.println("메일 : " + passwdMail);
+				
+				return new Gson().toJson(passwdMail);
 			}
-			return responseData;
+			return new Gson().toJson(null);
+		}
+		
+		@GetMapping("PasswdUpdate")
+		public String PasswdUpdate() {
+			return "member/login/passwd_update";
+		}
+		
+		@GetMapping("resetPasswordProcess")
+		public String resetPasswordProcess(@RequestParam Map<String, String> map, BCryptPasswordEncoder bpe, Model model) {
+			System.out.println("넘어온 것 : " + map );
+			
+			String securedPasswd = bpe.encode(map.get("password"));
+			System.out.println("평문 : " + map.get("password"));
+			System.out.println("암호문 : " + securedPasswd);
+			
+			map.put("password", securedPasswd);
+			
+			int updateCount = memberService.updatePassword(map);
+			if(updateCount > 0) {
+				return "member/login/passwd_update_success";
+			}
+			
+			model.addAttribute("msg", "비밀번호 변경 실패!\n다시 시도해 주세요.");
+			return "result/result";
 		}
 		
 		
 		
 		
 		
-		@GetMapping("testMailJSP")
-		public String testMailJSP() {
-			return "member/mail/mail";
-		}
+		
+		
+		
+		
+		
+		// 메일 발송 페이지 확인용
+//		@GetMapping("testMailJSP")
+//		public String testMailJSP() {
+//			return "member/mail/mail";
+//		}
 	
+		
 }

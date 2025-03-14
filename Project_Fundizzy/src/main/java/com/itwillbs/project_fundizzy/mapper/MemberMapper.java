@@ -42,6 +42,8 @@ public interface MemberMapper {
 //	메서드 추가한사람 : 정세현
 	String selectProfileImg(String email);
 
+	int updatePassword(Map<String, String> map);
+
 
 
 

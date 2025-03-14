@@ -81,13 +81,13 @@
 		            url: "ActionFindPasswd",
 		            data: { email: email },
 		            dataType: "json",
-		            success: function (response) {
-		            	console.log(response);
-		            	console.log("이메일 : " + response.email);
-		                if (!response.exists) {
+		            success: function (result) {
+		                if (result == null) {
 		                    showModal("발송 실패", "입력하신 이메일은 존재하지 않습니다. 다시 확인해주세요.");
 		                } else {
-		                    showModal("발송 완료", "작성하신 이메일로 비밀번호를 등록할 수 있는 링크를 발송했으니 이메일을 확인해주세요.");
+			            	console.log(result);
+			            	console.log("이메일 : " + result.email);
+ 		                    showModal("발송 완료", "작성하신 이메일로 비밀번호를 등록할 수 있는 링크를 발송했으니 이메일을 확인해주세요.");
 		                }
 		            },
 		            error: function () {
@@ -106,6 +106,7 @@
 		    // ✅ 모달창 닫기 이벤트 (확인 버튼 및 X 버튼)
 		    $("#close-modal, #close-modal-x").click(function () {
 		        $("#modal-overlay").fadeOut();
+                $("#email").focus();
 		    });
 		});
 
