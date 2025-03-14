@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -71,40 +72,87 @@
 					프로젝트가 종료된 후에 선정산이 가능해요.
 				</c:when>
 				<c:otherwise>
-					<table>
+					<table class="sumTable">
 						<tr>
 							<th width="40%">프로젝트명</th>
 							<th width="10%">진행률</th>
 							<th width="10%">정산 상태</th>
-							<th width="10%">정산 신청</th>
+							<th width="10%">상세정보</th>
 							<th width="15%">내역서 받기</th>
 						</tr>
 						<tr>
 							<td>[발받침대] 편안함을 선사하는 2단 쿠션 발받침대</td>
 							<td>130%</td>
 							<td>선정산</td>
-							<td><input type="button" class="btnApplication" value="신청"></td>
+							<td><input type="button" class="btnDetail" value="확인"></td>
 							<td><input type="button" class="btnSettlement" value="선정산 내역서">
 							<br><br><input type="button" class="btnSettlement" value="최종정산 내역서"></td>
 						</tr>
 					</table>
-<!-- 					<div class="settlement-detail"> -->
-<!-- 						<h2>선정산 내역서</h2> -->
-<!-- 						<div> -->
-<!-- 							<h3>프로젝트명 (프로젝트 번호 123456)</h3> -->
-<!-- 							<span>[발받침대] 편안함을 선사하는 2단 쿠션 발받침대</span> -->
-<!-- 						</div> -->
-<!-- 						<div> -->
-<!-- 							<h3>선정산 지급액</h3> -->
-<!-- 							<span>600,000원</span><br> -->
-<!-- 							<span>해당 프로젝트의 선정산금이 지급됩니다.</span> -->
-<!-- 						</div> -->
-<!-- 						<div> -->
-<!-- 							<h3>최종 결제완료 금액</h3> -->
-<!-- 							<span>1,000,000원</span><br> -->
-<!-- 							<span>배송료 21,000원 포함</span> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
+					<div class="modal">
+						<div id="pre-modal" class="modal-content">
+							<div class="modal-close">x</div>
+							<div class="modal-main">
+								<h3>상세정보</h3>
+								<div class="table-container">
+									<table class="detailTable">
+										<tr>
+											<th>프로젝트명</th>
+											<td>${projectInfo.project_title}</td>
+										</tr>
+										<tr>
+											<th>대표자명</th>
+											<td>${projectInfo.representative_name}</td>
+										</tr>
+										<tr>
+											<th>이메일</th>
+											<td>${projectInfo.representative_email}</td>
+										</tr>
+									</table>
+									<div class="msg">* 정산된 금액은 페이에 point로 입금됩니다</div>
+									<div class="msg">* 총 결제금액이 백만원 이상일 경우 기본이용료가 부과됩니다</div>
+								</div>
+								<div class="set-container">
+									<c:choose>
+										<c:when test="${projectInfo.settlement_status eq 'SET01' or projectInfo.settlement_status eq 'SET02' or projectInfo.settlement_status eq 'SET03'}">
+											<div class="set-info">
+												<div class="title">선정산 지급액</div>
+												<div class="amount">
+												<!-- 총 결제금액 백만원 이상이면 기본이용료 9만원 차감 -->
+												<c:if test="${totalAmount > 1000000}">
+													<fmt:formatNumber value="${preSettlement.pre_amount - preSettlement.fee - 90000}" pattern="#,###" />원
+												</c:if>
+												<fmt:formatNumber value="${preSettlement.pre_amount - preSettlement.fee}" pattern="#,###" />원
+												</div>
+												<input type="hidden" name="payment_code" class="payment_code">
+											</div>
+											<div class="set-info">
+												<div class="title">총 결제금액</div>
+												<div class="amount"><fmt:formatNumber value="${totalAmount}" pattern="#,###" />원</div>
+											</div>
+											<div class="set-info">
+												<div class="title">수수료</div>
+												<div class="amount"><fmt:formatNumber value="${preSettlement.fee}" pattern="#,###" />원</div>
+												<div class="msg">펀디지 수수료(5%)<c:if test="${totalAmount > 1000000}"> + 기본이용료 90,000원</c:if></div>
+											</div>
+										</c:when>
+									</c:choose>
+<%-- 									<c:choose> --%>
+<%-- 										<c:when test="${}"> --%>
+										
+<%-- 										</c:when> --%>
+<%-- 										<c:otherwise> --%>
+<%-- 										</c:otherwise> --%>
+<%-- 									</c:choose> --%>
+								</div>
+								<div class="btn-container">
+									<input type="submit" value="선정산 신청" class="finBtn">
+									<input type="submit" value="최종정산 신청" class="finBtn">
+			   						<input type="button" value="닫기" class="closeBtn">
+								</div>
+							</div>
+						</div>
+					</div>
 				</c:otherwise>
 			</c:choose>
 			
@@ -113,5 +161,23 @@
 	
 	
 	</div>
+	<script>
+		$(function() {
+			// 새소식 작성하기 버튼 클릭 시 모달창 생성 
+			$(".btnDetail").click(function() {
+				 $(".modal").fadeIn(200);
+				 $(".modal-content").fadeIn(200);
+			});
+			
+	      	// x 버튼 클릭 시 모달창 닫힘
+			$(".modal-close, .closeBtn").click(function() {
+				 $(".modal").fadeOut(200);
+				 $(".modal-content").fadeOut(200, function() {
+					location.reload();
+				});
+			});
+			
+		});   
+	</script>
 </body>
 </html>

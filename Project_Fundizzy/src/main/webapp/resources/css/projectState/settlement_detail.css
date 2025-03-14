@@ -1,24 +1,51 @@
 @charset "UTF-8";
-/* body { */
-/*     font-family: Arial, sans-serif; */
-/* 	display: flex; */
-/* 	margin: 0; */
-/* 	color: #343434; */
-/* } */
-/* .main { */
-/* 	width: 100%; */
-/* } */
-/* .content { */
-/* 	width: 90%; */
-/*     background: white; */
-/*     padding: 20px; */
-/*     margin: auto; */
-/* } */
-/* h1 { */
-/* 	margin: 0; */
-/* 	font-size: 34px; */
-/* 	font-weight: 700; */
-/* } */
+.modal {
+	display: none;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 100%;
+	max-width: 100%;
+	height: 100%;
+	max-height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	border: 2px solid grey;
+	border-radius: 5px;
+	z-index: 1; 
+}
+
+.modal-content {
+	display: none;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: white;
+	width: 370px;
+	height: 550px;
+	padding: 20px;
+	border-radius: 5px;
+	overflow-y: auto;
+}
+
+.modal-close {
+	position: absolute;
+	z-index: 9999;
+	width: 30px;
+	height: 30px;
+	font-size: 20px;
+	text-align: center;
+	top: 10px;
+	right: 10px;
+	cursor: pointer;
+}
+
+.modal-main {
+	
+}
+
+
 .notice {
 	border: 1px solid #ddd;
 	width: 800px;
@@ -84,22 +111,69 @@
 /* 	padding-left: 20px; */
 /* 	margin-left: 20px; */
 /* } */
-table {
+.sumTable {
     width: 800px;
     border-collapse: collapse;
 }
+
 th, td {
 	font-size: 14px;
     border: 1px solid #ddd;
     padding: 7px 10px;
     text-align: center;
 }
-.settlement-detail h2 {
-	
+
+.table-container {
+	margin: 30px 0;
 }
-.settlement-detail h3 {
-	
+
+.detailTable {
+	width: 100%;
+	border-collapse: collapse;
 }
+
+.detailTable th, .detailTable td{
+	text-align: left;
+	width: 25px;
+}
+
+.detailTable th {
+	background-color: #eee;
+}
+
+h3 {
+	text-align: center;
+	font-size: 20px;
+}
+
+.set-info {
+	margin: 20px 0;
+}
+
+.set-info:first-child {
+	border-bottom: 1px solid #ddd;
+	padding-bottom: 15px;
+}
+
+.title {
+	font-size: 14px;
+	padding-bottom: 3px;
+}
+
+.amount {
+	font-size: 18px;
+	font-weight: bolder;
+}
+
+.set-info:first-of-type .amount {
+	color: #dd0000;
+}
+
+.msg {
+	font-size: 12px;
+	color: #a1a1a1;
+}
+
 .settlement-detail > div > span:nth-of-type(1):not(div:nth-of-type(1) > span) {
 	font-size: 16px;
 	font-weight: bold;
@@ -108,7 +182,15 @@ th, td {
 	font-size: 12px;
 	color: #757575;
 }
-.btnApplication {
+
+.btn-container {
+	display: flex;
+	justify-content: flex-end;
+	gap: 5px;
+	padding-top: 20px; 
+}
+
+.btnDetail {
 	background-color: mediumpurple;
 	color: #fff;
 	border: none;
