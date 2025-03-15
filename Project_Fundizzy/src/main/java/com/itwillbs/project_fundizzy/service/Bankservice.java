@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.itwillbs.project_fundizzy.handler.BankApiClient;
 import com.itwillbs.project_fundizzy.handler.BankValueGenerator;
@@ -80,9 +81,9 @@ public class Bankservice {
 	}
 	
 	//페이 충전 후 잔액 계산 
-	public int registPayAmtResult(Map<String, Object> chargeResult,String payBalance, String email) {
+	public int registPayAmtResult(Map<String, Object> chargeResult, FundizzyPay fundizzy_pay, String email) {
 		// TODO Auto-generated method stub
-		return mapper.updatePayAmtResult(chargeResult, payBalance, email);
+		return mapper.updatePayAmtResult(chargeResult, fundizzy_pay, email);
 	}
 
 	
@@ -126,7 +127,7 @@ public class Bankservice {
 	}
 	
 	//db에 입금 결과 저장
-	public void registTransferResult(Map<String, Object> transferResult) {
+	public int registTransferResult(@RequestParam Map<String, Object> map, FundizzyPay fundizzy_pay, Map<String, Object> transferResult) {
 		// TODO Auto-generated method stub
 		transferResult.put("tran_id", BankValueGenerator.getTranId());
 		
@@ -137,7 +138,7 @@ public class Bankservice {
 
 		System.out.println("transferResult : " + transferResult);
 		//DE = 입금 이체 
-		mapper.insertTransferResult(transferResult, "DE");
+		return mapper.insertTransferResult(map, fundizzy_pay, transferResult, "DE");
 	}
 	
 	//페이 정보 가져오기 
@@ -156,7 +157,12 @@ public class Bankservice {
 		// TODO Auto-generated method stub
 		return mapper.selectFundizzyPayLast(email);
 	}
-
+	// 페이 입금 시 잔액 업데이트 
+	public int registPayTransferResult(Map<String, Object> transferResult, FundizzyPay fundizzy_pay, String email) {
+		// TODO Auto-generated method stub
+		return mapper.updatePayTransferResult(transferResult, fundizzy_pay, email);
+	}
+	
 
 	
 

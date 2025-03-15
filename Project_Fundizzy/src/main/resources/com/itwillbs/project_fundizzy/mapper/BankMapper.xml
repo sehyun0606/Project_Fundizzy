@@ -81,11 +81,13 @@
 		FROM bank_transaction_info
 		WHERE bank_tran_id = #{bank_tran_id}
 	</select>
+	
 	<select id="selectDBAccountInfo" resultType="bankAccount">
 		SELECT *
 		FROM bank_account
 		WHERE user_seq_no = #{user_seq_no}
 	</select>
+	
 <!-- 출금결과 저장 -->
 	<insert id="insertChargeResult">
 		INSERT INTO bank_transaction_info 
@@ -143,14 +145,15 @@
 			,#{pay_balance} 
 		)
 	</insert>
+	
 <!-- 	페이 충전 후 잔액 업데이트  -->
 	<update id="updatePayAmtResult">
 		UPDATE fundizzy_pay 
-		SET pay_balance = #{chargeResult.tran_amt} + #{payBalance}
+		SET pay_balance = #{chargeResult.tran_amt} + #{fundizzy_pay.pay_balance}
 		WHERE email = #{email}
-		AND pay_date IN (SELECT MAX(pay_date) FROM (SELECT * FROM fundizzy_pay) AS temp WHERE email = #{email})
-		
+		AND pay_date IN (SELECT MAX(fundizzy_pay.pay_date) FROM (SELECT * FROM fundizzy_pay) AS temp WHERE email = #{email})
 	</update>
+	
 <!-- 	입금 - 이용기관 토큰 조회 -->
 	<select id="selectAdminToken" resultType="bankToken">
 		SELECT *
@@ -170,11 +173,11 @@
 		INSERT INTO fundizzy_pay
 		VALUES(
 			#{transferResult.email}
-			, 0
+			, #{transferResult.tranAmt}
 			, 'DE'
 			, NOW()
 			, #{transferResult.tran_id} 
-			, 0
+			, #{fundizzy_pay.pay_balance} - #{transferResult.tranAmt}
 		)
 	</insert>
 <!-- 	펀디지 페이 정보 가져오기 -->
@@ -188,6 +191,14 @@
 			WHERE email = #{email}
 		)
 	</select>
+	
+<!-- 	입금 후 잔액 업데이트 -->
+	<update id="updatePayTransferResult">
+		UPDATE fundizzy_pay
+		SET pay_balance =  #{fundizzy_pay.pay_balance} - #{map.tran_amt} 
+		WHERE email = #{email}
+		AND pay_date IN (SELECT MAX(fundizzy_pay.pay_date) FROM (SELECT * FROM fundizzy_pay) AS temp WHERE email = #{email})
+	</update>
 	
 <!-- 	펀디지 페이 입출금내역 가져오기  -->
 	<select id="selectFundizzyPay" resultType="fundizzyPay">

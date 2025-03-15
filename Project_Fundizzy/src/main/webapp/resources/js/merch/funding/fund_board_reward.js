@@ -2,7 +2,49 @@
 $(function(){
 //	찜버튼 클릭시 
 	$("#btn-like").click(function(){
-		console.log("like")
+		//클릭이 되었을때 이미 찜한 상태라면 찜 취소
+		if($(this).hasClass("clicked")){
+			$(this).removeClass("clicked")
+	      	let iElement = $(this).find('i');
+			iElement.removeClass("fa-heart");
+			iElement.addClass("fa-heart-o");
+			//테이블에 이름 , 프젝 코드 빼기  
+			$.ajax({
+				type: "POST",
+				url: "FundBoardStoryKeepDelete",
+				data: {
+					email: email,
+					project_code: keep_project_code
+				}
+			}).done(function(result){
+			}).fail(function(){
+		        alert("@찜 등록 중 오류가 발생했습니다. 다시 시도해주세요.");
+				location.reload();
+			})
+			//찜이 처음이라면 찜 되도록 
+	    } else {
+		
+			$(this).addClass("clicked")
+	      	let iElement = $(this).find('i');
+			iElement.removeClass("fa-heart-o");
+			iElement.addClass("fa-heart");
+			
+			//테이블에 이름 , 프젝 코드 넣기 
+			$.ajax({
+				type: "POST",
+				url: "FundBoardStoryKeep",
+				data: {
+					email: email,
+					project_code: keep_project_code
+				}
+			}).done(function(result){
+				alert("상품 찜 등록이 완료되었습니다.");
+			}).fail(function(){
+		        alert("!찜 등록 중 오류가 발생했습니다. 다시 시도해주세요.");
+				location.reload();
+			})
+	    }
+		
 	});
 
 $(document).ready(function(){

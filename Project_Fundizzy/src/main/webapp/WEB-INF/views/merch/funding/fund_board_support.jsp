@@ -22,7 +22,6 @@
 	        <a href="#" class="support">지지서명</a>
 	       	<a href="#" class="supporter">서포터</a>
 	        <a href="#" class="refund">환불·정책</a>
-	        <a href="#" class="reward">리워드정보</a>
 	 	</div>
 	    <hr>
 <!-- 	    지지서명 영역 -->
@@ -84,41 +83,56 @@
 				</c:otherwise>
 			</c:choose>
 	    </div>
-	    <div class="content-right">
+	      <div class="content-right">
             <div class="purchase-section">
-                <h3>[소재혁명] 빈틈없는 편안함! 고온세척&건조 가능한 반영구 통실리콘 베개</h3>
+                <h3>${fundStory.project_title}</h3>
                 <div class="purchase-content">
-                   이렇게 목과 머리를 제대로 잡아주는데, 심지어 스팀 살균, 건조기까지 사용이 가능하다구? 해외에서 각광받는 베개,
-                   22년 침구 기술력을 온전히 담아낸 통실리콘 베개를 소개합니다. 
+                   ${fundStory.project_content}
                 </div>
                 <p><strong>139</strong>명 참여</p>
-                <p><strong>50,000</strong>원 달성</p>
+                <p><strong>${fundStory.progress}</strong>% 달성</p>
                 <div class="btn-group">
-                   <button class="btn-small">♡찜</button>
-                   <button class="btn-small">지지</button>
+	                <input type="hidden" value="${sessionScope.sId }" id="keep_email">
+	                <input type="hidden" value="${param.project_code}" id="keep_project_code">
+	                <input type="hidden" value="${keep.email}" class="keep">
+	                <c:choose>
+	                	<c:when test="${empty keep.email}">
+		                   <button class="btn-small" id="btn-like"><i class="fa fa-heart-o" style="font-size:24px"></i>찜</button>
+	                	</c:when>
+	                	<c:otherwise>
+		                   <button class="btn-small clicked" id="btn-like"><i class="fa fa-heart" style="font-size:24px"></i>찜</button>
+	                	</c:otherwise>
+	                </c:choose>
+                   <button class="btn-small" id="btn-support"><i class='far fa-handshake' style='font-size:24px'></i>지지</button>
                    <button class="purchase-btn">펀딩하기</button>
                 </div>
             </div>
+<!--             회사정보 div -->
             <div class="project-info">
                 <div class="company-info">
-                   <h4>(주)붐코리아</h4><br>
-<!--                    143,242명 팔로우 중 -->
-                   <button class="btn-midium">♡ 팔로우</button>
+                   <h4>${fundStory.business_name}</h4><br>
                 </div>
-                <p>프로젝트 설명</p>
-                   <button class="btn">문의하기</button>
+                <button class="btn">문의하기</button>
             </div>
+            
             <div class="reward-selection">
-                <h3>리워드 선택</h3>
+<!--             리워드 목록 -->
+                <h3>리워드 목록</h3>
                 <div class="reward-list">
-                    <img src="reward1.jpg" alt="리워드 1">
-                    <img src="reward2.jpg" alt="리워드 2">
-                    <img src="reward3.jpg" alt="리워드 3">
-                </div>
-                <div class="btn-group">
-                   <button class="btn-small">♡ 찜</button>
-                   <button class="btn-small">지지</button>
-                   <button class="purchase-btn">펀딩하기</button>
+                	<c:forEach var="reward" items="${reward}">
+	                	<div class="reward">
+		<!--             	해당 프로젝트 코드를 넘기기 위한 hidden 속성 -->
+						   <input type="hidden" id="project_code" name="project_code" value="${reward.project_code}">
+			               <h4><fmt:formatNumber pattern="#,###원 " value="${reward.price}"></fmt:formatNumber></h4>
+			               <p>${reward.product_name}</p>
+			               <p>${reward.product_desc}</p>
+			               <hr>
+			               <p>배송비 ${reward.delivery_fee}</p>
+			               <p>발송 시작일</p>
+			               <p>제한수량 ${reward.product_limit}</p>
+			               <hr>
+			            </div>
+                	</c:forEach>
                 </div>
             </div>
         </div>
@@ -138,7 +152,7 @@
 				<button type="button" class="like" value="like">취향저격</button>
 				<button type="button" class="life" value="life">삶의질급상승</button>
 				<button type="button" class="useful"  value="useful">유용템</button>
-				<button type="button" class="littleMoney"  value="littleMoney">가성비</button>
+				<button type="button" class="littleMoney" value="littleMoney">가성비</button>
 				<button type="button" class="cheerup"  value="cheerup">응원해요</button>
 				<input type="checkbox" class="like-check" name="like" style="display: none;">
 				<input type="checkbox" class="life-check" name="life" style="display: none;">

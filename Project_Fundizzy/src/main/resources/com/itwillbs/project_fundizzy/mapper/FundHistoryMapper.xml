@@ -84,8 +84,6 @@
  		SELECT business_name
  		FROM fund_history
  		WHERE project_code = #{project_code}
- 	
- 	
  	</select>
  	
  	<!-- 배송완료 버튼 클릭 시 상태 변경 -->

@@ -72,8 +72,10 @@ public class FundController {
 	//fund 스토리
 	@GetMapping("FundBoardStory")
 	public String fundBoardStory(HttpSession session, String project_code, Model model) {
+		
 		System.out.println("project_code = " + project_code);
 		String email = (String) session.getAttribute("sId");
+		
 		//펀드 보드 가져오기 
 		Map<String, Object> fundStory = fundService.getFundBoard(project_code);
 		System.out.println("map == " + fundStory); // ok
@@ -125,6 +127,7 @@ public class FundController {
 		System.out.println("map == " + fundStory); // ok
 		model.addAttribute("fundStory", fundStory); //ok
 		
+		// *새소식 리스트 가져오기 
 		List<Map<String, Object>> newsList = fundService.getNews(project_code);
 		System.out.println("뉴스리스트 - " + newsList);
 		model.addAttribute("newsList", newsList); //ok
@@ -138,6 +141,7 @@ public class FundController {
 		Map<String, Object> keep = fundService.getKeep(email,project_code); 
 		model.addAttribute("keep", keep);
 		return "merch/funding/fund_board_new";
+		
 	}
 	
 	
@@ -254,19 +258,60 @@ public class FundController {
 		
 		return jo.toString();
 	}
+	
 	//fund 서포터
 	@GetMapping("FundBoardSupporter")
-	public String fundBoardSupporter(String project_code) {
+	public String fundBoardSupporter(String project_code, HttpSession session, Model model) {
+		
+		String email = (String)session.getAttribute("sId");
+		
+		//펀드 보드 가져오기 
+		Map<String, Object> fundStory = fundService.getFundBoard(project_code);
+		System.out.println("map == " + fundStory); // ok
+		model.addAttribute("fundStory", fundStory); //ok
+		
+		//**서포터 출력을 위한 fund_history 테이블 가져오기
+		List<Map<String, Object>> fund_history = fundService.getFundHistory(project_code);
+		System.out.println("fund history = " + fund_history);
+		model.addAttribute("fund_history", fund_history);
+		
+		//리워드 테이블 가져오기
+		List<Map<String, Object>> reward = fundService.getReward(project_code);
+		System.out.println("map = " + reward);
+		model.addAttribute("reward", reward);
+		
+		//찜테이블 가져오기
+		Map<String, Object> keep = fundService.getKeep(email,project_code); 
+		model.addAttribute("keep", keep);
+		
 		return "merch/funding/fund_board_supporter";
 	}
+	
 	@GetMapping("FundBoardRefund")
-	public String fundBoardRefund(String project_code) {
+	public String fundBoardRefund(String project_code, HttpSession session, Model model) {
+		String email = (String)session.getAttribute("sId");
+		
+		//펀드 보드 가져오기 
+		Map<String, Object> fundStory = fundService.getFundBoard(project_code);
+		System.out.println("map == " + fundStory); // ok
+		model.addAttribute("fundStory", fundStory); //ok
+		
+		//**서포터 출력을 위한 fund_history 테이블 가져오기
+		List<Map<String, Object>> fund_history = fundService.getFundHistory(project_code);
+		System.out.println("fund history = " + fund_history);
+		model.addAttribute("fund_history", fund_history);
+		
+		//리워드 테이블 가져오기
+		List<Map<String, Object>> reward = fundService.getReward(project_code);
+		System.out.println("map = " + reward);
+		model.addAttribute("reward", reward);
+		
+		//찜테이블 가져오기
+		Map<String, Object> keep = fundService.getKeep(email,project_code); 
+		model.addAttribute("keep", keep);
 		return "merch/funding/fund_board_refund";
 	}
-	@GetMapping("FundBoardReward")
-	public String fundBoardReward(String project_code) {
-		return "merch/funding/fund_board_reward";
-	}
+
 	
 	
 	
@@ -285,11 +330,8 @@ public class FundController {
 	public String paymentPay(@RequestParam Map<String, String> map, Model model, HttpSession session) {
 		System.out.println(map);
 		
-		// 이메일 가져오기
-	    String email = (String) session.getAttribute("sId");
-	   
+		String email = (String)session.getAttribute("sId");
 	    //히든값 모델에 저장 후 jsp에 전달
-	    model.addAttribute("total_count", map.get("total_count"));
 	    model.addAttribute("total_price", map.get("total_price"));
 	    
 	    // 리워드정보를 저장할 List 객체
@@ -298,7 +340,7 @@ public class FundController {
 	    // 선택한 리워드 정보조회 후, 선택한 리워드 개수와함께 맵객체에 저장후
 	    // 리스트 객체에 저장
 	    // 리워드 등록가능 개수 5, 선택한 리워드 개수가 랜덤으로 넘어와서 반복문으로 판별
-	    for(int i = 1; i <= 6; i ++) {
+	    for(int i = 1; i < 6; i ++) {
 	    	// 리워드 카운트가 null이 아니고 카운트가 0이 아니면 해당 리워드를 선택
 	    	// 해당 리워드정보 조회후 선택한 개수와 함께 rewardInfoList에 저장
 	    	if(map.get("rewardCount" + i) != null && !map.get("rewardCount" + i).equals("0")) {
@@ -342,20 +384,20 @@ public class FundController {
 		map.put("email", email);
 		map.put("pay_tran_id", UUID.randomUUID().toString());
 		
-		
-		
-		// 1. 결제 정보 저장 성공
 		// 2. 결제내역 input
 		// 3. 배송지 input
 		// 4. 펀딩내역(fund-history) input
 		// 위 작업중 하나라도 실패할경우 다 원위치
 		// service에서 트랜잭션 실행
-//		Boolean isSuccess = fundService.insertForPayment(map);
+		Boolean isSuccess = fundService.insertForPayment(map);
 				
 
+		if(!isSuccess) {
+			model.addAttribute("msg", "결제에 실패하셨습니다. ");
+			return "result/fail";
+		}
 		
-		
-//		//리워드 가져오기 
+//		//리워드 가져오기 - 맵안에 있는거 모델로 넘기기 
 //		 List<RewardVO> rewardList = fundService.getPaymentSelectedReward(project_code, rewardCodes);
 //		System.out.println("pay reward = " + rewardList);
 //		model.addAttribute("reward", rewardList);  // 리워드 데이터

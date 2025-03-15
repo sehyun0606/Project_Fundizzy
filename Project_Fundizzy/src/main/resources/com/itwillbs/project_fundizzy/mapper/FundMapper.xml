@@ -148,7 +148,13 @@
 		WHERE project_code  = "83652PRO01";
 	</select>
   
-  
+<!--   펀딩 내역 테이블 가져오기 -->
+	<select id="selectFundHistory" resultType="map">
+		SELECT *
+		FROM fund_history
+		WHERE project_code = #{project_code}
+		ORDER BY purchase_date DESC
+	</select>
   
 <!--   오른쪽 부분  -->
 <!-- 	리워드 정보 가져오기 -->
