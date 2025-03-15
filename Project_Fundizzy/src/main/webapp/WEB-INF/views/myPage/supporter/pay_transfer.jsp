@@ -8,6 +8,9 @@
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/myPage/supporter/pay_charge.css">
 <body>
 	<jsp:include page="/WEB-INF/views/inc/top.jsp"></jsp:include>
+	<div>
+		<jsp:include page="/WEB-INF/views/inc/profile_side.jsp"></jsp:include>
+	</div>
 	<div class="pay-container">
 		<p>${sessionScope.sId} 님의 페이 보내기</p>
 		<form action="PayTransfer" method="post">

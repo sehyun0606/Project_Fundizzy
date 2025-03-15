@@ -282,21 +282,14 @@ public class FundController {
 	
 	//결제창으로 이동 - post 
 	@PostMapping("PaymentPay")
-	public String paymentPay(@RequestParam("reward_code[]") String[] rewardCodes, int total_count, int total_price, String project_code, Model model, HttpSession session) {
+	public String paymentPay(@RequestParam Map<String, String> map, Model model, HttpSession session) {
 	    
 	    // 이메일 가져오기
 	    String email = (String) session.getAttribute("sId");
 	   
-	    // 히든값 가져오기 
-	    System.out.println("!!!!!!!!!최종 수량: " + total_count);
-	    System.out.println("!!!!!!!!!최종 가격: " + total_price);
-	    
-	    // 받은 reward_code 배열 출력
-	    System.out.println("Received reward_codes: " + Arrays.toString(rewardCodes));
-	    
 	    // 히든값 모델에 저장 후 jsp에 전달
-	    model.addAttribute("total_count", total_count);
-	    model.addAttribute("total_price", total_price);
+//	    model.addAttribute("total_count", total_count);
+//	    model.addAttribute("total_price", total_price);
 	    
 	    // 선택한 리워드 가져오기 
 	    // 서비스에 파람맵이랑 리워드 리스트 같이 넘기기??

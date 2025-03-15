@@ -105,7 +105,7 @@ $(function() {
 		let formattedPrice = totalPrice.toLocaleString('ko-KR');
 		$("#total_price_display").text(`총 금액: ${formattedPrice}`);
 		
-	
+		
 		// 폼 제출
 		$("#pay-form").submit();
 	});

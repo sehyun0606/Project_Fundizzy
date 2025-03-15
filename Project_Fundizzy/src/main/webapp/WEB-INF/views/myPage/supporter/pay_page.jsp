@@ -13,6 +13,9 @@
 	<script src="${pageContext.request.contextPath}/resources/js/mypage/supporter/pay_page.js"></script>
 <body>
 	<jsp:include page="/WEB-INF/views/inc/top.jsp"></jsp:include>
+	<div >
+		<jsp:include page="/WEB-INF/views/inc/profile_side.jsp"></jsp:include>
+	</div>
 	<div class="pay-container">
 		<p>${sessionScope.sId} 님의 페이</p>
 	  <div class="pay-info">

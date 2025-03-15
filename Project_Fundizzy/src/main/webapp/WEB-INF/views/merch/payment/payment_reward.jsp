@@ -31,7 +31,6 @@
 			<form id="pay-form" action="PaymentPay" method="post">
 <!-- 			이메일정보, 리워드코드, 제품수량, 총 가격 -->
 				<input type="hidden" name="member_email" value="${sessionScope.sId}">
-				<input type="hidden" name="reward_code" value="${reward.reward_code}">
    				<input type="hidden" id="total_count" name="total_count" value="">
 				<input type="hidden" id="total_price" name="total_price" value="">
 			    <input type="hidden" id="project_code" name="project_code" value="${param.project_code}">
