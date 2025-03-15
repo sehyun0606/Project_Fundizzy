@@ -36,14 +36,14 @@
 		            <h2>수량 선택</h2>
 		            <c:forEach var="reward" items="${reward}" varStatus="status">
 			            <div class="reward-item">
-			            	<input type="hidden" name="reword${status.count}" class="reward_code" value="${reward.reward_code}">
+			            	<input type="hidden" name="reward${status.count}" class="reward_code" value="${reward.reward_code}">
 			                <span class="price"><fmt:formatNumber pattern="#,###" value="${reward.price}"/></span>
 			                <p class="reward-title">${reward.product_name}</p>
 			                <p class="reward-content">${reward.product_desc}</p>
 	<!-- 		                수량 선택 박스 -->
 			                <div class="ctrl_box">
 								<button type="button" class="minus_btn" disabled>-</button>
-								<input type="text" class="count" name ="rewordCount${status.count}" value="0" size="2" readonly>
+								<input type="text" class="count" name ="rewardCount${status.count}" value="0" size="2" readonly>
 								<button type="button" class="plus_btn">+</button>
 								<input type="hidden" class="rewordPrice" value="${reward.price}">
 							</div>

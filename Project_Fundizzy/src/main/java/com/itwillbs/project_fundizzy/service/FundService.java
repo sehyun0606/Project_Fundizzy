@@ -96,9 +96,9 @@ public class FundService {
 		return mapper.selectPaymentReward(project_code);
 	}
 	//선택한 리워드 가져오기 
-	public List<RewardVO> getPaymentSelectedReward(String project_code, String[] reward_codes) {
+	public RewardVO getPaymentSelectedReward(String project_code, String reward_code) {
 		// TODO Auto-generated method stub
-		return mapper.selectPaymentSelectedReward(project_code, reward_codes);
+		return mapper.selectPaymentSelectedReward(project_code, reward_code);
 	}
 	
 	public Map<String, Object> getPaymentPayMember(String email) {

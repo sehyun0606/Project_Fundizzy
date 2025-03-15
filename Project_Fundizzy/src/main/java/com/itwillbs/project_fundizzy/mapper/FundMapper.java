@@ -56,7 +56,7 @@ public interface FundMapper {
 	List<Map<String, Object>> selectPaymentReward(String project_code);
 	
 	//선택한 리워드 가져오기
-	List<RewardVO> selectPaymentSelectedReward(@Param("project_code") String project_code, @Param("reward_codes") String[] reward_codes);
+	RewardVO selectPaymentSelectedReward(@Param("project_code") String project_code, @Param("reward_code") String reward_code);
 	
 	// 배송을 위한 맴버 가져오기 
 	Map<String, Object> selectPaymentPayMember(String email);

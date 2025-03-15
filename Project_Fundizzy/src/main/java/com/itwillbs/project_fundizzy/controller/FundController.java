@@ -283,6 +283,8 @@ public class FundController {
 	//결제창으로 이동 - post 
 	@PostMapping("PaymentPay")
 	public String paymentPay(@RequestParam Map<String, String> map, Model model, HttpSession session) {
+		System.out.println(map);
+		
 		// 이메일 가져오기
 	    String email = (String) session.getAttribute("sId");
 	   
@@ -291,7 +293,7 @@ public class FundController {
 	    model.addAttribute("total_price", map.get("total_price"));
 	    
 	    // 리워드정보를 저장할 List 객체
-	    List<Map<String, String>> rewardInfoList = new ArrayList<Map<String,String>>();
+	    List<RewardVO> rewardList = new ArrayList<RewardVO>();
 	    
 	    // 선택한 리워드 정보조회 후, 선택한 리워드 개수와함께 맵객체에 저장후
 	    // 리스트 객체에 저장
@@ -299,12 +301,17 @@ public class FundController {
 	    for(int i = 1; i <= 6; i ++) {
 	    	// 리워드 카운트가 null이 아니고 카운트가 0이 아니면 해당 리워드를 선택
 	    	// 해당 리워드정보 조회후 선택한 개수와 함께 rewardInfoList에 저장
-	    	if(map.get("rewordCount" + i) != null && !map.get("rewordCount" + i).equals("0")) {
-	    		
+	    	if(map.get("rewardCount" + i) != null && !map.get("rewardCount" + i).equals("0")) {
+	    		RewardVO reward = fundService.getPaymentSelectedReward(map.get("project_code"), map.get("reward" + i));
+				reward.setProduct_count(Integer.parseInt(map.get("rewardCount" + i)));
+				rewardList.add(reward);
 	    	}
 	    }
 	    
-
+	    // 선택한 리워드 정보와 개수 모델에저장
+	    model.addAttribute("rewardList", rewardList);
+	    System.out.println("rewardList = " + rewardList);
+	    
 	    // 배송을 위한 member 정보 가져오기 
 	    Map<String, Object> member = fundService.getPaymentPayMember(email);
 	    System.out.println("payment member = " + member);

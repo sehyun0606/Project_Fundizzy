@@ -163,11 +163,7 @@
 	    SELECT * 
 	    FROM reward
 	    WHERE project_code = #{project_code}
-	    AND reward_code IN (
-		    <foreach collection="reward_codes" item="reward_code" separator=",">
-		        #{reward_code}
-		    </foreach>
-	    )
+	    AND reward_code = #{reward_code}
 	    ORDER BY reward_code
 	</select>
 
