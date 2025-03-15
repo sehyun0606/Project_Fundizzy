@@ -29,32 +29,29 @@
 			
 <!-- 			배송에 필요한 정보들 hidden값으로 받아와서 pay페이지로 넘기기 -->
 			<form id="pay-form" action="PaymentPay" method="post">
-<!-- 			이메일정보, 리워드코드, 제품수량, 총 가격 -->
-				<input type="hidden" name="member_email" value="${sessionScope.sId}">
-   				<input type="hidden" id="total_count" name="total_count" value="">
-				<input type="hidden" id="total_price" name="total_price" value="">
+				<input type="hidden" id="total_price" name="total_price" value="0">
 			    <input type="hidden" id="project_code" name="project_code" value="${param.project_code}">
 		
 		        <div class="reward-selection-box">
 		            <h2>수량 선택</h2>
-		            <c:forEach var="reward" items="${reward}">
+		            <c:forEach var="reward" items="${reward}" varStatus="status">
 			            <div class="reward-item">
-			            	<input type="hidden" name="sell_price" class="sell_price" value="${reward.price}">
-			            	<input type="hidden" name="rewardCodeString" class="reward_code" value="${reward.reward_code}">
-			                <span class="price"><fmt:formatNumber pattern="#,###" value="${reward.price}"></fmt:formatNumber></span>
-			                <input type="checkbox" id="check_box">
+			            	<input type="hidden" name="reword${status.count}" class="reward_code" value="${reward.reward_code}">
+			                <span class="price"><fmt:formatNumber pattern="#,###" value="${reward.price}"/></span>
 			                <p class="reward-title">${reward.product_name}</p>
 			                <p class="reward-content">${reward.product_desc}</p>
 	<!-- 		                수량 선택 박스 -->
 			                <div class="ctrl_box">
-								<button type="button" class="minus_btn">-</button>
-								<input type="text" class="Count" name ="${reward_code}" value="1" size="2" readonly>
+								<button type="button" class="minus_btn" disabled>-</button>
+								<input type="text" class="count" name ="rewordCount${status.count}" value="0" size="2" readonly>
 								<button type="button" class="plus_btn">+</button>
+								<input type="hidden" class="rewordPrice" value="${reward.price}">
 							</div>
-							<div class="totalPrice"><div> 총금액 :<fmt:formatNumber pattern="#,###" value="${reward.price}"></fmt:formatNumber></div>
+							<div class="reward_price"><div> 상품 누적 금액 :<span class="rewardSumPriceSapn"><fmt:formatNumber pattern="#,###" value="0"/></span></div>
 							</div>
 	           	  		</div>
 		           	 </c:forEach>
+	           	  		<div>총 결제금액 : <span class="totalPriceSapn"><fmt:formatNumber pattern="#,###" >0</fmt:formatNumber></span>원</div>
 <!-- 		            잠시보류 -->
 <!-- 		            <div class="privacy-section"> -->
 <!-- 		                <p>공개여부(선택)</p> -->
@@ -62,7 +59,7 @@
 <!-- 		                <label><input type="checkbox"> 이름 비공개</label> -->
 <!-- 		                <label><input type="checkbox"> 금액 비공개</label> -->
 <!-- 		            </div> -->
-		            <button type="button" id="next-button">다음단계</button>
+		            <button type="submit" id="next-button">다음단계</button>
 <!-- 		    reward-selection-box -->
 		        </div> 
       	 	</form>

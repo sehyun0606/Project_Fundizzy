@@ -283,26 +283,27 @@ public class FundController {
 	//결제창으로 이동 - post 
 	@PostMapping("PaymentPay")
 	public String paymentPay(@RequestParam Map<String, String> map, Model model, HttpSession session) {
-	    
-	    // 이메일 가져오기
+		// 이메일 가져오기
 	    String email = (String) session.getAttribute("sId");
 	   
-	    // 히든값 모델에 저장 후 jsp에 전달
-//	    model.addAttribute("total_count", total_count);
-//	    model.addAttribute("total_price", total_price);
+	    //히든값 모델에 저장 후 jsp에 전달
+	    model.addAttribute("total_count", map.get("total_count"));
+	    model.addAttribute("total_price", map.get("total_price"));
 	    
-	    // 선택한 리워드 가져오기 
-	    // 서비스에 파람맵이랑 리워드 리스트 같이 넘기기??
-//		List<Map<String, String>> rewardList = new ArrayList<Map<String,String>>();
-//		for(String reward_code : paramMap.get("rewardCodeString")) {
-//			
-//			if(paramMap.get(reward_code) != 0) {
-//				Map<String, String> reward  = fundService.getreward(reward_code);
-//				reward.put("productcount", paramMap.get(reward_code));
-//				rewardList.put(reward);
-//				model.addAttribute("reward", reward);
-//			}
-//		}
+	    // 리워드정보를 저장할 List 객체
+	    List<Map<String, String>> rewardInfoList = new ArrayList<Map<String,String>>();
+	    
+	    // 선택한 리워드 정보조회 후, 선택한 리워드 개수와함께 맵객체에 저장후
+	    // 리스트 객체에 저장
+	    // 리워드 등록가능 개수 5, 선택한 리워드 개수가 랜덤으로 넘어와서 반복문으로 판별
+	    for(int i = 1; i <= 6; i ++) {
+	    	// 리워드 카운트가 null이 아니고 카운트가 0이 아니면 해당 리워드를 선택
+	    	// 해당 리워드정보 조회후 선택한 개수와 함께 rewardInfoList에 저장
+	    	if(map.get("rewordCount" + i) != null && !map.get("rewordCount" + i).equals("0")) {
+	    		
+	    	}
+	    }
+	    
 
 	    // 배송을 위한 member 정보 가져오기 
 	    Map<String, Object> member = fundService.getPaymentPayMember(email);
