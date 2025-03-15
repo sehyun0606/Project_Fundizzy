@@ -1,6 +1,8 @@
 package com.itwillbs.project_fundizzy.controller;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.itwillbs.project_fundizzy.service.Bankservice;
 import com.itwillbs.project_fundizzy.service.FundHistoryService;
@@ -296,15 +299,17 @@ public class FundController {
 	    model.addAttribute("total_price", total_price);
 	    
 	    // 선택한 리워드 가져오기 
-	    List<RewardVO> rewardList = fundService.getPaymentSelectedReward(project_code, rewardCodes);
-	    if (!rewardList.isEmpty()) { 
-	        RewardVO selectedReward = rewardList.get(0);  
-	        System.out.println("selectedReward = " + selectedReward);
-	        model.addAttribute("selectedReward", selectedReward);
-	    } else {
-	        model.addAttribute("selectedReward", null);
-	        System.out.println("**리스트가 비어있어요");
-	    }
+	    // 서비스에 파람맵이랑 리워드 리스트 같이 넘기기??
+//		List<Map<String, String>> rewardList = new ArrayList<Map<String,String>>();
+//		for(String reward_code : paramMap.get("rewardCodeString")) {
+//			
+//			if(paramMap.get(reward_code) != 0) {
+//				Map<String, String> reward  = fundService.getreward(reward_code);
+//				reward.put("productcount", paramMap.get(reward_code));
+//				rewardList.put(reward);
+//				model.addAttribute("reward", reward);
+//			}
+//		}
 
 	    // 배송을 위한 member 정보 가져오기 
 	    Map<String, Object> member = fundService.getPaymentPayMember(email);
@@ -336,12 +341,6 @@ public class FundController {
 		map.put("email", email);
 		map.put("pay_tran_id", UUID.randomUUID().toString());
 		
-//		System.out.println("ajax에서 받은 map 과연?? = " + map);
-//		System.out.println("email: " + map.get("email"));
-//		System.out.println("result_balance: " + map.get("result_balance"));
-//		System.out.println("pay_tran_id: " + map.get("pay_tran_id"));  // 추가 확인
-//		System.out.println("total_count: " + map.get("total_count"));  // 주문수량
-//		System.out.println("payment_price: " + map.get("payment_price")); // 최종결제금액 (배송비포함)
 		
 		
 		// 1. 결제 정보 저장 성공
@@ -350,49 +349,10 @@ public class FundController {
 		// 4. 펀딩내역(fund-history) input
 		// 위 작업중 하나라도 실패할경우 다 원위치
 		// service에서 트랜잭션 실행
-		Boolean isSuccess = fundService.insertForPayment(map);
-		
-//		int result = fundService.registPaymentPay(map);
-//		if (result > 0) {
-//		    System.out.println("1번 결제 정보 저장 성공 - registPaymentPay");
-//		} else {
-//		    System.out.println("결제 정보 저장 실패");
-//		}
+//		Boolean isSuccess = fundService.insertForPayment(map);
 				
-		// 2. 결제내역 input
-//		map.put("payment_code", UUID.randomUUID().toString());
-//		int pay_result = fundService.registPayment(map);
-//		if(pay_result > 0) {
-//			System.out.println("*2번 결제내역 payment input 성공 *");
-//		}
-		
-		// 3. 배송지 input
-//		int result_ship = fundService.registShipMent(map);
-//		if(result_ship > 0) {
-//			System.out.println("#3번배송지 input 성공 @");
-//		}
-		
-		// 4. 펀딩내역(fund-history) input 
-		
-//		String projectTitle = projectStoryService.getProject_title((String) map.get("project_code"));
-//		String representativePicture = projectStoryService.getRepresentativePicture((String) map.get("project_code"));
-//	    String productName = rewardService.getproductName((String) map.get("project_code"));
-//	    String rewardCode = rewardService.getrewardCode((String) map.get("project_code"));
-//	    String paymentCode = paymentService.getPaymentCode((String)map.get("project_code"));
-//	    String businessName = projectInfoService.getBusinessName((String) map.get("project_code"));
-	    
-//	    map.put("project_title", projectTitle);// 프로젝트 제목 추가 
-//	    map.put("representative_picture", representativePicture); // 대표사진 추가 - 완료 
-//	    map.put("product_name", productName);// 제품명 추가
-//	    map.put("reward_code", rewardCode);// 리워드코드 추가
-//	    map.put("payment_code", paymentCode);// 결제코드 추가
-//	    map.put("business_name", businessName);// 회사명 추가 
 
-//		System.out.println("@@@MAP" + map);
-//		int resultFundHistory = fundService.registFundHistory(map);
-//		if(resultFundHistory > 0) {
-//			System.out.println("#4번  input 성공 @");
-//		}
+		
 		
 //		//리워드 가져오기 
 //		 List<RewardVO> rewardList = fundService.getPaymentSelectedReward(project_code, rewardCodes);

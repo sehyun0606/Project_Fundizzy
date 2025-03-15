@@ -132,21 +132,22 @@ public class FundService {
 		return mapper.insertShipment(map);
 	}
 	
-	// 결제진행시 인설트 작업 진행
+	// 결제진행시 insert 작업 진행
 	@Transactional
 	public Boolean insertForPayment(Map<String, Object> map) {
-		// 전화번호 형식 변환
+		// 전화번호 형식 변환(- 제거)
+		map.put("phone_num", ((String)map.get("phone_num")).replace("-", ""));
 		
 		// 1. 결제 정보 저장 성공
 		int result1 = mapper.insertPaymentPay(map);
 		
 		// 2. 결제내역 input
 		int result2 = mapper.insertPayment(map);
-//		
+		
 		// 3. 배송지 input
 		int result3 = mapper.insertShipment(map);
-//		
-//		// 4. 펀딩내역(fund-history) input
+		
+		// 4. 펀딩내역(fund-history) input
 //		int result4 = mapper.insertFundHistory(map);
 		
 		return true;

@@ -60,51 +60,54 @@ $(function() {
     }
 
 	$("#next-button").on("click", function() {
-    let totalCount = 0;
-    let totalPrice = 0;
-
-
+		
+	    let totalCount = 0;
+	    let totalPrice = 0;
 	
-    // 기존에 추가된 input 요소 삭제 (중복 방지)
-    $("#pay-form").find(".dynamic-input").remove();	
-
-	$(".reward-item").each(function() {
-	    if ($(this).find("input[type='checkbox']").is(":checked")) {
-	        let rewardCode = $(this).find(".reward_code").val(); // 리워드 코드 가져오기
-	        let pricePerItem = parseInt($(this).find(".sell_price").val()); // 1개당 가격
-	        let itemCount = parseInt($(this).find(".totalCount").val()); // 선택된 수량
 	
-	        // 전체 수량 & 가격 계산
-	        totalCount += itemCount;
-	        totalPrice += itemCount * pricePerItem;
+		
+	    // 기존에 추가된 input 요소 삭제 (중복 방지)
+	    $("#pay-form").find(".dynamic-input").remove();	
 	
-	        // 체크된 상품만 pay-form 안에 추가
-	        let hiddenInputs = `
-	            <input type="hidden" class="dynamic-input" name="reward_code[]" value="${rewardCode}">
-	            <input type="hidden" class="dynamic-input" name="item_count_${rewardCode}" value="${itemCount}">
-	            <input type="hidden" class="dynamic-input" name="item_price_${rewardCode}" value="${pricePerItem}">
-	        `;
-	        $("#pay-form").append(hiddenInputs);
-	    }
+		$(".reward-item").each(function() {
+		    if ($(this).find("input[type='checkbox']").is(":checked")) {
+		        let rewardCode = $(this).find(".reward_code").val(); // 리워드 코드 가져오기
+		        let pricePerItem = parseInt($(this).find(".sell_price").val()); // 1개당 가격
+		        let itemCount = parseInt($(this).find(".totalCount").val()); // 선택된 수량
+		
+		        // 전체 수량 & 가격 계산
+		        totalCount += itemCount;
+		        totalPrice += itemCount * pricePerItem;
+		
+		        // 체크된 상품만 pay-form 안에 추가
+		        let hiddenInputs = `
+		            <input type="hidden" class="dynamic-input" name="reward_code[]" value="${rewardCode}">
+		            <input type="hidden" class="dynamic-input" name="item_count_${rewardCode}" value="${itemCount}">
+		            <input type="hidden" class="dynamic-input" name="item_price_${rewardCode}" value="${pricePerItem}">
+		        `;
+		        $("#pay-form").append(hiddenInputs);
+		    }
+		});
+	
+		
+		// 최종 수량 & 금액 업데이트
+		$("#total_count").val(Count);
+		$("#total_price").val(totalPrice);
+		
+		// 최소 한개 이상의 리워드 선택 여부 체크
+		if (totalCount == 0) {
+		    alert("최소 한개 이상의 리워드를 선택해 주세요.");
+		    location.reload();
+			return;
+		}
+		
+		// 금액 표시 (천 단위 콤마)
+		let formattedPrice = totalPrice.toLocaleString('ko-KR');
+		$("#total_price_display").text(`총 금액: ${formattedPrice}`);
+		
+	
+		// 폼 제출
+		$("#pay-form").submit();
 	});
-
-	// 최소 한개 이상의 리워드 선택 여부 체크
-	if (totalCount == 0) {
-	    alert("최소 한개 이상의 리워드를 선택해 주세요.");
-	    location.reload(); 
-	}
-	
-	// 최종 수량 & 금액 업데이트
-	$("#total_count").val(totalCount);
-	$("#total_price").val(totalPrice);
-	
-	// 금액 표시 (천 단위 콤마)
-	let formattedPrice = totalPrice.toLocaleString('ko-KR');
-	$("#total_price_display").text(`총 금액: ${formattedPrice}`);
-	
-	// 폼 제출
-	$("#pay-form").submit();
-	});
-
 });
 

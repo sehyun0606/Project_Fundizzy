@@ -303,16 +303,30 @@
   				FROM project_list
   				WHERE project_code = #{project_code}
   			)
-  			,#{representative_picture} 
+  			, (
+  				SELECT representative_picture
+  				FROM project_list
+  				WHERE project_code = #{project_code}
+  			)
   			,#{product_name}
-  			,"N"
+  			,(
+  				SELECT business_name
+  				FROM project_info
+  				WHERE project_code = #{project_code}
+  			)
   			,#{payment_price} 
   			,"SHI01"
   			,"N" 
   			,#{reward_code} 
   			,NOW() 
   			,#{total_count} 
-  			,#{payment_code} 
+  			, (
+  				SELECT payment_code
+  				FROM payment
+  				WHERE email = #{email}
+  				ORDER BY payment_complete_date DESC
+  				limit 1
+  			)
   		)
   	</insert>
 

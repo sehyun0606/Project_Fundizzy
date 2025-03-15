@@ -30,6 +30,7 @@ $(document).ready(function () {
 		$("#ship-newName").val($(this).val());
 	});
 	
+	
 });
 
 

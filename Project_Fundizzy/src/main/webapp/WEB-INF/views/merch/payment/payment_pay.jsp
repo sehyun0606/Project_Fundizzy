@@ -43,7 +43,14 @@
 				<input type="hidden" id="reward_code"  name="reward_code" value="${reward_code}"> 
 				<input type="hidden" id="product_name"  name="product_name" value="${selectedReward.product_name}"> 
 				<input type="hidden" id="product_desc"  name="product_desc" value="${selectedReward.product_desc}"> 
+<!-- 				전체 수량 -->
 				<input type="hidden" id="total_count" name="total_count" value="${total_count}"> 
+<!-- 				리워드 별 수량 -->
+				<input type="hidden" id="" value="" name="">
+				<input type="hidden" id="rewardList" value="${rewardList}" name="rewardList">
+
+<!-- 				리워드 스트링  -->
+				<input type="hidden" id="reward_string" name="reward_string" value="${reward_string}">
 				<input type="hidden" id="reward_price" value="${selectedReward.price}">
 				<input type="hidden" id="payment_price" name="payment_price" value="${total_price + selectedReward.delivery_fee}">
 				<input type="hidden" id="db_post_code" value="${member.post_code}"><br>
@@ -51,15 +58,14 @@
 				<input type="hidden" id="db_address2" value="${member.address2}">
 				<input type="hidden" id="db_phone" value="${member.phone}">
 				
+				
 <!-- 			</form> -->
 		       <div class="section-product">
-	<!-- 	       완료 -->
 		            <h3>${selectedReward.product_name}</h3>
 		            <p>${selectedReward.product_desc}</p>
 		            <p>수량: ${total_count}개<br><span id="total_price" class="totalPrice"><fmt:formatNumber pattern="#,###원" value="${total_price}"></fmt:formatNumber></span></p>
 		        </div>
 		        <div class="section-price">
-	<!-- 	        완료 -->
 		            <h4>결제 금액</h4>
 		            <p>리워드 금액 <span class="total_price"><fmt:formatNumber pattern="#,###원" value="${total_price}"></fmt:formatNumber></span></p>
 		            <p>배송비 <span class="price">${selectedReward.delivery_fee}원</span></p>
@@ -67,14 +73,12 @@
 		        </div>
 		        <div class="support-ship">
 			        <div class="section-supporter">
-	<!-- 		        완료 -->
 			            <h4>서포터</h4>
 			            <p>닉네임 ${member.nickname}</p>
 			            <p>휴대폰 ${member.phone}</p>
 			            <p>이메일 ${member.email}</p> 
 			        </div>
 			        <div class="section-shipment">
-	<!-- 		        완료 -->
 			            <h4>리워드 배송지</h4>
 			            <span class="notice">* 회원정보를 기반으로 생성한 배송지 입니다.</span><br>
 			            <div id="div_address">
