@@ -37,6 +37,7 @@
 		SELECT *
 		FROM reward 
 		WHERE project_code = #{project_code}
+		AND reward_code = #{reward_code}
 	</select>
 	
 <!-- 	프로젝트 board 출력 - 찜 테이블 가져오기  -->

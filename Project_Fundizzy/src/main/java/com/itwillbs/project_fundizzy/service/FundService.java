@@ -153,6 +153,11 @@ public class FundService {
 		return true;
 	}
 
+	public Map<String, String> getreward(String reward_code) {
+		// TODO Auto-generated method stub
+		return (Map<String, String>) mapper.selectReward(reward_code);
+	}
+
 
 
 	//결제한 리워드 코드의 제품들 가져오기 
