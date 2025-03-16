@@ -30,7 +30,6 @@ body {
     justify-content: center;
     gap: 10px;
     margin-top: 22px;
-    margin-bottom: 20px;
 }
 
 .step {
@@ -201,10 +200,11 @@ h3, h4 {
     margin: 10px 0;
 }
 
-.price, .total_price{
+.price, .total_price, .product_price{
     float: right;
     font-weight: bold;
 }
+
 
 #total_price, #total_price_delivery{
     float: right;

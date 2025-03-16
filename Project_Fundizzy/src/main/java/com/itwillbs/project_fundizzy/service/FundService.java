@@ -114,76 +114,77 @@ public class FundService {
 	
 	
 	
-	//페이로 결제한 내역 계산 
-	public int registPaymentPay(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return mapper.insertPaymentPay(map);
-	}
-	
-	//펀딩내역 input 
-	public int registFundHistory(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return mapper.insertFundHistory(map);
-	}
-	//결제내역(payment테이블) input 
-	public int registPayment(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return mapper.insertPayment(map);
-	}
-	
-	
-	//배송내역(shipment테이블) input 
-	public int registShipMent(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return mapper.insertShipment(map);
-	}
+//	//페이로 결제한 내역 계산 
+//	public int registPaymentPay(Map<String, Object> map) {
+//		// TODO Auto-generated method stub
+//		return mapper.insertPaymentPay(map);
+//	}
+//	
+//	//펀딩내역 input 
+//	public int registFundHistory(Map<String, Object> map, Map<String, Object> paramMap) {
+//		// TODO Auto-generated method stub
+//		return mapper.insertFundHistory(map, paramMap);
+//	}
+//	//결제내역(payment테이블) input 
+//	public int registPayment(Map<String, Object> map) {
+//		// TODO Auto-generated method stub
+//		return mapper.insertPayment(map);
+//	}
+//	
+//	
+//	//배송내역(shipment테이블) input 
+//	public int registShipMent(Map<String, Object> map) {
+//		// TODO Auto-generated method stub
+//		return mapper.insertShipment(map);
+//	}
 	
 	// 결제진행시 insert 작업 진행
-	@Transactional
-	public Boolean insertForPayment(Map<String, Object> map) {
+//	@Transactional
+	public Boolean insertForPayment(Map<String, Object> map, Map<String, Object> paramMap) {
 		// 전화번호 형식 변환(- 제거)
 		map.put("phone_num", ((String)map.get("phone_num")).replace("-", ""));
 		
 		// 1. 결제 정보 저장 성공
-		int result1 = mapper.insertPaymentPay(map);
-		
-		// 2. 결제내역 input
+		// 1단계 - 결제 작업
+		int result1 = mapper.insertPayment(map);
+		if(result1 > 0) {
+		    System.out.println("1단계 성공");
+		}else {
+		    System.out.println("1단계 실패");
+		}
+
+		// 2단계 - 결제 완료 후 내역 insert
 		int result2 = mapper.insertPayment(map);
-		
-		// 3. 배송지 input
+		if(result2 > 0) {
+		    System.out.println("2단계 성공");
+		}else {
+		    System.out.println("2단계 실패");
+		}
+
+		// 3단계 - 배송지 입력
 		int result3 = mapper.insertShipment(map);
-		
-		// 4. 펀딩내역(fund-history) input
-//		int result4 = mapper.insertFundHistory(map);
-//		if(result1 + result2 + result3 + result4 < result4 ) {
-//			return false;
-//		}
-		
+		if(result3 > 0) {
+		    System.out.println("3단계 성공");
+		}else {
+		    System.out.println("3단계 실패");
+		}
+
+		// 4단계 - 펀딩내역(fund-history) 입력
+		int result4 = mapper.insertFundHistory(map, paramMap);
+		if(result4 > 0) {
+		    System.out.println("4단계 성공");
+		}else {
+		    System.out.println("4단계 실패");
+		}
+
+		// 총합을 체크하여 모든 단계가 성공했는지 확인
+		if(result1 <= 0 || result2 <= 0 || result3 <= 0 || result4 <= 0) {
+		    // 하나라도 실패한 경우
+		    System.out.println("어떤 단계에서 실패했습니다.");
+		    return false;  
+		}
 		return true;
 	}
-//리워드 테이블 가져오기
-	public Map<String, String> getreward(String reward_code) {
-		// TODO Auto-generated method stub
-		return (Map<String, String>) mapper.selectReward(reward_code);
-	}
 
-
-
-
-	//결제한 리워드 코드의 제품들 가져오기 
-//	public List<Map<String, Object>> getPaymentSelectedReward(String project_code, String[] reward_codes) {
-//		// TODO Auto-generated method stub
-//		return mapper.selectPaymentSelectedReward(project_code, reward_codes);
-//	}
-
-
-
-
-
-
-
-	
-	
-	
 
 }

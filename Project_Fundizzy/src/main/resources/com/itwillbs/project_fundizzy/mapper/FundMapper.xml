@@ -37,7 +37,6 @@
 		SELECT *
 		FROM reward 
 		WHERE project_code = #{project_code}
-		AND reward_code = #{reward_code}
 	</select>
 	
 <!-- 	프로젝트 board 출력 - 찜 테이블 가져오기  -->
@@ -45,7 +44,6 @@
 		SELECT *
 		FROM keep 
 		WHERE project_code = #{project_code}
-		AND email = #{email}
 	</select>
 	
 <!-- 	찜 등록 -->
@@ -196,8 +194,7 @@
 			,pay_date
 			,pay_tran_id
 			,pay_balance
-		)
-		VALUES(
+		)VALUES(
 			#{email}
 			,#{payment_price}
 			,'PA'
@@ -224,7 +221,6 @@
 			, payment_request_date
 			, payment_complete_date
 			, participation_status
-	
 		) VALUES (
 			#{idx} + 1 
 			, #{common_code}
@@ -257,7 +253,6 @@
 			,post_code
 			,delivery_req
 			,extra_address
-			
 		)VALUES (
 			#{idx} + 1
 			,"SHI01"
@@ -271,67 +266,96 @@
 			,#{post_code}
 			,#{delivery_req}
 			,#{extra_address}
-		
 		)
 	</insert>
 	
 <!--   	펀딩내역 insert -->
-  	<insert id="insertFundHistory">
-  		<selectKey keyProperty="fund_idx" order="BEFORE" resultType="int">
-  			SELECT IFNULL(MAX(fund_idx),0)
-			FROM fund_history
-  		</selectKey>
-  		INSERT INTO fund_history
-  		(
-  			fund_idx
-  			,project_code
-  			,member_email
-  			,project_title
-  			,representative_picture
-  			,product_name
-  			,business_name
-  			,result_point
-  			,send_stat
-  			,refund_stat
-  			,reward_code
-  			,purchase_date
-  			,product_count
-  			,payment_code
-  		)VALUES(
-  			#{fund_idx} + 1
-  			,#{project_code} 
-  			,#{email}
-  			, (
-  				SELECT project_title
-  				FROM project_list
-  				WHERE project_code = #{project_code}
-  			)
-  			, (
-  				SELECT representative_picture
-  				FROM project_list
-  				WHERE project_code = #{project_code}
-  			)
-  			,#{product_name}
-  			,(
-  				SELECT business_name
-  				FROM project_info
-  				WHERE project_code = #{project_code}
-  			)
-  			,#{payment_price} 
-  			,"SHI01"
-  			,"N" 
-  			,#{reward_code} 
-  			,NOW() 
-  			,#{total_count} 
-  			, (
-  				SELECT payment_code
-  				FROM payment
-  				WHERE email = #{email}
-  				ORDER BY payment_complete_date DESC
-  				limit 1
-  			)
-  		)
-  	</insert>
+<insert id="insertFundHistory" parameterType="map">
+    <selectKey keyProperty="fund_idx" order="BEFORE" resultType="int">
+        SELECT IFNULL(MAX(fund_idx), 0) FROM fund_history
+    </selectKey>
+
+    <!-- foreach 사용해서 reward_codes 리스트에 있는 모든 리워드 코드에 대해 INSERT -->
+    <foreach collection="reward_codes" item="reward_code" index="index" separator=";">
+        INSERT INTO fund_history (
+            fund_idx, project_code, member_email, project_title, representative_picture, product_name,
+            business_name, result_point, send_stat, refund_stat, reward_code, purchase_date, 
+            product_count, payment_code
+        ) VALUES (
+            #{fund_idx} + 1, <!-- fund_idx가 중복되지 않도록 처리 -->
+            #{project_code},
+            #{email},
+            (SELECT project_title FROM project_list WHERE project_code = #{project_code}),
+            (SELECT representative_picture FROM project_list WHERE project_code = #{project_code}),
+            #{product_name},
+            (SELECT business_name FROM project_info WHERE project_code = #{project_code}),
+            #{payment_price},
+            'SHI01',
+            'N',
+            #{reward_code},  <!-- 각각의 reward_code 값 삽입 -->
+            NOW(),
+            #{total_count},
+            (SELECT payment_code FROM payment WHERE billing_email = #{email} ORDER BY payment_complete_date DESC LIMIT 1)
+        )
+    </foreach>
+</insert>
+
+<!--   	<insert id="insertFundHistory"> -->
+<!--   		<selectKey keyProperty="fund_idx" order="BEFORE" resultType="int"> -->
+<!--   			SELECT IFNULL(MAX(fund_idx),0) -->
+<!-- 			FROM fund_history -->
+<!--   		</selectKey> -->
+<!--   		INSERT INTO fund_history -->
+<!--   		( -->
+<!--   			fund_idx -->
+<!--   			,project_code -->
+<!--   			,member_email -->
+<!--   			,project_title -->
+<!--   			,representative_picture -->
+<!--   			,product_name -->
+<!--   			,business_name -->
+<!--   			,result_point -->
+<!--   			,send_stat -->
+<!--   			,refund_stat -->
+<!--   			,reward_code -->
+<!--   			,purchase_date -->
+<!--   			,product_count -->
+<!--   			,payment_code -->
+<!--   		)VALUES( -->
+<!--   			#{fund_idx} + 1 -->
+<!--   			,#{project_code}  -->
+<!--   			,#{email} -->
+<!--   			, ( -->
+<!--   				SELECT project_title -->
+<!--   				FROM project_list -->
+<!--   				WHERE project_code = #{project_code} -->
+<!--   			) -->
+<!--   			, ( -->
+<!--   				SELECT representative_picture -->
+<!--   				FROM project_list -->
+<!--   				WHERE project_code = #{project_code} -->
+<!--   			) -->
+<!--   			,#{product_name} -->
+<!--   			,( -->
+<!--   				SELECT business_name -->
+<!--   				FROM project_info -->
+<!--   				WHERE project_code = #{project_code} -->
+<!--   			) -->
+<!--   			,#{payment_price}  -->
+<!--   			,'SHI01' -->
+<!--   			,'N' -->
+<!--   			,#{reward_code}  -->
+<!--   			,NOW()  -->
+<!--   			,#{total_count}  -->
+<!--   			, ( -->
+<!--   				SELECT payment_code -->
+<!--   				FROM payment -->
+<!--   				WHERE billing_email = #{email} -->
+<!--   				ORDER BY payment_complete_date DESC -->
+<!--   				limit 1 -->
+<!--   			) -->
+<!--   		) -->
+<!--   	</insert> -->
 
 	
 

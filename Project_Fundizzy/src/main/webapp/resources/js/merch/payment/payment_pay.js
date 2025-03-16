@@ -30,6 +30,31 @@ $(document).ready(function () {
 		$("#ship-newName").val($(this).val());
 	});
 	
+   $("#PaymentComplete").on("click", function(event) {
+        event.preventDefault(); // 폼 제출 방지
+
+        let pay_amt = $("#pay_amt").text().replace(/[^0-9-]/g, ""); // 음수도 포함
+        pay_amt = parseInt(pay_amt, 10);
+        
+        let total_price_delivery = $("#total_price_delivery").text().replace(/[^0-9]/g, ""); 
+        total_price_delivery = parseInt(total_price_delivery, 10); 
+
+        // 숫자 변환 오류 방지
+        if (isNaN(pay_amt)) pay_amt = 0;
+        if (isNaN(total_price_delivery)) total_price_delivery = 0;
+
+        alert("페이 잔액 = " + pay_amt);
+        alert("총 결제 금액 = " + total_price_delivery);
+
+        // 음수이거나 부족할 경우 결제 불가
+        if (pay_amt < total_price_delivery || pay_amt < 0) {
+            alert("페이 잔액 부족으로 인해 결제가 불가능합니다.\n페이 충전 후 다시 시도해 주세요.");
+            return false; // 결제 진행 중단
+        }
+
+        // 결제 가능하면 폼 제출
+        $("#complete-form").submit();
+    });
 	
 });
 

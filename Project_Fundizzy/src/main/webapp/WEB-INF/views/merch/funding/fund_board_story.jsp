@@ -163,7 +163,7 @@
                 <p><strong>139</strong>명 참여</p>
                 <p><strong>${fundStory.progress}</strong>% 달성</p>
                 <div class="btn-group">
-	                <input type="hidden" value="${sessionScope.sId }" id="keep_email">
+	                <input type="hidden" value="${sessionScope.sId}" id="keep_email">
 	                <input type="hidden" value="${param.project_code}" id="keep_project_code">
 	                <input type="hidden" value="${keep.email}" class="keep">
 	                 <c:choose>
@@ -193,7 +193,7 @@
                 	<c:forEach var="reward" items="${reward}">
 	                	<div class="reward">
 		<!--             	해당 프로젝트 코드를 넘기기 위한 hidden 속성 -->
-						   <input type="hidden" id="project_code" name="project_code" value="${reward.project_code}">
+						   <input type="hidden" id="project_code" name="project_code" value="${param.project_code}">
 			               <h4><fmt:formatNumber pattern="#,###원 " value="${reward.price}"></fmt:formatNumber></h4>
 			               <p>${reward.product_name}</p>
 			               <p>${reward.product_desc}</p>

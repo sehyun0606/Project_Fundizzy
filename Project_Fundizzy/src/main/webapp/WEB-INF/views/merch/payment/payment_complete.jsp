@@ -26,9 +26,11 @@
 	        <div class="payment-complete">
 	           <h3>결제가 완료되었습니다.</h3>
       	       	<div class="section-product">
-		            <h4>${rewardList.product_name}</h4>
-		            <p>${rewardList.product_desc}</p>
-		            <p>수량: ${map.total_count}개<br><span id="total_price" class="totalPrice"><fmt:formatNumber pattern="#,###원" value="${map.total_price}"></fmt:formatNumber></span></p>
+		        	 <c:forEach var="paramMap" items="${paramMap}">
+			            <h3>${paramMap.product_name}</h3>
+			            <p>${paramMap.product_desc}</p>
+			            <p>수량: ${paramMap.product_count}개<br><span id="product_price" class="product_price"><fmt:formatNumber pattern="#,###원" value="${rewardList.price}"></fmt:formatNumber></span></p>
+	       			</c:forEach>: ${paramMap.total_count}개<br><span id="total_price" class="totalPrice"><fmt:formatNumber pattern="#,###원" value="${map.total_price}"></fmt:formatNumber></span>
 	        	</div>
        	        <div class="section-price">
 		            <h4>결제 금액</h4>
@@ -38,7 +40,7 @@
 	        	</div>
 	        	<div class="two-button">
 		           <button onclick="location.href='http://localhost:8081/'">홈으로</button>
-			           <button>마이페이지</button>
+			           <button onclick="location.href='http://localhost:8081/SupporterPage'">마이페이지</button>
 	        	</div>
 	        </div>
 	    </div>

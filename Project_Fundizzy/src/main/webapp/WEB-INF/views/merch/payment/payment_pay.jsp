@@ -28,7 +28,7 @@
 	</header>
 	<article>
 		 <div class="container">
-			<button class="back">&lt; 스토리로 돌아가기</button>
+			<button class="back" onclick="location.href='PaymentReward?project_code=${param.project_code}'">&lt; 스토리로 돌아가기</button>
 			<div class="reward-step">
 		        <div class="step">리워드 선택</div>
 		        <span class="arrow">→</span>
@@ -48,7 +48,6 @@
 <!-- 				리워드 별 수량 -->
 				<input type="hidden" id="" value="" name="">
 				<input type="hidden" id="rewardList" value="${rewardList}" name="rewardList">
-
 <!-- 				리워드 스트링  -->
 				<input type="hidden" id="reward_string" name="reward_string" value="${reward_string}">
 				<input type="hidden" id="reward_price" value="${selectedReward.price}">
@@ -59,16 +58,17 @@
 				<input type="hidden" id="db_phone" value="${member.phone}">
 				
 				
-<!-- 			</form> -->
 		       <div class="section-product">
-		            <h3>${selectedReward.product_name}</h3>
-		            <p>${selectedReward.product_desc}</p>
-		            <p>수량: ${total_count}개<br><span id="total_price" class="totalPrice"><fmt:formatNumber pattern="#,###원" value="${total_price}"></fmt:formatNumber></span></p>
+	       			<c:forEach var="rewardList" items="${rewardList}">
+			            <h3>${rewardList.product_name}</h3>
+			            <p>${rewardList.product_desc}</p>
+			            <p>수량: ${rewardList.product_count}개<br><span id="product_price" class="product_price"><fmt:formatNumber pattern="#,###원" value="${rewardList.price}"></fmt:formatNumber></span></p>
+	       			</c:forEach>
 		        </div>
 		        <div class="section-price">
 		            <h4>결제 금액</h4>
 		            <p>리워드 금액 <span class="total_price"><fmt:formatNumber pattern="#,###원" value="${total_price}"></fmt:formatNumber></span></p>
-		            <p>배송비 <span class="price">${selectedReward.delivery_fee}원</span></p>
+		            <p>배송비 <span class="price">${delivery_fee}원</span></p>
 		            <p class="total">총 결제 금액 <span id="total_price_delivery"><fmt:formatNumber pattern="#,###원" value="${total_price + selectedReward.delivery_fee}"></fmt:formatNumber></span></p>
 		        </div>
 		        <div class="support-ship">

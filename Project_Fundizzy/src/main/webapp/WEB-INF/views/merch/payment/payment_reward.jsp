@@ -18,7 +18,7 @@
 	</header>
 	<article>
 		 <div class="container">
-			<button class="back" onclick="location.href='FundBoardStory'">&lt; 스토리로 돌아가기</button>
+			<button class="back" onclick="location.href='FundBoardStory?project_code=${param.project_code}'">&lt; 스토리로 돌아가기</button>
 			<div class="reward-step">
 		        <div class="step-here">리워드 선택</div>
 		        <span class="arrow">→</span>

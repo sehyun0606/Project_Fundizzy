@@ -83,7 +83,7 @@ public class FundController {
 		
 		//리워드 테이블 가져오기
 		List<Map<String, Object>> reward = fundService.getReward(project_code);
-		System.out.println("map = " + reward);
+		System.out.println("reward = " + reward);
 		model.addAttribute("reward", reward);
 		
 		//찜테이블 가져오기
@@ -96,7 +96,9 @@ public class FundController {
 	//찜 등록
 	@PostMapping("FundBoardStoryKeep")
 	@ResponseBody
-	public String fundBoardStoryKeep(String email, String project_code) {
+	public String fundBoardStoryKeep(String project_code, HttpSession session) {
+		String email = (String) session.getAttribute("sId");
+		System.out.println("email = " + email);
 		int keep = fundService.registKeep(email, project_code);
 		
 		//값이 없을 경우
@@ -315,7 +317,7 @@ public class FundController {
 	
 	
 	
-//----------------------------------------------오른쪽 결제창 관련 -----------------------------------------------------------------------------------
+//----------------------------------------------오른쪽 결제 관련 -----------------------------------------------------------------------------------
 	//리워드 선택 - get 
 	@GetMapping("PaymentReward")
 	public String paymentReward(String project_code, Model model) {
@@ -372,39 +374,46 @@ public class FundController {
 		return "merch/payment/payment_pay";
 	}
 	
-	//결제완료 창으로 이동
 	@PostMapping("PaymentComplete")
-	public String paymentComplete(@RequestParam Map<String, Object> map, HttpSession session ,Model model, String project_code,  @RequestParam(value = "reward_code", required = false) String[] rewardCodes) {
-		System.out.println("필요한거 : " + map);
-		
-		String email = (String) session.getAttribute("sId");
-		System.out.println("* project_code = " + project_code);
-		
-		//1 페이로 결제한 내역 계산 후 pay table에 insert 작업 
-		map.put("email", email);
-		map.put("pay_tran_id", UUID.randomUUID().toString());
-		
-		// 2. 결제내역 input
-		// 3. 배송지 input
-		// 4. 펀딩내역(fund-history) input
-		// 위 작업중 하나라도 실패할경우 다 원위치
-		// service에서 트랜잭션 실행
-		Boolean isSuccess = fundService.insertForPayment(map);
-				
+	public String paymentComplete(@RequestParam Map<String, Object> map, HttpSession session ,Model model, 
+	                               String project_code, @RequestParam(value = "reward_code", required = false) String[] rewardCodes) {
+	    System.out.println("필요한거 : " + map);
+	    
+	    String email = (String) session.getAttribute("sId");
+	    System.out.println("* project_code = " + project_code);
+	    
+	    // 1 페이로 결제한 내역 계산 후 pay table에 insert 작업 
+	    map.put("email", email);
+	    map.put("pay_tran_id", UUID.randomUUID().toString());
+	    
+	    // 2. 결제내역 input
+	    // 3. 배송지 input
+	    // 4. 펀딩내역(fund-history) input
+	    // 위 작업중 하나라도 실패할경우 다 원위치
+	    // service에서 트랜잭션 실행
+	    
+	    // 리워드 코드가 있을 경우, 리워드 코드 리스트로 변환하여 파라미터 전달
+	    if (rewardCodes != null && rewardCodes.length > 0) {
+	    	// 리워드 코드 배열을 리스트로 변환
+	        List<String> rewardCodesList = Arrays.asList(rewardCodes); 
+	        
+	        Map<String, Object> paramMap = new HashMap<>();
+	        paramMap.put("project_code", project_code);
+	        paramMap.put("email", email);
+	        paramMap.put("product_name", "상품1");
+	        paramMap.put("payment_price", 300000); 
+	        paramMap.put("total_count", rewardCodes.length); // 리워드 코드 개수
+	        paramMap.put("reward_codes", rewardCodesList); 
 
-		if(!isSuccess) {
-			model.addAttribute("msg", "결제에 실패하셨습니다. ");
-			return "result/fail";
-		}
-		
-//		//리워드 가져오기 - 맵안에 있는거 모델로 넘기기 
-//		 List<RewardVO> rewardList = fundService.getPaymentSelectedReward(project_code, rewardCodes);
-//		System.out.println("pay reward = " + rewardList);
-//		model.addAttribute("reward", rewardList);  // 리워드 데이터
-//		
-//		model.addAttribute("map", map);     
-		return "merch/payment/payment_complete";
+		    Boolean isSuccess = fundService.insertForPayment(map, paramMap);
+		    if(!isSuccess) {
+		    	model.addAttribute("msg", "결제에 실패하셨습니다.");
+		    	return "result/fail";
+		    }
+	    }
+	    return "merch/payment/payment_complete";
 	}
+
 	
 	
 	//결제 완료창 - get 비지니스 로직
