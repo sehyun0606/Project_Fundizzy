@@ -1,7 +1,10 @@
 package com.itwillbs.project_fundizzy.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -17,6 +20,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itwillbs.project_fundizzy.service.AdminService;
 
 @Controller
@@ -54,11 +59,38 @@ public class AdminController {
 	}
 	
 	@GetMapping("adminHome")
-	public String adminHome(HttpSession session, Model model) {
-		String adminName = (String)session.getAttribute("adminName");
-		
-		return "admin/home/admin_home";
-	}
+	public String adminHome(Model model) throws JsonProcessingException {
+        List<Map<String, Object>> chartData = new ArrayList<>();
+
+        Map<String, Object> projectStatus = new HashMap<>();
+        projectStatus.put("labels", Arrays.asList("완료", "진행 중", "대기 중"));
+        projectStatus.put("data", Arrays.asList(30, 50, 20));
+        chartData.add(projectStatus);
+
+        Map<String, Object> userStatus = new HashMap<>();
+        userStatus.put("labels", Arrays.asList("활성 사용자", "비활성 사용자"));
+        userStatus.put("data", Arrays.asList(70, 30));
+        chartData.add(userStatus);
+
+        Map<String, Object> fundingStatus = new HashMap<>();
+        fundingStatus.put("labels", Arrays.asList("목표 금액", "달성 금액"));
+        fundingStatus.put("data", Arrays.asList(100, 60));
+        chartData.add(fundingStatus);
+
+        Map<String, Object> userGrowth = new HashMap<>();
+        userGrowth.put("labels", Arrays.asList("신규 사용자", "기존 사용자"));
+        userGrowth.put("data", Arrays.asList(40, 60));
+        chartData.add(userGrowth);
+
+        // Jackson ObjectMapper를 사용하여 JSON 문자열로 변환
+        ObjectMapper objectMapper = new ObjectMapper();
+        String chartDataJson = objectMapper.writeValueAsString(chartData);
+
+        // JSP로 데이터 전달
+        model.addAttribute("chartDataJson", chartDataJson);
+
+        return "admin/home/admin_home"; // admin/home.jsp로 이동
+    }
 	
 	// 로그아웃 비즈니스 로직
 	@GetMapping("adminLogout")
@@ -122,10 +154,6 @@ public class AdminController {
 		model.addAttribute("qnaList", qnaList);
 		return "admin/admin_community/admin_community_qna";
 	}
-	
-	
-	
-	
 	
 	
 	

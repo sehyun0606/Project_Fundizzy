@@ -78,7 +78,7 @@ article {
 	align-items: center;
 }
 .box {
-	height: 400px; /* 고정 높이 */
+	height: 300px; /* 고정 높이 */
 	background-color: #fff;
 	border-style: none;
 	border-radius: 5px;
