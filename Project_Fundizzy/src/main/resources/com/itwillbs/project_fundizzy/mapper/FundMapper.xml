@@ -271,11 +271,10 @@
 	</insert>
 	
 <!--   	펀딩내역 insert -->
-<insert id="insertFundHistory" parameterType="map">
+<insert id="insertFundHistory">
     <selectKey keyProperty="fund_idx" order="BEFORE" resultType="int">
         SELECT IFNULL(MAX(fund_idx), 0) FROM fund_history
     </selectKey>
-    <foreach collection="map.rewardList" item="reward" index="index" separator=";">
         INSERT INTO fund_history (
             fund_idx, 
             project_code, 
@@ -290,22 +289,24 @@
             purchase_date, 
             product_count, 
             payment_code
-        ) VALUES (
-            #{fund_idx} + 1,
-            #{project_code},
-            #{email},
-            (SELECT project_title FROM project_list WHERE project_code = #{project_code}),
-            (SELECT representative_picture FROM project_list WHERE project_code = #{project_code}),
-            #{reward.product_name},
-            (SELECT business_name FROM project_info WHERE project_code = #{project_code}),
-            #{reward.payment_price},
-            'N',
-            #{reward.reward_code},
-            NOW(),
-            #{reward.total_count},
-            (SELECT payment_code FROM payment WHERE billing_email = #{email} ORDER BY payment_complete_date DESC LIMIT 1)
-        )
-    </foreach>
+        ) VALUES 
+		    <foreach collection="sendList" item="reward" separator=",">
+	        	(
+	            #{fund_idx} + 1,
+	            #{project_code},
+	            #{email},
+	            (SELECT project_title FROM project_list WHERE project_code = #{project_code}),
+	            (SELECT representative_picture FROM project_list WHERE project_code = #{project_code}),
+	            #{reward.product_name},
+	            (SELECT business_name FROM project_info WHERE project_code = #{project_code}),
+	            #{reward.payment_price},
+	            'N',
+	            #{reward.reward_code},
+	            NOW(),
+	            #{reward.total_count},
+	            (SELECT payment_code FROM payment WHERE billing_email = #{email} ORDER BY payment_complete_date DESC LIMIT 1)
+	        	)
+  			 </foreach>
 </insert>
 
 

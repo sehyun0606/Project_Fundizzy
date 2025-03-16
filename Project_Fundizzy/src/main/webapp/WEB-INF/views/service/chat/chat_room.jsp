@@ -14,6 +14,7 @@
 			<div id="roomTitle"></div>
 			<div id="topProfileEmail"></div>
 		</div>
+		<span id="rename"><img title="채팅방 이름 변경" src="/resources/images/chat/renameIcon.png"></span>
 		<div id="exit">
 			<img src="/resources/images/chat/outIcon.png">
 			<span id="dropdownMenu" class="closed">

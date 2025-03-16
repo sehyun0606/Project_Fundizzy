@@ -51,6 +51,17 @@ body {
 	opacity: 0.6;
 }
 
+#rename {
+	height: 60px;
+	margin-left: 3px;
+}
+
+#rename img {
+	margin-top: 7px;
+	width: 30px;
+	cursor: pointer;
+}
+
 #exit {
     height: 50px;
     width: 50px;

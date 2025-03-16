@@ -1,5 +1,6 @@
 package com.itwillbs.project_fundizzy.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -140,13 +141,13 @@ public class FundService {
 	
 	// 결제진행시 insert 작업 진행
 //	@Transactional
-	public Boolean insertForPayment(Map<String, Object> map) {
+	public Boolean insertForPayment(Map<String, String> map) {
 		// 전화번호 형식 변환(- 제거)
 		map.put("phone_num", ((String)map.get("phone_num")).replace("-", ""));
 		
 		// 1. 결제 정보 저장 성공
 		// 1단계 - 결제 작업
-		int result1 = mapper.insertPayment(map);
+		int result1 = mapper.insertPaymentPay(map);
 		if(result1 > 0) {
 		    System.out.println("1단계 성공");
 		}else {
@@ -168,9 +169,21 @@ public class FundService {
 		}else {
 		    System.out.println("3단계 실패");
 		}
+		
+		// 디비작업을위해 전달할 객체
+	    List<Map<String, String>> sendList = new ArrayList<Map<String, String>>();
+	    
+	    // 리워드 등록가능 개수 5, 선택한 리워드 개수가 랜덤으로 넘어와서 반복문으로 판별
+	    for(int i = 1; i < 6; i ++) {
+	    	if(map.get("rewardCount" + i) != null && !map.get("rewardCount" + i).equals("0")) {
+	    		map.put("reward_code", map.get("reward" + i));
+	    		map.put("product_count", map.get("rewardCount" + i));
+	    		sendList.add(map);
+	    	}
+	    }
 
 		// 4단계 - 펀딩내역(fund-history) 입력
-		int result4 = mapper.insertFundHistory(map);
+		int result4 = mapper.insertFundHistory(sendList);
 		if(result4 > 0) {
 		    System.out.println("4단계 성공");
 		}else {

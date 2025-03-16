@@ -1,5 +1,6 @@
 package com.itwillbs.project_fundizzy.controller;
 
+import java.nio.file.spi.FileSystemProvider;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -397,7 +398,7 @@ public class FundController {
 	
 	//결제 완료창으로 이동 - post
 	@PostMapping("PaymentComplete")
-	public String paymentComplete(@RequestParam Map<String, Object> map, HttpSession session ,Model model) {
+	public String paymentComplete(@RequestParam Map<String, String> map, HttpSession session ,Model model) {
 	    System.out.println("필요한거 : " + map);
 	    String email = (String) session.getAttribute("sId");
 	    
@@ -405,12 +406,6 @@ public class FundController {
 	    map.put("email", email);
 	    map.put("pay_tran_id", UUID.randomUUID().toString());
 	    
-//	    List<Map<String, Object>> sendList = new ArrayList<Map<String,Object>>();
-//	    Gson gson = new Gson();
-//        for(RewardVO reward : gson.fromJson(map.get("rewardList")), List<RewardVO>.class) {
-//           map.put("reward", reward);
-//           sendList.add(map);
-//        } 
 	    
 	    // 2. 결제내역 input
 	    // 3. 배송지 input
@@ -418,16 +413,11 @@ public class FundController {
 	    // 위 작업중 하나라도 실패할경우 다 원위치
 	    // service에서 트랜잭션 실행
 	    
-	    	// 리워드 코드 배열을 리스트로 변환
-//	        List<String> rewardCodesList = Arrays.asList(rewardCodes); 
-//	        System.out.println("rewardCodesList = " +rewardCodesList );
-	        
-//	        Map<String, Object> paramMap = new HashMap<>();
-		    Boolean isSuccess = fundService.insertForPayment(map);
-		    if(!isSuccess) {
-		    	model.addAttribute("msg", "결제에 실패하셨습니다.");
-		    	return "result/fail";
-		    }
+	    Boolean isSuccess = fundService.insertForPayment(map);
+	    if(!isSuccess) {
+	    	model.addAttribute("msg", "결제에 실패하셨습니다.");
+	    	return "result/fail";
+	    }
 //	    }
 	    return "merch/payment/payment_complete";
 	}

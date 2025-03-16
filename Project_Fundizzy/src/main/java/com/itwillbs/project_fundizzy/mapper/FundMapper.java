@@ -68,16 +68,17 @@ public interface FundMapper {
 	Map<String, Object> selectPaymentPayMember(String email);
 
 	//페이로 결제한 내역 계산 
-	int insertPaymentPay(Map<String, Object> map);
+	int insertPaymentPay(Map<String, String> map);
 
 	//결제내역 input - payment 테이블
-	int insertPayment(Map<String, Object> map);
+	int insertPayment(Map<String, String> map);
 	
 	//배송내역 input - shipment
-	int insertShipment(Map<String, Object> map);
+	int insertShipment(Map<String, String> map);
 	
 	//펀딩내역 input - fundHistory 테이블
-	int insertFundHistory(@Param("map") Map<String, Object> map);
+	int insertFundHistory(@Param("sendList") List<Map<String, String>> sendList);
+
 
 
 	

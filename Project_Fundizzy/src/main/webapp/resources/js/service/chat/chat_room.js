@@ -91,11 +91,15 @@ $(function() {
         }
     });
 	
+	// 채팅방 이름변경
+	$("#rename img").click(function() {
+		
+	});
+	
 	// 나가기 버튼 클릭시 채팅방 윈도우 닫기
 	$("#closeChatRoom").click(function() {
 		window.close();
 	});
-	
 	
 	// 채팅종료
 	$("#outChatRoom").click(function() {
