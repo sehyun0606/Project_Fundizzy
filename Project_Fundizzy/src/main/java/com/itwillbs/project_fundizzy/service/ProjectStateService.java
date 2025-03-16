@@ -16,7 +16,7 @@ import com.itwillbs.project_fundizzy.vo.ShipmentVO;
 @Service
 public class ProjectStateService {
 	@Autowired
-	ProjectStateMapper stateMapper;
+	private ProjectStateMapper stateMapper;
 	
 	// ================================== 프로젝트 현황 ==================================
 	public List<Map<String, Object>> getPaymentCountList(String project_code) {
@@ -114,8 +114,26 @@ public class ProjectStateService {
 		return stateMapper.selectSettlementFee(project_code);
 	}
 
-	public int getPreSettlement(String project_code) {
-		return stateMapper.selectPreSettlement(project_code);
+	public int getPreSettlementAmount(String project_code) {
+		return stateMapper.selectPreSettlementAmount(project_code);
+	}
+
+	public int getRefundAmount(String project_code) {
+		return stateMapper.selectRefundAmount(project_code);
+	}
+
+	public int registPreSettlement(Map<String, Object> map) {
+		stateMapper.updateProjectListSettlementStatus(map);
+		return stateMapper.insertPreSettlement(map);
+	}
+
+	public Map<String, Object> getPreSettlementInfo(String project_code) {
+		return stateMapper.selectPreSettlementInfo(project_code);
+	}
+
+	public int modifyFinalSettlement(Map<String, Object> map) {
+		stateMapper.updateProjectListFinalSettlementStatus(map);
+		return stateMapper.updateFinalSettlement(map);
 	}
 
 

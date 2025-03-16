@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>정산 관리</title>
 <link rel="styleSheet" type="text/css" href="resources/css/projectState/project_state_default.css" >
 <link rel="stylesheet" type="text/css" href="resources/css/projectState/settlement_detail.css">
 </head>
@@ -74,15 +74,15 @@
 				<c:otherwise>
 					<table class="sumTable">
 						<tr>
-							<th width="40%">프로젝트명</th>
+							<th width="35%">프로젝트명</th>
 							<th width="10%">진행률</th>
-							<th width="10%">정산 상태</th>
+							<th width="15%">정산 상태</th>
 							<th width="10%">상세정보</th>
 							<th width="15%">내역서 받기</th>
 						</tr>
 						<tr>
-							<td>[발받침대] 편안함을 선사하는 2단 쿠션 발받침대</td>
-							<td>130%</td>
+							<td>${projectInfo.project_title}</td>
+							<td>${progress}%</td>
 							<td>
 								<c:choose>
 									<c:when test="${projectInfo.settlement_status eq 'SET01'}">
@@ -109,8 +109,21 @@
 								</c:choose>
 							</td>
 							<td><input type="button" class="btnDetail" value="확인"></td>
-							<td><input type="button" class="btnSettlement" value="선정산 내역서">
-							<br><br><input type="button" class="btnSettlement" value="최종정산 내역서"></td>
+							<td>
+								<c:if test="${projectInfo.settlement_status ne 'SET01' && projectInfo.settlement_status ne 'SET02' && projectInfo.settlement_status ne 'SET03'}">
+									<form action="PreExcelDownload" method="get">
+										<input type="hidden" name="project_code" value="${projectInfo.project_code}">
+										<input type="submit" class="btnSettlement" id="preSettlement" value="선정산 내역서">
+									</form>
+								</c:if>
+<%-- 								<c:when test="${projectInfo.settlement_status eq 'SET07'}"> --%>
+								<c:if test="${projectInfo.settlement_status eq 'SET07'}">
+									<form action="FinalExcelDownload" method="get">
+										<input type="hidden" name="project_code" value="${projectInfo.project_code}">
+										<input type="submit" class="btnSettlement" value="최종정산 내역서">
+									</form>
+								</c:if>
+							</td>
 						</tr>
 					</table>
 					<div class="modal">
@@ -138,70 +151,69 @@
 								</div>
 								<div class="set-container">
 									<c:choose>
-<%-- 										<c:when test="${projectInfo.settlement_status eq 'SET01' or projectInfo.settlement_status eq 'SET02' or projectInfo.settlement_status eq 'SET03'}"> --%>
-										<c:when test="false">
-											<div class="set-info">
-												<div class="title">선정산 지급액</div>
-												<div class="amount">
-												<!-- 총 결제금액 백만원 이상이면 기본이용료 9만원 차감 -->
-												<c:if test="${totalAmount > 1000000}">
-													<fmt:formatNumber value="${preAmount - settlementFee - 90000}" pattern="#,###" />원
-												</c:if>
-												<fmt:formatNumber value="${preAmount - settlementFee}" pattern="#,###" />원
+										<%-- 선정산 신청폼 --%>
+										<c:when test="${projectInfo.settlement_status eq 'SET01' or projectInfo.settlement_status eq 'SET02' or projectInfo.settlement_status eq 'SET03'}">
+											<form action="PreSettlement" method="post">
+												<input type="hidden" name="project_code" value="${projectInfo.project_code}">
+												<input type="hidden" name="member_email" value="${projectInfo.representative_email}">
+		<%-- 										<c:when test="false"> --%>
+												<div class="set-info" style="border-bottom:1px solid #ddd; padding-bottom:15px">
+													<div class="title">선정산 지급액</div>
+													<div class="amount"><fmt:formatNumber value="${prePaymentAmount}" pattern="#,###" />원</div>
+													<input type="hidden" name=pre_amount value="${prePaymentAmount}">
 												</div>
-												<input type="hidden" name="payment_code" class="payment_code">
-											</div>
-											<div class="set-info">
-												<div class="title">총 결제금액</div>
-												<div class="amount"><fmt:formatNumber value="${totalAmount}" pattern="#,###" />원</div>
-											</div>
-											<div class="set-info">
-												<div class="title">수수료</div>
-												<div class="amount"><fmt:formatNumber value="${settlementFee}" pattern="#,###" />원</div>
-												<div class="msg"><c:choose>
-																	 <c:when test="${projectInfo.service_type eq 'pro'}">펀디지 수수료(10%)</c:when>
-																	 <c:when test="${projectInfo.service_type eq 'basic'}">펀디지 수수료(5%)</c:when>
-																 </c:choose>
-													<c:if test="${totalAmount > 1000000}"> + 기본이용료 90,000원</c:if>
+												<div class="set-info">
+													<div class="title">총 결제금액</div>
+													<div class="amount"><fmt:formatNumber value="${totalAmount}" pattern="#,###" />원</div>
+													<input type="hidden" name=total_amount value="${totalAmount}">
 												</div>
-											</div>
+												<div class="set-info">
+													<div class="title">수수료</div>
+													<div class="amount"><fmt:formatNumber value="${settlementFee}" pattern="#,###" />원</div>
+													<input type="hidden" name=fee value="${settlementFee}">
+													<div class="msg"><c:choose>
+																		 <c:when test="${projectInfo.service_type eq 'pro'}">펀디지 수수료(10%)</c:when>
+																		 <c:when test="${projectInfo.service_type eq 'basic'}">펀디지 수수료(5%)</c:when>
+																	 </c:choose>
+														<c:if test="${totalAmount > 1000000}"> + 기본이용료 90,000원</c:if>
+													</div>
+												</div>
+												<div class="btn-container">
+													<c:if test="${projectInfo.settlement_status eq 'SET02'}">
+														<input type="submit" value="선정산 신청" class="preBtn">
+													</c:if>
+													<input type="button" value="닫기" class="closeBtn">
+												</div>
+											</form>
 										</c:when>
-										<c:otherwise>
-											<div class="set-info">
-												<div class="title">최종정산 지급액</div>
-												<div class="amount">
-												<!-- 총 결제금액 백만원 이상이면 기본이용료 9만원 차감 -->
-												<c:if test="${totalAmount > 1000000}">
-													<fmt:formatNumber value="${preAmount - settlementFee - 90000}" pattern="#,###" />원
-												</c:if>
-												<fmt:formatNumber value="${finalAmount}" pattern="#,###" />원
+										<%-- 최종정산 신청폼 --%>
+										<c:when test="${projectInfo.settlement_status eq 'SET04' or projectInfo.settlement_status eq 'SET05' or projectInfo.settlement_status eq 'SET06' or projectInfo.settlement_status eq 'SET07'}">
+											<form action="FinalSettlement" method="post">
+												<input type="hidden" name="project_code" value="${projectInfo.project_code}">
+												<input type="hidden" name="member_email" value="${projectInfo.representative_email}">
+												<div class="set-info">
+													<div class="title" style="border-bottom:1px solid #ddd; padding-bottom:15px">최종정산 지급액</div>
+													<div class="amount"><fmt:formatNumber value="${finalAmount}" pattern="#,###" />원</div>
+													<input type="hidden" name=final_amount value="${finalAmount}">
 												</div>
-												<input type="hidden" name="payment_code" class="payment_code">
-											</div>
-											<div class="set-info">
-												<div class="title">총 결제금액</div>
-												<div class="amount"><fmt:formatNumber value="${totalAmount}" pattern="#,###" />원</div>
-											</div>
-											<div class="set-info">
-												<div class="title">환불 금액</div>
-												<div class="amount"><fmt:formatNumber value="${totalAmount}" pattern="#,###" />원</div>
-											</div>
-										</c:otherwise>
+												<div class="set-info">
+													<div class="title">총 결제금액</div>
+													<div class="amount"><fmt:formatNumber value="${totalAmount}" pattern="#,###" />원</div>
+												</div>
+												<div class="set-info">
+													<div class="title">환불 금액</div>
+													<div class="amount"><fmt:formatNumber value="${refundAmount}" pattern="#,###" />원</div>
+													<input type="hidden" name=refund_amount value="${refundAmount}">
+												</div>
+												<div class="btn-container">
+													<c:if test="${projectInfo.settlement_status eq 'SET05'}">
+														<input type="submit" value="최종정산 신청" class="finalBtn">
+													</c:if>
+													<input type="button" value="닫기" class="closeBtn">
+												</div>
+											</form>
+										</c:when>
 									</c:choose>
-									
-								</div>
-								<div class="btn-container">
-									<c:choose>
-<%-- 										<c:when test="${projectInfo.settlement_status eq 'SET02'}"> --%>
-										<c:when test="true">
-											<input type="submit" value="선정산 신청" class="preBtn">
-										</c:when>
-<%-- 										<c:when test="${projectInfo.settlement_status eq 'SET05'}"> --%>
-										<c:when test="true">
-											<input type="submit" value="최종정산 신청" class="finalBtn">
-										</c:when>
-									</c:choose>
-			   						<input type="button" value="닫기" class="closeBtn">
 								</div>
 							</div>
 						</div>
@@ -230,6 +242,13 @@
 					location.reload();
 				});
 			});
+	      	
+			// 모달 닫기 (배경 클릭)
+		    $(".modal").click(function(event) {
+		        if (event.target === this) {
+		            $(this).fadeOut();
+		        }
+		    });
 			
 		});   
 	</script>

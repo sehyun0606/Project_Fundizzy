@@ -174,6 +174,7 @@
 				                		<c:when test="${empty order.tracking_num}">
 							                <input type="button" value="입력" class="shipInfoBtn">
 				                		</c:when>
+<%-- 				                		<c:when test="${not empty order.tracking_num and order.shipment_common_code ne 'SHI04'}"> --%>
 				                		<c:when test="${not empty order.tracking_num}">
 							                <input type="button" value="삭제" class="shipDelBtn">
 				                		</c:when>

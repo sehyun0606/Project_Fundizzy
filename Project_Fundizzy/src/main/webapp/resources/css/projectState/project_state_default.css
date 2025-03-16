@@ -20,5 +20,5 @@ h1 {
 	font-weight: 700;
 }
 .footer {
-	display: none;
+	display: none !important;
 }

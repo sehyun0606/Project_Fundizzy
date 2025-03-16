@@ -74,7 +74,19 @@ public interface ProjectStateMapper {
 
 	int selectSettlementFee(String project_code);
 
-	int selectPreSettlement(String project_code);
+	int selectPreSettlementAmount(String project_code);
+
+	int selectRefundAmount(String project_code);
+
+	int insertPreSettlement(Map<String, Object> map);
+
+	void updateProjectListSettlementStatus(Map<String, Object> map);
+
+	Map<String, Object> selectPreSettlementInfo(String project_code);
+
+	int updateFinalSettlement(Map<String, Object> map);
+
+	void updateProjectListFinalSettlementStatus(Map<String, Object> map);
 
 
 

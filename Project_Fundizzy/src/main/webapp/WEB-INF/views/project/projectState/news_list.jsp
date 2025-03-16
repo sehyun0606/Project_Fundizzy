@@ -100,7 +100,7 @@
 	</div>
 	
 	
-	
+	<jsp:include page="/WEB-INF/views/inc/footer.jsp" />
 	<script>
 		$(document).ready(function() {
 			// 새소식 작성하기 버튼 클릭 시 모달창 생성 

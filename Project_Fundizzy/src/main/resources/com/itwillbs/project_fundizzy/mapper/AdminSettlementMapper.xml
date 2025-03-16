@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itwillbs.project_fundizzy.mapper.AdminSettlementMapper">
+	<select id="selectSettlementListCount" resultType="int">
+		SELECT COUNT(*)
+		FROM settlement
+		WHERE settlement_status = 'SET03'
+			OR settlement_status = 'SET06'
+	</select>
+
+	<select id="selectSettlementList" resultType="map">
+		SELECT *
+		FROM settlement s
+		JOIN project_list p
+		ON s.project_code = p.project_code
+		WHERE s.settlement_status = 'SET03'
+			OR s.settlement_status = 'SET06'
+	</select>
+	
+	<select id="selectSettlementInfo" resultType="map">
+		SELECT s.*, l.*, i.*
+		FROM settlement s
+		JOIN project_list l
+		ON s.project_code = l.project_code
+		JOIN project_info i
+		ON s.project_code = i.project_code
+		WHERE s.project_code = #{project_code}
+	</select>
+	
+	<!-- 정산 승인 시 페이 입금 -->
+	<insert id="insertSettlementPay">
+		<selectKey order="BEFORE" keyProperty="pay_balance" resultType="int">
+			SELECT IFNULL((
+		        SELECT pay_balance
+		        FROM fundizzy_pay
+		        WHERE email = #{email}
+		        AND pay_date = (SELECT MAX(pay_date) FROM fundizzy_pay WHERE email = #{email})
+		    ), 0)
+		</selectKey>
+		INSERT
+		INTO fundizzy_pay
+		VALUES (
+			#{email}
+			, #{pay_amt}
+			, #{pay_type}
+			, NOW()
+			, #{pay_tran_id}
+			, #{pay_balance} + #{pay_amt}
+		)
+	</insert>
+	
+	<update id="updatePreProjectListStatus">
+		UPDATE project_list
+		SET settlement_status = 'SET04'
+		WHERE project_code = #{project_code}
+	</update>
+
+	<update id="updatePreSettlementStatus">
+		UPDATE settlement
+		SET settlement_status = 'SET04'
+			, pre_confirm_date = NOW()
+		WHERE project_code = #{project_code}
+	</update>
+	
+	<!-- 최종정산 상태 업데이트 -->
+	<update id="updateFinalSettlementStatus">
+		UPDATE settlement
+		SET settlement_status = 'SET07'
+			, final_confirm_date = NOW()
+		WHERE project_code = #{project_code}
+	</update>
+	
+	<update id="updateFinalProjectListStatus">
+		UPDATE project_list
+		SET settlement_status = 'SET07'
+		WHERE project_code = #{project_code}
+	</update>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

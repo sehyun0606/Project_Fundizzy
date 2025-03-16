@@ -333,11 +333,72 @@
 		WHERE project_code = #{project_code}
 	</select>
 	
-	<select id="selectPreSettlement" resultType="int">
+	<select id="selectPreSettlementAmount" resultType="int">
 		SELECT FLOOR(SUM(payment_amount) * 0.6) as pre_amount
 		FROM payment
 		WHERE project_code = #{project_code}
 	</select>
+	
+	<select id="selectRefundAmount" resultType="int">
+		SELECT SUM(refund_amound) as refund_amount
+		FROM refund
+		WHERE project_code = #{project_code}
+	</select>
+	
+	<!-- 선정산 정보 등록 및 상태 업데이트 -->
+	<insert id="insertPreSettlement">
+		INSERT 
+		INTO settlement
+		VALUES (
+			null
+			, #{settlement_code}
+			, #{project_code}
+			, #{member_email}
+			, #{total_amount}
+			, null
+			, 'SET03'	-- 선정산 신청됨
+			, #{pre_amount}
+			, NOW()
+			, null
+			, null
+			, null
+			, null
+			, #{fee}
+		)
+	</insert>
+	
+	<update id="updateProjectListSettlementStatus">
+		UPDATE project_list
+		SET settlement_status = 'SET03'
+		WHERE project_code = #{project_code}
+	</update>
+	
+	<select id="selectPreSettlementInfo" resultType="map">
+		SELECT s.*, l.*, i.*
+		FROM settlement s
+		JOIN project_list l
+		ON s.project_code = l.project_code
+		JOIN project_info i
+		ON s.project_code = i.project_code
+		WHERE s.project_code = #{project_code}
+	</select>
+	
+	<!-- 최종정산 -->
+	<update id="updateFinalSettlement">
+		UPDATE settlement
+		SET settlement_status = 'SET06'
+			, final_amount = #{final_amount}
+			, final_request_date = NOW()
+			, refund_amount = #{refund_amount}
+		WHERE project_code = #{project_code}
+	</update>
+	
+	<update id="updateProjectListFinalSettlementStatus">
+		UPDATE project_list
+		SET settlement_status = 'SET06'
+		WHERE project_code = #{project_code}
+	</update>
+	
 	
 
 </mapper>

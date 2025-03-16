@@ -1,13 +1,28 @@
 package com.itwillbs.project_fundizzy.controller;
 
+import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.poi.ss.usermodel.BorderStyle;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.DataFormat;
+import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.VerticalAlignment;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
@@ -19,6 +34,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
+import com.itwillbs.project_fundizzy.handler.BankValueGenerator;
 import com.itwillbs.project_fundizzy.service.ProjectStateService;
 import com.itwillbs.project_fundizzy.vo.FundHistoryVO;
 import com.itwillbs.project_fundizzy.vo.NewsVO;
@@ -30,7 +46,7 @@ import com.itwillbs.project_fundizzy.vo.ShipmentVO;
 @Controller
 public class ProjectStateController {
 	@Autowired
-	ProjectStateService stateService;
+	private ProjectStateService stateService;
 	
 	// 프로젝트 현황 페이지
 	@GetMapping("ProjectState")
@@ -87,18 +103,260 @@ public class ProjectStateController {
 		model.addAttribute("settlementFee", settlementFee);
 		
 		// 선정산 금액(60%)
-		int preAmount = stateService.getPreSettlement(project_code);
+		int preAmount = stateService.getPreSettlementAmount(project_code);
 		model.addAttribute("preAmount", preAmount);
 		
-		// 최종정산 금액
-		int finalAmount;
+		// 선정산 지급액(선정산 금액 - 수수료 [- 기본이용료])
+		int prePaymentAmount = 0;
 		if(totalAmount > 1000000) {
-			finalAmount = totalAmount - preAmount - settlementFee - 90000;
+			prePaymentAmount = preAmount - settlementFee - 90000;
+		} else {
+			prePaymentAmount = preAmount - settlementFee;
 		}
-		finalAmount = totalAmount - preAmount - settlementFee;
+		model.addAttribute("prePaymentAmount", prePaymentAmount);
+		
+		
+		// 총 환불금액
+		List<RefundVO> refundList = stateService.getRefund(project_code);
+
+		int refundAmount;
+		
+		if(refundList != null) {
+			refundAmount = 0;
+		} else {
+			refundAmount = stateService.getRefundAmount(project_code);
+		}
+		model.addAttribute("refundAmount", refundAmount);
+		
+		// 최종정산 금액(나머지 금액 - 환불금액)
+		int finalAmount;
+		
+		finalAmount = totalAmount - preAmount - refundAmount;
 		model.addAttribute("finalAmount", finalAmount);
 		
+		// 달성률
+		double targetAmount = ((Integer)projectInfo.get("target_amount")).doubleValue();
+		
+		int progress = (int) ((totalAmount / targetAmount) * 100);
+		model.addAttribute("progress", progress);
+
+		
+		
 		return "project/projectState/settlement_detail";
+	}
+	
+	@PostMapping("PreSettlement")
+	public String preSettlement(Model model, @RequestParam Map<String, Object> map) {
+		
+		// 정산코드
+		String uuid = UUID.randomUUID().toString().substring(0, 5);
+		map.put("settlement_code", uuid);
+		
+//		String stringTotalAmount = (String) map.get("total_amount").toString().replace(",", "");
+//		int totalAmount = Integer.parseInt(stringTotalAmount);		
+//		map.put("total_amount", totalAmount);
+//
+//		String stringPreAmount = (String) map.get("pre_amount").toString().replace(",", "");
+//		int preAmount = Integer.parseInt(stringPreAmount);		
+//		map.put("pre_amount", preAmount);
+//		
+//		String stringFee = (String) map.get("fee").toString().replace(",", "");
+//		int fee = Integer.parseInt(stringFee);		
+//		map.put("fee", fee);
+		
+		System.out.println("map : " + map);
+		
+		int insertCount = stateService.registPreSettlement(map);
+		
+		if(insertCount > 0) {
+			model.addAttribute("msg", "선정산 신청이 완료되었습니다");
+			model.addAttribute("targetURL", "SettlementDetail");
+			return "result/result";
+		} else {
+			model.addAttribute("msg", "정산 신청에 실패하였습니다\n다시 시도해주세요");
+			model.addAttribute("targetURL", "SettlementDetail");
+			return "result/result";
+		}
+		
+		
+	}
+	
+	// 선정산 내역서 엑셀파일로 다운로드
+	@GetMapping("PreExcelDownload")
+	public void preExcelDownload(HttpServletResponse response, String project_code) throws IOException {
+		
+		Map<String, Object> preSettlement = stateService.getPreSettlementInfo(project_code);
+		
+		DecimalFormat df = new DecimalFormat("#,###");
+		String pre_amount = df.format(preSettlement.get("pre_amount")) + "원";
+		String total_amount = df.format(preSettlement.get("total_amount")) + "원";
+		String fee = df.format(preSettlement.get("fee")) + "원";
+		
+		Workbook wb = new XSSFWorkbook();
+        Sheet sheet = wb.createSheet("선정산 내역서");
+        Row headerRow = sheet.createRow(0);
+        
+        String[] headers = {"프로젝트명", "대표자명", "대표자 이메일", "선정산 지급액", "총 결제금액", "수수료"};
+
+        // 헤더용 스타일
+        CellStyle headerStyle = wb.createCellStyle();
+        headerStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        headerStyle.setBorderTop(BorderStyle.THIN);
+        headerStyle.setBorderBottom(BorderStyle.THIN);
+        headerStyle.setBorderLeft(BorderStyle.THIN);
+        headerStyle.setBorderRight(BorderStyle.THIN);
+        headerStyle.setVerticalAlignment(VerticalAlignment.CENTER); // 수직 가운데 정렬
+        headerStyle.setAlignment(HorizontalAlignment.CENTER); // 수평 가운데 정렬
+        
+        // 헤더 값 및 스타일 적용
+        for(int i = 0; i < headers.length; i++) {
+        	Cell cell = headerRow.createCell(i);
+        	cell.setCellValue(headers[i]);
+        	cell.setCellStyle(headerStyle);
+        }
+        
+        // 열 너비 자동 조정
+        for(int i = 0; i < headers.length; i++) {
+        	sheet.autoSizeColumn(i);
+        	int currentWidth = sheet.getColumnWidth(i);
+        	sheet.setColumnWidth(i, (int)(currentWidth * 3));
+        }
+
+        String[] body = {
+        		(String)preSettlement.get("project_title"), 
+        		(String)preSettlement.get("representative_name"),
+        		(String)preSettlement.get("representative_email"),
+        		pre_amount,
+        		total_amount,
+        		fee
+        };
+        
+        // 나머지 셀들을 위한 테두리 스타일
+        CellStyle borderStyle = wb.createCellStyle();
+        borderStyle.setBorderTop(BorderStyle.THIN);
+        borderStyle.setBorderBottom(BorderStyle.THIN);
+        borderStyle.setBorderLeft(BorderStyle.THIN);
+        borderStyle.setBorderRight(BorderStyle.THIN);
+        borderStyle.setVerticalAlignment(VerticalAlignment.CENTER);
+        borderStyle.setAlignment(HorizontalAlignment.CENTER);
+
+        Row bodyRow = sheet.createRow(1);
+        
+        for(int i = 0; i < body.length; i++) {
+        	Cell cell = bodyRow.createCell(i);
+        	cell.setCellValue(body[i]);
+        	cell.setCellStyle(borderStyle);
+        }
+        
+        // 컨텐츠 타입과 파일명 지정
+        response.setContentType("ms-vnd/excel");
+        response.setHeader("Content-Disposition", "attachment;filename=" + project_code + "_pre.xlsx");
+        
+        // Excel File Output
+        wb.write(response.getOutputStream());
+        wb.close();
+        
+	}
+
+	// 최종정산 내역 등록
+	@PostMapping("FinalSettlement")
+	public String fianlSettlement(Model model, @RequestParam Map<String, Object> map) {
+		
+		if(map.get("refund_amount") == null || map.get("refund_amount").equals("")) {
+			map.put("refund_amount", 0);
+		}
+		
+		int updateCount = stateService.modifyFinalSettlement(map);
+		
+		if(updateCount > 0) {
+			model.addAttribute("msg", "최종정산 신청이 완료되었습니다");
+			model.addAttribute("targetURL", "SettlementDetail");
+			return "result/result";
+		} else {
+			model.addAttribute("msg", "정산 신청에 실패하였습니다\n다시 시도해주세요");
+			model.addAttribute("targetURL", "SettlementDetail");
+			return "result/result";
+		}
+		
+	}
+	
+	// 선정산 내역서 엑셀파일로 다운로드
+	@GetMapping("FinalExcelDownload")
+	public void finalExcelDownload(HttpServletResponse response, String project_code) throws IOException {
+		
+		Map<String, Object> preSettlement = stateService.getPreSettlementInfo(project_code);
+		
+		DecimalFormat df = new DecimalFormat("#,###");
+		String final_amount = df.format(preSettlement.get("final_amount")) + "원";
+		String total_amount = df.format(preSettlement.get("total_amount")) + "원";
+		String refund_amount = df.format(preSettlement.get("refund_amount")) + "원";
+		
+		Workbook wb = new XSSFWorkbook();
+        Sheet sheet = wb.createSheet("최종정산 내역서");
+        Row headerRow = sheet.createRow(0);
+        
+        String[] headers = {"프로젝트명", "대표자명", "대표자 이메일", "최종정산 지급액", "총 결제금액", "환불금액"};
+
+        // 헤더용 스타일
+        CellStyle headerStyle = wb.createCellStyle();
+        headerStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        headerStyle.setBorderTop(BorderStyle.THIN);
+        headerStyle.setBorderBottom(BorderStyle.THIN);
+        headerStyle.setBorderLeft(BorderStyle.THIN);
+        headerStyle.setBorderRight(BorderStyle.THIN);
+        headerStyle.setVerticalAlignment(VerticalAlignment.CENTER); // 수직 가운데 정렬
+        headerStyle.setAlignment(HorizontalAlignment.CENTER); // 수평 가운데 정렬
+        
+        // 헤더 값 및 스타일 적용
+        for(int i = 0; i < headers.length; i++) {
+        	Cell cell = headerRow.createCell(i);
+        	cell.setCellValue(headers[i]);
+        	cell.setCellStyle(headerStyle);
+        }
+        
+        // 열 너비 자동 조정
+        for(int i = 0; i < headers.length; i++) {
+        	sheet.autoSizeColumn(i);
+        	int currentWidth = sheet.getColumnWidth(i);
+        	sheet.setColumnWidth(i, (int)(currentWidth * 1.5));
+        }
+
+        String[] body = {
+        		(String)preSettlement.get("project_title"), 
+        		(String)preSettlement.get("representative_name"),
+        		(String)preSettlement.get("representative_email"),
+        		final_amount,
+        		total_amount,
+        		refund_amount
+        };
+        
+        // 나머지 셀들을 위한 테두리 스타일
+        CellStyle borderStyle = wb.createCellStyle();
+        borderStyle.setBorderTop(BorderStyle.THIN);
+        borderStyle.setBorderBottom(BorderStyle.THIN);
+        borderStyle.setBorderLeft(BorderStyle.THIN);
+        borderStyle.setBorderRight(BorderStyle.THIN);
+        borderStyle.setVerticalAlignment(VerticalAlignment.CENTER);
+        borderStyle.setAlignment(HorizontalAlignment.CENTER);
+
+        Row bodyRow = sheet.createRow(1);
+        
+        for(int i = 0; i < body.length; i++) {
+        	Cell cell = bodyRow.createCell(i);
+        	cell.setCellValue(body[i]);
+        	cell.setCellStyle(borderStyle);
+        }
+        
+        // 컨텐츠 타입과 파일명 지정
+        response.setContentType("ms-vnd/excel");
+        response.setHeader("Content-Disposition", "attachment;filename=" + project_code + "_final.xlsx");
+        
+        // Excel File Output
+        wb.write(response.getOutputStream());
+        wb.close();
+        
 	}
 
 	// 발송환불관리 페이지
@@ -158,8 +416,9 @@ public class ProjectStateController {
 		int refundAmount = Integer.parseInt(stringAmount);
 		map.put("pay_amt", refundAmount);
 		
-		String uuid = UUID.randomUUID().toString();
-		map.put("pay_tran_id", uuid);
+//		String uuid = UUID.randomUUID().toString();
+		String pay_tran_id = BankValueGenerator.getTranId();
+		map.put("pay_tran_id", pay_tran_id);
 		
 		// 환불 상태 업데이트
 		int updateCount = stateService.modifyRefundFundHistoryStatus(map);

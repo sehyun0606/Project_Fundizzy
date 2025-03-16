@@ -335,11 +335,11 @@ h4 {
     color: #353535;
 }
 .approveBtn {
-    background-color: #60cc60;
+    background-color: #70dd70;
     color: white;
 }
 .rejectBtn {
-    background-color: #d73931;
+    background-color: #ff6666;
     color: white;
 }
 .refund-amount {
