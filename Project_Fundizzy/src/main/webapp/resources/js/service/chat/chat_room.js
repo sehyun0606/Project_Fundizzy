@@ -156,8 +156,6 @@ function appendMesage(data) {
 	} else {
 		// 마지막메세지 송신자
 		lastSender = $("#lastSendMember").val();
-		console.log(lastSender);
-		console.log(data.sender_email);
 		
 		// 메세지내용 span
 		let spanMessage = `<span class='messageContent'>${data.message}</span><br>`
@@ -290,7 +288,7 @@ function isSameTime(send_time, isMyMessage) {
 	return "";
 }
 
-// 메세지영역에 메세지 추가후 공통적으로 할작업
+// 메세지영역에 메세지 추가후 공통적으로 할 작업
 function afterSendMesage(sender_email) {
 	// 메세지 추가작업후 마지막 메세지 전송자 이메일 input[type=hidden]에저장
 	$("#lastSendMember").val(sender_email);

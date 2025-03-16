@@ -29,15 +29,16 @@
 		            AND type != 'TYPE_SYSTEM'
 			) as unread_count
 			, (
-				SELECT DISTINCT(message)
+				SELECT message
 				FROM chat_message
 				WHERE 
 					room_id = c.room_id
-					AND send_time = (
-										SELECT MAX(send_time)
+					AND idx = (
+										SELECT MAX(idx)
 										FROM chat_message
 										WHERE room_id = c.room_id
 									)
+				
 			) as last_message
 		FROM 
 			chat_room c
@@ -145,7 +146,7 @@
 				, CONCAT((	
 							SELECT nickname
 							FROM member
-							where email = #{sender_email}
+							where email = #{receiver_email}
 							)
 							, '님과의 채팅방'
 						)
@@ -158,7 +159,7 @@
 				, CONCAT((	
 							SELECT nickname
 							FROM member
-							where email = #{receiver_email}
+							where email = #{sender_email}
 							)
 							, '님과의 채팅방'
 						)
@@ -174,7 +175,6 @@
 		UPDATE chat_room
 		SET last_accessed_time = #{send_time}
 		WHERE room_id = #{room_id}
-			AND member_email = #{sender_email}
 	</update>
 	
 	<insert id="insertChatMessage">
@@ -191,13 +191,22 @@
 		)
 	</insert>
 	
-	<!-- 회원의 방별 읽지 않은 메세지 수 조회 -->
-	<select id="selectUnReadCountList" resultType="map">
-		SELECT sender_email, COUNT(*)
+	<!-- 채팅방 입장시 해당 채팅방의 채팅 읽음 처리 -->
+	<update id="updateMessageToRead">
+		UPDATE chat_message
+		SET read_state = 1
+		WHERE room_id = #{room_id}
+			AND receiver_email = #{sender_email} 
+			AND type != 'TYPE_SYSTEM'
+			AND read_state = 0
+	</update>
+	
+	<!-- 내가 읽지않은 메세지의 총 수 조회 -->
+	<select id="selectTotalUnReadCount" resultType="int">
+		SELECT count(*)
 		FROM chat_message
-		GROUP BY sender_email
-		WHERE
-			receiver_email = #{sender_email}
+		WHERE receiver_email = #{sender_email}
+			AND read_state = 0
 			AND type != 'TYPE_SYSTEM'
 	</select>
 </mapper>

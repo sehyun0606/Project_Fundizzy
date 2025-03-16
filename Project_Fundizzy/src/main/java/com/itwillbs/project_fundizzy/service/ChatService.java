@@ -61,8 +61,13 @@ public class ChatService {
 		chatMapper.insertChatMessage(chatMessage);
 	}
 	
-	// 회원의 안읽은 메세지수 조회
-	public List<Map<String, Integer>> getUnReadCount(String sender_email) {
-		return chatMapper.selectUnReadCountList(sender_email);
+	// 안읽은 메세지 수 조회
+	public int getTotalUnReadCount(String sender_email) {
+		return chatMapper.selectTotalUnReadCount(sender_email);
+	}
+	
+	// 메세지 읽음 처리
+	public int changeMessageReadState(String room_id, String sender_email) {
+		return chatMapper.updateMessageToRead(room_id, sender_email);
 	}
 }

@@ -147,6 +147,7 @@
 .semiTitle {
 	font-size: 15px;
 	margin-bottom: 4px;
+	cursor: default;
 }
 
 .titleDescription {
@@ -225,6 +226,7 @@
 	margin-bottom: 30px;
 	height: 50px;
 	display: flex;
+	cursor: pointer;
 }
 
 .receiverImg {
@@ -245,6 +247,23 @@
     position: absolute;
     top: -10px;
     left: -10px;
+    width: 20px;
+    height: 20px;
+    background-color: red;
+    color: white; 
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    font-weight: bold;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+}
+
+.messageTotalCount {
+    position: absolute;
+    top: 68px;
+    left: 28px;
     width: 20px;
     height: 20px;
     background-color: red;

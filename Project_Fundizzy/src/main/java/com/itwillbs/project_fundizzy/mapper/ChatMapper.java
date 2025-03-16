@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.itwillbs.project_fundizzy.vo.ChatMessage;
 import com.itwillbs.project_fundizzy.vo.ChatRoom;
@@ -37,6 +38,10 @@ public interface ChatMapper {
 	// 채팅방 마지막 접근 시간 업데이트
 	void updateLastAccessTime(ChatMessage chatMessage);
 	
-	// 읽지않은 메세지 수 조회
-	List<Map<String, Integer>> selectUnReadCountList(String sender_email);
+	// 메세지 읽음 처리
+	int updateMessageToRead(@Param("room_id") String room_id, @Param("sender_email") String sender_email);
+	
+	// 읽지않은 메세지 총 수 조회
+	int selectTotalUnReadCount(String sender_email);
+
 }

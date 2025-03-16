@@ -25,6 +25,7 @@ public class ChatMessage {
 	public static final String TYPE_LEAVE = "TYPE_LEAVE";
 	public static final String TYPE_TALK = "TYPE_TALK"; // 대화 메세지
 	public static final String TYPE_SYSTEM = "TYPE_SYSTEM"; // 시스템 메세지
+	public static final String TYPE_INIT = "TYPE_INIT"; // 부모홈페이지 초기화
 	public static final String TYPE_INIT_MAIN = "TYPE_INIT_MAIN"; // 채팅창 초기화 요청(메인페이지)
 	public static final String TYPE_INIT_LIST = "TYPE_INIT_LIST"; // 채팅창 초기화 요청(채팅리스트페이지)
 	public static final String TYPE_INIT_CHATROOM = "TYPE_INIT_CHATROOM"; // 채팅방 초기화 요청(채팅방페이지)

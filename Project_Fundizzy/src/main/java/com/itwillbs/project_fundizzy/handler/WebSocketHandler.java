@@ -74,8 +74,14 @@ public class WebSocketHandler extends TextWebSocketHandler {
 		
 		System.out.println("수신된 메세지 타입 : " + type);
 		
+		// 사이트 페이지 초기화시 읽지않은 총 메세지수 조회후 페이지에 표시
+		if(type.equals(ChatMessage.TYPE_INIT)) {
+			int totalUnreadCount = chatService.getTotalUnReadCount(sender_email);
+			// 기존의 ChatMessage 타입 객체에 저장후 전송
+			chatMessage.setRead_state(totalUnreadCount);
+			sendMessasge(session, chatMessage);
 		// 채팅창 메인 페이지 초기화 메시지
-		if(type.equals(ChatMessage.TYPE_INIT_MAIN)) {
+		} else if(type.equals(ChatMessage.TYPE_INIT_MAIN)) {
 			// 최근 채팅 멤버 조회
 			List<Map<String, String>> recentlyChatMemberList = chatService.getRecentlyChatMemberList(sender_email);
 			
@@ -91,6 +97,10 @@ public class WebSocketHandler extends TextWebSocketHandler {
 			memberList.put("recentlyChatMemberList", recentlyChatMemberList);
 			memberList.put("makerList", makerList);
 			memberList.put("supportList", supportList);
+			
+			int totalUnreadCount = chatService.getTotalUnReadCount(sender_email);
+			// 기존의 ChatMessage 타입 객체에 저장후 전송
+			chatMessage.setRead_state(totalUnreadCount);
 			
 			// 메세지로 전달하기위해 JSON 형식으로 변환
 			String jsonMemberList = gson.toJson(memberList);
@@ -134,12 +144,17 @@ public class WebSocketHandler extends TextWebSocketHandler {
 				chatMessage.setRoom_id(room.getRoom_id());
 				
 				List<ChatMessage> chatMessageList = chatService.getChatMessageList(room.getRoom_id());
+				
+         		// 접속한 채팅방의 메세지 읽음 처리
+				int updateCount = chatService.changeMessageReadState(room.getRoom_id(), sender_email);
+				chatMessage.setRead_state(updateCount);
+				
 				chatMessage.setMessage(gson.toJson(chatMessageList));
 			} 
 			
 			sendMessasge(session, chatMessage);
 			
-			// 채팅 메세지 전송
+		// 채팅 메세지 전송
 		} else if(type.equals(ChatMessage.TYPE_TALK)) {
 			// 채팅방 아이디가 존재하지 않으면 새로 채팅방 생성
 			if(chatMessage.getRoom_id() == null) {
@@ -197,10 +212,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
 			sendMessasge(session, chatMessage);
 			sendMessageAfterSearchReceiver(receiver_email, chatMessage);
 			
-			// 회원의 읽지않은 메시지 수 조회
-		} else if(type.equals(ChatMessage.TYPE_REQUEST_UNREADMESSAGE)) {
-			List<Map<String, Integer>> unReadChatCountList = chatService.getUnReadCount(sender_email);
-		}
+   		} 
 	}
 
 	@Override

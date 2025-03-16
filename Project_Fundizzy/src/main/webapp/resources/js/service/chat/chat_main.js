@@ -1,4 +1,6 @@
 const TYPE_INIT_MAIN = "TYPE_INIT_MAIN";
+const TYPE_TALK = "TYPE_TALK";
+const TYPE_INIT_CHATROOM = "TYPE_INIT_CHATROOM";
 
 var ws = opener.ws;
 const sEmail = $("#sId", opener.document).val();
@@ -10,6 +12,8 @@ $(function() {
 		opener.location.href = "Login";
 		window.close();
 	}
+	
+	$(".messageTotalCount").hide();
 	
 	initChatWindow();
 	
@@ -46,12 +50,37 @@ $(function() {
 			    peopleList.height(peopleList[0].scrollHeight);
 			    $(this).text("▼");
 			});
+			
+			// 초기화시 읽지않은 메세지 수 사이드바에 표시
+			$(".messageTotalCount").text(data.read_state).change();
+		} else if(data.type == TYPE_TALK) {
+			// 총 읽지않은 메세지수 변경
+			if(data.sender_email != sEmail) {
+				// 총 읽지 않은 메세지 수 변경
+				$(".messageTotalCount").text(parseInt($(".messageTotalCount").text()) + 1).change();
+			}
+		// 타입이 TYPE_INIT_CHATROOM일 경우 해당 채팅방의
+		// 읽지않은 메세지가 읽음 처리되므로 해당 방의 읽지않은
+		// 메세지 수 초기화
+		} else if(data.type == TYPE_INIT_CHATROOM) {
+			console.log(data.read_state + "ㅋㅋㅋㅋ");
+			// 읽음 처리된 채팅 수 총 채팅 수에서 제거
+			$(".messageTotalCount").text(parseInt($(".messageTotalCount").text()) - data.read_state).change();
 		}
 		
 	}
 	
 	// 해당 페이지 선택 표시를 위해 사이드바의 다른 페이지 아이콘 연하게 표시
 	$("#chatRoom img").css("opacity", "0.3");
+	
+	// 총 읽지않은 메시지 카운트 체인지 이벤트 헨들링
+	$(".messageTotalCount").change(function() {
+	    if(parseInt($(this).text()) == 0) {
+	        $(this).hide();
+	    } else {
+	        $(this).show();
+		}
+	});
 	
 	// 채팅메인 페이지의 채팅상대리스트 폴딩 작업
 	$('.foldingBtn').each(function() {
@@ -131,7 +160,6 @@ function makeDivForAppendMember(people) {
 }
 
 function openChatRoom(receiver_email) {
-	console.log("zzzzzzzzzzz  " + receiver_email);
 	// 부모창의 채티방오픈 함수 호출
 	opener.openChatRoomWindow(receiver_email);
 }

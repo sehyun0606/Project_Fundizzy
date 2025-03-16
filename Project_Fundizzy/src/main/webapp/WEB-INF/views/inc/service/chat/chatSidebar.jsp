@@ -5,6 +5,7 @@
 		<img src="/resources/images/chat/personIcon.png">
 	</a>
 	<a href="/ChatList" id="chatRoom">
+		<span class="messageTotalCount">0</span>
 		<img src="/resources/images/chat/speechBubbleIcon.png">
 	</a>
 </div>

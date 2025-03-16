@@ -47,11 +47,41 @@
 		    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 		    cursor: pointer;
 		    z-index: 1000;
+		    transition: width 0.3s ease, height 0.3s ease;
+		}
+		
+		#floatingChat:hover {
+			width: 90px;
+			height: 90px;
 		}
 		
 		#floatingChat img {
 		    width: 60%;
 		    height: 60%;
+		}
+		
+		.messageCount {
+		    position: absolute;
+		    top: 2px;
+		    left: 2px;
+		    width: 20px;
+		    height: 20px;
+		    background-color: red;
+		    color: white; 
+		    border-radius: 50%;
+		    display: flex;
+		    justify-content: center;
+		    align-items: center;
+		    font-size: 15px;
+		    font-weight: bold;
+		    box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+		}
+		
+		.messageCount:hover {
+			top: 0;
+		    left: 0;
+			width: 30px;
+			height: 30px;
 		}
     </style>
 </head>
@@ -87,6 +117,7 @@
     <input type="hidden" id="sId" value="${sessionScope.sId}">
     <c:if test="${not empty sessionScope.sId}">
 	    <div id="floatingChat">
+	    	<span class="messageCount">0</span>
 	    	<img src="/resources/images/chat/chattingIcon.png" alt="채팅오픈" onclick="openChatWindow()">
 		</div>
     </c:if>
