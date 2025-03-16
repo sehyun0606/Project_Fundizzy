@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +8,7 @@
 <title>Fundizzy</title>
 <link rel="stylesheet" type="text/css" href="resources/css/helpCenter/helpCenter_main.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="resources/js/jquery-3.7.1.js"></script>
 </head>
 <body>
 	<header>
@@ -37,87 +38,81 @@
 			    <span class="tab-btn" data-target="maker">메이커</span>
 			</div>
 	
-	        <!-- 카테고리 버튼 -->
-	        <div class="faq-categories">
-	            <button>회원정보</button>
-	            <button>결제</button>
-	            <button>상품/배송</button>
-	            <button>서비스 이용</button>
-	            <button>사이트 위치/기능 문의</button>
-	        </div>
+<!-- 	        카테고리 버튼 -->
+<!-- 	        <div class="faq-categories"> -->
+<!-- 	            <button>회원정보</button> -->
+<!-- 	            <button>결제</button> -->
+<!-- 	            <button>상품/배송</button> -->
+<!-- 	            <button>서비스 이용</button> -->
+<!-- 	            <button>사이트 위치/기능 문의</button> -->
+<!-- 	        </div> -->
 	
 	        <!-- ✅ 서포터 FAQ 리스트 -->
+	        <c:set var="categoryCount" value="0" />
+			<c:forEach var="faq" items="${faqList}">
+			    <c:if test="${faq.board_category eq '회원정보'}">
+			        <c:set var="categoryCount" value="${categoryCount + 1}" />
+			    </c:if>
+			</c:forEach>
 			<div class="faq-list tab-content active" id="supporter">
-			    <div class="faq-item">
-			        <h3>📌 배송지 정보를 어떻게 바꿀 수 있나요?</h3>
-			        <p>A. <span class="check-icon">✔</span> 로그인 후 '내 정보'에서 배송지 정보를 수정할 수 있습니다.</p>
-			    </div>
-			    <div class="faq-item">
-			        <h3>📌 배송은 얼마나 걸리나요?</h3>
-			        <p>A. <span class="check-icon">✔</span> 일반적으로 결제 후 3~5일 소요됩니다.</p>
-			    </div>
-			    <div class="faq-item">
-			        <h3>📌 환불은 어떻게 진행되나요?</h3>
-			        <p>A. <span class="check-icon">✔</span> 결제 후 7일 이내에 요청하시면 환불이 가능합니다.</p>
-			    </div>
-			    <div class="faq-item">
-			        <h3>📌 제품 A/S 신청은 어디서 하나요?</h3>
-			        <p>A. <span class="check-icon">✔</span> 고객센터를 통해 A/S 신청이 가능합니다.</p>
-			    </div>
-			    <div class="faq-item">
-			        <h3>📌 회원 정보 변경은 어디서 하나요?</h3>
-			        <p>A. <span class="check-icon">✔</span> 마이페이지에서 변경 가능합니다.</p>
-			    </div>
-			    <div class="faq-item">
-			        <h3>📌 포인트는 어떻게 적립되나요?</h3>
-			        <p>A. <span class="check-icon">✔</span> 결제 금액의 일정 비율이 적립됩니다.</p>
-			    </div>
+				<c:set var="faqCounter" value="0" />
+			    <c:forEach var="faq" items="${faqList}" varStatus="status">
+			        <c:if test="${faq.board_category eq '회원정보' && faqCounter < 6}">
+					    <div class="faq-item" onclick="location.href='BoardDetail?title=${faq.board_title}&content=${faq.board_content}'">
+					        <h3>📌 ${faq.board_title}</h3>
+					        <p>A. <span class="check-icon">✔</span> ${faq.board_content}</p>
+					    </div>
+				    <c:set var="faqCounter" value="${faqCounter + 1}" />
+			    	</c:if>
+			    </c:forEach>
 			</div>
 			
 			<!-- ✅ 메이커 FAQ 리스트 -->
+			<c:set var="categoryCount" value="0" />
+			<c:forEach var="faq" items="${faqList}">
+			    <c:if test="${faq.board_category eq '개설(예비메이커)'}">
+			        <c:set var="categoryCount" value="${categoryCount + 1}" />
+			    </c:if>
+			</c:forEach>
 			<div class="faq-list tab-content" id="maker">
-			    <div class="faq-item">
-			        <h3>📌 프로젝트 심사는 얼마나 걸리나요?</h3>
-			        <p>A. 심사는 평균 5~7일 소요됩니다.</p>
-			    </div>
-			    <div class="faq-item">
-			        <h3>📌 프로젝트 심사 기준이 무엇인가요?</h3>
-			        <p>A. 펀딩의 목적과 리워드의 명확성을 기준으로 평가합니다.</p>
-			    </div>
-			    <div class="faq-item">
-			        <h3>📌 프로젝트 개설 비용은 얼마인가요?</h3>
-			        <p>A. 개설 비용은 무료이며, 펀딩 성공 시 일정 수수료가 부과됩니다.</p>
-			    </div>
-			    <div class="faq-item">
-			        <h3>📌 정산은 언제 이루어지나요?</h3>
-			        <p>A. 프로젝트 종료 후 약 14일 이내에 정산됩니다.</p>
-			    </div>
-			    <div class="faq-item">
-			        <h3>📌 프로젝트 취소는 어떻게 하나요?</h3>
-			        <p>A. 프로젝트 시작 전에는 자유롭게 취소할 수 있습니다.</p>
-			    </div>
-			    <div class="faq-item">
-			        <h3>📌 리워드 배송 지연 시 어떻게 해야 하나요?</h3>
-			        <p>A. 서포터들에게 공지 및 고객센터에 문의하세요.</p>
-			    </div>
+				<c:set var="faqCounter" value="0" />
+			    <c:forEach var="faq" items="${faqList}" varStatus="status">
+		        	<c:if test="${faq.board_category eq '개설(예비메이커)' && faqCounter < 6}">
+					    <div class="faq-item" onclick="location.href='BoardDetail?title=${faq.board_title}&content=${faq.board_content}'">
+					        <h3>📌 ${faq.board_title}</h3>
+					        <p>A. <span class="check-icon">✔</span> ${faq.board_content}</p>
+					    </div>
+				    	<c:set var="faqCounter" value="${faqCounter + 1}" />
+			    	</c:if>
+			    </c:forEach>
 			</div>
 	
 	        <!-- 전체 보기 버튼 -->
 	        <div class="view-more">
-	            <button onclick="location.href='Notice'">전체 보기</button>
+	            <button onclick="location.href='Supporter'">전체 보기</button>
 	        </div>
 	    </section>
 	
     	<!-- 공지사항 & 문의 등록 -->
 	    <section class="bottom-section">
 		    <!-- 공지사항 -->
+		    <c:set var="categoryCount" value="0" />
+			<c:forEach var="faq" items="${faqList}">
+			    <c:if test="${faq.board_category eq '공지사항'}">
+			        <c:set var="categoryCount" value="${categoryCount + 1}" />
+			    </c:if>
+			</c:forEach>
 		    <div class="notice-box">
+		    	<c:set var="faqCounter" value="0" />
 		        <h3>공지사항</h3>
-		        <ul>
-		            <li>고객센터 설 명절 휴무 안내 <span>1개월 전</span></li>
-		            <li>기상 악화로 인한 화배송 주문 건의 출고 지연 <span>3개월 전</span></li>
-		            <li>와디즈 고객센터 전화 상담 서비스 종료 안내 <span>5개월 전</span></li>
-		        </ul>
+			    <c:forEach var="faq" items="${faqList}" varStatus="status">
+		        	<c:if test="${faq.board_category eq '공지사항' && faqCounter < 3}">
+				        <ul>
+				            <li>${faq.board_title} <span><fmt:formatDate value='${faq.board_create}' pattern='yy-MM'/></span></li>
+				        </ul>
+		        		<c:set var="faqCounter" value="${faqCounter + 1}" />
+			    	</c:if>
+			    </c:forEach>
 		        <a href="Notice">더 보기 ></a>
 		    </div>
 		
@@ -132,7 +127,7 @@
 		    <div class="inquiry-box">
 		        <h3>문의 등록하기</h3>
 		        <ul>
-		            <li><a href="#">와디즈 서비스 문의하기 ></a></li>
+		            <li><a href="QnaForm">펀디즈 서비스 문의하기 ></a></li>
 		            <li><a href="#">서포터 서비스 문의하기 ></a></li>
 		            <li><a href="#">메이커 서비스 문의하기 ></a></li>
 		        </ul>

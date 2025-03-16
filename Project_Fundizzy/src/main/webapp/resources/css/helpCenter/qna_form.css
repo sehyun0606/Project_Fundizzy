@@ -1,0 +1,169 @@
+body {
+    margin: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #ccc;
+}
+.qna-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.breadcrumb {
+    font-size: 14px;
+    color: #555; /* 🔹 기본 글씨 색상 (회색) */
+    margin-bottom: 10px;
+}
+
+.breadcrumb a {
+    text-decoration: none; /* 🔹 기본적으로 밑줄 제거 */
+    color: #777; /* 🔹 회색 */
+    transition: color 0.3s ease-in-out, text-decoration 0.3s ease-in-out;
+}
+
+.breadcrumb a:hover {
+    color: mediumpurple; /* 🔹 호버 시 mediumpurple 색상 적용 */
+    text-decoration: underline; /* 🔹 호버 시 밑줄 추가 */
+}
+
+.breadcrumb span {
+    color: mediumpurple; /* 🔹 '문의 등록'은 기본적으로 mediumpurple */
+    font-weight: bold; /* 🔹 강조 효과 */
+}
+
+.qna-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.qna-form label {
+    font-weight: bold;
+    margin: 10px 0 5px;
+}
+
+.qna-form input,
+.qna-form select,
+.qna-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.qna-text-editor {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.qna-text-editor button {
+    background: none;
+    border: 1px solid #ddd;
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.qna-privacy-info {
+	background: none;
+    padding: 0px 10px 10px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    margin-top: 0px;
+}
+.qna-privacy-info ul{
+	padding: 0px 0px 0px 15px;
+}
+.qna-agreement {
+    display: flex;
+    align-items: center; /* 🔹 체크박스와 텍스트를 한 줄로 정렬 */
+    gap: 8px; /* 🔹 체크박스와 텍스트 사이의 간격 */
+}
+
+.qna-agreement input[type="checkbox"] {
+	width: 12px;
+    height: 12px;
+    accent-color: black;
+    cursor: pointer;
+    margin-top: 8px;
+}
+
+.qna-agreement label {
+    font-size: 14px; /* 🔹 텍스트 크기 */
+    cursor: pointer; /* 🔹 라벨을 클릭해도 체크박스가 선택되도록 */
+}
+
+
+.file-upload {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.submit-btn {
+    width: 100%;
+    background-color: black;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.submit-btn:hover {
+    background-color: #333;
+}
+.form-group {
+    margin-bottom: 10px;
+}
+
+.form-group label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+}
+.qna-form input,
+.qna-form select,
+.qna-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 15px;
+    height: 40px; /* 🔹 높이를 고정해서 일관성 유지 */
+    box-sizing: border-box; /* 🔹 padding 포함한 전체 크기 유지 */
+}
+
+.qna-form textarea {
+    resize: vertical; /* 🔹 사용자가 크기를 조절할 수 있도록 */
+    min-height: 100px; /* 🔹 textarea는 기본적으로 좀 더 커야 가독성이 좋아 */
+}
+.file-upload {
+	margin-top: 10px;
+}
+.file-upload input {
+	font-size: 10px;
+}
+

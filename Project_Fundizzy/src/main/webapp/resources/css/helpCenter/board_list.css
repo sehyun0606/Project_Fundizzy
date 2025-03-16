@@ -1,0 +1,129 @@
+body {
+    margin: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #ccc;
+}
+
+/* 🔹 전체 컨테이너 */
+.supporter-container {
+	display: flex;
+    width: 55%;
+    margin: auto;
+    padding: 80px 0px 30px 0px;
+}
+/* 🔹 오른쪽 컨텐츠 */
+.supporter-content {
+    flex-grow: 1;
+    padding-left: 40px;
+}
+
+/* 🔹 네비게이션 (breadcrumb) */
+.supporter-breadcrumb {
+    font-size: 14px;
+    color: gray;
+    margin-bottom: 15px;
+}
+
+/* 🔹 회원정보 제목 */
+.supporter-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: mediumpurple;
+}
+
+/* 🔹 FAQ 리스트 */
+.supporter-faq-list {
+	display: flex;
+    flex-direction: column;
+    gap: 0px;
+    width: 650px;
+    max-width: 750px;
+}
+
+/* 🔹 개별 FAQ 항목 */
+.supporter-faq-item {
+	display: flex;
+    align-items: center;
+    padding: 15px 0px 15px 0px;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+.supporter-faq-item:hover {
+    background: #f1f1f1;
+}
+
+/* 🔹 FAQ 아이콘 */
+.supporter-faq-icon {
+    font-size: 16px;
+    margin-right: 5px;
+    color: green;
+}
+
+/* 🔹 FAQ 텍스트 */
+.supporter-faq-text h3 {
+    font-size: 12px;
+    margin: 0;
+    font-weight: bold;
+}
+
+.supporter-faq-text p {
+    font-size: 10px;
+    color: gray;
+    margin: 5px 0 0;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;        /* 한 줄만 표시 */
+    overflow: hidden;           /* 넘치는 텍스트 숨기기 */
+    text-overflow: ellipsis;    /* 너무 긴 텍스트는 ...으로 표시 */
+    width: 600px; 
+}
+
+/* 🔹 오른쪽 화살표 아이콘 */
+.supporter-faq-arrow {
+    font-size: 20px;
+    color: gray;
+    margin-left: auto;
+}
+
+/* 🔹 전체 보기 링크 */
+.supporter-view-all {
+	margin-top: 15px;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 40px;
+}
+
+.supporter-view-all a {
+    text-decoration: none;
+    color: black;
+    transition: color 0.3s ease-in-out;
+}
+
+.supporter-view-all a:hover {
+    color: #6a5acd; /* mediumpurple */
+}
+.nav-helpCenter {
+    text-decoration: none; /* 밑줄 제거 */
+    color: #666;
+    transition: color 0.3s ease-in-out;
+}
+
+.nav-helpCenter:hover {
+    color: #5a3ec8;  /* 보라색 강조 */
+}
+.nav-category {
+	color: #5a3ec8;   /* 현재 선택된 카테고리 - 강조 */
+    font-weight: bold;
+    text-decoration: none; /* 밑줄 제거 */
+}
+

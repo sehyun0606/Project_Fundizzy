@@ -1,0 +1,88 @@
+/* 🔹 사이드바 스타일 */
+.board-sidebar {
+    width: 180px;
+    background: #f8f9fa;
+    padding: 0px 15px 15px 15px;
+    border-radius: 8px;
+    height: 610px;
+}
+
+/* 🔹 사이드바 제목 (서포터, 메이커, 공지사항) */
+.board-sidebar h3 {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    transition: color 0.3s ease-in-out, border-bottom 0.3s ease-in-out;
+    display: inline-block;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+}
+
+/* 🔹 h3 마우스 오버 시 효과 */
+.board-sidebar h3:hover {
+    color: mediumpurple;
+    border-bottom: 2px solid mediumpurple;
+}
+
+.board-sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 0px;
+}
+
+/* 🔹 사이드바 메뉴 리스트 */
+.board-sidebar ul li {
+    margin-bottom: 0px;
+    display: flex;
+    align-items: center;
+    padding: 8px 8px 5px 0px;
+    border-radius: 5px;
+    transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+/* 🔹 기본 링크 스타일 */
+.board-sidebar ul li a {
+    text-decoration: none;
+    color: black;
+    font-size: 12px;
+    flex-grow: 1;
+    outline: none; /* 🔹 초록 점선 제거 */
+}
+.board-sidebar ul li a:focus,
+.board-sidebar ul li a:active {
+    outline: none !important; /* 🔹 강제적으로 포커스 스타일 제거 */
+    box-shadow: none !important; /* 🔹 포커스 효과 없애기 */
+    border: none !important; /* 🔹 추가적으로 보더도 없애기 */
+}
+
+/* 🔹 '더보기' 항목 스타일 */
+.more-menu {
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* 🔹 '더보기' 오른쪽 화살표 아이콘 */
+.more-arrow {
+    font-size: 14px;
+    color: gray;
+    transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+/* 🔹 마우스 오버 시 hover 효과 */
+.board-sidebar ul li:hover a {
+    color: mediumpurple;
+}
+
+/* 🔹 '더보기' 항목 hover 효과 */
+.more-menu:hover .more-arrow {
+    transform: translateX(5px);
+    color: mediumpurple;
+}
+
+/* ✅ 연한 회색 구분선 */
+.divider {
+    width: 100%;
+    height: 1px;
+    background-color: #ddd;
+    margin: 10px 0;
+}

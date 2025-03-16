@@ -44,6 +44,8 @@ public interface MemberMapper {
 
 	int updatePassword(Map<String, String> map);
 
+//	String selectMemberEmail(Map<String, String> map);
+
 
 
 

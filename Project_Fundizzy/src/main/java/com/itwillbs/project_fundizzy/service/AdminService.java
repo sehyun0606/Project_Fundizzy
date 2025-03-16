@@ -32,4 +32,16 @@ public class AdminService {
 	public int insertAdminInfo(Map<String, String> adminInfo) {
 		return mapper.insertAdminInfo(adminInfo);
 	}
+
+	public List<Map<String, String>> getUnansweredQnaList() {
+		return mapper.selectUnansweredQnaList();
+	}
+
+	public List<Map<String, String>> getAnsweredQnaList() {
+		return mapper.selectAnsweredQnaList();
+	}
+
+	public List<Map<String, String>> getQnaList() {
+		return mapper.selectQnaList();
+	}
 }

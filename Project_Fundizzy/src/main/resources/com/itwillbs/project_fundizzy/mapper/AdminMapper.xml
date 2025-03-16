@@ -40,6 +40,23 @@
 		)
 	</insert>
 	
+	<select id="selectUnansweredQnaList" resultType="map">
+		SELECT *
+		FROM qna
+		where qna_status = 'N'
+		order by qna_create desc;
+	</select>
 	
+	<select id="selectAnsweredQnaList" resultType="map">
+		SELECT *
+		FROM qna
+		where qna_status = 'Y'
+		order by qna_create desc;
+	</select>
 	
+	<select id="selectQnaList" resultType="map">
+		SELECT *
+		FROM qna
+		order by qna_create desc;
+	</select>
 </mapper>

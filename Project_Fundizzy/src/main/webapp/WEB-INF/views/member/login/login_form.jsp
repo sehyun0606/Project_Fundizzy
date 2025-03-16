@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -53,7 +52,7 @@
 	    <a href="FindEmail">아이디/비밀번호 찾기</a> | <a href="SignUp">회원가입</a>
 	</div>
     <script src="${pageContext.request.contextPath}/resources/js/login/social_login.js"></script>
-    <script>s
+    <script>
 	    window.config = {
   			kakaoClientId: "${kakaoClientId}", // Spring Model 값을 window 객체에 저장
   			kakaoRedirectUrl: "${kakaoRedirectUrl}", // Spring Model 값을 window 객체에 저장

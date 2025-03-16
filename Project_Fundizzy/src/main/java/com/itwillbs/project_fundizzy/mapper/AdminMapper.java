@@ -18,4 +18,10 @@ public interface AdminMapper {
 
 	int insertAdminInfo(Map<String, String> adminInfo);
 
+	List<Map<String, String>> selectUnansweredQnaList();
+
+	List<Map<String, String>> selectAnsweredQnaList();
+
+	List<Map<String, String>> selectQnaList();
+
 }

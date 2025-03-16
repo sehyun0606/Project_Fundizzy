@@ -108,8 +108,20 @@ public class AdminController {
 	}
 	
 	
-	
-	
+	@GetMapping("QnaManage")
+	public String QnaManage(Model model) {
+		List<Map<String, String>> unanswerQnaList = adminService.getUnansweredQnaList();
+		System.out.println("미답변 문의사항 : " + unanswerQnaList);
+		List<Map<String, String>> answerQnaList = adminService.getAnsweredQnaList();
+		System.out.println("답변 문의사항 : " + answerQnaList);
+		List<Map<String, String>> qnaList = adminService.getQnaList();
+		
+		
+		model.addAttribute("unanswerQnaList", unanswerQnaList);
+		model.addAttribute("answerQnaList", answerQnaList);
+		model.addAttribute("qnaList", qnaList);
+		return "admin/admin_community/admin_community_qna";
+	}
 	
 	
 	

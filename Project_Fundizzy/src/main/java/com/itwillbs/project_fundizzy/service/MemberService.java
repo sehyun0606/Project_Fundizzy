@@ -83,6 +83,10 @@ public class MemberService {
 		return mapper.updatePassword(map);
 	}
 
+//	public String getMemberEmail(Map<String, String> map) {
+//		return mapper.selectMemberEmail(map);
+//	}
+
 
 	
 	

@@ -193,7 +193,11 @@
 		WHERE email = #{email}
 	</update>
 
-
+<!-- 	<select id="selectMemberEmail" resultType="String"> -->
+<!-- 		SELECT email -->
+<!-- 		FROM member -->
+<!-- 		WHERE social_type = #{loginType} AND nickname = #{UserNickname} -->
+<!-- 	</select> -->
 
 
 

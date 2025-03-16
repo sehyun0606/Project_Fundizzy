@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itwillbs.project_fundizzy.mapper.HelpCenterMapper">
+	
+	<select id="selectBoardList" resultType="map">
+		select *
+		from board
+	</select>
+	
+	<select id="selectUserLikeStatus" resultType="map">
+		SELECT bl.like_id, bl.board_num, bl.user_email, bl.like_status, bl.like_date, m.email
+		FROM board_like bl
+		JOIN member m ON bl.user_email = m.email
+		WHERE bl.board_num = #{boardNum}
+		AND m.social_type = #{loginType}
+		AND m.nickname = #{UserNickname}; 
+	</select>
+	
+	<update id="updateLikeStatus">
+		UPDATE board_like bl
+		JOIN board b ON bl.board_num = b.board_num
+		SET 
+		    bl.like_status = CASE 
+		        WHEN bl.like_status = 'Y' THEN 'N' 
+		        ELSE 'Y' 
+		    END,
+		    bl.like_date = CURRENT_TIMESTAMP,
+		    b.board_like = b.board_like + 
+		        (CASE 
+		            WHEN bl.like_status = 'Y' THEN 1  -- 기존이 'Y'면 좋아요 취소 (감소)
+		            ELSE -1  -- 기존이 'N'이면 좋아요 추가 (증가)
+		        END)
+		WHERE bl.like_id = #{like_id}
+		AND bl.board_num = #{boardNum}
+		AND bl.user_email = #{user_email};
+	</update>
+	
+	<insert id="insertLikeStatus">
+		INSERT INTO board_like
+		VALUES 
+		(null, #{boardNum} , #{UserEmail} , 'Y', NOW())
+	</insert>
+	
+	<update id="updateBoardLike">
+		UPDATE board 
+		SET board_like = board_like + 1 
+		WHERE board_num = #{boardNum};
+	</update>
+	
+	<insert id="insertQna">
+		INSERT INTO qna
+		VALUES (
+			null
+			, #{qnaType} 
+			, #{email} 
+			, #{fundizzyEmail} 
+			, #{qnaContent} 
+			, #{name} 
+			, #{orderNumber} 
+			, #{projectNumber} 
+			, 'N'
+			, now()
+		)
+	</insert>
+	
+</mapper>

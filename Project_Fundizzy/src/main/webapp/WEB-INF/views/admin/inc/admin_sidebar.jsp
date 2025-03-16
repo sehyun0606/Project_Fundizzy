@@ -36,8 +36,7 @@
 			커뮤니티 관리
 		</div>
 		<ul class="submenu">
-			<li>게시물 관리</li>
-			<li>댓글 관리</li>	
+			<li onclick="location.href='QnaManage'">문의사항 관리</li>	
 		</ul>
 		<div class="menu" onclick="location.href='adminLogout'">
 			로그아웃
