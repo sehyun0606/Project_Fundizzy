@@ -46,8 +46,8 @@ public interface BankMapper {
 	//페이 충전결과 페이지 
 	int insertFundizzyPay(Map<String, String> mapForPay);
 	
-	//페이 충전 후 잔액 계산 
-	int updatePayAmtResult(@Param("chargeResult") Map<String, Object> chargeResult, @Param("payBalance")String payBalance, @Param("email")String email);
+	//페이 충전 후 잔액 업데이트 
+	int updatePayAmtResult(@Param("chargeResult") Map<String, Object> chargeResult, @Param("fundizzy_pay")FundizzyPay fundizzy_pay, @Param("email")String email);
 
 	// 이용기관 토큰 조회
 	BankToken selectAdminToken(String id);
@@ -56,7 +56,7 @@ public interface BankMapper {
 	BankAccount selectBankAccount(String user_seq_no);
 	
 	//db에 입금 결과 저장
-	void insertTransferResult(@Param("transferResult") Map<String, Object> transferResult, @Param("transactionType") String transactionType);
+	int insertTransferResult(@Param("map") Map<String, Object> map, @Param("fundizzy_pay")FundizzyPay fundizzy_pay, @Param("transferResult") Map<String, Object> transferResult, @Param("transactionType") String transactionType);
 	
 	//펀디지 페이 정보 가져오기
 	FundizzyPay selectFundizzyPayInfo(String email);
@@ -66,6 +66,9 @@ public interface BankMapper {
 	
 	//결제할 페이 가져오기
 	Map<String, Object> selectFundizzyPayLast(String email);
+	
+	//페이 송금 후 잔액 업데이트 
+	int updatePayTransferResult(@Param("transferResult") Map<String, Object> transferResult, @Param("fundizzy_pay")FundizzyPay fundizzy_pay, @Param("email")String email);
 	
 
 }

@@ -23,7 +23,6 @@
 	        <a href="#" class="support">지지서명</a>
 	       	<a href="#" class="supporter">서포터</a>
 	        <a href="#" class="refund">환불·정책</a>
-	        <a href="#" class="reward">리워드정보</a>
 	 	</div>
 	    <hr>
 	    <div class="container">
@@ -81,7 +80,7 @@
             
             <div class="reward-selection">
 <!--             리워드 목록 -->
-                <h3>리워드 선택</h3>
+                <h3>리워드 목록 </h3>
                 <div class="reward-list">
                 	<c:forEach var="reward" items="${reward}">
 	                	<div class="reward">
@@ -97,12 +96,6 @@
 			               <hr>
 			            </div>
                 	</c:forEach>
-                </div>
-<!--                 구매 및 지지서명, 찜버튼 -->
-                <div class="btn-group">
-                   <button class="btn-small" id="btn-like"><i class="fa fa-heart" style="font-size:24px"></i>찜</button>
-                   <button class="btn-small" id="btn-support"><i class='far fa-handshake' style='font-size:24px'></i>지지</button>
-                   <button class="purchase-btn" onclick="location.href='PaymentReward'">펀딩하기</button>
                 </div>
             </div>
         </div>

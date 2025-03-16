@@ -15,12 +15,12 @@
 	</div>
 	<div class="pay-container">
 		<input type="hidden" value="${bank_tran_id}">
-		<p>내 펀디지페이로 <fmt:formatNumber pattern="#,###원 " value="${chargeResult.tran_amt}"></fmt:formatNumber>충전완료!</p>
+		<p>내 계좌로 <fmt:formatNumber pattern="#,###원 " value="${map.tran_amt}"></fmt:formatNumber>송금완료!</p>
 		<p>페이잔액 : <fmt:formatNumber pattern="#,###원" value="${payBalance != null ? payBalance : 0}"></fmt:formatNumber></p>
 		<p>받는계좌 : ${bank_tran_id}</p>
 		<p>출금계좌 : 펀디지페이</p>
 		<input type="button" value="페이홈으로" onclick="location.href='PayPage'">
 	</div>
-<%-- 	<jsp:include page="/WEB-INF/views/inc/footer.jsp"></jsp:include> --%>
+	<jsp:include page="/WEB-INF/views/inc/footer.jsp"></jsp:include>
 </body>
 </html>

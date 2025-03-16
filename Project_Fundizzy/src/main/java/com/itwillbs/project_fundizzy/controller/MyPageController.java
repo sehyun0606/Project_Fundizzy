@@ -173,7 +173,7 @@ public class MyPageController {
 		BankAccount bankAccount = bankService.getDBAccountInfo(bankToken.getUser_seq_no());
 		map.put("bankAccount", bankAccount);
 		
-		// map에 출금이체(=충전) 요청을 리턴
+		// map에 출금이체(=충전) 요청을 리턴 - chargeResult는 api 충전한 결과임 즉, db랑 관련있는 내용은 없다.
 		Map<String, Object> chargeResult = bankService.requestCharge(map);
 		System.out.println("!!!!chargeResult = " + chargeResult);
 		System.out.println("****map = " + map);
@@ -182,26 +182,27 @@ public class MyPageController {
 			model.addAttribute("msg", "rsp_code 오류발생 \\n 다시 시도하세요." + chargeResult.get("rsp_message"));
 			return "result/fail";
 		}
-		//충전 결과 map에 사용자 일련번호 및 이메일 저장 
-		chargeResult.put("user_seq_no", bankToken.getUser_seq_no());
-		chargeResult.put("email", email);
 		
-		//이체결과 저장 요청
+		//충전 결과 map에 사용자 일련번호 및 이메일, 최근 페이 사용 일자 저장 
+		chargeResult.put("user_seq_no", bankToken.getUser_seq_no());
+		chargeResult.put("email", email); 
+		
+		//이체결과 저장 요청 - 
 		int charge_result = bankService.registChargeResult(chargeResult);
 		
 		//페이 잔액 업데이트를 위한 fundizzy_pay 들고오기
-		String payBalance = fundizzyService.getPayBalance(email);
-		System.out.println("payBalance " + payBalance);
-		map.put("payBalance", payBalance);
+		FundizzyPay fundizzy_pay = fundizzyService.getPayBalance(email);
+		System.out.println("fundizzy_pay 데이터 확인: " + fundizzy_pay);
 		
 		if(charge_result > 0) {
 			System.out.println("충전 성공");
-			System.out.println("*****세션에 저장된 sId: " + session.getAttribute("sId"));
 			System.out.println("bankToken의 이메일: " + bankToken.getEmail());
 			//충전 성공시 잔액과 충전금액 더한값 페이 잔액에 update
-			int pay_amt_result = bankService.registPayAmtResult(chargeResult, payBalance,email);
+			int pay_amt_result = bankService.registPayAmtResult(chargeResult, fundizzy_pay, email);
 			if(pay_amt_result > 0) {
 				System.out.println("잔액 업데이트 성공 ");
+			}else {
+				System.out.println("잔액 업데이트 실패ㅠ");
 			}
 		}
 		model.addAttribute("bank_tran_id", chargeResult.get("bank_tran_id"));
@@ -255,14 +256,13 @@ public class MyPageController {
 		
 		//map 객체에 세션 아이디 추가 
 		map.put("email",email);
-		System.out.println("###### map = " + map);
 		
 		// DB에서 등록된 계좌정보 들고와서 
 		BankAccount bankAccount = bankService.getDBAccountInfo(bankToken.getUser_seq_no());
 //		System.out.println("user_seq - no == " + bankToken.getUser_seq_no());
 		
 		//map에 대표계좌 정보 저장
-		map.put("bankAccount", bankAccount);
+		map.put("bankAccount", bankAccount); //bankAccount에는 user_seq_no, account_num, account_holer_naem, account_bank_code
 		
 		//requestTransfer() 요청해서 map의 transferResult에 저장 
 		Map<String, Object> transferResult = bankService.requestDeposit(map);
@@ -287,11 +287,17 @@ public class MyPageController {
 		
 		//transferResult에 입금이체 결과 db에 저장 
 		transferResult.put("user_seq_no", bankToken.getUser_seq_no());
-		
 		transferResult.put("email", email);
 		
+		//페이 잔액 업데이트를 위한 fundizzy_pay 들고오기
+		FundizzyPay fundizzy_pay = fundizzyService.getPayBalance(email);
+		System.out.println("FUNDIZZY pay = " + fundizzy_pay);
 		//서비스에 registTransferResult(transferResult) 저장 요청 - 리턴타입 보이드
-		bankService.registTransferResult(transferResult);
+		System.out.println("###### map = " + map); //map 에는 email, tran_amt 가 있음 
+		String tranAmt = (String) map.get("tran_amt");
+		
+		transferResult.put("tranAmt", tranAmt);
+		int transferResultCount = bankService.registTransferResult(map, fundizzy_pay, transferResult);
 		
 		//모델에 transferResult 중 거래고유번호값 model에 추가 후 전달
 		model.addAttribute("bank_tran_id", transferResult.get("bank_tran_id"));
@@ -313,13 +319,14 @@ public class MyPageController {
 		System.out.println("bank_tran_id " + bank_tran_id);
 		
 		String email = (String) session.getAttribute("sId"); 
+		
 		//db에 거래결과 저장
 		Map<String, Object> chargeResult = bankService.getDBTransactionResult(bank_tran_id);
 		model.addAttribute("chargeResult", chargeResult);
 		
 		//페이 테이블에서 잔액 가져오기 
 		int payBalance = fundizzyService.getPayBalanceInt(email);
-		System.out.println("payBalance" + payBalance);
+		System.out.println("송금 payBalance = " + payBalance);
 		model.addAttribute("payBalance", payBalance);
 		
 		return "myPage/supporter/pay_transfer_result";

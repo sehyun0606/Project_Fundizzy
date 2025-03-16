@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>pay</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/mypage/supporter/pay_transfer.js"></script>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/myPage/supporter/pay_charge.css">
 <body>
 	<jsp:include page="/WEB-INF/views/inc/top.jsp"></jsp:include>
@@ -20,14 +22,14 @@
 			<div class="pay-info">
 				<input type="search" id="fundizy-pay" name ="tran_amt" placeholder="보낼 금액을 입력해주세요.">
 				<div class="btn-list">
-					<input type="button" value="+1만">
-					<input type="button" value="+5만">
-					<input type="button" value="+10만">
+					<input type="button" id="10000" value="+1만">
+					<input type="button" id="50000" value="+5만">
+					<input type="button" id="100000" value="+10만">
 				</div>
 				<input type="submit" value="보내기" id="transfer-submit">
 			</div>
 		</form>
 	</div>
-<%-- 	<jsp:include page="/WEB-INF/views/inc/footer.jsp"></jsp:include> --%>
+	<jsp:include page="/WEB-INF/views/inc/footer.jsp"></jsp:include>
 </body>
 </html>

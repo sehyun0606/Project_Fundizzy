@@ -89,6 +89,12 @@ public class FundService {
 		// TODO Auto-generated method stub
 		return mapper.selectReplyWriter(map);
 	}
+	
+	//펀딩 내역 테이블 가져오기
+	public List<Map<String, Object>> getFundHistory(String project_code) {
+		// TODO Auto-generated method stub
+		return mapper.selectFundHistory(project_code);
+	}
 	//-------------------------------------------------오른쪽 부분 --------------------------------------
 	//리워드 가져오기 
 	public List<Map<String, Object>> getPaymentReward(String project_code) {
@@ -149,14 +155,18 @@ public class FundService {
 		
 		// 4. 펀딩내역(fund-history) input
 //		int result4 = mapper.insertFundHistory(map);
+//		if(result1 + result2 + result3 + result4 < result4 ) {
+//			return false;
+//		}
 		
 		return true;
 	}
-
+//리워드 테이블 가져오기
 	public Map<String, String> getreward(String reward_code) {
 		// TODO Auto-generated method stub
 		return (Map<String, String>) mapper.selectReward(reward_code);
 	}
+
 
 
 

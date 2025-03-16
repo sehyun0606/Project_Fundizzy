@@ -50,6 +50,12 @@ public interface FundMapper {
 	
 	//지지서명 댓글 작성자 가져오기 
 	Object selectReplyWriter(Map<String, Object> map);
+	
+	// 펀딩내역 테이블 가져오기 
+	List<Map<String, Object>> selectFundHistory(String project_code);
+	
+	
+	
 	//---------------오른쪽 부분 ----------------------
 	
 	//리워드 가져오기 
