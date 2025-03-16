@@ -9,7 +9,7 @@
     <title>리워드 설계</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/projectMaker/project_reward.css">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/projectMaker/project_reward.js"></script>
+    <script src="/resources/js/projectMaker/project_reward.js"></script>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/inc/project_maker_side.jsp"></jsp:include>
@@ -26,7 +26,6 @@
 		            <h3>${reward.price }원</h3>
 		            <p><strong>${reward.product_name}</strong></p>
 		            <p>${reward.product_desc}</p>
-		            <p>배송비: <strong>${reward.delivery_fee}원</strong></p>
 		            <p>제한 수량: <strong>${reward.product_limit}</strong></p>
 		            <button class="button edit-button">수정</button>
 		            <button class="button delete-button">삭제</button>
@@ -68,11 +67,6 @@
                 </div>
 
                 <!-- 배송비 -->
-                <label for="shippingFee">배송비</label>
-                <div class="input-group">
-                    <input type="number" id="shippingFee" min="0" value="0" name="delivery_fee" required="required">
-                    <span>원</span>
-                </div>
 
                 <!-- 버튼 -->
                 <div class="button-group">
@@ -114,12 +108,6 @@
                     <span>개</span>
                 </div>
 
-                <!-- 배송비 -->
-                <label for="shippingFee">배송비</label>
-                <div class="input-group">
-                    <input type="number" id="shippingFee" class="deliveryFee2" min="0" value="0" name="delivery_fee" required="required">
-                    <span>원</span>
-                </div>
 
                 <!-- 버튼 -->
                 <div class="button-group">

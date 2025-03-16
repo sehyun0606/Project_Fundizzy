@@ -19,11 +19,11 @@
 	        <p>프로필 사진, 경력, 학력, 관심분야</p>
 	    </div>
 	
-	    <!-- 비밀번호 등록 -->
-	    <div class="settings-section" onclick="location.href='passwordSettings.jsp'">
-	        <h2>비밀번호 등록</h2>
-	        <p>계정 비밀번호 등록</p>
-	    </div>
+<!-- 	    비밀번호 등록 -->
+<!-- 	    <div class="settings-section" onclick="location.href='PasswordSettings'"> -->
+<!-- 	        <h2>비밀번호 등록</h2> -->
+<!-- 	        <p>계정 비밀번호 등록</p> -->
+<!-- 	    </div> -->
 	
 	    <!-- 알림 설정 -->
 	    <div class="settings-section" onclick="location.href='NotificationSetPage'">

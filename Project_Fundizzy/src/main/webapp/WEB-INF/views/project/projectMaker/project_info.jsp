@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>프로젝트 정보</title>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/projectMaker/project_info.css">
+    <link rel="stylesheet" type="text/css" href="/resources/css/projectMaker/project_info.css">
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/inc/project_maker_side.jsp"></jsp:include>
@@ -26,23 +26,42 @@
 	        	<input type="hidden" id="business_number" name="business_number" value="N">
 	        	<input type="hidden" id="repersentative_name" name="representative_name">
 	        	<input type="hidden" id="repersentative_email" name="representative_email">
+	        	<input type="hidden" id="delivery_fee" name="delivery_fee">
 	        </form>
 	        <!-- 카테고리 선택 -->
 		    <button class="side-button" id="submit-button" style="margin-left: 90%;"> 제출하기</button>
 	        <label class="label">카테고리 선택</label> 
 	        <select class="select main-category" required="required">
 	            <option value="">카테고리 선택</option>
-	            <option value="electric">전자기기</option>
-	            <option value="furniture">가구</option>
-	            <option value="life">생활용품</option>
+	            <option value="electric">테크,가전</option>
+	            <option value="furniture">홈,리빙</option>
+	            <option value="fashion">패션</option>
+	            <option value="beauty">뷰티</option>
+	            <option value="sports">스포츠</option>
+	            <option value="food">푸드</option>
+	            <option value="book">도서</option>
+	            <option value="electricBook">전자책,클래스</option>
+	            <option value="animal">반려동물</option>
+	            <option value="art">아트</option>
+	            <option value="charactor">캐릭터</option>
+	            <option value="movieMusic">영화,음악</option>
 	        </select>
 	        
 	        <label class="label">보조 카테고리 선택(선택)</label>
 	        <select class="select sub-category" required="required">
 	            <option value="">카테고리 선택</option>
-	            <option value="electric">전자기기</option>
-	            <option value="furniture">가구</option>
-	            <option value="life">생활용품</option>
+	            <option value="electric">테크,가전</option>
+	            <option value="furniture">홈,리빙</option>
+	            <option value="fashion">패션</option>
+	            <option value="beauty">뷰티</option>
+	            <option value="sports">스포츠</option>
+	            <option value="food">푸드</option>
+	            <option value="book">도서</option>
+	            <option value="electricBook">전자책,클래스</option>
+	            <option value="animal">반려동물</option>
+	            <option value="art">아트</option>
+	            <option value="charactor">캐릭터</option>
+	            <option value="movieMusic">영화,음악</option>
 	        </select>
 	        
 	        <!-- 성인 인증 -->
@@ -61,7 +80,7 @@
 	        </div>
 	
 	        <!-- 신청폼 -->
-	        <label class="label" >신분증</label>
+	        <label class="label id_card" >신분증</label>
 	        <input type="file" class="input id-card" required="required">
 	       
 	        <label class="label license license-num"style="display: none;" >사업자 등록 번호</label>
@@ -79,6 +98,8 @@
 	        <!-- 목표 금액 -->
 	        <label class="label">목표 금액</label>
 	        <input type="number" id="amount" class="input" placeholder="최소 50만원 ~ 1억원 사이에서 설정해주세요." required="required">
+	        <label class="label">배송비</label>
+	        <input type="number" id="delivery" class="input" placeholder="배송비를 입력해주세요" required="required">
 	    </div>
 	</div>
 	<footer>
@@ -94,8 +115,10 @@
 	        
 	        if(makerType == 'sole-proprietor' || makerType == 'proprietor'){
 	        	$(".license").css("display", "block");
+	        	$(".id_card").html("사업자등록증");
 	        }else{
 	        	$(".license").css("display", "none");
+	        	$(".id_card").html("신분증");
 	        }
 	    });
 	    
@@ -143,6 +166,9 @@
 	    $("#amount").keyup(function() {
 	        $("#target_amount").val($(this).val());
 	    });
+	    $("#delivery").keyup(function() {
+	        $("#delivery_fee").val($(this).val());
+	    });
 	    
 	    $("#submit-button").click(function(event){
 	        let isValid = true;
@@ -157,7 +183,8 @@
 	            "target_amount": "목표 금액",
 	            "maker_type": "메이커 유형",
 	            "repersentative_name": "대표자명",
-	            "registration_card": "신분증 또는 사업자 등록증"
+	            "registration_card": "신분증 또는 사업자 등록증",
+	            "delivery_fee": "배송비"
 	        };
 
 

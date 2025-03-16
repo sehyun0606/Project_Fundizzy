@@ -142,9 +142,11 @@ public class ProjectMakerService {
 	public void updateProjectInfo(ProjectInfoVO projectInfo) {
 		makerMapper.updateProjectInfo(projectInfo);
 	}
-
-	public void setProjectDate(ProjectDateVO date) {
+	
+	@Transactional
+	public void setProjectDate(ProjectDateVO date, String projectCode) {
 		makerMapper.insertProjectDate(date);
+		makerMapper.updateDateConfig(projectCode);
 	}
 	
 

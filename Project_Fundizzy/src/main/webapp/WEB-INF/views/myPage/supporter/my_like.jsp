@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>펀딩한 상품</title>
+    <title>찜한 상품</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -30,11 +30,14 @@
             padding: 20px;
             margin-bottom: 15px;
             position: relative;
+            display: flex;
         }
         
         .category {
-            font-size: 14px;
-            color: gray;
+            font-size: 20px;
+            display: flex;
+		    align-items: center;
+		    margin-left: 20px;
         }
         
         .status {
@@ -102,7 +105,6 @@
         .info{
 	        display: flex;
 		    justify-content: space-between;
-		    margin-bottom: 20px;
         }
         
         .payment-info {
@@ -305,7 +307,18 @@
 		.img{
 			width: inherit;
 		}
-				
+		.content{
+			display: flex;
+			align-items: center;
+			margin-left: 20px;
+			justify-content: space-between;
+			width: 100%;
+		}
+		.name{
+			display: flex;
+			align-items: center;
+			margin-right: 20px;
+		}
     </style>
    	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
@@ -317,62 +330,25 @@
 
 	</div>
 	<div class="container">
-	    <div class="title">펀딩한 상품</div>
-		<c:if test="${empty fundList}">
+	    <div class="title">찜한 프로젝트</div>
+		<c:if test="${empty likeList}">
     		<div class="funding-box">
-	            구매한 상품이 없어요. <br>
+	            찜한 프로젝트가 없어요. <br>
 	            지금 바로 펀디지에서 프로젝트에 참해 보세요.
         	</div>
 		</c:if>	    
-	    <c:forEach items="${fundList}" var="fund">
+	    <c:forEach items="${likeList}" var="like">
 		    <div class="product-box">
-		    	<input type="hidden" value="${fund.reward_code}" class="reward_code">
-		    	<input type="hidden" value="${fund.fund_idx}" class="fund_idx">
-		    	<input type="hidden" value="${fund.payment_code}" class="payment_code">
-		        <div class="category">${fund.project_title}</div>
-		        <div class="product-name">${fund.product_name}</div>
 		        <div class="info">
 		        	<div class="img-section">
-		        		<img class="img" src="/resources/upload/${fund.representative_picture }"/>
-		        	</div>
-		        	<div class="payment-info">
-		        		<div><fmt:formatDate value="${fund.purchase_date}" pattern="yyyy-MM-dd" /></div>
-				        <div class="company">${fund.business_name}</div>
-				        <c:choose>
-				        	<c:when test="${fund.send_stat eq 'SHI01'}">
-						        <div>미발송</div>
-				        	</c:when>
-				        	<c:when test="${fund.send_stat eq 'SHI02'}">
-						        <div>발송완료</div>
-				        	</c:when>
-				        	<c:when test="${fund.send_stat eq 'SHI03'}">
-						        <div>배송중</div>
-				        	</c:when>
-				        	<c:when test="${fund.send_stat eq 'SHI04'}">
-						        <div>배송완료</div>
-				        	</c:when>
-				        </c:choose>
-				        <div>결제금액 <fmt:formatNumber value="${fund.result_point}" type="number" />POINT</div>
+		        		<img class="img" src="/resources/upload/${like.representative_picture }"/>
 		        	</div>
 		        </div>
-		        <c:if test="${fund.send_stat eq 'SHI04'}">
-		        	<div class="refund">환불신청</div>
-		        </c:if>
-				<div class="ship">
-			        <c:if test="${fund.send_stat eq 'SHI03'}">
-						<input type="button" value="배송완료" class="shipCompleteBtn">
-			        </c:if>
-			        <c:if test="${fund.send_stat eq 'SHI03' || fund.send_stat eq 'SHI04'}">
-					        <input type="hidden" id="t_key" name="t_key" value="2n3pmCsoZ4CJC0Fqu54m1Q">
-					        <input type="hidden" name="t_code" id="t_code" <c:choose><c:when test="${fund.courier eq '우체국택배'}">value="01"</c:when>
-																			    	<c:when test="${fund.courier eq 'cj대한통운'}">value="04"</c:when>
-																			    	<c:when test="${fund.courier eq '한진택배'}">value="05"</c:when>
-																			    	<c:when test="${fund.courier eq '로젠택배'}">value="06"</c:when>
-																			    	<c:when test="${fund.courier eq '롯데택배'}">value="08"</c:when></c:choose>>
-					        <input type="hidden" name="t_invoice" id="t_invoice" value="${fund.tracking_num}">
-							<input type="button" value="배송조회" class="shipCheckBtn">
-			        </c:if>
-				</div>
+		        <div class="category">${like.project_title}</div>
+		        <div class="content">
+		        	<span>${like.project_content}</span>
+		        	<div class="name">${like.representative_name}</div>
+		        </div>
 		    </div>
 		    
 	    </c:forEach>
@@ -385,7 +361,7 @@
 			                    <span class="disabled">이전</span>
 			                </c:when>
 			                <c:otherwise>
-			                    <a href="FundHistory?pageNum=${pageInfo.pageNum - 1}">이전</a>
+			                    <a href="LikeHistory?pageNum=${pageInfo.pageNum - 1}">이전</a>
 			                </c:otherwise>
 			            </c:choose>
 			
@@ -396,7 +372,7 @@
 			                        <span class="active">${i}</span>
 			                    </c:when>
 			                    <c:otherwise>
-			                        <a href="FundHistory?pageNum=${i}">${i}</a>
+			                        <a href="LikeHistory?pageNum=${i}">${i}</a>
 			                    </c:otherwise>
 			                </c:choose>
 			            </c:forEach>
@@ -407,130 +383,17 @@
 			                    <span class="disabled">다음</span>
 			                </c:when>
 			                <c:otherwise>
-			                    <a href="FundHistory?pageNum=${pageInfo.pageNum + 1}">다음</a>
+			                    <a href="LikeHistory?pageNum=${pageInfo.pageNum + 1}">다음</a>
 			                </c:otherwise>
 			            </c:choose>
 			        </c:if>
 			    </div>
-			</div>	
+			</div>			
 	</div>
 	
 </div>
-<div id="myModal" class="modal">
-       <div class="modal-content">
-           <form action="RefundReqeust" method="POST" enctype="multipart/form-data">
-           	<input type="hidden" value="${sessionScope.sId}" name="member_email">
-           	<input type="hidden" name="reward_code" id="reward_code">
-           	<input type="hidden"  name="fund_idx" id="fund_idx">
-           	<input type="hidden"  name="project_code" id="project_code">
-           	<input type="hidden"  name="payment_code" id="payment_code">
-           	<div class="title-section">
-            	<h2 class="title">환불 신청</h2>
-       		</div>
-       		
-               <label for="amount">환불 금액</label>
-               <div class="input-group">
-                   <input type="number" id="amount" value="환불 금액 들고오기" name="refund_amound" readonly="readonly" required="required">
-                   <span>원</span>
-               </div>
-               <!-- 리워드 명 -->
-               <label for="rewardName">리워드 명</label>
-               <input type="text" id="rewardName"  maxlength="60" name="product_name" readonly="readonly" required="required">
-
-               <!-- 리워드 설명 -->
-               <label for="rewardDesc">환불 사유</label>
-               <textarea id="rewardDesc" placeholder="환불 사유를 설명해 주세요" maxlength="500" name="refund_reason" required="required"></textarea>
-               <small class="text-count">500자</small>
-
-               <!-- 제한 수량 -->
-               <label for="limit">제한 수량</label>
-               <div class="input-group">
-                   <input type="file" id="limit" name="refundImg" required="required">
-               </div>
-			
-		<div class="button-section">
-            <button type="button" class="close-btn">닫기</button>
-			<button type="submit" class="submit-btn">제출</button>			
-		</div>
-           </form>
-       </div>
-   </div>
    
 <script type="text/javascript">
-	$(document).ready(function () {
-	    // 모달 열기
-	    $(".refund").click(function () {
-	        $("#myModal").fadeIn();
-	        let fund_idx = $(this).parent().children().filter(".fund_idx").val();
-			  $.ajax({
-	  			url : "GetFundInfo",
-				type : "GET",
-				data : {
-					fund_idx
-				},
-				dataType: "json",  
-       			contentType: "application/json; charset=UTF-8"
-			}).done(function(result){
-				console.log("응답 받은 데이터: ", result);
-				
-				$("#fund_idx").val(result.fund_idx);
-				$("#amount").val(result.result_point);
-				$("#rewardName").val(result.product_name);
-				$("#fund_idx").val(result.fund_idx);
-				$("#reward_code").val(result.reward_code);
-				$("#project_code").val(result.project_code);
-				$("#payment_code").val(result.payment_code);
-			}).fail(function(){
-				console.log("실패..")
-			})
-	    });
-	
-	    // 모달 닫기 (버튼 클릭)
-	    $(".close-btn").click(function () {
-	        $("#myModal").fadeOut();
-	    });
-	
-	    // 모달 닫기 (바깥 영역 클릭)
-	    $(window).click(function (event) {
-	        if ($(event.target).is("#myModal")) {
-	            $("#myModal").fadeOut();
-	        }
-	    });
-	    
-	    $(document).on("click", ".shipCompleteBtn", function() {
-			let payment_code = $(this).parent().parents().children().filter(".payment_code").val();
-			let fund_idx = $(this).parent().parents().children().filter(".fund_idx").val();
-	    	
-			if(!confirm("정말 배송이 완료되었나요?\n확정 후엔 변경하실 수 없습니다")) {
-				return false;
-			} else {
-				$.ajax({
-					type : "POST",
-					url : "ShipComplete",
-					data : {
-						payment_code,
-						fund_idx
-					}
-				}).done(function(response) {
-					alert(response.msg);
-					location.href = response.targetURL;
-				});
-			}
-		});
-	    
-	    // 배송조회창 열림
-	    $(".shipCheckBtn").click(function() {
-	    	let courier = $("#t_code").val();
-	    	let tracking_num = $("#t_invoice").val();
-	    	
-			window.open("https://info.sweettracker.co.kr/tracking/4?t_key=2n3pmCsoZ4CJC0Fqu54m1Q&t_code="
-					+ courier + "&t_invoice=" + tracking_num, "_blank", "width=500,height=700,top=100,left=200");
-				
-		});
-	    
-
-	    
-	});
 </script>
 </body>
 </html>

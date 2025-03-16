@@ -13,6 +13,7 @@ import java.util.UUID;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +28,7 @@ import com.itwillbs.project_fundizzy.vo.BankAccount;
 import com.itwillbs.project_fundizzy.vo.BankToken;
 import com.itwillbs.project_fundizzy.vo.FundizzyPay;
 import com.itwillbs.project_fundizzy.vo.MemberVO;
+import com.itwillbs.project_fundizzy.vo.PageInfo;
 import com.itwillbs.project_fundizzy.vo.ProjectListVO;
 import com.mysql.cj.Session;
 
@@ -45,8 +47,14 @@ public class MyPageController {
 	
 	// 서포터 메인
 	@GetMapping("SupporterPage")
-	public String SupporterPage(Model model) {
-		model.addAttribute("user","supporter");
+	public String SupporterPage(Model model,HttpSession session) {
+		String id = (String)session.getAttribute("sId");
+		
+		List<ProjectListVO> projectList = mypageService.getMyProjectList(id);
+		
+		model.addAttribute("projectCount", projectList.size());
+		model.addAttribute("projectList", projectList);
+		
 		return "myPage/supporter/supporter_mypage";
 	}
 	
@@ -108,21 +116,42 @@ public class MyPageController {
 		return "redirect:/SupporterPage";
 	}
 	
-	//메이커페이지 이동
-	//전달하는 파라미터: user값 maker
-	//				프로젝트 리스트
-	@GetMapping("MakerPage")
-	public String makerPage(Model model,HttpSession session) {
+	@GetMapping("LikeHistory")
+	public String likeHistory(@RequestParam(defaultValue = "1") int pageNum,HttpSession session, Model model) {
 		
-		String id = (String)session.getAttribute("sId");
+		String email = (String)session.getAttribute("sId");
+		int listLimit = 5;
+		int startRow = (pageNum - 1) * listLimit;
+		int listCount = mypageService.getLikeListCount(email);
+		int pageListLimit = 5;
 		
-		List<ProjectListVO> projectList = mypageService.getMyProjectList(id);
+		int maxPage = listCount / listLimit + (listCount % listLimit > 0 ? 1 : 0);
+		if(maxPage == 0) {
+			maxPage = 1;
+		}
+		int startPage = (pageNum - 1) / pageListLimit * pageListLimit + 1;
+		int endPage = startPage + pageListLimit - 1;
 		
-		model.addAttribute("projectCount", projectList.size());
-		model.addAttribute("projectList", projectList);
-		model.addAttribute("user", "maker");
+		if(endPage > maxPage) {
+			endPage = maxPage;
+		}
 		
-		return "myPage/maker/maker_mypage";
+		if(pageNum < 1 || pageNum > maxPage) {
+			model.addAttribute("msg", "존재하지 않는 페이지");
+			model.addAttribute("targetURL","AdminProjectList?pageNum=1");
+			return "result/result";
+		}
+		PageInfo pageInfo = new PageInfo(listCount,pageListLimit,maxPage,startPage,endPage,pageNum);
+		model.addAttribute("pageInfo",pageInfo);
+		
+		
+		
+		
+		List<Map<String, Object>> likeList = mypageService.getMyLike(email,startRow,listLimit);
+		
+		model.addAttribute("likeList", likeList);
+		
+		return "myPage/supporter/my_like";
 	}
 	
 	//페이 페이지

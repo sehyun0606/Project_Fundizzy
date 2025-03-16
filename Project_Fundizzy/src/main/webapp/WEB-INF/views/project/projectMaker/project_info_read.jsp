@@ -19,17 +19,35 @@
 	        <label class="label">카테고리 선택</label> 
 	        <select class="select main-category" disabled="disabled">
 	            <option value="">카테고리 선택</option>
-	            <option value="electric" ${projectInfo.category eq 'electric' ? 'selected' : ''}>전자기기</option>
-	            <option value="furniture" ${projectInfo.category eq 'furniture' ? 'selected' : ''}>가구</option>
-	            <option value="life" ${projectInfo.category eq 'life' ? 'selected' : ''}>생활용품</option>
+	            <option value="electric" ${projectInfo.category eq 'electric' ? 'selected' : ''}>테크,가전</option>
+	            <option value="furniture" ${projectInfo.category eq 'furniture' ? 'selected' : ''}>홈,리빙</option>
+	            <option value="furniture" ${projectInfo.category eq 'fashion' ? 'selected' : ''}>패션</option>
+	            <option value="furniture" ${projectInfo.category eq 'beauty' ? 'selected' : ''}>스포츠</option>
+	            <option value="furniture" ${projectInfo.category eq 'sports' ? 'selected' : ''}>패션</option>
+	            <option value="furniture" ${projectInfo.category eq 'food' ? 'selected' : ''}>푸드</option>
+	            <option value="furniture" ${projectInfo.category eq 'book' ? 'selected' : ''}>도서</option>
+	            <option value="furniture" ${projectInfo.category eq 'electricBook' ? 'selected' : ''}>전자책,클래스</option>
+	            <option value="furniture" ${projectInfo.category eq 'animal' ? 'selected' : ''}>반려동물</option>
+	            <option value="furniture" ${projectInfo.category eq 'art' ? 'selected' : ''}>아트</option>
+	            <option value="furniture" ${projectInfo.category eq 'charactor' ? 'selected' : ''}>캐릭터</option>
+	            <option value="furniture" ${projectInfo.category eq 'movieMusic' ? 'selected' : ''}>영화,음악</option>
 	        </select>
 	        
 	        <label class="label">보조 카테고리 선택(선택)</label>
 	        <select class="select sub-category" disabled="disabled">
 	            <option value="">카테고리 선택</option>
-	            <option value="electric" ${projectInfo.sub_category eq 'electric' ? 'selected' : ''}>전자기기</option>
-	            <option value="furniture" ${projectInfo.sub_category eq 'furniture' ? 'selected' : ''}>가구</option>
-	            <option value="life" ${projectInfo.sub_category eq 'life' ? 'selected' : ''}>생활용품</option>
+	            <option value="electric" ${projectInfo.category eq 'electric' ? 'selected' : ''}>테크,가전</option>
+	            <option value="furniture" ${projectInfo.category eq 'furniture' ? 'selected' : ''}>홈,리빙</option>
+	            <option value="furniture" ${projectInfo.category eq 'fashion' ? 'selected' : ''}>패션</option>
+	            <option value="furniture" ${projectInfo.category eq 'beauty' ? 'selected' : ''}>스포츠</option>
+	            <option value="furniture" ${projectInfo.category eq 'sports' ? 'selected' : ''}>패션</option>
+	            <option value="furniture" ${projectInfo.category eq 'food' ? 'selected' : ''}>푸드</option>
+	            <option value="furniture" ${projectInfo.category eq 'book' ? 'selected' : ''}>도서</option>
+	            <option value="furniture" ${projectInfo.category eq 'electricBook' ? 'selected' : ''}>전자책,클래스</option>
+	            <option value="furniture" ${projectInfo.category eq 'animal' ? 'selected' : ''}>반려동물</option>
+	            <option value="furniture" ${projectInfo.category eq 'art' ? 'selected' : ''}>아트</option>
+	            <option value="furniture" ${projectInfo.category eq 'charactor' ? 'selected' : ''}>캐릭터</option>
+	            <option value="furniture" ${projectInfo.category eq 'movieMusic' ? 'selected' : ''}>영화,음악</option>
 	        </select>
 	        
 	        <!-- 성인 인증 -->
@@ -76,6 +94,8 @@
 	        <!-- 목표 금액 -->
 	        <label class="label">목표 금액</label>
 	        <input type="number" id="amount" class="input" value="${projectInfo.target_amount}" disabled="disabled">
+	        <label class="label">배송비</label>
+	        <input type="number" id="delivery" class="input" placeholder="배송비를 입력해주세요" required="required"value="${projectInfo.delivery_fee }">
 	    </div>
 	</div>
 	<footer>

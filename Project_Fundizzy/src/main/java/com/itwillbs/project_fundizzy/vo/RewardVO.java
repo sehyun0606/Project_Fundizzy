@@ -14,7 +14,6 @@ public class RewardVO {
 	private String product_desc;
 	private int price;
 	private int product_limit;
-	private int delivery_fee;
 	
 	// 결제시 해당 리워드선택 개수 저장을 위한 변수
 	private int product_count;

@@ -27,4 +27,41 @@
         	</if>
 		WHERE email = #{email}
 	</update>
+	<select id="selectLikeListCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			keep
+		WHERE email = #{email}
+	</select>
+	<select id="selectMyLike" resultType="map">
+		SELECT 
+			keep.project_code,
+			keep.email,
+			project_story.project_title,
+			project_story.representative_picture,
+			project_story.project_content,
+			project_list.project_date,
+			project_info.representative_name
+ 		FROM keep
+ 		INNER JOIN 
+			project_story
+		ON
+			keep.project_code = project_story.project_code
+ 		INNER JOIN 
+			project_list
+		ON
+			keep.project_code = project_list.project_code
+ 		INNER JOIN 
+			project_info
+		ON
+			keep.project_code = project_info.project_code
+		WHERE
+			keep.email = #{email}
+ 		ORDER BY
+ 			project_list.project_date DESC
+ 		LIMIT
+ 			#{startRow}
+ 			,#{listLimit}
+	</select>
 </mapper>

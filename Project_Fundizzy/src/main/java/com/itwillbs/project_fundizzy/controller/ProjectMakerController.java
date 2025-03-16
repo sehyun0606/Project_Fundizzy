@@ -80,7 +80,7 @@ public class ProjectMakerController {
 		
 		System.out.println(map);
 		
-		return "redirect:/MakerPage";
+		return "redirect:/SupporterPage";
 	}
 	
 	@GetMapping("ProjectSubmit")
@@ -90,7 +90,7 @@ public class ProjectMakerController {
 		
 		projectMakerService.updateProjectList(projectCode);
 		
-		return "redirect:/MakerPage";
+		return "redirect:/SupporterPage";
 	}
 	
 	//서비스 요금 선택
@@ -165,7 +165,7 @@ public class ProjectMakerController {
 		//실제 파일 업로드 경로 생성
 		try {
 			Path path = Paths.get(realPath);
-			Files.createDirectory(path);
+			Files.createDirectories(path);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -502,7 +502,7 @@ public class ProjectMakerController {
 		//실제 파일 업로드 경로 생성
 		try {
 			Path path = Paths.get(realPath);
-			Files.createDirectory(path);
+			Files.createDirectories(path);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -671,7 +671,7 @@ public class ProjectMakerController {
 		
 		date.setProject_code(projectCode);
 		
-		projectMakerService.setProjectDate(date);
+		projectMakerService.setProjectDate(date,projectCode);
 		
 		return "redirect:/ProjectDate";
 	}

@@ -35,7 +35,7 @@
 		ON
 			project_list.project_code = project_date.project_code
  		ORDER BY
- 			project_date DESC
+ 			project_list.project_date DESC
  		LIMIT
  			#{startRow}
  			,#{listLimit}

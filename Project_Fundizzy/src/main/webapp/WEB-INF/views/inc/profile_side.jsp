@@ -156,17 +156,6 @@
 
 
     <div class="sidebar">
-    <label class="toggle-container">
-    	<c:if test="${user eq 'maker'}">
-	        <input type="checkbox" class="toggle-checkbox" checked="checked">
-    	</c:if>
-    	<c:if test="${user eq 'supporter' }">
-	        <input type="checkbox" class="toggle-checkbox">
-    	</c:if>
-        <span class="toggle-slider"></span>
-        <span class="toggle-label supporter">서포터</span>
-        <span class="toggle-label maker">메이커</span>
-    </label>
         <div class="profile-image">
         	<c:choose>
         		<c:when test="${empty sessionScope.profileImg }">

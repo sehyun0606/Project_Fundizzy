@@ -22,4 +22,5 @@ public class ProjectInfoVO {
 	private String representative_email;
 	private int target_amount;
 	private MultipartFile registrationCard;
+	private int delivery_fee;
 }

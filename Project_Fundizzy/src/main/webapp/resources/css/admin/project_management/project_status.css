@@ -325,3 +325,39 @@ table tr:hover {
   background-color: #ff7777; /* Darker Light Red */
 }
 
+.page_btn_group {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.page_btn a, 
+.page_btn span {
+    display: inline-block;
+    padding: 8px 12px;
+    margin: 0 4px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+    color: #6a0dad;
+    border: 1px solid #6a0dad;
+    transition: 0.2s;
+}
+
+.page_btn a:hover {
+    background-color: #6a0dad;
+    color: white;
+}
+
+.page_btn .active {
+    background-color: #6a0dad;
+    color: white;
+    font-weight: bold;
+    cursor: default;
+}
+
+.page_btn .disabled {
+    color: #ccc;
+    border: 1px solid #ccc;
+    cursor: not-allowed;
+}
+

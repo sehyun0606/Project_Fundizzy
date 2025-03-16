@@ -25,7 +25,6 @@
 		            <h3>${reward.price }원</h3>
 		            <p><strong>${reward.product_name}</strong></p>
 		            <p>${reward.product_desc}</p>
-		            <p>배송비: <strong>${reward.delivery_fee}원</strong></p>
 		            <p>제한 수량: <strong>${reward.product_limit}</strong></p>
 		        </div>
 	        </c:forEach>

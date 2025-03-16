@@ -43,8 +43,7 @@
            </div>
 
            <div class="input-group">
-               <input type="text" value="${memberInfo.phone}" name="phone" class="input-box" readonly="readonly">
-               <button type="button" class="btn edit">변경</button>
+               <input type="text" value="${memberInfo.phone}" name="phone" class="input-box" placeholder="전화번호를 입력해주세요">
            </div>
            
 	        <label>간단한 한 마디로 나를 소개해주세요</label>

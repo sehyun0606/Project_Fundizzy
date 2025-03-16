@@ -27,7 +27,7 @@ public class AdminProjectController {
 	
 	@GetMapping("AdminProjectStatus")
 	public String adminProjectStatus(@RequestParam(defaultValue = "1") int pageNum,  Model model) {
-		int listLimit = 10;
+		int listLimit = 5;
 		int startRow = (pageNum - 1) * listLimit;
 		int listCount = projectService.getprojectListCount();
 		int pageListLimit = 5;
@@ -45,7 +45,7 @@ public class AdminProjectController {
 		
 		if(pageNum < 1 || pageNum > maxPage) {
 			model.addAttribute("msg", "존재하지 않는 페이지");
-			model.addAttribute("targetURL","AdminNotice?pageNum=1");
+			model.addAttribute("targetURL","AdminProjectStatus?pageNum=1");
 			return "result/result";
 		}
 		PageInfo pageInfo = new PageInfo(listCount,pageListLimit,maxPage,startPage,endPage,pageNum);
@@ -60,7 +60,7 @@ public class AdminProjectController {
 	}
 	@GetMapping("AdminProjectList")
 	public String adminProjectList(@RequestParam(defaultValue = "1") int pageNum,  Model model) {
-		int listLimit = 10;
+		int listLimit = 5;
 		int startRow = (pageNum - 1) * listLimit;
 		int listCount = projectService.getprojectListCount();
 		int pageListLimit = 5;
@@ -78,7 +78,7 @@ public class AdminProjectController {
 		
 		if(pageNum < 1 || pageNum > maxPage) {
 			model.addAttribute("msg", "존재하지 않는 페이지");
-			model.addAttribute("targetURL","AdminNotice?pageNum=1");
+			model.addAttribute("targetURL","AdminProjectList?pageNum=1");
 			return "result/result";
 		}
 		PageInfo pageInfo = new PageInfo(listCount,pageListLimit,maxPage,startPage,endPage,pageNum);

@@ -1,6 +1,7 @@
 package com.itwillbs.project_fundizzy.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,5 +25,13 @@ public class MypageService {
 
 	public void updateProfile(MemberVO member) {
 		mypageMapper.updateProfile(member);
+	}
+
+	public List<Map<String, Object>> getMyLike(String email, int startRow, int listLimit) {
+		return mypageMapper.selectMyLike(email,startRow,listLimit);
+	}
+
+	public int getLikeListCount(String email) {
+		return mypageMapper.selectLikeListCount(email);
 	}
 }

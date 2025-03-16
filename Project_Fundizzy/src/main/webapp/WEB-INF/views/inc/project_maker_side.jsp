@@ -110,14 +110,6 @@
         <div class="menu-item">
         	<span class="menu-title"><a href="NewsList">새소식</a></span>
         </div>
-        <div class="menu-item">
-        	<span class="menu-title">프로젝트 부스팅</span>
-            <div class="submenu2">
-                <div class="submenu-item2"><a>광고</a></div>
-                <div class="submenu-item2"><a>메이커 QR 코드 제작</a></div>
-                <div class="submenu-item2"><a>AI 어드바이저</a></div>
-            </div>
-        </div>
     </div>
 
 

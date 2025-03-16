@@ -1,6 +1,11 @@
 $(document).ready(function () {
     $(".add-button").click(function () {
-        $("#modal").fadeIn();
+    	let count = $(".reward-card").length;
+    	if(count == 5){
+    		alert("리워드는 최대 5개 까지만 설정 가능합니다");
+    	}else{
+       		$("#modal").fadeIn();
+       	}
     });
 
     $(".close").click(function () {
@@ -63,5 +68,7 @@ $(document).ready(function () {
 		}).fail(function(){
 			console.log("실패..")
 		})
-    });    
+    });
+    
+        
 });

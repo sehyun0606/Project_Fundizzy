@@ -28,6 +28,8 @@
 			'N',
 			'N',
 			'SET01',
+			'N',
+			0,
 			'N'
 		)
 		
@@ -65,7 +67,8 @@
 			#{registration_card},
 			#{business_number},
 			#{business_name},
-			#{representative_name}
+			#{representative_name},
+			#{delivery_fee}
 		)
 		
 	</insert>
@@ -84,8 +87,7 @@
 			#{product_name},
 			#{product_desc},
 			#{price},
-			#{product_limit},
-			#{delivery_fee}
+			#{product_limit}
 		)
 	</insert>
 	
@@ -156,8 +158,10 @@
 	<update id="updatProjectStorySetting">
 		UPDATE project_list
 		SET story_config = 'Y',
-			project_title = #{projectTitle},
-			representative_picture = #{representativePicture}
+			project_title = #{projectTitle}
+			<if test="representativePicture != null and representativePicture != ''">	
+			,representative_picture = #{representativePicture}
+			</if>
 		WHERE project_code = #{projectCode}
 	</update>
 	
@@ -187,8 +191,7 @@
 		SET product_name = #{product_name},
 			product_desc = #{product_desc},
 			price =#{price},
-			product_limit = #{product_limit},
-			delivery_fee = #{delivery_fee}
+			product_limit = #{product_limit}
 		WHERE reward_code = #{reward_code}
 	</update>
 	
@@ -210,8 +213,12 @@
 	<update id="updateProjectStory">
 		UPDATE project_story
 		SET project_title = #{project_title},
+			<if test="representative_picture != null and representative_picture != ''">	
 			representative_picture = #{representative_picture},
+			</if>
+			<if test="product_picture != null and product_picture != ''">
 			product_picture = #{product_picture},
+			</if>
 			project_content = #{project_content},
 			project_story = #{project_story},
 			open_story = #{open_story}
@@ -231,7 +238,8 @@
         	</if>
         	business_number = #{business_number},
         	business_name = #{business_name},
-        	representative_name = #{representative_name}
+        	representative_name = #{representative_name},
+        	delivery_fee = #{delivery_fee}
         WHERE
         	project_code = #{project_code}
 			
@@ -266,6 +274,12 @@
 			#{project_end_date}
 		)
 	</insert>
+	<update id="updateDateConfig">
+		UPDATE
+			project_list
+		SET date_config = 'Y'
+			WHERE project_code = #{projectCode}
+	</update>
 	
 </mapper>
 

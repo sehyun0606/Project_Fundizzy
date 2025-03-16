@@ -71,5 +71,7 @@ public interface ProjectMakerMapper {
 
 	void insertProjectDate(ProjectDateVO date);
 
+	void updateDateConfig(String projectCode);
+
 
 }
