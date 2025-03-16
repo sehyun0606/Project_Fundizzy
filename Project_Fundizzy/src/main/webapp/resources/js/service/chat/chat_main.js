@@ -1,5 +1,6 @@
 const TYPE_INIT_MAIN = "TYPE_INIT_MAIN";
 const TYPE_TALK = "TYPE_TALK";
+const TYPE_SYSTEM = "TYPE_SYSTEM";
 const TYPE_INIT_CHATROOM = "TYPE_INIT_CHATROOM";
 
 var ws = opener.ws;
@@ -53,7 +54,7 @@ $(function() {
 			
 			// 초기화시 읽지않은 메세지 수 사이드바에 표시
 			$(".messageTotalCount").text(data.read_state).change();
-		} else if(data.type == TYPE_TALK) {
+		} else if(data.type == TYPE_TALK || data.type == TYPE_SYSTEM) {
 			// 총 읽지않은 메세지수 변경
 			if(data.sender_email != sEmail) {
 				// 총 읽지 않은 메세지 수 변경
@@ -67,7 +68,6 @@ $(function() {
 			// 읽음 처리된 채팅 수 총 채팅 수에서 제거
 			$(".messageTotalCount").text(parseInt($(".messageTotalCount").text()) - data.read_state).change();
 		}
-		
 	}
 	
 	// 해당 페이지 선택 표시를 위해 사이드바의 다른 페이지 아이콘 연하게 표시
@@ -102,7 +102,46 @@ $(function() {
 	    });
 	});
 	
-
+	// 채팅메인창의 닉네임 or 이메일 검색
+	$("#memberSearchBox input").keyup(function() {
+		// 입력한 검색값
+		let inputKeyword = $(this).val();
+		
+		// 널스트링이거나 여백일경우 전체 표시
+		if(inputKeyword.trim() == "") {
+			$(".people").css("display", "block").trigger("myEvent");
+			return;
+		}
+		
+		// 각 사람 리스트 디브에 해당 키워드 존재하는지 판별후
+		// 노출 및 숨김 처리
+		$(".people").each(function() {
+			if($(this).text().trim().includes(inputKeyword)) {
+				$(this).css("display", "block").trigger("myEvent");
+			} else {
+				$(this).css("display", "none").trigger("myEvent");
+			}
+		});
+	});
+	
+	// 검색창 검색으로 회원목록이 줄어들경우 해당 영역 높이 조절
+	$(".peopleList").on("myEvent", ".people", function() {
+		let peoplePlace = $(this).closest(".peopleList");
+		let totalHeight = 0;
+		peoplePlace.find(".people:visible").each(function() {
+			totalHeight += $(this).height();
+		});
+		
+		// 해당 영역 높이 검색된 사람에 맞춰서 변경
+		peoplePlace.height(totalHeight);
+		
+		// 해당 영역에서 검색된 사람이없으면 해당영역 숨김처리
+		if(totalHeight == 0) {
+			peoplePlace.siblings(".semiTitle").css("display", "none");
+		} else {
+			peoplePlace.siblings(".semiTitle").css("display", "block");
+		}
+	});
 });
 
 // 채팅창 초기화 메서드

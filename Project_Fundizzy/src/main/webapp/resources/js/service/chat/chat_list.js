@@ -1,6 +1,8 @@
 const TYPE_INIT_LIST = "TYPE_INIT_LIST"; // 채팅창 초기화
 const TYPE_TALK = "TYPE_TALK"; // 채팅
+const TYPE_SYSTEM = "TYPE_SYSTEM"; // 시스템메시지
 const TYPE_INIT_CHATROOM = "TYPE_INIT_CHATROOM"; // 채팅방 초기화
+const TYPE_LEAVE = "TYPE_LEAVE"; // 채팅방 퇴장
 
 var ws = opener.ws
 
@@ -29,7 +31,7 @@ $(function() {
 		if(data.type == TYPE_INIT_LIST) {
 			showChatList(data);
 		// 타입이 TYPE_TALK인경우 채팅리스트의 정보 변경
-		} else if(data.type == TYPE_TALK) {
+		} else if(data.type == TYPE_TALK || data.type == TYPE_SYSTEM) {
 			updateChatList(data);
 		// 타입이 TYPE_INIT_CHATROOM일 경우 해당 채팅방의
 		// 읽지않은 메세지가 읽음 처리되므로 해당 방의 읽지않은
@@ -40,6 +42,9 @@ $(function() {
 			// 읽음 처리된 채팅 수 총 채팅 수에서 제거
 			$(".messageTotalCount").text(parseInt($(".messageTotalCount").text()) - readCount).change();
 			$(".chatRoom." + data.room_id).find(".messageCount").text(0).change();
+		// 채팅방 퇴장시 해당채팅방 리스트에서 제거
+		} else if(data.type == TYPE_LEAVE) {
+			$(".chatRoom." + data.room_id).remove();
 		}
 	}
 	
@@ -61,6 +66,28 @@ $(function() {
 	    } else {
 	        $(this).show();
 		}
+	});
+	
+	// 채팅리스트의 닉네임 or 이메일 검색
+	$("#memberSearchBox input").keyup(function() {
+		// 입력한 검색값
+		let inputKeyword = $(this).val();
+		
+		// 널스트링이거나 여백일경우 전체 표시
+		if(inputKeyword.trim() == "") {
+			$(".chatRoom").css("display", "flex");
+			return;
+		}
+		
+		// 각 사람 리스트 디브에 해당 키워드 존재하는지 판별후
+		// 노출 및 숨김 처리
+		$(".chatRoom").each(function() {
+			if($(this).text().trim().includes(inputKeyword)) {
+				$(this).css("display", "flex");
+			} else {
+				$(this).css("display", "none");
+			}
+		});
 	});
 	
 });
@@ -159,16 +186,52 @@ function appendChatRoom(room) {
 
 // 채팅수신시 실시간 채팅리스트에 표시된 정보 변경
 function updateChatList(data) {
-	// 마지막 메세지 정보변경
-	$(".chatRoom." + data.room_id).find(".chatLastContent").text(data.message);
-	
-	// 마지막 채팅방 접속시간 변경
-	let last_accessed_time = formatLastAccessedTime(data.send_time);
-	$(".chatRoom." + data.room_id).find(".updateLastTime").text(last_accessed_time);
+	// 기존에 존재하지않고 새로 추가된 방일 경우 해당방의 정보 리스트에 추가
+	if($(".chatRoom." + data.room_id).length == 0 && data.type != TYPE_SYSTEM && data.sender_email != sEmail) {
+		// 이미지 주소저장할 변수
+		let src;
+		
+		// 마이페이지 프로필 사진설정 유무 판별
+		if(JSON.parse(data.myInfo).profile) {
+			src = "/resources/upload/" + data.myInfo.profile;
+		} else {
+			src = "/resources/images/chat/profileIcon.png";
+		}
+		
+		// 실시간으로 추가할 채팅방 div
+		let divRoom = 
+			`<div class="chatRoom ${data.room_id}" ondblclick="openChatRoom('${data.sender_email}')">
+				<div class="receiverImg">
+					<img src="${src}">
+					<span class="messageCount">1</span>
+				</div>
+				<div class="chatRoomInfo">
+					<div class="chatRoomTitle">
+						${JSON.parse(data.myInfo).nickname}님과의 채팅방
+					</div>
+					<div class="chatLastContent">
+						${formatLastMessage(data.message)}
+					</div>
+					<div class="updateLastTime">
+					 	${formatLastAccessedTime(data.send_time)}
+					</div>
+				</div>
+			</div>`;
+			
+		$("#chatListBoard").prepend(divRoom);
+	} else {
+		// 마지막 메세지 정보변경
+		$(".chatRoom." + data.room_id).find(".chatLastContent").text(formatLastMessage(data.message));
+		
+		// 마지막 채팅방 접속시간 변경
+		let last_accessed_time = formatLastAccessedTime(data.send_time);
+		$(".chatRoom." + data.room_id).find(".updateLastTime").text(last_accessed_time);
+		
+	}
 	
 	// 해당 채팅방이 열려있지않을 시에만 읽지 않은 메세지 수 변경
 	if(!opener.chatRoomWindowObj[data.sender_email]) {
-//		 읽지 않은 메세지수 변경
+        // 읽지 않은 메세지수 변경
 		if(data.sender_email != sEmail) {
 			// 각 방의 읽지않은 메세지 수 변경
 			let countSpan = $(".chatRoom." + data.room_id).find(".messageCount");
@@ -184,7 +247,6 @@ function updateChatList(data) {
 	let updateRoom = $(".chatRoom." + data.room_id);
 	updateRoom.remove();
 	$("#chatListBoard").prepend(updateRoom);
-	
 }
 
 // 채팅리스트 더블클릭시 해당 채팅방 뉴 윈도우로 오픈

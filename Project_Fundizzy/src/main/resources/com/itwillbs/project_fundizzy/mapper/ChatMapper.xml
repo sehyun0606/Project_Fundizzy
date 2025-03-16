@@ -26,7 +26,6 @@
 					room_id = c.room_id
 		            AND sender_email != c.member_email
 		            AND read_state = 0
-		            AND type != 'TYPE_SYSTEM'
 			) as unread_count
 			, (
 				SELECT message
@@ -197,7 +196,6 @@
 		SET read_state = 1
 		WHERE room_id = #{room_id}
 			AND receiver_email = #{sender_email} 
-			AND type != 'TYPE_SYSTEM'
 			AND read_state = 0
 	</update>
 	
@@ -207,6 +205,42 @@
 		FROM chat_message
 		WHERE receiver_email = #{sender_email}
 			AND read_state = 0
-			AND type != 'TYPE_SYSTEM'
 	</select>
+	
+	<!-- 채팅방의 상태 조회 -->
+	<select id="selectRoomStatus" resultType="int">
+		SELECT status
+		FROM chat_room
+		WHERE room_id = #{room_id}
+			  AND member_email = #{sender_email}
+	</select>
+	
+	<!-- 채팅방의 상태값 변경 -->
+	<!-- 내가먼저 나갈경우 나의 채팅방이 status 0으로 변경 -->
+	<update id="updateChatRoomstatus">
+		UPDATE chat_room
+		SET status = 0
+		WHERE room_id = #{room_id}
+			AND member_email = #{sender_email}
+	</update>
+	
+	<!-- 회원이 먼저 채팅방을 나간경우 상대방의 status 2로 변경 -->
+	<update id="updateChatRoomstatus2">
+		UPDATE chat_room
+		SET status = 2
+		WHERE room_id = #{room_id}
+			AND member_email = #{receiver_email}
+	</update>
+	
+	<!-- 해당채팅방의 채팅내역 삭제 -->
+	<delete id="deleteChatMessage">
+		DELETE FROM chat_message
+		WHERE room_id = #{room_id}
+	</delete>
+	
+	<!-- 채팅방 삭제 -->
+	<delete id="deleteChatRoom">
+		DELETE FROM chat_room
+		WHERE room_id = #{room_id}
+	</delete>
 </mapper>

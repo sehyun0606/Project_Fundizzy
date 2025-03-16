@@ -70,4 +70,25 @@ public class ChatService {
 	public int changeMessageReadState(String room_id, String sender_email) {
 		return chatMapper.updateMessageToRead(room_id, sender_email);
 	}
+	
+	@Transactional
+	public boolean isLeaveChatRoomFirst(ChatMessage chatMessage) {
+		int status = chatMapper.selectRoomStatus(chatMessage);
+		
+		// 내가먼저 나갈경우 내방상태값 0 상대방상태값 2로 변경
+		if(status == 1) {
+			chatMapper.updateChatRoomstatus(chatMessage);
+			chatMapper.updateChatRoomstatus2(chatMessage);
+			
+			return true;
+		}
+		
+		// 상대방이 먼저 나간 방일경우 메세지까지 삭제
+		// 채팅방의 채팅내역 삭제
+		chatMapper.deleteChatMessage(chatMessage);
+		// 채팅방 삭제
+		chatMapper.deleteChatRoom(chatMessage);
+		
+		return false;
+	}
 }
