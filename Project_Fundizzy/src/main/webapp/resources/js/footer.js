@@ -1,4 +1,5 @@
 const TYPE_TALK = "TYPE_TALK";
+const TYPE_SYSTEM = "TYPE_SYSTEM";
 const TYPE_INIT = "TYPE_INIT";
 const TYPE_INIT_CHATROOM = "TYPE_INIT_CHATROOM";
 
@@ -97,7 +98,7 @@ function onMessage(event) {
 	// 윈도우 초기화시 읽지않은 메세지 수 표시
 	if(data.type == TYPE_INIT) {
 		$(".messageCount").text(data.read_state).change();
-	} else if(data.type == TYPE_TALK) {
+	} else if(data.type == TYPE_TALK || data.type == TYPE_SYSTEM) {
 		// 채팅송신자가 본인이아니고 해당 대화방이 열려있지 않을때
 		// 총 읽지않은 메세지 수 변경(해당 방이 열려있으면 읽었다는 의미)
 		if(data.sender_email != sEmail && !chatRoomWindowObj[data.sender_email]) {

@@ -142,7 +142,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
 			// 채팅방이 존재하면 채팅글 조회 및 채팅방 아이디 전달
 			if(room != null)  {
 				chatMessage.setRoom_id(room.getRoom_id());
-				
+				chatMessage.setRoom_status(room.getStatus());
 				List<ChatMessage> chatMessageList = chatService.getChatMessageList(room.getRoom_id());
 				
          		// 접속한 채팅방의 메세지 읽음 처리
@@ -188,6 +188,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
 				
 				// 채팅창 실시간 표시를 위해 메세지 전송
 				sendMessasge(session, startMessage);
+				sendMessageAfterSearchReceiver(receiver_email, startMessage);
 				
 				//전송된 메세지에도 위에 만들어진 채팅방아이디 초기화
 				chatMessage.setRoom_id(Room_id);
@@ -211,7 +212,23 @@ public class WebSocketHandler extends TextWebSocketHandler {
 			// 수신자는 채팅 접속시에만 메세지 전송
 			sendMessasge(session, chatMessage);
 			sendMessageAfterSearchReceiver(receiver_email, chatMessage);
+		// 채팅방 나가기	
+		} else if(type.equals(ChatMessage.TYPE_LEAVE)) {
+			// 채팅방 나갔을시 나의 채팅방은 삭제
+			// 상대방 채팅방에는 시스템메세지로 채팅방 나감표시 후 채팅방 비활성화
+			boolean isLeaveFirst = chatService.isLeaveChatRoomFirst(chatMessage);
 			
+			// 내채팅리스트 갱신을위해 메시지 전송
+			sendMessasge(session, chatMessage);
+			
+			// 내가 먼저 나간경우 시스템메세지로 채팅방 퇴장 알림
+			if(isLeaveFirst) {
+				chatMessage.setType(ChatMessage.TYPE_SYSTEM);
+				chatMessage.setMessage(myInfo.get("nickname") + "님이 채팅방을 나갔습니다.");
+				
+				chatService.addChatMessage(chatMessage);
+				sendMessageAfterSearchReceiver(receiver_email, chatMessage);
+			}
    		} 
 	}
 

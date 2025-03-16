@@ -17,6 +17,7 @@ public class ChatMessage {
 	private String message; // 메세지 내용
 	private String send_time; // 메세지 전송 시각
 	private int read_state; // 메세지 읽음 여부
+	private int room_status; // 채팅방 상태값
 	private String myInfo; // 내 정보
 	private String otherInfo; // 상대방 정보
 	
@@ -31,6 +32,4 @@ public class ChatMessage {
 	public static final String TYPE_INIT_CHATROOM = "TYPE_INIT_CHATROOM"; // 채팅방 초기화 요청(채팅방페이지)
 	public static final String TYPE_ERROR = "TYPE_ERROR"; // 채팅 관련 에러
 	public static final String TYPE_FILE = "TYPE_FILE"; // 파일 전송
-	public static final String TYPE_READ_MESSAGE = "TYPE_READ_MESSAGE"; // 메세지 읽음
-	public static final String TYPE_REQUEST_UNREADMESSAGE = "TYPE_REQUEST_UNREADMESSAGE"; // 읽지 않은 메세지 수 요청
 }

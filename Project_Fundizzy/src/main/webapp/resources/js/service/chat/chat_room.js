@@ -3,7 +3,7 @@ const TYPE_START = "TYPE_START" // 채팅시작
 const TYPE_TALK = "TYPE_TALK"; // 채팅
 const TYPE_ERROR = "TYPE_ERROR" // 채팅 에러
 const TYPE_SYSTEM = "TYPE_SYSTEM" // 채팅 시습템 메세지
-const TYPE_READ_MESSAGE = "TYPE_READ_MESSAGE" // 채팅읽음표시
+const TYPE_LEAVE = "TYPE_LEAVE"; // 채팅방 떠남
 
 
 // 채팅 메세지 정렬 위치 구분을 위한 상수 설정
@@ -55,15 +55,22 @@ $(function() {
 			
 			// 기존 채팅내용 추가
 			let messageList = JSON.parse(data.message);
-			
+
 			for(let message of messageList) {
 				appendMesage(message);
 			}
 			
-			// 타입이 에러일경우 에러메세지 출력후 윈도우 클로즈
+			// 상대방이 나간 방인 경우 채팅방 비활성화
+			if(parseInt(data.room_status) == 2) {
+				$("#menuBar").css("display", "none");
+				$("#messageBox").val("해당 채팅방은 비활성화 되었습니다.\n채팅방 내용 읽기만 가능합니다.").prop("readOnly", true);
+				
+			} 
+		// 타입이 에러일경우 에러메세지 출력후 윈도우 클로즈
 		} else if(data.type == TYPE_ERROR) {
 			alert(data.message);
 			window.close();
+		// 타입이 시스템 or 타입이 토크인경우 메세지 표시
 		} else if(data.type == TYPE_SYSTEM || data.type == TYPE_TALK) {
 			appendMesage(data);
 		}
@@ -90,10 +97,11 @@ $(function() {
 	});
 	
 	
-	// 채팅종료 ~~~~~~~~
+	// 채팅종료
 	$("#outChatRoom").click(function() {
 		if(confirm("채팅을 종료하시면 현재 채팅방의 채팅 내역이 사라집니다.\n채팅을 종료하시겠습니까?")) {
-			
+			sendMessage(TYPE_LEAVE, sEmail, receiver_email, room_id, "");
+			window.close();
 		}
 	});
 	

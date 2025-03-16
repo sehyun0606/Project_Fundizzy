@@ -43,5 +43,21 @@ public interface ChatMapper {
 	
 	// 읽지않은 메세지 총 수 조회
 	int selectTotalUnReadCount(String sender_email);
+	
+	// 채팅방의 상태값 조회
+	int selectRoomStatus(ChatMessage chatMessage);
+	
+	// 나의 채팅방 상태값 변경
+	void updateChatRoomstatus(ChatMessage chatMessage);
+	
+	// 상대방 채팅방 상태값 변경
+	int updateChatRoomstatus2(ChatMessage chatMessage);
+	
+	// 해당 채팅방의 메세지 삭제
+	void deleteChatMessage(ChatMessage chatMessage);
+	
+	// 채팅방 삭제
+	int deleteChatRoom(ChatMessage chatMessage);
+
 
 }
