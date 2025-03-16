@@ -229,6 +229,20 @@ public class WebSocketHandler extends TextWebSocketHandler {
 				chatService.addChatMessage(chatMessage);
 				sendMessageAfterSearchReceiver(receiver_email, chatMessage);
 			}
+		// 채팅방 이름 변경
+		} else if(type.equals(ChatMessage.TYPE_CHANGE_ROOMNAME)) {
+			chatService.changeRoomName(chatMessage);
+			sendMessasge(session, chatMessage);
+		// 파일 전송
+		} else if(type.equals(ChatMessage.TYPE_FILE)) {
+			chatMessage.setSend_time(getSysDateTime());
+			
+			// 메시지 저장 
+			chatService.addChatMessage(chatMessage);
+			
+			// 채팅 전송
+			sendMessasge(session, chatMessage);
+			sendMessageAfterSearchReceiver(receiver_email, chatMessage);
    		} 
 	}
 

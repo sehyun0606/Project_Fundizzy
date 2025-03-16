@@ -4,6 +4,8 @@ const TYPE_TALK = "TYPE_TALK"; // 채팅
 const TYPE_ERROR = "TYPE_ERROR" // 채팅 에러
 const TYPE_SYSTEM = "TYPE_SYSTEM" // 채팅 시습템 메세지
 const TYPE_LEAVE = "TYPE_LEAVE"; // 채팅방 떠남
+const TYPE_CHANGE_ROOMNAME = "TYPE_CHANGE_ROOMNAME"; // 채팅방 이름 변경
+const TYPE_FILE = "TYPE_FILE"; // 이미지파일 전송
 
 
 // 채팅 메세지 정렬 위치 구분을 위한 상수 설정
@@ -71,8 +73,10 @@ $(function() {
 			alert(data.message);
 			window.close();
 		// 타입이 시스템 or 타입이 토크인경우 메세지 표시
-		} else if(data.type == TYPE_SYSTEM || data.type == TYPE_TALK) {
+		} else if(data.type == TYPE_SYSTEM || data.type == TYPE_TALK || data.type == TYPE_FILE) {
 			appendMesage(data);
+		} else if(data.type == TYPE_CHANGE_ROOMNAME) {
+			$("#roomTitle").text(data.message);
 		}
 	}
 	
@@ -91,9 +95,24 @@ $(function() {
         }
     });
 	
-	// 채팅방 이름변경
+	// 채팅방 이름변경 모달 오픈
 	$("#rename img").click(function() {
+		$("#modalBackground").css("display", "block");
+		$("#modalForChangeName").css("display", "block");
+	});
+	
+	// 채팅방 이름변경 모달 닫기
+	$(".closeBtn").click(function() {
+		closeReNameModal();
+	});
+	
+	// 채팅방 이름변경
+	$(".changeBtn").click(function() {
+		if(confirm("<" + $(".inputName").val() + ">로\n채팅방 이름이 변경됩니다")) {
+			sendMessage(TYPE_CHANGE_ROOMNAME, sEmail, receiver_email, room_id, $(".inputName").val());
+		}
 		
+		closeReNameModal();
 	});
 	
 	// 나가기 버튼 클릭시 채팅방 윈도우 닫기
@@ -169,8 +188,18 @@ function appendMesage(data) {
 		// 마지막메세지 송신자
 		lastSender = $("#lastSendMember").val();
 		
-		// 메세지내용 span
-		let spanMessage = `<span class='messageContent'>${data.message}</span><br>`
+		let spanMessage;
+		// 채팅 메시지
+		if(data.type == TYPE_TALK) {
+			// 메세지내용 span
+			spanMessage = `<span class='messageContent'>${data.message}</span><br>`
+		// 이미지 파일전송
+		} else {
+			let hrefUrl = "/resources/upload/" + data.message.split(":")[0]; // 원본 이미지 경로
+			let imgUrl = "/resources/upload/" + data.message.split(":")[1]; // 썸네일 이미지 경로
+			
+			spanMessage = "<span class='chat_img'><a href='" + hrefUrl + "' target='_blank'><img src='" + imgUrl + "'></a></span>"; 
+		}
 		
 		// 마지막 메세지와 같은 시간:분인지 체크후 같은 시간이면 다음에 메시지 스팬만 추가
 		// 시간span은 추가하지 않음
@@ -307,4 +336,53 @@ function afterSendMesage(sender_email) {
 	
 	// 메시지표시영역 스크롤바 항상 맨 밑으로 유지
 	$("#chatMessageArea").scrollTop($("#chatMessageArea")[0].scrollHeight);
+}
+
+function closeReNameModal() {
+	$("#modalBackground").css("display", "none");
+	$("#modalForChangeName").css("display", "none");
+	$("#modalBackground .inputName").val("");
+}
+
+
+// 사진전송 메서드
+function sendFile() {
+	// 멀티파일가능
+	let files = $("#file")[0].files;
+	let formData = new FormData();
+	
+	// 각 파일을 fromdata에 추가
+	for (let i = 0; i < files.length; i++) {
+	    formData.append("files", files[i]); 
+	}
+	
+	$.ajax({
+		type : "POST",
+		url : "ChatFileUpload",
+		data : formData,
+		dataType : "JSON",
+		processData : false,
+		contentType : false
+	}).done((response) => {
+		// 파일업로드 실패시 해당 파일 이름을 alert창으로 보여주기위한 변수
+		let failFileName = "";
+		
+		for(let file of response) {
+			// 파일 처리를 수행하지 못한 경우(이미지 파일 아님 등) 오류 메세지 출력 처리
+			if(file.result == "fail") { 
+				failFileName += " " + file.orginalName;
+				continue;
+			}
+			
+			sendMessage(TYPE_FILE, sEmail, receiver_email, room_id, file.fileName + ":" + file.thumbnailFileName);
+		}
+		
+		// ""일경우 모든 파일 전송 성공
+		if(failFileName != "") {
+			alert(failFileName + "파일 전송 실패\n다시 시도해 주세요");
+		}
+
+	}).fail(() => {
+		alert("파일 전송 오류 발생!\n다시 시도해 주세요!");
+	});
 }

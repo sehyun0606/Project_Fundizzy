@@ -58,6 +58,9 @@ public interface ChatMapper {
 	
 	// 채팅방 삭제
 	int deleteChatRoom(ChatMessage chatMessage);
+	
+	// 채팅방 이름 변경
+	void updateChatRoomName(ChatMessage chatMessage);
 
 
 }

@@ -3,6 +3,8 @@ const TYPE_TALK = "TYPE_TALK"; // 채팅
 const TYPE_SYSTEM = "TYPE_SYSTEM"; // 시스템메시지
 const TYPE_INIT_CHATROOM = "TYPE_INIT_CHATROOM"; // 채팅방 초기화
 const TYPE_LEAVE = "TYPE_LEAVE"; // 채팅방 퇴장
+const TYPE_CHANGE_ROOMNAME = "TYPE_CHANGE_ROOMNAME"; // 채팅방 퇴장
+const TYPE_FILE = "TYPE_FILE"; // 이미지 파일 전송
 
 var ws = opener.ws
 
@@ -31,7 +33,7 @@ $(function() {
 		if(data.type == TYPE_INIT_LIST) {
 			showChatList(data);
 		// 타입이 TYPE_TALK인경우 채팅리스트의 정보 변경
-		} else if(data.type == TYPE_TALK || data.type == TYPE_SYSTEM) {
+		} else if(data.type == TYPE_TALK || data.type == TYPE_SYSTEM || data.type == TYPE_FILE) {
 			updateChatList(data);
 		// 타입이 TYPE_INIT_CHATROOM일 경우 해당 채팅방의
 		// 읽지않은 메세지가 읽음 처리되므로 해당 방의 읽지않은
@@ -45,6 +47,8 @@ $(function() {
 		// 채팅방 퇴장시 해당채팅방 리스트에서 제거
 		} else if(data.type == TYPE_LEAVE) {
 			$(".chatRoom." + data.room_id).remove();
+		} else if(data.type == TYPE_CHANGE_ROOMNAME) {
+			$(".chatRoom." + data.room_id).find(".chatRoomTitle").text(data.message);
 		}
 	}
 	
@@ -186,6 +190,15 @@ function appendChatRoom(room) {
 
 // 채팅수신시 실시간 채팅리스트에 표시된 정보 변경
 function updateChatList(data) {
+	// 변경할 마지막메세지 저장할 변수
+	let updateMessage;
+	
+	if(data.type == TYPE_FILE) {
+		updateMessage = "(사진파일)";
+	} else {
+		updateMessage = formatLastMessage(data.message);
+	}
+	
 	// 기존에 존재하지않고 새로 추가된 방일 경우 해당방의 정보 리스트에 추가
 	if($(".chatRoom." + data.room_id).length == 0 && data.type != TYPE_SYSTEM && data.sender_email != sEmail) {
 		// 이미지 주소저장할 변수
@@ -210,7 +223,7 @@ function updateChatList(data) {
 						${JSON.parse(data.myInfo).nickname}님과의 채팅방
 					</div>
 					<div class="chatLastContent">
-						${formatLastMessage(data.message)}
+						${updateMessage}
 					</div>
 					<div class="updateLastTime">
 					 	${formatLastAccessedTime(data.send_time)}
@@ -221,7 +234,7 @@ function updateChatList(data) {
 		$("#chatListBoard").prepend(divRoom);
 	} else {
 		// 마지막 메세지 정보변경
-		$(".chatRoom." + data.room_id).find(".chatLastContent").text(formatLastMessage(data.message));
+		$(".chatRoom." + data.room_id).find(".chatLastContent").text(updateMessage);
 		
 		// 마지막 채팅방 접속시간 변경
 		let last_accessed_time = formatLastAccessedTime(data.send_time);

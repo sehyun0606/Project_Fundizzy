@@ -243,4 +243,12 @@
 		DELETE FROM chat_room
 		WHERE room_id = #{room_id}
 	</delete>
+	
+	<!-- 채팅방 이름변경 -->
+	<update id="updateChatRoomName">
+		UPDATE chat_room
+		SET title = #{message}
+		WHERE room_id = #{room_id}
+			AND member_email = #{sender_email}
+	</update>
 </mapper>

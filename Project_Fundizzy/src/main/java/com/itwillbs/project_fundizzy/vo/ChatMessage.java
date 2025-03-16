@@ -32,4 +32,5 @@ public class ChatMessage {
 	public static final String TYPE_INIT_CHATROOM = "TYPE_INIT_CHATROOM"; // 채팅방 초기화 요청(채팅방페이지)
 	public static final String TYPE_ERROR = "TYPE_ERROR"; // 채팅 관련 에러
 	public static final String TYPE_FILE = "TYPE_FILE"; // 파일 전송
+	public static final String TYPE_CHANGE_ROOMNAME = "TYPE_CHANGE_ROOMNAME"; // 채팅방 이름 변경
 }

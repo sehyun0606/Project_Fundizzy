@@ -91,4 +91,9 @@ public class ChatService {
 		
 		return false;
 	}
+	
+	// 채팅방 이름 변경
+	public void changeRoomName(ChatMessage chatMessage) {
+		chatMapper.updateChatRoomName(chatMessage);
+	}
 }
