@@ -71,7 +71,7 @@
 <!-- 								    	댓글 삭제상태가 1일 경우엔 표시하지 않기 -->
 				        		<table>
 								    <c:forEach var="reply" items="${ReplyList}" varStatus="status">
-								        <tr>
+								        <tr class="replyTr">
 								            <td class="replyContent"><input type="hidden" value ="${reply.reply_num}" id="replyDelete">${reply.reply_content}</td>
 								            <td class="replyWriter">${reply.maker_email}</td>
 								            <td class="replyRegDate"><fmt:formatDate value="${reply.reply_date}" pattern="yyyy-MM-dd"/></td>

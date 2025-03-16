@@ -88,29 +88,53 @@ $(function() {
         }
     });
 
-    // 지지서명 댓글 삭제
+
+	//지지서명 댓글 해당 project_code 에 등록하기
+	$("#reply-submit-btn").on("click", function(event){
+		event.preventDefault();
+		let form = event.target;
+	    form.action = "SupportReply?project_code=" +  project_code;
+		form.submit();
+		location.href= "SupportReply?project_code=" + project_code;
+		
+	});
+    // 지지서명 댓글 삭제 - 실제론 update임 
     $(".replyDelete").on("click", function() {
         let reply_num = $("#replyDelete").val();
         alert("reply_num " + reply_num);
-        $.ajax({
-            type: "GET",
-            url: "SupportReplyDelete",
-            data: {
-                reply_num: reply_num,
-                project_code: project_code
-            },
-            dataType: "JSON"
-        }).done(function(response) {
-            if (response.success) { // 서버에서 성공 응답이 오면
-                alert("댓글이 삭제되었습니다.");
-                // 삭제된 댓글을 UI에서 제거하는 코드
-                $("#reply-" + reply_num).remove(); // 댓글의 ID가 "reply-댓글번호"인 경우
-            } else {
-                alert("댓글 삭제에 실패했습니다.");
-            }
-        }).fail(function() {
-            alert("서버와의 통신에 실패했습니다. \n 다시 시도해 주세요.");
-        });
+		     $.ajax({
+		    type: "GET",
+		    url: "SupportReplyDelete",
+		    data: {
+		        reply_num: reply_num,
+		        project_code: project_code
+		    },
+		    dataType: "JSON"
+		}).done(function(response) {
+		        alert("댓글이 삭제되었습니다.");
+				// => 대상 요소(<td class="replyTr">)가 복수개이므로
+				//    함수 호출 시 전달받은 인덱스(index)값을 활용하여
+				//    eq() 메서드를 통해 동일한 요소 중 index 번째 요소 탐색
+				let targetTr = $(".replyTr").eq(index); // 클릭된 대상의 tr 태그 요소 가져오기
+		
+				// 접근한 tr 태그 요소 내의 reply_content, reply_writer, reply_reg_date 태그 내용 수정
+				// => tr 태그 내의 <td class="XXX"> 요소 탐색을 위해 find() 메서드 활용
+				// 1) <td class="reply_content"> 태그 내의 텍스트 변경
+				//    단, 대댓글일 경우 공백도 추가
+				let blank = "";
+				
+				$(targetTr).find(".replyContent").html(blank + " 삭제된 댓글입니다.");
+				// replyContent 항목에 deleted 클래스도 추가 => addClass() 메서드 활용
+				$(targetTr).find(".replyContent").addClass("deleted");
+				
+				// 2) <td class="reply_writer"> 와 <td class="reply_reg_date"> 내의 내용 비우기
+				$(targetTr).find(".replyWriter").empty();
+				$(targetTr).find(".replyRegDate").empty();
+		
+		}).fail(function(jqXHR, textStatus, errorThrown) {
+		    alert("서버와의 통신에 실패했습니다. \n 다시 시도해 주세요. 오류: " + textStatus);
+		});
+
     });
 
     // 지지서명 버튼 클릭시 모달창 띄우기

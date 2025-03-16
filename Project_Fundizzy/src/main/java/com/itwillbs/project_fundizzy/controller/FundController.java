@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 import com.itwillbs.project_fundizzy.service.Bankservice;
 import com.itwillbs.project_fundizzy.service.FundHistoryService;
 import com.itwillbs.project_fundizzy.service.FundService;
@@ -396,14 +397,21 @@ public class FundController {
 	
 	//결제 완료창으로 이동 - post
 	@PostMapping("PaymentComplete")
-	public String paymentComplete(@RequestParam Map<String, Object> map, HttpSession session ,Model model, 
-	                               String project_code, @RequestParam(value = "reward_code", required = false) String[] rewardCodes) {
+	public String paymentComplete(@RequestParam Map<String, Object> map, HttpSession session ,Model model) {
 	    System.out.println("필요한거 : " + map);
 	    String email = (String) session.getAttribute("sId");
 	    
 	    // 1 페이로 결제한 내역 계산 후 pay table에 insert 작업 
 	    map.put("email", email);
 	    map.put("pay_tran_id", UUID.randomUUID().toString());
+	    
+//	    List<Map<String, Object>> sendList = new ArrayList<Map<String,Object>>();
+//	    Gson gson = new Gson();
+//        for(RewardVO reward : gson.fromJson(map.get("rewardList")), List<RewardVO>.class) {
+//           map.put("reward", reward);
+//           sendList.add(map);
+//        } 
+	    
 	    // 2. 결제내역 input
 	    // 3. 배송지 input
 	    // 4. 펀딩내역(fund-history) input
@@ -415,7 +423,6 @@ public class FundController {
 //	        System.out.println("rewardCodesList = " +rewardCodesList );
 	        
 //	        Map<String, Object> paramMap = new HashMap<>();
-
 		    Boolean isSuccess = fundService.insertForPayment(map);
 		    if(!isSuccess) {
 		    	model.addAttribute("msg", "결제에 실패하셨습니다.");
