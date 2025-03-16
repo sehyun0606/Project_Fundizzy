@@ -75,14 +75,14 @@ public class FundService {
 		return mapper.selectReplyList(map);
 	}
 	//지지서명 댓글 등록
-	public int registSupportReply(Map<String, String> map) {
+	public int registSupportReply(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		return mapper.insertSupportReply(map);
 	}
-	//지지서명 댓글 삭제
-	public int removeSupportReply(Map<String, Object> map) {
+	//지지서명 댓글 삭제 
+	public int updateSupportReply(Map<String, Object> map) {
 		// TODO Auto-generated method stub
-		return mapper.deleteSupportReply(map);
+		return mapper.updateSupportReply(map);
 	}
 	//지지서명 댓글 작성자 ip가져오기
 	public Object getReplyWriter(Map<String, Object> map) {
@@ -140,7 +140,7 @@ public class FundService {
 	
 	// 결제진행시 insert 작업 진행
 //	@Transactional
-	public Boolean insertForPayment(Map<String, Object> map, Map<String, Object> paramMap) {
+	public Boolean insertForPayment(Map<String, Object> map) {
 		// 전화번호 형식 변환(- 제거)
 		map.put("phone_num", ((String)map.get("phone_num")).replace("-", ""));
 		
@@ -170,7 +170,7 @@ public class FundService {
 		}
 
 		// 4단계 - 펀딩내역(fund-history) 입력
-		int result4 = mapper.insertFundHistory(map, paramMap);
+		int result4 = mapper.insertFundHistory(map);
 		if(result4 > 0) {
 		    System.out.println("4단계 성공");
 		}else {
@@ -185,6 +185,7 @@ public class FundService {
 		}
 		return true;
 	}
+
 
 
 }

@@ -44,6 +44,7 @@
 				        </div>
 <!-- 				        댓글영역 -->
 				        <div>
+<!-- 				        댓글 작성 -->
 				        	<input type="button" value="댓글" class="reply-show"><br>
 				        	<form action="SupportReply" method="post">
 					        	<div class="reply-write ${sessionScope.sId eq admin ? 'show' : 'hide'}">
@@ -66,14 +67,17 @@
 					        	</div>
 				        	</form>
 				        	<div class="reply-list">
+<!-- 				        	작성된 댓글 -->
+<!-- 								    	댓글 삭제상태가 1일 경우엔 표시하지 않기 -->
 				        		<table>
 								    <c:forEach var="reply" items="${ReplyList}" varStatus="status">
-<!-- 								    	댓글 삭제상태가 1일 경우엔 표시하지 않기 -->
 								        <tr>
-								            <td class="replyContent">${reply.reply_content}</td>
+								            <td class="replyContent"><input type="hidden" value ="${reply.reply_num}" id="replyDelete">${reply.reply_content}</td>
 								            <td class="replyWriter">${reply.maker_email}</td>
 								            <td class="replyRegDate"><fmt:formatDate value="${reply.reply_date}" pattern="yyyy-MM-dd"/></td>
-								            <a href="javascript:supportReplyDelete(${reply.reply_num})"><img src="${pageContext.request.contextPath }/resources/images/fund/delete-icon.png" title="댓글삭제"></a>
+							       			<td><button class="replyDelete" data-reply-num="${reply.reply_num}">
+										    <img src="${pageContext.request.contextPath}/resources/images/fund/delete-icon.png" class="deleteImg" title="댓글삭제">
+										</button></td>
 								        </tr>
 								    </c:forEach>
 				        		</table>

@@ -40,13 +40,13 @@ public interface FundMapper {
 			@Param("supportContent") String supportContent, @Param("supportKeyword") String supportKeyword);
 
 	//지지서명 댓글 등록 
-	int insertSupportReply(Map<String, String> map);
+	int insertSupportReply(Map<String, Object> map);
 	
 	// 지지서명 댓글 가져오기
 	List<Map<String, Object>> selectReplyList(Map<String, Object> map);
 	
 	// 지지서명 댓글 삭제
-	int deleteSupportReply(Map<String, Object> map);
+	int updateSupportReply(Map<String, Object> map);
 	
 	//지지서명 댓글 작성자 가져오기 
 	Object selectReplyWriter(Map<String, Object> map);
@@ -77,7 +77,7 @@ public interface FundMapper {
 	int insertShipment(Map<String, Object> map);
 	
 	//펀딩내역 input - fundHistory 테이블
-	int insertFundHistory(@Param("map") Map<String, Object> map, @Param("paramMap")Map<String, Object> paramMap);
+	int insertFundHistory(@Param("map") Map<String, Object> map);
 
 
 	

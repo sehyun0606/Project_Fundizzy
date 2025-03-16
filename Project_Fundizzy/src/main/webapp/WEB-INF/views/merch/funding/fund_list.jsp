@@ -54,7 +54,6 @@
 		    <button><img alt="" src="resources/images/list/food.png">푸드</button>
 		    <button><img alt="" src="resources/images/list/book.png">도서</button>
 		    <button name="e-book"><img alt="" src="resources/images/list/ebook.png">전자책·클래스</button>
-		    <button><img alt="" src="resources/images/list/design.png">디자인</button>
 		    <button><img alt="" src="resources/images/list/pet.png">반려동물</button>
 		    <button><img alt="" src="resources/images/list/art.png">아트</button>
 		    <button><img alt="" src="resources/images/list/character.png">캐릭터·굿즈</button>

@@ -40,7 +40,11 @@
 			<form action="PaymentComplete" id="complete-form" method="post">
 <!-- 			순서대로 프로젝트코드, 리워드코드 ,리워드명, 리워드설명 ,수량  -->
 				<input type="hidden" id="project_code"  name="project_code" value="${param.project_code}"> 
-				<input type="hidden" id="reward_code"  name="reward_code" value="${reward_code}"> 
+				<input type="hidden" name="reward_code" value="${reward_code}">
+<%-- 				<input type="hidden" name="reward_code" value="${reward_code2}"> --%>
+<%-- 				<input type="hidden" name="reward_code" value="${reward_code3}"> --%>
+<%-- 				<input type="hidden" name="reward_code" value="${reward_code4}"> --%>
+<%-- 				<input type="hidden" name="reward_code" value="${reward_code5}"> --%>
 				<input type="hidden" id="product_name"  name="product_name" value="${selectedReward.product_name}"> 
 				<input type="hidden" id="product_desc"  name="product_desc" value="${selectedReward.product_desc}"> 
 <!-- 				전체 수량 -->

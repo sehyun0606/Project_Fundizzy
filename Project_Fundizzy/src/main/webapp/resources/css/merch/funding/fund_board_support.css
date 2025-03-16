@@ -127,6 +127,21 @@ body {
 	width: 120px;
 }
 
+.replyDelete {
+    width: 20px; 
+    height: 20px;
+    padding: 0; 
+    border: none; 
+    background: none; 
+    cursor: pointer; 
+}
+
+.deleteImg {
+    width: 20px; 
+    height: 20px; 
+    object-fit: cover; 
+}
+
 /* 삭제된 댓글 글자색 변경 */
 .deleted {
 	color: gray;

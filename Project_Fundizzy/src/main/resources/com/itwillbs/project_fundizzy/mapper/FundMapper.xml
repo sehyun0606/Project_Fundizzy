@@ -126,16 +126,17 @@
 	
 <!-- 	지지서명 댓글 목록 출력 -->
 	<select id="selectReplyList" resultType="map">
-		SELECT reply_content, maker_email, reply_date
+		SELECT *
 		FROM reply
-		WHERE project_code = "83652PRO01";
+		WHERE project_code = #{project_code}
 	</select>
 	
 <!-- 	지지서명 댓글 삭제 -->
-	<delete id="deleteSupportReply">
-		DELETE
-		FROM reply
-		WHERE 
+	<delete id="updateSupportReply">
+		UPDATE reply
+		SET reply_delete_status = 1
+		WHERE reply_num = #{reply_num}
+		AND project_code = #{project_code}
 	</delete>
 	
 <!-- 	지지서명 댓글 작성자 출력 -->
@@ -143,7 +144,7 @@
 	<select id="selectReplyWriter" resultType="map">
 		SELECT reply_writer
 		FROM reply
-		WHERE project_code  = "83652PRO01";
+		WHERE project_code = #{project_code}
 	</select>
   
 <!--   펀딩 내역 테이블 가져오기 -->
@@ -274,31 +275,39 @@
     <selectKey keyProperty="fund_idx" order="BEFORE" resultType="int">
         SELECT IFNULL(MAX(fund_idx), 0) FROM fund_history
     </selectKey>
-
-    <!-- foreach 사용해서 reward_codes 리스트에 있는 모든 리워드 코드에 대해 INSERT -->
-    <foreach collection="reward_codes" item="reward_code" index="index" separator=";">
+    <foreach collection="map.rewardList" item="reward" index="index" separator=";">
         INSERT INTO fund_history (
-            fund_idx, project_code, member_email, project_title, representative_picture, product_name,
-            business_name, result_point, send_stat, refund_stat, reward_code, purchase_date, 
-            product_count, payment_code
+            fund_idx, 
+            project_code, 
+            member_email, 
+            project_title, 
+            representative_picture, 
+            product_name,
+            business_name, 
+            result_point, 
+            refund_stat, 
+            reward_code, 
+            purchase_date, 
+            product_count, 
+            payment_code
         ) VALUES (
-            #{fund_idx} + 1, <!-- fund_idx가 중복되지 않도록 처리 -->
+            #{fund_idx} + 1,
             #{project_code},
             #{email},
             (SELECT project_title FROM project_list WHERE project_code = #{project_code}),
             (SELECT representative_picture FROM project_list WHERE project_code = #{project_code}),
-            #{product_name},
+            #{reward.product_name},
             (SELECT business_name FROM project_info WHERE project_code = #{project_code}),
-            #{payment_price},
-            'SHI01',
+            #{reward.payment_price},
             'N',
-            #{reward_code},  <!-- 각각의 reward_code 값 삽입 -->
+            #{reward.reward_code},
             NOW(),
-            #{total_count},
+            #{reward.total_count},
             (SELECT payment_code FROM payment WHERE billing_email = #{email} ORDER BY payment_complete_date DESC LIMIT 1)
         )
     </foreach>
 </insert>
+
 
 <!--   	<insert id="insertFundHistory"> -->
 <!--   		<selectKey keyProperty="fund_idx" order="BEFORE" resultType="int"> -->

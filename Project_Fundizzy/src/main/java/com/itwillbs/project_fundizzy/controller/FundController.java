@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -152,16 +153,29 @@ public class FundController {
 	public String fundBoardSupport(@RequestParam Map<String, Object> map, String project_code, Model model, HttpSession session) {
 		String email = (String)session.getAttribute("sId");
 		
+		//펀드 보드 가져오기 
+		Map<String, Object> fundStory = fundService.getFundBoard(project_code);
+		System.out.println("map == " + fundStory); // ok
+		model.addAttribute("fundStory", fundStory); //ok
+		
+		// *지지서명 가져오기 
 		List<Map<String, Object>> supportList = fundService.getSupportList(project_code);
 		model.addAttribute("supportList", supportList);
 		System.out.println("supportList ======== " + supportList);
 		
-		// 댓글 목록 조회 기능 
+		// * 댓글 목록 조회 기능 
 		List<Map<String, Object>> ReplyList = fundService.getReplyList(map);
 		System.out.println("Reply LIst = " + ReplyList);
-		
-		//모델에 추가 후 넘기기 
 		model.addAttribute("ReplyList", ReplyList);
+		
+		//리워드 테이블 가져오기
+		List<Map<String, Object>> reward = fundService.getReward(project_code);
+		System.out.println("map = " + reward);
+		model.addAttribute("reward", reward);
+		
+		//찜테이블 가져오기
+		Map<String, Object> keep = fundService.getKeep(email,project_code); 
+		model.addAttribute("keep", keep);
 		
 		return "merch/funding/fund_board_support";
 	}
@@ -169,8 +183,7 @@ public class FundController {
 	//지지서명 등록 
 	@PostMapping("SupportSignature")
 	public String supportSignature(@RequestParam Map<String, String> map, Model model, String project_code) {
-		System.out.println("@@@@@@@@@@@@ map : " + map);
-		System.out.println("******** project_code  : " + project_code);
+		
 		String supportKeyword = "";
 		if("on".equals(map.get("like"))) {
 			supportKeyword += 1;
@@ -196,7 +209,6 @@ public class FundController {
 		String email = map.get("email");
 		String supportContent = map.get("support_content");
 		
-		System.out.println("eeeeeeeeeeeeeeee = " + project_code + email + email );
 		//지지서명 등록
 		fundService.getSupportSignature(project_code, email, supportContent, supportKeyword);
 		
@@ -205,11 +217,15 @@ public class FundController {
 	
 	//fund 지지서명 - 댓글 작성 기능 
 	@PostMapping("SupportReply")
-	public String supportReply(@RequestParam Map<String, String> map, HttpSession session, Model model, String project_code,
+	public String supportReply(@RequestParam Map<String, Object> map, HttpSession session, Model model, String project_code,
 			HttpServletRequest request) {
 		
 		//지지서명 출력 
 //		List<Map<String, Object>> supportList = fundService.getSupportList();
+		
+		//댓글 테이블 출력 
+		List<Map<String, Object>> ReplyList = fundService.getReplyList(map);
+		System.out.println("Reply LIst = " + ReplyList);
 		
 		//세션에 있는 아이디 저장 
 		String maker_email = (String) session.getAttribute("sId");
@@ -226,7 +242,6 @@ public class FundController {
 			System.out.println("insert 성공!!!!!!!!!!");
 //			model.addAttribute("supportList", supportList);
 		}
-		
 		return "redirect:/FundBoardSupport";
 	}
 	
@@ -236,9 +251,13 @@ public class FundController {
 	public String supportReplyDelete(@RequestParam Map<String, Object> map, HttpSession session, Model model, String project_code,
 			HttpServletRequest request, @RequestParam Map<String, Object> responseMap) {
 		
-		//지지서명 출력 
+		//지지서명 테이블 가져오기 
 		String maker_email = (String)session.getAttribute("sId");
 		System.out.println("maker_email = " + maker_email);
+		
+		//댓글 테이블 가져오기 
+		List<Map<String, Object>> ReplyList = fundService.getReplyList(map);
+		System.out.println("Reply LIst = " + ReplyList);
 		
 		if(maker_email == null) {
 			responseMap.put("invalidSession", true);
@@ -246,16 +265,16 @@ public class FundController {
 			map.put("reply_writer", maker_email);
 			//댓글 작성자와 현재 세션에 로그인 된 아이디가 일치 하지 않을경우
 			if(!maker_email.equals(map.get("reply_writer")) && fundService.getReplyWriter(map) == null) {
+				System.out.println("댓글 작성자와 아이디가 일치하지 않습니다.");
 				responseMap.put("invalidSession", true);
 				} else {
-					int count = fundService.removeSupportReply(map);
+					int count = fundService.updateSupportReply(map);
 					if(count > 0) {
-						System.out.println("댓글 삭제 성공");
+						System.out.println("db 에서 댓글 삭제 성공");
 					}
 					responseMap.put("result", true);
 			}
 		}
-		
 		JSONObject jo = new JSONObject(responseMap);
 		
 		return jo.toString();
@@ -289,6 +308,7 @@ public class FundController {
 		return "merch/funding/fund_board_supporter";
 	}
 	
+	//환불 규정
 	@GetMapping("FundBoardRefund")
 	public String fundBoardRefund(String project_code, HttpSession session, Model model) {
 		String email = (String)session.getAttribute("sId");
@@ -374,43 +394,34 @@ public class FundController {
 		return "merch/payment/payment_pay";
 	}
 	
+	//결제 완료창으로 이동 - post
 	@PostMapping("PaymentComplete")
 	public String paymentComplete(@RequestParam Map<String, Object> map, HttpSession session ,Model model, 
 	                               String project_code, @RequestParam(value = "reward_code", required = false) String[] rewardCodes) {
 	    System.out.println("필요한거 : " + map);
-	    
 	    String email = (String) session.getAttribute("sId");
-	    System.out.println("* project_code = " + project_code);
 	    
 	    // 1 페이로 결제한 내역 계산 후 pay table에 insert 작업 
 	    map.put("email", email);
 	    map.put("pay_tran_id", UUID.randomUUID().toString());
-	    
 	    // 2. 결제내역 input
 	    // 3. 배송지 input
 	    // 4. 펀딩내역(fund-history) input
 	    // 위 작업중 하나라도 실패할경우 다 원위치
 	    // service에서 트랜잭션 실행
 	    
-	    // 리워드 코드가 있을 경우, 리워드 코드 리스트로 변환하여 파라미터 전달
-	    if (rewardCodes != null && rewardCodes.length > 0) {
 	    	// 리워드 코드 배열을 리스트로 변환
-	        List<String> rewardCodesList = Arrays.asList(rewardCodes); 
+//	        List<String> rewardCodesList = Arrays.asList(rewardCodes); 
+//	        System.out.println("rewardCodesList = " +rewardCodesList );
 	        
-	        Map<String, Object> paramMap = new HashMap<>();
-	        paramMap.put("project_code", project_code);
-	        paramMap.put("email", email);
-	        paramMap.put("product_name", "상품1");
-	        paramMap.put("payment_price", 300000); 
-	        paramMap.put("total_count", rewardCodes.length); // 리워드 코드 개수
-	        paramMap.put("reward_codes", rewardCodesList); 
+//	        Map<String, Object> paramMap = new HashMap<>();
 
-		    Boolean isSuccess = fundService.insertForPayment(map, paramMap);
+		    Boolean isSuccess = fundService.insertForPayment(map);
 		    if(!isSuccess) {
 		    	model.addAttribute("msg", "결제에 실패하셨습니다.");
 		    	return "result/fail";
 		    }
-	    }
+//	    }
 	    return "merch/payment/payment_complete";
 	}
 
