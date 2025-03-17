@@ -31,17 +31,17 @@
 	    <hr>
     <div class="container">
         <div class="content-left">
-			<div class="main-image">
-			    <img src="resources/images/fund/image2.jpg" alt="메인 이미지">
-			    <img src="resources/images/fund/image5.jpg" alt="메인 이미지">
-			    <img src="resources/images/fund/image3.jpg" alt="메인 이미지">
-			</div>
-			
-            <div class="project-story">
-                <p>프로젝트 스토리</p>
-                <img src="story.jpg" alt="프로젝트 스토리 이미지">
-                <button>스토리 더보기v</button>
-            </div>
+           	<c:forEach var="projectStory"  items="${projectStoryList}">
+				<div class="main-image">
+				    <img src="${projectStory.representative_picture}" alt="메인 이미지">
+				</div>
+				
+	           <div class="project-story">
+	                <p>프로젝트 스토리</p>
+	                <img src="${projectStory.product_picture}" alt="프로젝트 스토리 이미지">
+	                <button>스토리 더보기v</button>
+	           </div>
+           	</c:forEach>
             <div class="product-list">
                 <h3>같이 보면 좋은 프로젝트</h3>
                 <div class="image-group">
@@ -183,7 +183,8 @@
                 <div class="company-info">
                    <h4>${fundStory.business_name}</h4><br>
                 </div>
-                <button class="btn" onclick="openChatRoomWindow('${fundStory.representative_email}')">문의하기</button>
+                <button class="btn" onclick="openChatRoomWindow('${fundStory.representative_email}')"
+                	<c:if test="${sessionScope.sId == fundStory.representative_email || empty sessionScope.sId}">disabled</c:if>>문의하기</button>
             </div>
             
             <div class="reward-selection">

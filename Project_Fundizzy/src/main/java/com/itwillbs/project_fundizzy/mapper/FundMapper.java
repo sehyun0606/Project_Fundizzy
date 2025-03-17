@@ -8,11 +8,15 @@ import org.apache.ibatis.annotations.Param;
 
 import com.itwillbs.project_fundizzy.vo.FundHistoryVO;
 import com.itwillbs.project_fundizzy.vo.FundizzyPay;
+import com.itwillbs.project_fundizzy.vo.ProjectStoryVO;
 import com.itwillbs.project_fundizzy.vo.RewardVO;
 @Mapper
 public interface FundMapper {
 	//펀딩 리스트 출력
 	List<Map<String, Object>> selectFundList();
+	
+	//대표사진 및 상세사진 가져오기
+	List<ProjectStoryVO> selectProjectStory(String project_code);
 	
 	//프로젝트 board 출력
 	Map<String, Object> selectFundBoard(String project_code);
@@ -84,6 +88,8 @@ public interface FundMapper {
 
 	//구매자 수 출력 
 	int selectFundHistoryCount(String project_code);
+
+
 
 
 

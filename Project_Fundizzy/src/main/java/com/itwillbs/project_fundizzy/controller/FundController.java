@@ -80,6 +80,10 @@ public class FundController {
 		System.out.println("project_code = " + project_code);
 		String email = (String) session.getAttribute("sId");
 		
+		//대표이미지와 상세 이미지 가져오기 
+		List<ProjectStoryVO> projectStoryList = fundService.getProjectStory(project_code);
+		model.addAttribute("projectStoryList", projectStoryList); //ok
+		
 		//펀드 보드 가져오기 
 		Map<String, Object> fundStory = fundService.getFundBoard(project_code);
 		System.out.println("map == " + fundStory); //ok
@@ -233,7 +237,7 @@ public class FundController {
 	//fund 지지서명 - 댓글 작성 기능 
 	@PostMapping("SupportReply")
 	public String supportReply(@RequestParam Map<String, Object> map, HttpSession session, Model model, String project_code,
-			HttpServletRequest request) {
+			HttpServletRequest request, String support_num) {
 		
 		//지지서명 출력 
 //		List<Map<String, Object>> supportList = fundService.getSupportList();
@@ -257,7 +261,7 @@ public class FundController {
 			System.out.println("insert 성공!!!!!!!!!!");
 //			model.addAttribute("supportList", supportList);
 		}
-		return "redirect:/FundBoardSupport?project_code=" + project_code ;
+		return "redirect:/FundBoardSupport?project_code=" + project_code;
 	}
 	
 	//지지서명 - 댓글 삭제 기능

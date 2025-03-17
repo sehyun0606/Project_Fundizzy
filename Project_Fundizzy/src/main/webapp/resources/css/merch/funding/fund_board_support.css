@@ -53,7 +53,9 @@ body {
 .content-left h3{
 	margin: 0px;
 }
-
+.tag-style{
+	background-color: #ffc0f79e;
+}
 /* 댓글 영역 */
 .reply-show{
 	border-color: none;

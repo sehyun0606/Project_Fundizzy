@@ -45,8 +45,6 @@ $(document).ready(function () {
         if (isNaN(pay_amt)) pay_amt = 0;
         if (isNaN(total_price_delivery)) total_price_delivery = 0;
 
-        alert("페이 잔액 = " + pay_amt);
-        alert("총 결제 금액 = " + total_price_delivery);
 
         // 음수이거나 부족할 경우 결제 불가
         if (pay_amt < total_price_delivery || pay_amt < 0) {

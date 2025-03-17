@@ -84,7 +84,8 @@
                 <div class="company-info">
                    <h4>${fundStory.business_name}</h4><br>
                 </div>
-               <button class="btn" onclick="openChatRoomWindow('${fundStory.representative_email}')">문의하기</button>
+                <button class="btn" onclick="openChatRoomWindow('${fundStory.representative_email}')"
+                	<c:if test="${sessionScope.sId == fundStory.representative_email || empty sessionScope.sId}">disabled</c:if>>문의하기</button>
             </div>
             
             <div class="reward-selection">

@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,10 +40,30 @@
 					    <div class="support-post">
 					        <h4>${support.email}</h4>
 					        <p>${support.support_content}</p>
-					        <p>${support.support_tag}</p>
+							<p>
+							    <c:set var="tagText" value="" />
+							    <c:if test="${fn:contains(support.support_tag, '1')}">
+							        <c:set var="tagText" value="${tagText} <span class='tag-style'>취향저격</span>, " />
+							    </c:if>
+							    <c:if test="${fn:contains(support.support_tag, '2')}">
+							        <c:set var="tagText" value="${tagText} <span class='tag-style'>삶의 질 급상승</span>, " />
+							    </c:if>
+							    <c:if test="${fn:contains(support.support_tag, '3')}">
+							        <c:set var="tagText" value="${tagText} <span class='tag-style'>유용템</span>, " />
+							    </c:if>
+							    <c:if test="${fn:contains(support.support_tag, '4')}">
+							        <c:set var="tagText" value="${tagText} <span class='tag-style'>가성비</span>, " />
+							    </c:if>
+							    <c:if test="${fn:contains(support.support_tag, '5')}">
+							        <c:set var="tagText" value="${tagText} <span class='tag-style'>응원해요</span>, " />
+							    </c:if>
+							    <!-- 마지막 콤마 제거 -->
+							    <c:set var="tagText" value="${fn:substring(tagText, 0, fn:length(tagText) - 2)}" />
+							    <!-- 출력 -->
+							    ${tagText}
+							</p>
 					        <fmt:formatDate value="${support.support_date}" pattern="yyyy-MM-dd"/><br>
-					
-					        <!-- 댓글 버튼 (support_num을 data 속성으로 추가) -->
+					        <!-- 댓글 버튼 -->
 					        <input type="button" value="댓글" class="reply-show" data-support-num="${support.support_num}"><br>
 					
 					        <!-- 댓글 폼 (support_num 별로 구별) -->
@@ -101,7 +122,8 @@
                 <div class="company-info">
                    <h4>${fundStory.business_name}</h4><br>
                 </div>
-   				 <button class="btn" onclick="openChatRoomWindow('${fundStory.representative_email}')">문의하기</button>
+   				  <button class="btn" onclick="openChatRoomWindow('${fundStory.representative_email}')"
+                	<c:if test="${sessionScope.sId == fundStory.representative_email || empty sessionScope.sId}">disabled</c:if>>문의하기</button>
             </div>
             
             <div class="reward-selection">

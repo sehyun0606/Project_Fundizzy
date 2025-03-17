@@ -10,6 +10,7 @@
 		FROM project_story ps
 		JOIN project_list pl ON ps.project_title = pl.project_title
 		WHERE approved_date IS NOT NULL
+
 	</select>
 	
 <!--   프로젝트 보드 출력 -->
@@ -32,7 +33,12 @@
 		JOIN project_list pl ON pl.project_code = ps.project_code
 		WHERE ps.project_code = #{ps.project_code};
 	</select>
-	
+<!-- 	대표사진 및 상세사진 출력 -->
+	<select id="selectProjectStory" resultType="ProjectStory">
+		SELECT *
+		FROM project_story
+		WHERE project_code = #{project_code}
+	</select>
 <!-- 	프로젝트 board 출력 - 리워드 테이블 가져오기  -->
 	<select id="selectReward" resultType="map">
 		SELECT *
@@ -270,7 +276,9 @@
 			#{idx} + 1
 			,"SHI01"
 			,#{project_code}
-			,CONCAT('SHI01', #{idx} + 1)
+			,(SELECT payment_code
+				FROM payment
+				WHERE pay_tran_id = #{pay_tran_id})
 			,#{email}
 			,#{name}
 			,#{phone_num}
@@ -312,7 +320,7 @@
             #{reward.reward_code},
             NOW(),
             #{reward.product_count},
-            (SELECT payment_code FROM payment WHERE billing_email = #{reward.email} ORDER BY payment_complete_date DESC LIMIT 1)
+            (SELECT payment_code FROM payment WHERE pay_tran_id = #{reward.pay_tran_id})
         )
     </foreach>
 </insert>

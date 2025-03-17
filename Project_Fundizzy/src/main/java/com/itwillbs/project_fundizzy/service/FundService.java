@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.itwillbs.project_fundizzy.mapper.FundMapper;
 import com.itwillbs.project_fundizzy.vo.FundHistoryVO;
 import com.itwillbs.project_fundizzy.vo.FundizzyPay;
+import com.itwillbs.project_fundizzy.vo.ProjectStoryVO;
 import com.itwillbs.project_fundizzy.vo.RewardVO;
 
 @Service
@@ -24,7 +25,12 @@ public class FundService {
 		// TODO Auto-generated method stub
 		return mapper.selectFundList();
 	}
-	
+	//프로젝트 대표사진 및 상세사진 가져오기 
+	public List<ProjectStoryVO> getProjectStory(String project_code) {
+		// TODO Auto-generated method stub
+		return mapper.selectProjectStory(project_code);
+	}
+
 	//프로젝트 board 출력
 	public Map<String, Object> getFundBoard(String project_code) {
 		// TODO Auto-generated method stub
@@ -211,6 +217,7 @@ public class FundService {
 		// TODO Auto-generated method stub
 		return mapper.selectFundHistoryCount(project_code);
 	}
+
 
 
 

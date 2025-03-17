@@ -116,28 +116,28 @@ $(function() {
 //            replyList.style.display = "none";
 //        }
 //    });
-
-  document.querySelectorAll(".reply-show").forEach(button => {
-        button.addEventListener("click", function () {
-            let supportNum = this.getAttribute("data-support-num"); // 클릭된 버튼의 support_num 가져오기
-            let replyForm = document.querySelector(`.reply-form[data-support-num='${supportNum}']`); // 해당 support_num의 폼 찾기
-
-            if (replyForm.style.display === "none" || replyForm.style.display === "") {
-                replyForm.style.display = "block"; // 댓글 폼 보이기
-            } else {
-                replyForm.style.display = "none"; // 댓글 폼 숨기기
-            }
-        });
-    });
+	document.addEventListener("DOMContentLoaded", function () {
+	    document.querySelectorAll(".reply-show").forEach(button => {
+	        button.addEventListener("click", function () {
+	            let supportNum = this.getAttribute("data-support-num"); // 클릭된 버튼의 support_num 가져오기
+	            let replyForm = document.querySelector(`.reply-form[data-support-num='${supportNum}']`); // 해당 support_num의 폼 찾기
+	
+	            if (replyForm.style.display === "none" || replyForm.style.display === "") {
+	                replyForm.style.display = "block"; // 댓글 폼 보이기
+	            } else {
+	                replyForm.style.display = "none"; // 댓글 폼 숨기기
+	            }
+	        });
+	    });
+	});
+		
 
 
 	//지지서명 댓글 해당 project_code 에 등록하기
 	$("#reply-submit-btn").on("click", function(event){
 		event.preventDefault();
 		let form = event.target;
-	    form.action = "SupportReply?project_code=" +  project_code;
 		form.submit();
-		location.href= "SupportReply?project_code=" + project_code;
 		
 	});
     // 지지서명 댓글 삭제 - 실제론 update임 
