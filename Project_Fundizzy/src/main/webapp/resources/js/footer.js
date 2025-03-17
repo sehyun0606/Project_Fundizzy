@@ -1,4 +1,5 @@
 const TYPE_TALK = "TYPE_TALK";
+const TYPE_FILE = "TYPE_FILE";
 const TYPE_SYSTEM = "TYPE_SYSTEM";
 const TYPE_INIT = "TYPE_INIT";
 const TYPE_INIT_CHATROOM = "TYPE_INIT_CHATROOM";
@@ -98,7 +99,7 @@ function onMessage(event) {
 	// 윈도우 초기화시 읽지않은 메세지 수 표시
 	if(data.type == TYPE_INIT) {
 		$(".messageCount").text(data.read_state).change();
-	} else if(data.type == TYPE_TALK || data.type == TYPE_SYSTEM) {
+	} else if(data.type == TYPE_TALK || data.type == TYPE_SYSTEM || data.type == TYPE_FILE) {
 		// 채팅송신자가 본인이아니고 해당 대화방이 열려있지 않을때
 		// 총 읽지않은 메세지 수 변경(해당 방이 열려있으면 읽었다는 의미)
 		if(data.sender_email != sEmail && !chatRoomWindowObj[data.sender_email]) {
@@ -107,9 +108,14 @@ function onMessage(event) {
 		
 	// 채팅방 입장시 해당 채팅방의 읽음처리된 메세지수 처리
 	} else if(data.type == TYPE_INIT_CHATROOM) {
-		if(data.sender_email == sEmail) {
-			$(".messageCount").text(parseInt($(".messageCount").text()) - data.read_state).change();
-		}
+		$.ajax({
+			type : "POST",
+			url : "RequestUnreadCount"
+		}).done(function(result) {
+			if(data.sender_email == sEmail) {
+				$(".messageCount").text(result).change();
+			}
+		})
 	}
 	
 	// 채팅창이 연결 되어있을 경우 postMessage()로 전송

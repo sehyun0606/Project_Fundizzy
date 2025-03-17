@@ -73,7 +73,7 @@
 		FROM member
 		WHERE email IN (
 						SELECT 
-							DISTINCT(member_email)
+							DISTINCT member_email
 						FROM 
 							project_list
 						WHERE
@@ -100,16 +100,25 @@
 	<select id="selectMySupportInfo" resultType="map">
 		SELECT *
 		FROM member
-		WHERE email IN ( -- 내프로젝트를 지지한 서포터 조회
-							SELECT s.email
-							FROM 
-								project_list p
-							JOIN 
-								support s
-							ON 
-								p.project_code = s.project_code
-							WHERE
-								p.member_email = #{sender_email}
+		WHERE email IN ( -- 내프로젝트를 지지한 서포터 조회 
+							SELECT DISTINCT email
+							FROM support
+							WHERE project_code IN (
+													SELECT project_code
+													FROM project_list
+													WHERE member_email = #{sender_email}
+													)
+						
+						)
+			OR email IN ( -- 내프로젝트 참여한 서포터 조회
+							SELECT DISTINCT billing_email
+							FROM payment
+							WHERE project_code IN (
+													SELECT project_code
+													FROM project_list
+													WHERE member_email = #{sender_email}
+													)
+							
 						)
 	</select>
 	

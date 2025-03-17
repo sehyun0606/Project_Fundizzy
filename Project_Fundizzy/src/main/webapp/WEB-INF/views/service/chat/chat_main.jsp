@@ -39,6 +39,9 @@
 				<div class="semiTitle">
 					나의 서포터
 					<span class="foldingBtn"></span>
+					<div class="titleDescription">
+						(내 프로젝트에 참여, 지지서명한 서포터)
+					</div>
 				</div>
 				<div class="peopleList">
 				</div>

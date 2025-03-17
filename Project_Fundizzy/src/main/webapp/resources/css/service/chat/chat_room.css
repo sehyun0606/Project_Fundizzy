@@ -169,6 +169,7 @@ body {
 	height: 90%;
 	border: none;
 	outline: none;
+	resize: none;
 }
 
 .message {
@@ -320,6 +321,82 @@ span {
 }
 .closeBtn:hover {
     background-color: rgba(147, 112, 219, 1);
+}
+
+.chat_img {
+    border-radius: 5px;
+    background-color: rgba(68, 68, 68, 0.2);
+    padding: 10px;
+    margin-right: 10px;
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#filePreview {
+	margin-bottom: 10px;
+    text-align: center;
+    background-color: #fff;
+    width: 80%;
+    float: right;
+    margin-right: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
+    padding: 10px;
+    border-radius: 30px;
+} 
+
+#previewTitle {
+	font-size: 18px;
+	line-height: 30px;
+	margin-bottom: 10px;
+}
+
+#previewBtnGroup input {
+	padding: 8px 15px;
+	margin: 5px;
+	border: none;
+	background-color: rgba(147, 112, 219, 0.5);
+	color: white;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+#previewBtnGroup input:hover {
+	background-color: rgba(147, 112, 219, 1);
+}
+
+#filePreview span {
+    margin-bottom: 10px;
+	width: 80px;
+	height: 80px;
+	margin-right: 10px;
+ 	border-radius: 5px;
+    background-color: rgba(68, 68, 68, 0.2);
+    padding: 10px;
+    border-radius: 5px;
+    position: relative; 
+    display: inline-block;
+}
+
+#filePreview img {
+    border-radius: 5px;
+	width: 100%;
+	height: 100%;
+}
+
+.deleteImg {
+    position: absolute;
+    top: 5px;
+    right: 5px; 
+    border: none;
+    border-radius: 50%; 
+    width: 20px; 
+    height: 20px; 
+    cursor: pointer;
+    font-size: 12px; 
+    line-height: 20px; 
+    text-align: center; 
 }
 
 /* 전체 스크롤바 스타일 */

@@ -13,7 +13,6 @@ const ALIGN_CENTER = "align_center";
 const ALIGN_LEFT = "align_left";
 const ALIGN_RIGHT = "align_right";
 
-var ws = opener.ws
 // 세션 아이디 저장
 const sEmail = $("#sId", opener.document).val();
 // 리시버 아이디 저장
@@ -21,6 +20,9 @@ const receiver_email = window.name;
 // 채팅방 아이디 저장
 let room_id;
 let receiverInfo;
+
+// 파일 저장배열
+let fileArray = [];
 
 $(function() {
 	// 로그인 안되어있을때 로그인 페이지로 이동, 챗 윈도우 클로즈
@@ -108,6 +110,11 @@ $(function() {
 	
 	// 채팅방 이름변경
 	$(".changeBtn").click(function() {
+		if($(".inputName").val() == "") {
+			alert("채팅방 이름을 입력해주세요!");
+			return;
+		}
+		
 		if(confirm("<" + $(".inputName").val() + ">로\n채팅방 이름이 변경됩니다")) {
 			sendMessage(TYPE_CHANGE_ROOMNAME, sEmail, receiver_email, room_id, $(".inputName").val());
 		}
@@ -128,6 +135,13 @@ $(function() {
 		}
 	});
 	
+	// preview이미지 버튼 클릭시 해당 이미지 preview에서 삭제
+	$(document).on("click", ".deleteImg", function () {
+	    let index = $(this).data("index");
+	    removeImgInPreview(index);
+	});
+
+	
 });
 
 // ------------------------------------------- 함수 ------------------------------------------
@@ -136,7 +150,7 @@ $(function() {
 function initChatWindow() {
 	let wsCheckInterval = setInterval(() => {
 		// 부모창의 웹소켓 객체가 없거나 연결상태가 아닐경우 부모창의 연결 함수 호출
-		if(ws == null || ws.readyState != ws.OPEN) {
+		if(opener.ws == null || opener.ws.readyState != opener.ws.OPEN) {
 			opener.connect();
 		} else {
 			// 부모창을 통해 메세지를 전송할 sendMessage()함수 호출
@@ -344,16 +358,88 @@ function closeReNameModal() {
 	$("#modalBackground .inputName").val("");
 }
 
+function sendFilePreview() {
+	// 대기중인 파일 전송이 있을경우 기존의 디브 삭제후 재생성
+	if($("#filePreview").length != 0) {
+		alert("대기중인 파일전송은 취소됩니다.");
+		removePreview();
+	}
+	
+	// 선택한 파일 저장할 배열
+	fileArray = Array.from($("#file")[0].files);
+	
+	// 메세지 표시 영역에 프리뷰 디브 추가
+	$("#chatMessageArea").append(`
+									<div id="filePreview">
+										<div id="previewTitle">선택된 사진을 전송 하시겠습니까?</div>
+										<div id="sendFileList"></div>
+										<div id="previewBtnGroup">
+											<input type="button" value="전송" onclick="sendFile()">
+											<input type="button" value="취소" onclick="removePreview()">
+										</div>
+									</div>
+	`);
+	
+	
+	// 반복문통해 해당 이미지 span 추가
+	fileArray.forEach((file, index) => {
+		let reader = new FileReader();
+		reader.onload = (e) => {
+			let imgTag = file.type.startsWith('image/')
+            ? `<img src="${e.target.result}">`
+            : '이미지 파일이 아닙니다';
+
+			$("#sendFileList").append(
+				`<span class="img">
+					${imgTag}
+					<button type="button" class="deleteImg" data-index="${index}">
+						X
+					</button>
+				</span>`);
+		}
+
+        // 파일 읽기
+        reader.readAsDataURL(file);
+		
+	});			
+	
+	$("#chatMessageArea").scrollTop($("#chatMessageArea")[0].scrollHeight);
+}
+
+// 프리뷰 디브 삭제
+function removePreview() {
+	$("#filePreview").remove();
+	$("#chatMessageArea").scrollTop($("#chatMessageArea")[0].scrollHeight);
+}
+
+// 프리뷰 사진 삭제
+function removeImgInPreview(index) {
+    // 배열에서 데이터삭제
+    fileArray.splice(index, 1);
+
+    // preview에서 이미지삭제
+    $(`button[data-index='${index}']`).closest(".img").remove();
+
+    // 나머지 이미지 index 재설정
+    $("#sendFileList span").each(function (i, element) {
+        $(element).find("button").attr("data-index", i);
+    });
+
+	$("#chatMessageArea").scrollTop($("#chatMessageArea")[0].scrollHeight);
+	
+	if(fileArray.length == 0) {
+		$("#filePreview").remove();
+	}
+}
 
 // 사진전송 메서드
 function sendFile() {
 	// 멀티파일가능
-	let files = $("#file")[0].files;
 	let formData = new FormData();
 	
 	// 각 파일을 fromdata에 추가
-	for (let i = 0; i < files.length; i++) {
-	    formData.append("files", files[i]); 
+	for (let i = 0; i < fileArray.length; i++) {
+	    formData.append("files", fileArray[i]); 
 	}
 	
 	$.ajax({
@@ -370,7 +456,7 @@ function sendFile() {
 		for(let file of response) {
 			// 파일 처리를 수행하지 못한 경우(이미지 파일 아님 등) 오류 메세지 출력 처리
 			if(file.result == "fail") { 
-				failFileName += " " + file.orginalName;
+				failFileName += "<" + file.orginalName + ">\n";
 				continue;
 			}
 			
@@ -385,4 +471,6 @@ function sendFile() {
 	}).fail(() => {
 		alert("파일 전송 오류 발생!\n다시 시도해 주세요!");
 	});
+	
+	 removePreview();
 }

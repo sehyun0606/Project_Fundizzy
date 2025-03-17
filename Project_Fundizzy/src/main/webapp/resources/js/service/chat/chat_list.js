@@ -6,8 +6,6 @@ const TYPE_LEAVE = "TYPE_LEAVE"; // 채팅방 퇴장
 const TYPE_CHANGE_ROOMNAME = "TYPE_CHANGE_ROOMNAME"; // 채팅방 퇴장
 const TYPE_FILE = "TYPE_FILE"; // 이미지 파일 전송
 
-var ws = opener.ws
-
 // 세션 아이디 저장
 const sEmail = $("#sId", opener.document).val();
 
@@ -100,7 +98,7 @@ $(function() {
 function initChatWindow() {
 	let wsCheckInterval = setInterval(() => {
 		// 부모창의 웹소켓 객체가 없거나 연결상태가 아닐경우 부모창의 연결 메서드 호출
-		if(ws == null || ws.readyState != ws.OPEN) {
+		if(opener.ws == null || opener.ws.readyState != opener.ws.OPEN) {
 			opener.connect();
 		} else {
 			// 부모창을 통해 메세지를 전송할 sendMessage()함수 호출
