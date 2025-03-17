@@ -39,8 +39,12 @@ public interface ProjectStateMapper {
 	int deleteNews(int news_code);
 
 	int updateNewsBoard(Map<String, String> map);
+	
+	int insertSaveNewsBoard(Map<String, String> map);
 
-
+	int updateSaveNewsBoard(Map<String, String> map);
+	
+	
 
 	// ================================== 발송 및 환불관리 ==================================
 	int selectOrderCount(String project_code);
@@ -92,6 +96,10 @@ public interface ProjectStateMapper {
 	int updateFinalSettlement(Map<String, Object> map);
 
 	void updateProjectListFinalSettlementStatus(Map<String, Object> map);
+
+	
+
+	
 
 	
 

@@ -67,6 +67,14 @@ public class ProjectStateService {
 		return stateMapper.updateNewsBoard(map);
 	}
 	
+	public int registSaveNewsBoard(Map<String, String> map) {
+		return stateMapper.insertSaveNewsBoard(map);
+	}
+	
+	public int modifySaveNewsBoard(Map<String, String> map) {
+		return stateMapper.updateSaveNewsBoard(map);
+	}
+	
 	// ================================== 발송 및 환불관리 ==================================
 	public int getOrderCount(String project_code) {
 		return stateMapper.selectOrderCount(project_code);
@@ -146,6 +154,10 @@ public class ProjectStateService {
 		stateMapper.updateProjectListFinalSettlementStatus(map);
 		return stateMapper.updateFinalSettlement(map);
 	}
+
+	
+
+	
 
 	
 

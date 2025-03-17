@@ -624,12 +624,12 @@ public class ProjectStateController {
 		System.out.println("map: " + map);
 		
 		int insertCount;
+		
 		try {
-			insertCount = stateService.registNewsBoard(map);
-			if(insertCount > 0) {
-//				model.addAttribute("msg", "새소식이 등록되었습니다");
-				model.addAttribute("targetURL", "NewsList");
-				return "result/result";
+			if(map.get("submit").equals("게시하기")) {
+				insertCount = stateService.registNewsBoard(map);
+			} else if(map.get("submit").equals("임시저장")) {
+				insertCount = stateService.registSaveNewsBoard(map);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -654,12 +654,15 @@ public class ProjectStateController {
 		// 새소식 수정
 		int updateCount;
 		try {
-			updateCount = stateService.modifyNewsBoard(map);
-			if(updateCount > 0) {
-//				model.addAttribute("msg", "새소식이 수정되었습니다");
-				model.addAttribute("targetURL", "NewsList");
-				return "result/result";
+			
+			if(map.get("submit").equals("수정하기") || map.get("submit").equals("임시저장")) {
+				updateCount = stateService.modifyNewsBoard(map);
+				
+			} else if(map.get("submit").equals("게시하기")) {
+				updateCount = stateService.modifySaveNewsBoard(map);
+				
 			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("msg", "새소식 수정에 실패하였습니다");

@@ -155,16 +155,29 @@ h1 {
 	border-bottom: none;
 }
 
-.list-title > div {
+.list-title > div:last-child {
 	color: #a1a1a1;
 	font-size: 14px;
+}
+
+.list-title > div {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	gap: 10px;
+}
+
+.list-title span {
+	font-size: 12px;
+	color: mediumpurple;
+	font-weight: 700;
 }
 
 /* .list-container .btn-container { */
 /* 	display: flex; */
 /* } */
 
-.modifyBtn, .deleteBtn {
+.modifyBtn, .deleteBtn, .readBtn, .post2Btn {
 	border: 1px solid #ddd;
     background-color: #fff;
     padding: 7px 12px;

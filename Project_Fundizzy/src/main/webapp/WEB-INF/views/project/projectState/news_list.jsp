@@ -32,8 +32,8 @@
 								<textarea name="news_content" class="news_content" placeholder="내용을 입력해 주세요" maxlength="1000" required></textarea>
 							</div>
 							<div class="btn-container">
-								<input type="button" value="임시저장" class="saveBtn">
-								<input type="submit" value="게시하기" class="postBtn">
+								<input type="submit" value="임시저장" class="saveBtn" name="submit">
+								<input type="submit" value="게시하기" class="postBtn" name="submit">
 							</div>
 						</div>
 					</form>
@@ -63,16 +63,34 @@
 					<div>등록된 새소식이 없습니다</div>
 				</c:if>
 				<c:forEach var="news" items="${newsList}">
-						<c:if test="${news.news_status eq 'Y'}">
+						<c:if test="${news.news_status ne 'D'}">
 							<div class="list-container">
 								<input type="hidden" name="news_code" class="news_code" value="${news.news_code}">
 								<div class="list-title">
-									<h3><a href="FundBoardNew?project_code=${news.project_code}&news_code=${news.news_code}">${news.news_title}</a></h3>
+									<div>
+										<c:choose>
+											<c:when test="${news.news_status eq 'S'}">
+												<h3>${news.news_title}</h3>
+												<span>임시저장</span>
+											</c:when>
+											<c:otherwise>
+												<h3><a href="FundBoardNew?project_code=${news.project_code}&news_code=${news.news_code}">${news.news_title}</a></h3>
+											</c:otherwise>
+										</c:choose>
+									</div>
 									<div>${news.news_date}</div>
 								</div>
 								<div class="btn-container">
-									<input type="button" value="수정" class="modifyBtn">
-									<input type="button" value="삭제" class="deleteBtn" onclick="confirmDelete(${news.news_code})">
+									<c:choose>
+										<c:when test="${news.news_status eq 'S'}">
+											<input type="button" value="내용보기" class="readBtn">
+											<input type="button" value="게시" class="post2Btn">
+										</c:when>
+										<c:otherwise>
+											<input type="button" value="수정" class="modifyBtn">
+										</c:otherwise>
+									</c:choose>
+										<input type="button" value="삭제" class="deleteBtn" onclick="confirmDelete(${news.news_code})">
 								</div>
 							</div>
 						</c:if>

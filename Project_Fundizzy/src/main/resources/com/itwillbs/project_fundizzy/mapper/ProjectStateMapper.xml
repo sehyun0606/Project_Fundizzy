@@ -27,7 +27,7 @@
 		FROM news
 		WHERE 
 			project_code = #{project_code}
-			AND news_status = 'Y'
+			AND news_status != 'D'
 		ORDER BY news_date DESC
 		LIMIT
 			#{startRow}
@@ -39,7 +39,7 @@
 		FROM news
 		WHERE 
 			project_code = #{project_code}
-			AND news_status = 'Y'
+			AND news_status != 'D'
 	</select>
 	
 	<select id="getNews" resultType="news">
@@ -410,6 +410,32 @@
 		FROM support
 		WHERE project_code = #{project_code}
 	</select>
+	
+	<insert id="insertSaveNewsBoard">
+		<selectKey keyProperty="news_code" resultType="int" order="BEFORE">
+			SELECT IFNULL(MAX(news_code), 0)
+			FROM news
+		</selectKey>
+		INSERT 
+		INTO news
+		VALUES (
+			#{news_code} + 1
+			, #{project_code}
+			, #{maker_email}
+			, #{news_title}
+			, #{news_content}
+			, NOW()
+			, 'S'
+		)
+	</insert>
+	
+	<update id="updateSaveNewsBoard">
+		UPDATE news
+		SET news_title = #{news_title}
+			, news_content = #{news_content}
+			, news_status = 'Y'
+		WHERE news_code = #{news_code}
+	</update>
 	
 
 </mapper>

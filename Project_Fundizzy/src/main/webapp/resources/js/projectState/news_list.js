@@ -15,7 +15,7 @@ $(function() {
 		$(".char-count").text(currentLength + "자 남음");
 	});
 	
-	$(document).on("click", ".modifyBtn", function () {
+	$(document).on("click", ".modifyBtn, .post2Btn", function () {
 	    // 수정 버튼이 클릭된 새소식 정보 가져오기
 	    news_code = parseInt($(this).closest(".list-container").find(".news_code").val()); 
 	    $(".news_code").val(news_code);
@@ -44,10 +44,18 @@ $(function() {
 					<textarea name="news_content" class="news_content" placeholder="내용을 입력해 주세요" maxlength="1000" required>${newsList.news_content}</textarea>
 				</div>
 				<div class="btn-container">
-					<input type="button" value="임시저장" class="saveBtn">
-					<input type="submit" value="수정하기" class="postBtn">
+					${newsList.news_status == 'Y' ? `
+						<input type="submit" value="임시저장" class="saveBtn" name="submit">
+						<input type="submit" value="수정하기" class="postBtn" name="submit">
+						`:`
+						<input type="submit" value="임시저장" class="saveBtn" name="submit">
+						<input type="submit" value="게시하기" class="postBtn" name="submit">
+					`}
 				</div>`
 			);
+			
+			currentLength = newsList.news_title.length;
+			$(".char-count").text((maxLength - currentLength) + "자 남음");
 		});
 
 	});
