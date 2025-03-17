@@ -21,5 +21,6 @@ public class Payment implements Serializable {
 	private String payment_request_date; //결제 요청날짜
 	private String payment_complete_date; //결제 완료날짜
 	private String participation_status; // 프젝참여상태 -PAR02로 고정 
+	private String pay_tran_id;
 	
 }

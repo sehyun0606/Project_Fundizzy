@@ -85,7 +85,7 @@
 			            <div id="div_address">
 			            	<input type="radio" name="addressRadio" id="address" value="최근 배송지" checked="checked">
 			            	<label for="address">
-				            	<input type="text" id="ship-name" placeholder="배송 받으실 분 이름을 입력해주세요." required="required"><br>
+				            	<input type="text" id="ship-name" placeholder="배송 받으실 분 이름을 입력해주세요." maxlength="10" required="required"><br>
 		            	        <span id="ship-phone">${member.phone}</span><br>
 						        <span id="ship-postcode">(${member.post_code})</span> 
 						        <span id="ship-address1">${member.address1}</span> 

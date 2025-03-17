@@ -405,10 +405,9 @@ public class FundController {
 	public String paymentComplete(@RequestParam Map<String, String> map, HttpSession session ,Model model, String payment_price,
 			String delivery_fee) {
 	    String email = (String) session.getAttribute("sId");
-	    String pay_tran_id = UUID.randomUUID().toString();
 	    // 1 페이로 결제한 내역 계산 후 pay table에 insert 작업 
 	    map.put("email", email);
-	    map.put("pay_tran_id", pay_tran_id);
+	    map.put("pay_tran_id", UUID.randomUUID().toString());
 	    map.put("payment_price", payment_price);
 	    map.put("delivery_fee", delivery_fee);
 	    System.out.println("필요한거 : " + map);
@@ -426,9 +425,16 @@ public class FundController {
 	    	return "result/fail";
 	    }
 	    
-	    List<Map<String, Object>> resultList = fundService.getResultList(pay_tran_id);
+	    List<Map<String, Object>> resultList = fundService.getResultList(map.get("pay_tran_id"));
 	    model.addAttribute("resultList", resultList);
 	    System.out.println("resultList" + resultList);
+	    int sumPrice = 0;
+	    
+	    for(Map<String, Object> result : resultList) {
+	    	sumPrice += (int)result.get("result_point");
+	    }
+	    
+	    model.addAttribute("sumPrice", sumPrice);
 	    return "merch/payment/payment_complete";
 	}
 	
