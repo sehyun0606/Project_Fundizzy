@@ -91,8 +91,12 @@ public class FundController {
 		model.addAttribute("reward", reward);
 		
 		//찜테이블 가져오기
-		Map<String, Object> keep = fundService.getKeep(email, project_code); 
+		List<Map<String, Object>> keep = fundService.getKeep(email, project_code); 
 		model.addAttribute("keep", keep);
+		
+		//fund-history table 가져오기 - 구매자 수 출력 
+		int fundHistory = fundService.getFundHistoryCount(project_code);
+		model.addAttribute("fundHistory", fundHistory);
 		
 		return "merch/funding/fund_board_story";
 	}
@@ -144,10 +148,14 @@ public class FundController {
 		model.addAttribute("reward", reward);
 		
 		//찜테이블 가져오기
-		Map<String, Object> keep = fundService.getKeep(email,project_code); 
+		List<Map<String, Object>> keep = fundService.getKeep(email,project_code); 
 		model.addAttribute("keep", keep);
-		return "merch/funding/fund_board_new";
 		
+		//fund-history table 가져오기 - 구매자 수 출력 
+		int fundHistory = fundService.getFundHistoryCount(project_code);
+		model.addAttribute("fundHistory", fundHistory);
+		
+		return "merch/funding/fund_board_new";
 	}
 	
 	
@@ -177,8 +185,12 @@ public class FundController {
 		model.addAttribute("reward", reward);
 		
 		//찜테이블 가져오기
-		Map<String, Object> keep = fundService.getKeep(email,project_code); 
+		List<Map<String, Object>> keep = fundService.getKeep(email,project_code); 
 		model.addAttribute("keep", keep);
+		
+		//fund-history table 가져오기 - 구매자 수 출력 
+		int fundHistory = fundService.getFundHistoryCount(project_code);
+		model.addAttribute("fundHistory", fundHistory);
 		
 		return "merch/funding/fund_board_support";
 	}
@@ -305,8 +317,12 @@ public class FundController {
 		model.addAttribute("reward", reward);
 		
 		//찜테이블 가져오기
-		Map<String, Object> keep = fundService.getKeep(email,project_code); 
+		List<Map<String, Object>> keep = fundService.getKeep(email,project_code); 
 		model.addAttribute("keep", keep);
+		
+		//fund-history table 가져오기 - 구매자 수 출력 
+		int fundHistory = fundService.getFundHistoryCount(project_code);
+		model.addAttribute("fundHistory", fundHistory);
 		
 		return "merch/funding/fund_board_supporter";
 	}
@@ -332,8 +348,13 @@ public class FundController {
 		model.addAttribute("reward", reward);
 		
 		//찜테이블 가져오기
-		Map<String, Object> keep = fundService.getKeep(email,project_code); 
+		List<Map<String, Object>> keep = fundService.getKeep(email,project_code); 
 		model.addAttribute("keep", keep);
+		
+		//fund-history table 가져오기 - 구매자 수 출력 
+		int fundHistory = fundService.getFundHistoryCount(project_code);
+		model.addAttribute("fundHistory", fundHistory);
+		
 		return "merch/funding/fund_board_refund";
 	}
 

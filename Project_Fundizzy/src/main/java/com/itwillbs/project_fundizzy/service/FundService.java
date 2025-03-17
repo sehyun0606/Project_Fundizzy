@@ -38,7 +38,7 @@ public class FundService {
 	}
 	
 	//프로젝트 board 출력 - 찜 테이블 가져오기 
-	public Map<String, Object> getKeep(String email,String project_code) {
+	public List<Map<String, Object>> getKeep(String email, String project_code) {
 		// TODO Auto-generated method stub
 		return mapper.selectKeep(email, project_code);
 	}
@@ -205,6 +205,11 @@ public class FundService {
 	public List<Map<String, Object>> getResultList(String pay_tran_id) {
 		// TODO Auto-generated method stub
 		return mapper.selectResultList(pay_tran_id);
+	}
+// 구매자 수 출력
+	public int getFundHistoryCount(String project_code) {
+		// TODO Auto-generated method stub
+		return mapper.selectFundHistoryCount(project_code);
 	}
 
 

@@ -21,7 +21,7 @@ public interface FundMapper {
 	List<Map<String, Object>> selectReward(String project_code);
 	
 	//프로젝트 board 출력 - 찜 테이블 가져오기 
-	Map<String, Object> selectKeep(@Param("email")String email, @Param("project_code")String project_code);
+	List<Map<String, Object>> selectKeep(@Param("email")String email, @Param("project_code")String project_code);
 	
 	//찜 등록
 	int insertKeep(@Param("email")String email, @Param("project_code")String project_code);
@@ -81,6 +81,9 @@ public interface FundMapper {
 
 	// 완료 페이지를 띄우기 위한 리스트 가져오기 
 	List<Map<String, Object>> selectResultList(String pay_tran_id);
+
+	//구매자 수 출력 
+	int selectFundHistoryCount(String project_code);
 
 
 

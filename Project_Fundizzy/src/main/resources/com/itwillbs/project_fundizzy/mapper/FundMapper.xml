@@ -47,6 +47,13 @@
 		WHERE project_code = #{project_code}
 	</select>
 	
+<!-- 	구매자 수 출력  -->
+	<select id="selectFundHistoryCount" resultType="int">
+		SELECT COUNT(*)
+		FROM fund_history
+		WHERE project_code = #{project_code} 
+	</select>
+	
 <!-- 	찜 등록 -->
 	<insert id="insertKeep">
 		INSERT INTO keep
