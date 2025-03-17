@@ -76,7 +76,7 @@
         	<c:forEach var="list" items="${fundList}">
         		<div class="product">
         			<input type="hidden" class ="project_code" value="${list.project_code}">
-		            <div class="product-img">${list.representative_picture}</div>
+		            <img class="product-img" src="${list.representative_picture}">
 		            <div class="product-info">
 		                <p class="discount">${list.progress}%</p>
 		                <p class="name">${list.project_title}</p>

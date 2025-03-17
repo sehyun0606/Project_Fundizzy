@@ -35,12 +35,12 @@
        	        <div class="section-price">
 		            <h4>결제 금액</h4>
 		             <p>리워드 금액 <span class="total_price"><fmt:formatNumber pattern="#,###원" value="${sumPrice}"></fmt:formatNumber></span></p>
-		             <p>배송비 <span class="price">${resultList[0].delivery_fee}원</span></p>
+		             <p>배송비 <span class="price"><fmt:formatNumber pattern="#,###원" value="${resultList[0].delivery_fee}"></fmt:formatNumber></span></p>
 		             <p class="total">총 결제 금액 <span id="total_price_delivery"><fmt:formatNumber pattern="#,###원" value="${sumPrice + resultList[0].delivery_fee}"></fmt:formatNumber></span></p>
 	        	</div>
 	        	<div class="two-button">
-		           <button onclick="/'">홈으로</button>
-			           <button onclick="/SupporterPage'">마이페이지</button>
+		           <button onclick="/">홈으로</button>
+			           <button onclick="/SupporterPage">마이페이지</button>
 	        	</div>
 	        </div>
 	    </div>
