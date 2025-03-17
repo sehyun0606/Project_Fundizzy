@@ -288,7 +288,8 @@ public class MemberController {
 				model.addAttribute("msg", "로그인 실패!");
 				return "result/result";
 				
-			} else if(dbMember.get("member_status") == "3") { 
+			} else if(dbMember.get("member_status") == "2") { 
+				model.addAttribute("msg", "탈퇴한 회원입니다!");
 				return "result/result";
 				
 			} else {

@@ -152,7 +152,7 @@ body {
 
 /* ✅ 카테고리를 가로 스크롤 가능하게 설정 */
 .sub-category-wrapper {
-    width: 60%;
+    width: 50%;
     overflow-x: auto;
     scroll-behavior: smooth;
     white-space: nowrap;
@@ -198,6 +198,7 @@ body {
     cursor: pointer;
     z-index: 100;
     transition: color 0.3s ease-in-out;
+    margin-top: 4px;
 }
 
 /* ✅ 버튼 호버 시 아이콘 색상 변경 */
@@ -207,43 +208,15 @@ body {
 
 /* ✅ 왼쪽 버튼 위치 */
 .sub-scroll-btn.left {
-    left: 19%;
+    left: 23%;
 }
 
 /* ✅ 오른쪽 버튼 위치 */
 .sub-scroll-btn.right {
-    right: 20%;
+    right: 24%;
     display: block; /* ✅ 처음에는 오른쪽 버튼만 보이도록 설정 */
 }
 /*---------------------------------------------*/
-/* ✅ 전체 콘텐츠를 2열로 정렬 */
-.content-wrapper {
-    display: flex;
-    justify-content: space-between;
-    max-width: 1000px;
-    margin: auto;
-    gap: 20px;
-}
-
-/* ✅ 왼쪽 (배너 + 취향 맞춤 프로젝트) */
-.left-content {
-    width: 70%;
-}
-
-/* ✅ 배너 스타일 */
-.banner-container {
-    position: relative;
-    width: 100%;
-    height: 300px;
-    overflow: hidden;
-    border-radius: 10px;
-}
-.banner-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
 /* ✅ 취향 맞춤 프로젝트 */
 .custom-project-section h2 {
     font-size: 20px;
@@ -278,6 +251,7 @@ body {
     max-width: 1130px;
     margin: auto;
     gap: 20px;
+    height: 880px;
 }
 /* ✅ 왼쪽 (배너 + 취향 맞춤 프로젝트) */
 .left-content {
@@ -290,14 +264,16 @@ body {
 }
 .banner-container {
     position: relative;
-    width: 100%;
-    height: 350px;
-    overflow: hidden;
+    width: 100%;  /* 컨테이너 너비를 100%로 설정 */
+    max-width: 900px;  /* 최대 너비 지정 (필요에 따라 조정) */
+    height: 200px;  /* 고정 높이 설정 (필요에 맞게 조정 가능) */
+    overflow: hidden;  /* 넘치는 부분 숨김 */
 }
 .banner-img {
-    width: 100%;
-    height: auto;
-    display: block;
+    width: 100%;  /* 컨테이너에 맞게 이미지 크기 조정 */
+    height: 100%;  /* 컨테이너 높이에 맞게 자동 조정 */
+    object-fit: cover;  /* 넘치는 부분을 자동으로 채움 */
+    border-radius: 10px; /* 이미지 모서리를 둥글게 (선택사항) */
 }
 /* ✅ 배너 내비게이션 버튼 */
 .banner-prev,
@@ -334,11 +310,6 @@ body {
     right: 10px;  /* 오른쪽 버튼은 우측 끝 */
 }
 
-/* ✅ 취향 맞춤 프로젝트 */
-.custom-project-section h2 {
-    font-size: 20px;
-    margin-top: 20px;
-}
 /* ✅ 오른쪽 (실시간 랭킹) */
 .ranking-section {
     width: 30%;
@@ -452,9 +423,6 @@ body {
     margin-bottom: 70px;
 }
 
-
-
-
 /* ✅ 연한 회색 구분선 */
 .divider1 {
     width: 100%;
@@ -469,3 +437,105 @@ body {
     height: auto; /* 양쪽 콘텐츠 크기에 맞게 자동 조절 */
     margin: 0 15px; /* 양쪽 여백 */
 }
+/* ✅ 트렌드 섹션 스타일 */
+.trend-section {
+    width: 100%;
+    max-width: 1130px;
+    margin: auto;
+	padding: 0px 0px 40px 0px;
+}
+
+.trend-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: black;
+    margin-bottom: 20px;
+}
+
+/* 🔹 트렌드 전체 컨테이너 (가로 정렬) */
+.trend-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch; /* ✅ 구분선이 높이를 따라가도록 설정 */
+    gap: 20px;
+}
+
+/* 🔹 개별 트렌드 카테고리 */
+.trend-category {
+    flex: 1;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 🔹 트렌드 카테고리 제목 */
+.trend-category h3 {
+    font-size: 14px;
+    font-weight: bold;
+    color: black;
+    margin-bottom: 20px;
+    margin-top: 0px;
+}
+
+/* 🔹 트렌드 아이템 리스트 (2개씩 3열 정렬) */
+.trend-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* ✅ 2개씩 정렬 */
+    gap: 10px;
+}
+
+/* 🔹 개별 트렌드 아이템 */
+.trend-item {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out;
+}
+
+.trend-item img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.trend-item:hover {
+    transform: scale(1.05);
+}
+
+/* 🔹 트렌드 성공률 표시 */
+.trend-success {
+    font-size: 14px;
+    font-weight: bold;
+    color: mediumpurple;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.trend-item span {
+    font-size: 12px;
+    color: black;
+    margin-top: 0px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;  /* 최대 2줄까지만 보이게 설정 */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis; /* 넘치면 ... 처리 */
+    white-space: normal; /* 여러 줄 허용 */
+    word-break: break-word; /* 단어가 길 경우 줄바꿈 */
+    line-height: 1.4em; /* 줄 높이 설정 */
+    max-height: 2.8em; /* 2줄 높이까지만 유지 */
+}
+
+/* ✅ 세로 구분선 (제대로 보이도록 확실히 수정) */
+.divider-trend {
+    width: 1px;
+    background-color: #ddd;
+    height: 620px;
+    min-height: 200px;
+    flex-shrink: 0;
+    display: block;
+}
+

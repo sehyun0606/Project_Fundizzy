@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itwillbs.project_fundizzy.mapper.HomeMapper">
+
+	<select id="selectCategory">
+		SELECT code_name
+		FROM common_code_table
+		WHERE group_code = 'CAT'
+	</select>
+	
+	<select id="selectProjectList">
+		SELECT *
+		FROM project_list
+		WHERE approve_stat = 'accept'
+	</select>
+
+	<select id="selectProjectLikeList">
+		SELECT *
+		FROM project_list
+		WHERE approve_stat = 'accept'
+		ORDER BY project_like desc;
+	</select>
+
+	<select id="selectProjectRandomList">
+		SELECT * FROM project_list 
+		WHERE approve_stat = 'accept'
+		ORDER BY RAND()
+	</select>
+
+	<select id="selectProjectProgressList">
+		SELECT * FROM project_list 
+		WHERE approve_stat = 'accept'
+		ORDER BY progress desc;
+	</select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>

@@ -30,7 +30,6 @@ public class HelpCenterController {
 	@Autowired
 	private MemberService memberService;
 	
-	@LoginCheck(memberRole = MemberRole.USER)
 	@GetMapping("HelpCenter")
 	public String HelpCenter(Model model) {
 		List<Map<String, String>> boardList = helpCenterService.getBoardList();
@@ -99,6 +98,7 @@ public class HelpCenterController {
 		return response;
 	}
 	
+	@LoginCheck(memberRole = MemberRole.USER)
 	@ResponseBody
 	@GetMapping("toggleLike")
 	public String toggleLike(@RequestParam Map<String, String> map) {
