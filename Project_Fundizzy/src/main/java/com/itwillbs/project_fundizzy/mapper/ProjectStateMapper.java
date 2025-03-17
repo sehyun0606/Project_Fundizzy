@@ -22,7 +22,10 @@ public interface ProjectStateMapper {
 	
 	List<Map<String, Object>> selectCumulativePaymentList(String project_code);
 	
-	ProjectDateVO selectProjectDate(String project_code);
+	int selectProjectRemainDate(String project_code);
+	
+	int selectSupportCount(String project_code);
+	
 	
 	// ================================== 새소식 ==================================
 	int insertNewsBoard(Map<String, String> map);
@@ -89,6 +92,8 @@ public interface ProjectStateMapper {
 	int updateFinalSettlement(Map<String, Object> map);
 
 	void updateProjectListFinalSettlementStatus(Map<String, Object> map);
+
+	
 
 	
 

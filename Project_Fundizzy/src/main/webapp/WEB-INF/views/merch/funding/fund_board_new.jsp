@@ -37,12 +37,14 @@
 	          <hr>
 <!-- 	          새소식 글  -->
 			<c:forEach var="news" items="${newsList}">
-				<div class="post">
-	               <input type="hidden" class="news_code" value="${news.news_code}">
-	               <h4>${news.news_title}</h4>
-	               <p>${news.news_content}</p>
-	               <p><fmt:formatDate value="${news.news_date}" pattern="yyyy-MM-dd"/></p>
-	           </div>
+				<c:if test="${news.news_status eq 'Y'}">
+					<div class="post">
+		               <input type="hidden" class="news_code" value="${news.news_code}">
+		               <h4>${news.news_title}</h4>
+		               <p>${news.news_content}</p>
+		               <p><fmt:formatDate value="${news.news_date}" pattern="yyyy-MM-dd"/></p>
+		           </div>
+				</c:if>
 			</c:forEach>
 	           
 	       </div>

@@ -35,6 +35,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.itwillbs.project_fundizzy.handler.BankValueGenerator;
+import com.itwillbs.project_fundizzy.service.ProjectMakerService;
 import com.itwillbs.project_fundizzy.service.ProjectStateService;
 import com.itwillbs.project_fundizzy.vo.FundHistoryVO;
 import com.itwillbs.project_fundizzy.vo.NewsVO;
@@ -48,12 +49,30 @@ import com.itwillbs.project_fundizzy.vo.ShipmentVO;
 public class ProjectStateController {
 	@Autowired
 	private ProjectStateService stateService;
+	@Autowired
+	private ProjectMakerService projectMakerService;
 	
 	// 프로젝트 현황 페이지
 	@GetMapping("ProjectState")
 	public String projectState(HttpSession session, Model model) {
-		
 		String project_code = (String)session.getAttribute("project_code");
+
+		// 승인되지 않은 프로젝트는 접근 불가
+		Map<String, Object> dateMap = projectMakerService.getDate(project_code);
+		
+		String requestInfo = projectMakerService.getRequestInfo(project_code);
+		
+		if (requestInfo.equals("accept")) {
+		    if (dateMap == null || dateMap.isEmpty()) {
+		    	model.addAttribute("msg", "기간을 먼저 설정해주세요");
+		    	model.addAttribute("targetURL", "ProjectDate");
+		        return "result/result";
+		    }
+		} else {
+		    model.addAttribute("msg", "프로젝트 승인 후 설정해주세요");
+		    return "result/result";
+		}
+		
 		
 		// 총 펀딩 금액 조회
 		int totalPaymentAmount = stateService.getTotalPayemtAmount(project_code);
@@ -88,9 +107,15 @@ public class ProjectStateController {
 		model.addAttribute("progress", progress);
 		
 		// 남은 기간
-		ProjectDateVO date = stateService.getProjectDate(project_code);
-//		date.getProject_end_date()
+		int remainDate = stateService.getProjectRemainDate(project_code);
+		if(remainDate < 0) {
+			remainDate = 0;
+		}
+		model.addAttribute("remain_date", remainDate);
 		
+		// 지지서명 개수
+		int support = stateService.getSupportCount(project_code);
+		model.addAttribute("support", support);
 		
 		return "project/projectState/project_state";
 	}
@@ -104,6 +129,22 @@ public class ProjectStateController {
 	@GetMapping("SettlementDetail")
 	public String settlementDetail(HttpSession session, Model model) {
 		String project_code = (String) session.getAttribute("project_code");
+
+		// 승인되지 않은 프로젝트는 접근 불가
+		Map<String, Object> dateMap = projectMakerService.getDate(project_code);
+		
+		String requestInfo = projectMakerService.getRequestInfo(project_code);
+		
+		if (requestInfo.equals("accept")) {
+		    if (dateMap == null || dateMap.isEmpty()) {
+		    	model.addAttribute("msg", "기간을 먼저 설정해주세요");
+		    	model.addAttribute("targetURL", "ProjectDate");
+		        return "result/result";
+		    }
+		} else {
+		    model.addAttribute("msg", "프로젝트 승인 후 설정해주세요");
+		    return "result/result";
+		}
 		
 		// 프로젝트 정보
 		Map<String, Object> projectInfo = stateService.getProjectInfoJoinStory(project_code);
@@ -379,6 +420,22 @@ public class ProjectStateController {
 	public String shipmentRefund(HttpSession session, Model model, @RequestParam Map<String, String> map) {
 		String project_code = (String)session.getAttribute("project_code");
 		
+		// 승인되지 않은 프로젝트는 접근 불가
+		Map<String, Object> dateMap = projectMakerService.getDate(project_code);
+		
+		String requestInfo = projectMakerService.getRequestInfo(project_code);
+		
+		if (requestInfo.equals("accept")) {
+		    if (dateMap == null || dateMap.isEmpty()) {
+		    	model.addAttribute("msg", "기간을 먼저 설정해주세요");
+		    	model.addAttribute("targetURL", "ProjectDate");
+		        return "result/result";
+		    }
+		} else {
+		    model.addAttribute("msg", "프로젝트 승인 후 설정해주세요");
+		    return "result/result";
+		}
+		
 		// 주문 건수 조회
 		int orderCount = stateService.getOrderCount(project_code);
 		model.addAttribute("orderCount", orderCount);
@@ -517,6 +574,22 @@ public class ProjectStateController {
 		
 		String project_code = (String) session.getAttribute("project_code");
 		System.out.println("project_code : " + project_code);
+		
+		// 승인되지 않은 프로젝트는 접근 불가
+		Map<String, Object> dateMap = projectMakerService.getDate(project_code);
+		
+		String requestInfo = projectMakerService.getRequestInfo(project_code);
+		
+		if (requestInfo.equals("accept")) {
+		    if (dateMap == null || dateMap.isEmpty()) {
+		    	model.addAttribute("msg", "기간을 먼저 설정해주세요");
+		    	model.addAttribute("targetURL", "ProjectDate");
+		        return "result/result";
+		    }
+		} else {
+		    model.addAttribute("msg", "프로젝트 승인 후 설정해주세요");
+		    return "result/result";
+		}
 		
 		if(maker_email == null) {
 			model.addAttribute("msg", "잘못된 접근입니다");

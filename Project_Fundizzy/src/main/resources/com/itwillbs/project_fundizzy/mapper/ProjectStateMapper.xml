@@ -399,12 +399,17 @@
 		WHERE project_code = #{project_code}
 	</update>
 	
-	<select id="selectProjectDate" resultType="projectDate">
-		SELECT *
+	<select id="selectProjectRemainDate" resultType="int">
+		SELECT DATEDIFF(project_end_date, CURDATE()) as remainDate
 		FROM project_date
 		WHERE project_code = #{project_code}
 	</select>
-	
+
+	<select id="selectSupportCount" resultType="int">
+		SELECT COUNT(*)
+		FROM support
+		WHERE project_code = #{project_code}
+	</select>
 	
 
 </mapper>

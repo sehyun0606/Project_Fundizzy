@@ -32,9 +32,15 @@ public class ProjectStateService {
 		return stateMapper.selectCumulativePaymentList(project_code);
 	}
 	
-	public ProjectDateVO getProjectDate(String project_code) {
-		return stateMapper.selectProjectDate(project_code);
+	public int getProjectRemainDate(String project_code) {
+		return stateMapper.selectProjectRemainDate(project_code);
 	}
+	
+	public int getSupportCount(String project_code) {
+		return stateMapper.selectSupportCount(project_code);
+	}
+	
+	
 	
 	// ================================== 새소식 ==================================
 	public int registNewsBoard(Map<String, String> map) {
@@ -140,6 +146,8 @@ public class ProjectStateService {
 		stateMapper.updateProjectListFinalSettlementStatus(map);
 		return stateMapper.updateFinalSettlement(map);
 	}
+
+	
 
 	
 

@@ -60,14 +60,14 @@
 			</div>
 			<div class="content-container">
 				<c:if test="${empty newsList}">
-					<div>새소식을 등록해주세요</div>
+					<div>등록된 새소식이 없습니다</div>
 				</c:if>
 				<c:forEach var="news" items="${newsList}">
 						<c:if test="${news.news_status eq 'Y'}">
 							<div class="list-container">
 								<input type="hidden" name="news_code" class="news_code" value="${news.news_code}">
 								<div class="list-title">
-									<h3><a href="">${news.news_title}</a></h3>
+									<h3><a href="FundBoardNew?project_code=${news.project_code}">${news.news_title}</a></h3>
 									<div>${news.news_date}</div>
 								</div>
 								<div class="btn-container">
