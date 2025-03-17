@@ -36,16 +36,21 @@
 	          </div>
 	          <hr>
 <!-- 	          새소식 글  -->
-			<c:forEach var="news" items="${newsList}">
-				<c:if test="${news.news_status eq 'Y'}">
-					<div class="post">
-		               <input type="hidden" class="news_code" value="${news.news_code}">
-		               <h4>${news.news_title}</h4>
-		               <p>${news.news_content}</p>
-		               <p><fmt:formatDate value="${news.news_date}" pattern="yyyy-MM-dd"/></p>
-		           </div>
-				</c:if>
-			</c:forEach>
+				<c:choose>
+					<c:when test="${news.news_status eq 'Y'}">
+						<c:forEach var="news" items="${newsList}">
+							<div class="post">
+				               <input type="hidden" class="news_code" value="${news.news_code}">
+				               <h4>${news.news_title}</h4>
+				               <p>${news.news_content}</p>
+				               <p><fmt:formatDate value="${news.news_date}" pattern="yyyy-MM-dd"/></p>
+				           </div>
+						</c:forEach>
+					</c:when>
+					<c:when test="${empty newsList}">
+						등록된 글이 없습니다.
+					</c:when>
+				</c:choose>
 	           
 	       </div>
 	 <div class="content-right">
@@ -93,10 +98,8 @@
 			               <p>${reward.product_name}</p>
 			               <p>${reward.product_desc}</p>
 			               <hr>
-			               <p>배송비 ${reward.delivery_fee}</p>
-			               <p>발송 시작일</p>
-			               <p>제한수량 ${reward.product_limit}</p>
-			               <hr>
+			               <p>배송비 : <fmt:formatNumber pattern="#,###원 " value="${reward.delivery_fee}"></fmt:formatNumber></p>
+			               <p>제한수량 : ${reward.product_limit} 개</p>
 			            </div>
                 	</c:forEach>
                 </div>

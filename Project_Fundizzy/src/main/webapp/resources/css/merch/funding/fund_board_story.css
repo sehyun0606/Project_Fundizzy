@@ -65,9 +65,9 @@ body {
     position: absolute;
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    opacity: 0;
-    animation: fade 21s infinite; /* 3장의 이미지가 7초마다 바뀜 */
+/*     object-fit: cover; */
+/*     opacity: 0; */
+/*     animation: fade 21s infinite; 3장의 이미지가 7초마다 바뀜 */
 }
 
 .main-image img:nth-child(1) {
@@ -265,8 +265,9 @@ body {
 }
 
 .reward-list .reward{
-	background-color: #cccc;
-		
+	background-color:#f2e5ff;
+	border-radius: 10px;
+	padding-left: 18px;
 }
 
 .project-info h4{
@@ -452,4 +453,58 @@ body {
     cursor: pointer;
     border-radius: 5px;
 	
+}
+
+
+/* 🔹 트렌드 아이템 리스트 (2개씩 3열 정렬) */
+.trend-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* ✅ 2개씩 정렬 */
+    gap: 10px;
+}
+
+/* 🔹 마지막 프로젝트 4개 -  */
+.trend-item {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out;
+    padding: 1px;
+}
+
+.trend-item img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.trend-item:hover {
+    transform: scale(1.05);
+}
+
+/* 🔹 트렌드 성공률 표시 */
+.trend-success {
+    font-size: 14px;
+    font-weight: bold;
+    color: mediumpurple;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.trend-item span {
+    font-size: 12px;
+    color: black;
+    margin-top: 0px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;  /* 최대 2줄까지만 보이게 설정 */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis; /* 넘치면 ... 처리 */
+    white-space: normal; /* 여러 줄 허용 */
+    word-break: break-word; /* 단어가 길 경우 줄바꿈 */
+    line-height: 1.4em; /* 줄 높이 설정 */
+    max-height: 2.8em; /* 2줄 높이까지만 유지 */
 }

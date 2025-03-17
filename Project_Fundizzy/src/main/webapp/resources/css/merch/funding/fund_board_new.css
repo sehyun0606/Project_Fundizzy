@@ -199,6 +199,11 @@ body {
    flex-direction: column;
 }
 
+.reward-list .reward{
+	background-color:#f2e5ff;
+	border-radius: 10px;
+	padding-left: 18px;
+}
 .post {
     background-color: #fff;
     margin-bottom: 10px;

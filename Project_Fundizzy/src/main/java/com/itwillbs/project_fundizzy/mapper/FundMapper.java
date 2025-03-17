@@ -88,6 +88,9 @@ public interface FundMapper {
 
 	//구매자 수 출력 
 	int selectFundHistoryCount(String project_code);
+	
+	//배송비 출력을 위한 project_info 테이블 가져오기
+	Map<String, Object> selectProjectInfo(String project_code);
 
 
 

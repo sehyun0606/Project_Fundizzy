@@ -28,6 +28,7 @@ import com.google.gson.reflect.TypeToken;
 import com.itwillbs.project_fundizzy.service.Bankservice;
 import com.itwillbs.project_fundizzy.service.FundHistoryService;
 import com.itwillbs.project_fundizzy.service.FundService;
+import com.itwillbs.project_fundizzy.service.HomeService;
 import com.itwillbs.project_fundizzy.service.PaymentService;
 import com.itwillbs.project_fundizzy.service.ProjectInfoService;
 import com.itwillbs.project_fundizzy.service.ProjectStoryService;
@@ -62,6 +63,8 @@ public class FundController {
 	@Autowired
 	private ProjectInfoService projectInfoService;
 	
+	@Autowired 
+	private HomeService homeService;
 	
 	//왼쪽 
 	//fund 목록 (= 펀딩+ 누르면 이동하는 가장 첫 페이지)
@@ -80,7 +83,7 @@ public class FundController {
 		System.out.println("project_code = " + project_code);
 		String email = (String) session.getAttribute("sId");
 		
-		//대표이미지와 상세 이미지 가져오기 
+		//*대표이미지와 상세 이미지 가져오기 
 		List<ProjectStoryVO> projectStoryList = fundService.getProjectStory(project_code);
 		model.addAttribute("projectStoryList", projectStoryList); //ok
 		
@@ -101,6 +104,11 @@ public class FundController {
 		//fund-history table 가져오기 - 구매자 수 출력 
 		int fundHistory = fundService.getFundHistoryCount(project_code);
 		model.addAttribute("fundHistory", fundHistory);
+		
+		
+		// 인기있는 프로젝트 출력을 위한 
+		List<Map<String, String>> projectLikeList = homeService.getProjectLikeList();
+		model.addAttribute("projectLikeList", projectLikeList);
 		
 		return "merch/funding/fund_board_story";
 	}
@@ -370,7 +378,7 @@ public class FundController {
 	@GetMapping("PaymentReward")
 	public String paymentReward(String project_code, Model model) {
 		List<Map<String, Object>> reward = fundService.getPaymentReward(project_code);
-		System.out.println("reward map = " +  reward); // ok
+		System.out.println("리워드 선택 reward map = " +  reward); // ok
 		model.addAttribute("reward", reward);
 		return "merch/payment/payment_reward";
 	}
@@ -400,22 +408,23 @@ public class FundController {
 	    	}
 	    }
 	    // 배송비 저장을 위한 project info 테이블 가져오기
-	    ProjectInfoVO project_info = new ProjectInfoVO();
+	    Map<String, Object> project_info = fundService.getProjectInfo(map.get("project_code"));
+	    System.out.println("결제화면 배송비 저장 = " + project_info);
 	    model.addAttribute("project_info", project_info);
 	    
 	    // 선택한 리워드 정보와 개수 모델에저장
 	    model.addAttribute("rewardList", rewardList);
-	    System.out.println("rewardList = " + rewardList);
+	    System.out.println("결제 화면 rewardList = " + rewardList);
 	    
 	    // 배송을 위한 member 정보 가져오기 
 	    Map<String, Object> member = fundService.getPaymentPayMember(email);
-	    System.out.println("payment member = " + member);
+	    System.out.println("결제화면 payment member = " + member);
 	    model.addAttribute("member", member);
 	    
 	    // 결제를 위한 펀디지 페이(가장 최근꺼 하나만) 들고오기 
 	    Map<String, Object> fundizzy_pay  = bankService.getFundizzyPayLast(email);
 	    model.addAttribute("fundizzy_pay", fundizzy_pay);
-	    System.out.println("list fundizzy_pay " + fundizzy_pay);
+	    System.out.println("결제화면 list fundizzy_pay " + fundizzy_pay);
 	    return "merch/payment/payment_pay";
 	}
 	

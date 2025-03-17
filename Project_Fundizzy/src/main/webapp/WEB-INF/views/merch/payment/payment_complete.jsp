@@ -40,7 +40,7 @@
 	        	</div>
 	        	<div class="two-button">
 		           <button onclick="/">홈으로</button>
-			           <button onclick="/SupporterPage">마이페이지</button>
+		           <button onclick="/SupporterPage">마이페이지</button>
 	        	</div>
 	        </div>
 	    </div>

@@ -100,10 +100,8 @@
 			               <p>${reward.product_name}</p>
 			               <p>${reward.product_desc}</p>
 			               <hr>
-			               <p>배송비 ${reward.delivery_fee}</p>
-			               <p>발송 시작일</p>
-			               <p>제한수량 ${reward.product_limit}</p>
-			               <hr>
+			               <p>배송비 : <fmt:formatNumber pattern="#,###원 " value="${reward.delivery_fee}"></fmt:formatNumber></p>
+			               <p>제한수량 : ${reward.product_limit} 개</p>
 			            </div>
                 	</c:forEach>
                 </div>

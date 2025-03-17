@@ -217,6 +217,12 @@ public class FundService {
 		// TODO Auto-generated method stub
 		return mapper.selectFundHistoryCount(project_code);
 	}
+	
+	//배송비 출력을 위한 project_info 테이블 가져오기
+	public Map<String, Object> getProjectInfo(String project_code) {
+		// TODO Auto-generated method stub
+		return mapper.selectProjectInfo(project_code);
+	}
 
 
 

@@ -29,12 +29,19 @@
 	    <div class="content-left">
 	    	<h3>참여하는 서포터</h3>
 	    	<hr>
-	    	<c:forEach var="history" items="${fund_history}">
-	    		<input type="hidden" value="${param.project_code}"> 
-		        <div class="post">
-		            <p>${history.member_email}님이 <fmt:formatNumber pattern="#,###원 " value="${history.result_point}"></fmt:formatNumber> 구매 했어요</p>
-		        </div>
-	    	</c:forEach>
+	    	<c:choose>
+	    		<c:when test="${empty fund_history}">
+	    			참여하는 서포터가 없습니다.
+	    		</c:when>
+	    		<c:otherwise>
+			    	<c:forEach var="history" items="${fund_history}">
+			    		<input type="hidden" value="${param.project_code}"> 
+				        <div class="post">
+				            <p>${history.member_email}님이 <fmt:formatNumber pattern="#,###원 " value="${history.result_point}"></fmt:formatNumber> 구매 했어요</p>
+				        </div>
+			    	</c:forEach>
+		    	</c:otherwise>
+	    	</c:choose>
 	    </div>
   	      <div class="content-right">
             <div class="purchase-section">
@@ -81,10 +88,8 @@
 			               <p>${reward.product_name}</p>
 			               <p>${reward.product_desc}</p>
 			               <hr>
-			               <p>배송비 ${reward.delivery_fee}</p>
-			               <p>발송 시작일</p>
-			               <p>제한수량 ${reward.product_limit}</p>
-			               <hr>
+			               <p>배송비 : <fmt:formatNumber pattern="#,###원 " value="${reward.delivery_fee}"></fmt:formatNumber></p>
+			               <p>제한수량 : ${reward.product_limit} 개</p>
 			            </div>
                 	</c:forEach>
                 </div>
