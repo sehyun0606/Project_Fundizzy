@@ -102,19 +102,32 @@ $(function() {
 
 
     // 지지서명 댓글 보여주기 & 숨기기 -- 이거 지지서명 코드 가져와서 다 다르게 
-    $(".reply-show").on("click", function() {
-        let replyWrite = document.querySelector(".reply-write");
-        if (replyWrite.style.display === "none" || replyWrite.style.display === "") {
-            replyWrite.style.display = "block";
-        } else {
-            replyWrite.style.display = "none";
-        }
-        let replyList = document.querySelector(".reply-list");
-        if (replyList.style.display === "none" || replyList.style.display === "") {
-            replyList.style.display = "block";
-        } else {
-            replyList.style.display = "none";
-        }
+//    $(".reply-show").on("click", function() {
+//        let replyWrite = document.querySelector(".reply-write");
+//        if (replyWrite.style.display === "none" || replyWrite.style.display === "") {
+//            replyWrite.style.display = "block";
+//        } else {
+//            replyWrite.style.display = "none";
+//        }
+//        let replyList = document.querySelector(".reply-list");
+//        if (replyList.style.display === "none" || replyList.style.display === "") {
+//            replyList.style.display = "block";
+//        } else {
+//            replyList.style.display = "none";
+//        }
+//    });
+
+  document.querySelectorAll(".reply-show").forEach(button => {
+        button.addEventListener("click", function () {
+            let supportNum = this.getAttribute("data-support-num"); // 클릭된 버튼의 support_num 가져오기
+            let replyForm = document.querySelector(`.reply-form[data-support-num='${supportNum}']`); // 해당 support_num의 폼 찾기
+
+            if (replyForm.style.display === "none" || replyForm.style.display === "") {
+                replyForm.style.display = "block"; // 댓글 폼 보이기
+            } else {
+                replyForm.style.display = "none"; // 댓글 폼 숨기기
+            }
+        });
     });
 
 

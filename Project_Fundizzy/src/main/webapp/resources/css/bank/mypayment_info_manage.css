@@ -156,10 +156,12 @@ article input[type=button]:hover {
 	border: 4px dashed #A0C4FF;
 }
 
-#addAccount img, #addCard img {
+#addAccount img{
 	width: 100px;
-	opacity: 0.5;
-	margin-top: 30px;
+	opacity: 0.8;
+	margin-top: -5px;
+	margin-left: 9px; 
+	
 }
 
 /* 여기서 부턴 모달창 관련 css */
@@ -254,4 +256,20 @@ article input[type=button]:hover {
 	height: 50px;
 	font-size: 17px;
 }
+
+/* 버튼 스타일 */
+#fas {
+    width: 44px;
+    height: 45px;
+    display: flex; /* 아이콘을 가운데 정렬하기 위해 flex 사용 */
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+	margin-top: 75px;
+	margin-left: 122px;
+}
+
+
 

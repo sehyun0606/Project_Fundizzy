@@ -91,7 +91,7 @@ public class FundController {
 		model.addAttribute("reward", reward);
 		
 		//찜테이블 가져오기
-		List<Map<String, Object>> keep = fundService.getKeep(email, project_code); 
+		Map<String, String> keep = fundService.getKeep(email, project_code); 
 		model.addAttribute("keep", keep);
 		
 		//fund-history table 가져오기 - 구매자 수 출력 
@@ -148,7 +148,7 @@ public class FundController {
 		model.addAttribute("reward", reward);
 		
 		//찜테이블 가져오기
-		List<Map<String, Object>> keep = fundService.getKeep(email,project_code); 
+		Map<String, String> keep = fundService.getKeep(email,project_code); 
 		model.addAttribute("keep", keep);
 		
 		//fund-history table 가져오기 - 구매자 수 출력 
@@ -185,7 +185,7 @@ public class FundController {
 		model.addAttribute("reward", reward);
 		
 		//찜테이블 가져오기
-		List<Map<String, Object>> keep = fundService.getKeep(email,project_code); 
+		Map<String, String> keep = fundService.getKeep(email,project_code); 
 		model.addAttribute("keep", keep);
 		
 		//fund-history table 가져오기 - 구매자 수 출력 
@@ -257,7 +257,7 @@ public class FundController {
 			System.out.println("insert 성공!!!!!!!!!!");
 //			model.addAttribute("supportList", supportList);
 		}
-		return "redirect:/FundBoardSupport";
+		return "redirect:/FundBoardSupport?project_code=" + project_code ;
 	}
 	
 	//지지서명 - 댓글 삭제 기능
@@ -317,7 +317,7 @@ public class FundController {
 		model.addAttribute("reward", reward);
 		
 		//찜테이블 가져오기
-		List<Map<String, Object>> keep = fundService.getKeep(email,project_code); 
+		Map<String, String> keep = fundService.getKeep(email,project_code); 
 		model.addAttribute("keep", keep);
 		
 		//fund-history table 가져오기 - 구매자 수 출력 
@@ -348,7 +348,7 @@ public class FundController {
 		model.addAttribute("reward", reward);
 		
 		//찜테이블 가져오기
-		List<Map<String, Object>> keep = fundService.getKeep(email,project_code); 
+		Map<String, String> keep = fundService.getKeep(email,project_code); 
 		model.addAttribute("keep", keep);
 		
 		//fund-history table 가져오기 - 구매자 수 출력 

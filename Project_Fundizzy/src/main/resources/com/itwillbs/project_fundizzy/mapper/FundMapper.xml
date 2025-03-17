@@ -45,6 +45,7 @@
 		SELECT *
 		FROM keep 
 		WHERE project_code = #{project_code}
+		AND email = #{email}
 	</select>
 	
 <!-- 	구매자 수 출력  -->

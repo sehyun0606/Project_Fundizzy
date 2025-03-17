@@ -54,7 +54,7 @@
                 <div class="purchase-content">
                    ${fundStory.project_content}
                 </div>
-                <p><strong>139</strong>명 참여</p>
+                <p><strong>${fundHistory}</strong>명 참여</p>
                 <p><strong>${fundStory.progress}</strong>% 달성</p>
                 <div class="btn-group">
 	                <input type="hidden" value="${sessionScope.sId}" id="keep_email">

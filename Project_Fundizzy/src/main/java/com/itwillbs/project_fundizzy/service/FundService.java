@@ -38,7 +38,7 @@ public class FundService {
 	}
 	
 	//프로젝트 board 출력 - 찜 테이블 가져오기 
-	public List<Map<String, Object>> getKeep(String email, String project_code) {
+	public Map<String, String> getKeep(String email, String project_code) {
 		// TODO Auto-generated method stub
 		return mapper.selectKeep(email, project_code);
 	}

@@ -36,54 +36,38 @@
 				</c:when>
 				<c:otherwise>
 					<c:forEach var="support" items="${supportList}">
-				        <div class="support-post">
-				            <h4>${support.email}</h4>
-				            <p>${support.support_content}</p>
-				            <p>${support.support_tag}</p>
-				            <fmt:formatDate value="${support.support_date}" pattern="yyyy-MM-dd"/>
-				        </div>
-<!-- 				        댓글영역 -->
-				        <div>
-<!-- 				        댓글 작성 -->
-				        	<form action="SupportReply" method="post">
-					        	<input type="button" value="댓글" class="reply-show"><br>
-					        	<input type="hidden" value="${param.project_code}" name="project_code">
-					        	<div class="reply-write ${sessionScope.sId eq admin ? 'show' : 'hide'}">
-<%-- 					        		<c:choose> --%>
-<%-- 					        			<c:when test="${sessionScope.sId eq admin}"> --%>
-					        				<input type="hidden" value="${support.reply_num}" name="reply_num">
-					        				<input type="hidden" value="${support.project_code}" name="project_code">
-					        				<input type="hidden" value="${support.maker_email}" name="maker_email">
-					        				<input type="hidden" value="${support.reply_writer_ip}" name="reply_writer_ip">
-					        				<input type="hidden" value="${support.support_num}" name="support_num">
-								        	<textarea name="reply_content"></textarea>
-								        	<input type="submit" value="등록" id ="reply-submit-btn">
-<%-- 					        			</c:when> --%>
-<%-- 					        			<c:otherwise> --%>
-<%-- 					        				<input type="hidden" value="${support.support_num}"> --%>
-<!-- 								        	<textarea disabled="disabled" placeholder="관리자만 작성 가능합니다."></textarea> -->
-<!-- 								        	<input type="submit" value="등록" id ="reply-submit-btn" disabled="disabled"> -->
-<%-- 					        			</c:otherwise> --%>
-<%-- 				        			</c:choose> --%>
-					        	</div>
-				        	</form>
-				        	<div class="reply-list">
-<!-- 				        	작성된 댓글 -->
-<!-- 								    	댓글 삭제상태가 1일 경우엔 표시하지 않기 -->
-				        		<table>
-								    <c:forEach var="reply" items="${ReplyList}" varStatus="status">
-								        <tr class="replyTr">
-								            <td class="replyContent"><input type="hidden" value ="${reply.reply_num}" id="replyDelete">${reply.reply_content}</td>
-								            <td class="replyWriter">${reply.maker_email}</td>
-								            <td class="replyRegDate"><fmt:formatDate value="${reply.reply_date}" pattern="yyyy-MM-dd"/></td>
-							       			<td><button class="replyDelete" data-reply-num="${reply.reply_num}">
-										    <img src="${pageContext.request.contextPath}/resources/images/fund/delete-icon.png" class="deleteImg" title="댓글삭제">
-										</button></td>
-								        </tr>
-								    </c:forEach>
-				        		</table>
-				        	</div>
-				        </div>
+					    <div class="support-post">
+					        <h4>${support.email}</h4>
+					        <p>${support.support_content}</p>
+					        <p>${support.support_tag}</p>
+					        <fmt:formatDate value="${support.support_date}" pattern="yyyy-MM-dd"/><br>
+					
+					        <!-- 댓글 버튼 (support_num을 data 속성으로 추가) -->
+					        <input type="button" value="댓글" class="reply-show" data-support-num="${support.support_num}"><br>
+					
+					        <!-- 댓글 폼 (support_num 별로 구별) -->
+					        <form action="SupportReply" method="post" class="reply-form" data-support-num="${support.support_num}" style="display: none;">
+					            <input type="hidden" value="${param.project_code}" name="project_code">
+					            <input type="hidden" value="${support.support_num}" name="support_num">
+					            <textarea name="reply_content"></textarea>
+					            <input type="submit" value="등록" id="reply-submit-btn">
+					        </form>
+					    </div>
+			        	<div class="reply-list">
+<!-- 				        	작성된 댓글- 댓글 삭제상태가 1일 경우엔 표시하지 않기 -->
+			        		<table>
+							    <c:forEach var="reply" items="${ReplyList}" varStatus="status">
+							        <tr class="replyTr">
+							            <td class="replyContent"><input type="hidden" value ="${reply.reply_num}" id="replyDelete">${reply.reply_content}</td>
+							            <td class="replyWriter">${reply.maker_email}</td>
+							            <td class="replyRegDate"><fmt:formatDate value="${reply.reply_date}" pattern="yyyy-MM-dd"/></td>
+						       			<td><button class="replyDelete" data-reply-num="${reply.reply_num}">
+									    <img src="${pageContext.request.contextPath}/resources/images/fund/delete-icon.png" class="deleteImg" title="댓글삭제">
+									</button></td>
+							        </tr>
+							    </c:forEach>
+			        		</table>
+			        	</div>
 					</c:forEach>
 				</c:otherwise>
 			</c:choose>
@@ -94,7 +78,7 @@
                 <div class="purchase-content">
                    ${fundStory.project_content}
                 </div>
-                <p><strong>139</strong>명 참여</p>
+                <p><strong>${fundHistory}</strong>명 참여</p>
                 <p><strong>${fundStory.progress}</strong>% 달성</p>
                 <div class="btn-group">
 	                <input type="hidden" value="${sessionScope.sId }" id="keep_email">

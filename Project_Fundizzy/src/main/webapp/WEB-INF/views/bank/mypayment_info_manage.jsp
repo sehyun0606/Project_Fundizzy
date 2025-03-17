@@ -51,7 +51,7 @@
 				</div>
 				
 				<div id="addAccount">
-					<button 
+					<button id="fas"
 						<c:choose>
 							<c:when test="${empty sessionScope.token}">
 								id="auth-button"
@@ -60,7 +60,7 @@
 								id="add_button"
 							</c:otherwise>
 						</c:choose>
-					><i class='fas fa-plus' style='font-size:48px;'></i></button>
+					><img src="${pageContext.request.contextPath}/resources/images/bank/plus2.png"></button>
 				</div>
 			</div>
 		</div>

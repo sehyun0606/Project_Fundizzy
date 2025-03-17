@@ -21,7 +21,7 @@ public interface FundMapper {
 	List<Map<String, Object>> selectReward(String project_code);
 	
 	//프로젝트 board 출력 - 찜 테이블 가져오기 
-	List<Map<String, Object>> selectKeep(@Param("email")String email, @Param("project_code")String project_code);
+	Map<String, String> selectKeep(@Param("email")String email, @Param("project_code")String project_code);
 	
 	//찜 등록
 	int insertKeep(@Param("email")String email, @Param("project_code")String project_code);
