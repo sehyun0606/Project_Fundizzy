@@ -28,17 +28,7 @@
 		    <!-- 회원 정보 -->
 		    <div class="member-info">
 		        <h2>프로젝트 승인</h2>
-	        	<form action=""> 
-			        <div class="search-bar">
-			        	<select name="searchType" style="height: 29px;">
-							<option value="" >프로젝트 제목</option>
-							<option value="" >프로젝트 코드</option>
-							<option value="" >이메일</option>
-						</select>
-			            <input type="text" placeholder="회원명">
-			            <button class="search-btn">검색</button>
-			        </div>
-	            </form>
+	        	
 		
 		        <table>
 		            <thead>

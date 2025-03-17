@@ -64,4 +64,40 @@
  			#{startRow}
  			,#{listLimit}
 	</select>
+	<select id="selectSupportListCount" resultType="int">
+		SELECT COUNT(*)
+		FROM 
+			support
+		WHERE
+			email = #{email};
+	</select>
+	<select id="selectMysupport" resultType="map">
+		SELECT 
+			support.support_tag,
+			support.support_content,
+			support.support_date,
+			project_list.project_title
+		FROM
+			support
+		INNER JOIN 
+			project_list
+		ON
+			support.project_code = project_list.project_code
+		WHERE
+			email = #{email}
+		ORDER BY
+			support_date DESC
+		LIMIT
+			#{startRow},
+			#{listLimit}
+	
+	</select>
+	<update id="memberWithdraw">
+		UPDATE
+			member
+		SET
+			member_status = '2'
+		WHERE
+			email = #{email}
+	</update>
 </mapper>

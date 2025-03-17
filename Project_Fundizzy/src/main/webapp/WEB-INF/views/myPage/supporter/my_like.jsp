@@ -339,6 +339,7 @@
 		</c:if>	    
 	    <c:forEach items="${likeList}" var="like">
 		    <div class="product-box">
+		    	<input type="hidden" value="${like.project_code}" class="code">
 		        <div class="info">
 		        	<div class="img-section">
 		        		<img class="img" src="/resources/upload/${like.representative_picture }"/>
@@ -394,6 +395,12 @@
 </div>
    
 <script type="text/javascript">
+	$(document).ready(function(){
+		$(".product-box").click(function(){
+			let projectCode = $(this).children("input.code").val();
+			location.href = "FundBoardStory?project_code=" + projectCode;
+		});
+	});
 </script>
 </body>
 </html>

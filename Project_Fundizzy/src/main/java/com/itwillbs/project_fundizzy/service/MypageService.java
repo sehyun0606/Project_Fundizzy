@@ -34,4 +34,17 @@ public class MypageService {
 	public int getLikeListCount(String email) {
 		return mypageMapper.selectLikeListCount(email);
 	}
+
+
+	public int getMySupportListCount(String email) {
+		return mypageMapper.selectSupportListCount(email);
+	}
+
+	public List<Map<String, Object>> getMySupport(String email, int startRow, int listLimit) {
+		return mypageMapper.selectMysupport(email,startRow,listLimit);
+	}
+
+	public void memberWithdraw(String email) {
+		mypageMapper.memberWithdraw(email);
+	}
 }

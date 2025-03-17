@@ -138,7 +138,7 @@ public class MyPageController {
 		
 		if(pageNum < 1 || pageNum > maxPage) {
 			model.addAttribute("msg", "존재하지 않는 페이지");
-			model.addAttribute("targetURL","AdminProjectList?pageNum=1");
+			model.addAttribute("targetURL","LikeHistory?pageNum=1");
 			return "result/result";
 		}
 		PageInfo pageInfo = new PageInfo(listCount,pageListLimit,maxPage,startPage,endPage,pageNum);
@@ -152,6 +152,57 @@ public class MyPageController {
 		model.addAttribute("likeList", likeList);
 		
 		return "myPage/supporter/my_like";
+	}
+	
+	@GetMapping("MySupport")
+	public String mySupport(@RequestParam(defaultValue = "1") int pageNum,HttpSession session, Model model) {
+		
+		String email = (String)session.getAttribute("sId");
+		int listLimit = 5;
+		int startRow = (pageNum - 1) * listLimit;
+		int listCount = mypageService.getMySupportListCount(email);
+		int pageListLimit = 5;
+		
+		int maxPage = listCount / listLimit + (listCount % listLimit > 0 ? 1 : 0);
+		if(maxPage == 0) {
+			maxPage = 1;
+		}
+		int startPage = (pageNum - 1) / pageListLimit * pageListLimit + 1;
+		int endPage = startPage + pageListLimit - 1;
+		
+		if(endPage > maxPage) {
+			endPage = maxPage;
+		}
+		
+		if(pageNum < 1 || pageNum > maxPage) {
+			model.addAttribute("msg", "존재하지 않는 페이지");
+			model.addAttribute("targetURL","AdminProjectList?pageNum=1");
+			return "result/result";
+		}
+		PageInfo pageInfo = new PageInfo(listCount,pageListLimit,maxPage,startPage,endPage,pageNum);
+		model.addAttribute("pageInfo",pageInfo);
+		
+		List<Map<String, Object>> supportList = mypageService.getMySupport(email,startRow,listLimit);
+		
+		model.addAttribute("supportList", supportList);
+		
+		return "myPage/supporter/my_support";
+	}
+	
+	//회원 탈퇴
+	@GetMapping("MemberWithdraw")
+	public String memberWithdraw(HttpSession session, Model model) {
+		
+		String email = (String) session.getAttribute("sId");
+		
+		mypageService.memberWithdraw(email);
+		
+		session.invalidate();
+		
+		model.addAttribute("msg","탈퇴 처리가 완료되었습니다.");
+		model.addAttribute("targetURL", "./");
+		
+		return "result/result";
 	}
 	
 	//페이 페이지

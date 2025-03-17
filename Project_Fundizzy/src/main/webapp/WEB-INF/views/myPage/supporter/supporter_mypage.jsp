@@ -40,7 +40,7 @@
 	                </div>
 	                <div class="stat-item2" style="margin: 0;">
 	                	<img class="icon2"  src="${pageContext.request.contextPath}/resources/images/myPage/free-icon-business-people-8452029.png">
-	                    <a href="SupporterPage">지지서명</a>
+	                    <a href="MySupport">지지서명</a>
 	                </div>
 	                <div class="stat-item3">
 	                	<img class="icon" src="${pageContext.request.contextPath}/resources/images/myPage/free-icon-heart-shape-outline-25424.png">
