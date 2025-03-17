@@ -77,7 +77,10 @@ public interface FundMapper {
 	int insertShipment(Map<String, String> map);
 	
 	//펀딩내역 input - fundHistory 테이블
-	int insertFundHistory(@Param("sendList") List<Map<String, String>> sendList);
+	int insertFundHistory(@Param("sendList") List<Map<String, String>> sendList, @Param("map")Map<String, String> map);
+
+	// 완료 페이지를 띄우기 위한 리스트 가져오기 
+	List<Map<String, Object>> selectResultList(String pay_tran_id);
 
 
 

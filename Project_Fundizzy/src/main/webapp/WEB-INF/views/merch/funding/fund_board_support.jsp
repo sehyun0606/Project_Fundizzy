@@ -13,7 +13,7 @@
 </head>
 <body>
 	<header>
-		<jsp:include page="/WEB-INF/views/inc/top.jsp" />
+		<jsp:include page="/WEB-INF/views/inc/top.jsp"/>
 	</header>
 	<article>
 		<div class="fund-top">
@@ -27,7 +27,7 @@
 <!-- 	    지지서명 영역 -->
     <div class="container">
 	    <div class="content-left">
-	    	<h3>지지서명 -글 개수 출력</h3>
+	    	<h3>지지서명 </h3>
 	    	<hr>
 <!-- 	    	글이 없을 경우엔 등록된 지지서명이 존재하지 않습니다. 글이 있는경우엔 띄우기  -->
 			<c:choose>
@@ -45,8 +45,9 @@
 <!-- 				        댓글영역 -->
 				        <div>
 <!-- 				        댓글 작성 -->
-				        	<input type="button" value="댓글" class="reply-show"><br>
 				        	<form action="SupportReply" method="post">
+					        	<input type="button" value="댓글" class="reply-show"><br>
+					        	<input type="hidden" value="${param.project_code}" name="project_code">
 					        	<div class="reply-write ${sessionScope.sId eq admin ? 'show' : 'hide'}">
 <%-- 					        		<c:choose> --%>
 <%-- 					        			<c:when test="${sessionScope.sId eq admin}"> --%>
@@ -116,7 +117,7 @@
                 <div class="company-info">
                    <h4>${fundStory.business_name}</h4><br>
                 </div>
-                <button class="btn">문의하기</button>
+   				 <button class="btn" onclick="openChatRoomWindow('${fundStory.representative_email}')">문의하기</button>
             </div>
             
             <div class="reward-selection">
@@ -165,7 +166,7 @@
 				<input type="checkbox" class="cheerup-check" name="cheerup" style="display: none;">
 			</div>
 			<textarea id="supportContent" name="support_content" placeholder="응원의 글을 남겨주세요"></textarea><br>
-			<button class="support-submit">지지서명하기</button>
+			<button type ="submit" class="support-submit">지지서명하기</button>
 		</form>
 	</div>
 	<footer>

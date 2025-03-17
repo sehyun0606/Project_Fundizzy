@@ -31,9 +31,11 @@ $(document).ready(function () {
 	});
 	
    $("#PaymentComplete").on("click", function(event) {
-        event.preventDefault(); // 폼 제출 방지
+		// 폼 제출 방지
+        event.preventDefault(); 
 
-        let pay_amt = $("#pay_amt").text().replace(/[^0-9-]/g, ""); // 음수도 포함
+		// 음수도 포함
+        let pay_amt = $("#pay_amt").text().replace(/[^0-9-]/g, ""); 
         pay_amt = parseInt(pay_amt, 10);
         
         let total_price_delivery = $("#total_price_delivery").text().replace(/[^0-9]/g, ""); 

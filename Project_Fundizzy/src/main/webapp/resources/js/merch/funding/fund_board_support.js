@@ -71,8 +71,37 @@ $(function() {
             });
         }
     });
+	 // 지지서명 버튼 클릭시 모달창 띄우기
+    $("#btn-support").click(function() {
+        console.log("btn-support 버튼 클릭됨!");
+        $(".support_modal").css("display", "block");
+    });
 
-    // 지지서명 댓글 보여주기 & 숨기기
+    // x 누르면 모달창 닫히게
+    $(".x").click(function() {
+        console.log("모달 닫기 버튼 클릭됨!");
+        $(".support_modal").css("display", "none");
+    });
+
+    // 키워드 5가지 클릭 시 체크됐다고 표시
+    $(".like").click(function() {
+        $(".like-check").click();
+    });
+    $(".life").click(function() {
+        $(".life-check").click();
+    });
+    $(".useful").click(function() {
+        $(".useful-check").click();
+    });
+    $(".littleMoney").click(function() {
+        $(".littleMoney-check").click();
+    });
+    $(".cheerup").click(function() {
+        $(".cheerup-check").click();
+    });
+
+
+    // 지지서명 댓글 보여주기 & 숨기기 -- 이거 지지서명 코드 가져와서 다 다르게 
     $(".reply-show").on("click", function() {
         let replyWrite = document.querySelector(".reply-write");
         if (replyWrite.style.display === "none" || replyWrite.style.display === "") {
@@ -137,34 +166,7 @@ $(function() {
 
     });
 
-    // 지지서명 버튼 클릭시 모달창 띄우기
-    $("#btn-support").click(function() {
-        console.log("btn-support 버튼 클릭됨!");
-        $(".support_modal").css("display", "block");
-    });
-
-    // x 누르면 모달창 닫히게
-    $(".x").click(function() {
-        console.log("모달 닫기 버튼 클릭됨!");
-        $(".support_modal").css("display", "none");
-    });
-
-    // 키워드 5가지 클릭 시 체크됐다고 표시
-    $(".like").click(function() {
-        $(".like-check").click();
-    });
-    $(".life").click(function() {
-        $(".life-check").click();
-    });
-    $(".useful").click(function() {
-        $(".useful-check").click();
-    });
-    $(".littleMoney").click(function() {
-        $(".littleMoney-check").click();
-    });
-    $(".cheerup").click(function() {
-        $(".cheerup-check").click();
-    });
+   
 
     // 제출버튼
     $(".support-submit").click(function(event) {
@@ -187,6 +189,12 @@ $(function() {
         }
     });
 
+
+	//펀딩하기 버튼 클릭 시
+	$(".purchase-btn").on("click", function(){
+		location.href="PaymentReward?project_code=" + project_code;
+	});
+	
     // 웹 페이지가 완전 로드되기 전에 실행되는 코드
     // html이 다 로드 된 후 js가 실행되기에 안전함
     document.addEventListener("DOMContentLoaded", function() {

@@ -56,10 +56,10 @@
 				</div>
 				<div class="notice-detail">
 					<ul>
-						<li><a href="#">정산 정보</a>에 입력한 정보로 정산이 진행돼요.</li>
-						<li>프로젝트 종료 후 2일 후에 정산 신청 알림을 보내드려요.</li>
+						<li>정산금은 <a href="PayPage">펀디지 페이</a>에 point로 지급돼요.</li>
+						<li>프로젝트가 종료되면 정산 신청 알림을 보내드려요.</li>
 						<li>선정산 단계에서는 최종 정산 금액의 일부가 먼저 지급돼요.</li>
-						<li>리워드 발송과 환불 처리가 완료되면 최종 정산 금액이 확정돼요.</li>
+						<li><a href="ShipmentRefund">리워드 발송과 환불 처리</a>가 완료되면 최종 정산 금액이 확정돼요.</li>
 						<li>정산금을 지급받은 후 법인세법, 소득세법, 부가가치세법 등 관계법령에 따라 세금 신고 및 납부해야 합니다.</li>
 					</ul>
 				</div>
@@ -191,8 +191,8 @@
 											<form action="FinalSettlement" method="post">
 												<input type="hidden" name="project_code" value="${projectInfo.project_code}">
 												<input type="hidden" name="member_email" value="${projectInfo.representative_email}">
-												<div class="set-info">
-													<div class="title" style="border-bottom:1px solid #ddd; padding-bottom:15px">최종정산 지급액</div>
+												<div class="set-info" style="border-bottom:1px solid #ddd; padding-bottom:15px">
+													<div class="title">최종정산 지급액</div>
 													<div class="amount"><fmt:formatNumber value="${finalAmount}" pattern="#,###" />원</div>
 													<input type="hidden" name=final_amount value="${finalAmount}">
 												</div>

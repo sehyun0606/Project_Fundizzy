@@ -39,6 +39,7 @@ import com.itwillbs.project_fundizzy.service.ProjectStateService;
 import com.itwillbs.project_fundizzy.vo.FundHistoryVO;
 import com.itwillbs.project_fundizzy.vo.NewsVO;
 import com.itwillbs.project_fundizzy.vo.PageInfo;
+import com.itwillbs.project_fundizzy.vo.ProjectDateVO;
 import com.itwillbs.project_fundizzy.vo.RefundVO;
 import com.itwillbs.project_fundizzy.vo.ShipmentVO;
 
@@ -76,6 +77,20 @@ public class ProjectStateController {
 		System.out.println(paymentCountList);
 		System.out.println(dailyPaymentList);
 		System.out.println(cumulativePaymentList);
+		
+		// 프로젝트 정보
+		Map<String, Object> projectInfo = stateService.getProjectInfoJoinStory(project_code);
+		
+		// 달성률
+		double targetAmount = ((Integer)projectInfo.get("target_amount")).doubleValue();
+		
+		int progress = (int) ((totalPaymentAmount / targetAmount) * 100);
+		model.addAttribute("progress", progress);
+		
+		// 남은 기간
+		ProjectDateVO date = stateService.getProjectDate(project_code);
+//		date.getProject_end_date()
+		
 		
 		return "project/projectState/project_state";
 	}

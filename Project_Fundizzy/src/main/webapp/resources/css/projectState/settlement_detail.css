@@ -45,7 +45,6 @@
 	text-align: center;
 }
 
-
 .notice {
 	border: 1px solid #ddd;
 	width: 800px;
@@ -125,6 +124,10 @@ th, td {
 	margin: 30px 0;
 }
 
+.table-container > .msg:nth-of-type(1) {
+	margin-top: 3px;	
+}
+
 .detailTable {
 	width: 100%;
 	border-collapse: collapse;
@@ -132,7 +135,7 @@ th, td {
 
 .detailTable th, .detailTable td{
 	text-align: left;
-	width: 25px;
+	width: 35px;
 }
 
 .detailTable th {
@@ -189,10 +192,13 @@ form .set-info:first-child {
 }
 
 .btn-container input {
-	padding: 5px 7px;;
-	border-radius: 3px;
-	cursor: pointer;
-	font-weight: 500;
+	padding: 10px 15px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-weight: 500;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
 }
 
 .preBtn, .finalBtn {
