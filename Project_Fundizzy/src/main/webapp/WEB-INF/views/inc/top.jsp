@@ -160,7 +160,7 @@
     	<div class="nav top-items">
 	        <div class="logo top-items"><a class="home" href="/">Fundizzy</a></div>
 	        <div class="nav-links top-items">
-			    <a href="/" class="top-items <%= currentPath.equals("/") ? "active" : "" %>">오픈예정</a>
+			    <a href="/OpenList" class="top-items <%= currentPath.equals("OpenList") ? "active" : "" %>">오픈예정</a>
 			    <a href="/FundList" class="top-items <%= currentPath.contains("FundList") ? "active" : "" %>">펀딩</a>
 			    <a href="/PreOrderList" class="top-items <%= currentPath.contains("PreOrderList") ? "active" : "" %>">프리오더</a>
 			    <a href="/HelpCenter" class="top-items <%= currentPath.contains("HelpCenter") ? "active" : "" %>">도움말센터</a>

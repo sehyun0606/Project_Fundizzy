@@ -67,7 +67,7 @@
 							<div class="list-container">
 								<input type="hidden" name="news_code" class="news_code" value="${news.news_code}">
 								<div class="list-title">
-									<h3><a href="FundBoardNew?project_code=${news.project_code}">${news.news_title}</a></h3>
+									<h3><a href="FundBoardNew?project_code=${news.project_code}&news_code=${news.news_code}">${news.news_title}</a></h3>
 									<div>${news.news_date}</div>
 								</div>
 								<div class="btn-container">
