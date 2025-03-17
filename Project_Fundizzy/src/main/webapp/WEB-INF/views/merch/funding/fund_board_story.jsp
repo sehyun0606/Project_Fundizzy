@@ -183,7 +183,7 @@
                 <div class="company-info">
                    <h4>${fundStory.business_name}</h4><br>
                 </div>
-                <button class="btn">문의하기</button>
+                <button class="btn" onclick="openChatRoomWindow('${fundStory.representative_email}')">문의하기</button>
             </div>
             
             <div class="reward-selection">

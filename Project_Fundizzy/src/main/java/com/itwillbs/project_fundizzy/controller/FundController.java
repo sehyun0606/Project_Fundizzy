@@ -82,7 +82,7 @@ public class FundController {
 		
 		//펀드 보드 가져오기 
 		Map<String, Object> fundStory = fundService.getFundBoard(project_code);
-		System.out.println("map == " + fundStory); // ok
+		System.out.println("map == " + fundStory); //ok
 		model.addAttribute("fundStory", fundStory); //ok
 		
 		//리워드 테이블 가져오기
@@ -91,7 +91,7 @@ public class FundController {
 		model.addAttribute("reward", reward);
 		
 		//찜테이블 가져오기
-		Map<String, Object> keep = fundService.getKeep(email,project_code); 
+		Map<String, Object> keep = fundService.getKeep(email, project_code); 
 		model.addAttribute("keep", keep);
 		
 		return "merch/funding/fund_board_story";
@@ -215,7 +215,7 @@ public class FundController {
 		//지지서명 등록
 		fundService.getSupportSignature(project_code, email, supportContent, supportKeyword);
 		
-		return "redirect:/FundBoardSupport";
+		return "redirect:/FundBoardSupport?project_code=" + project_code;
 	}
 	
 	//fund 지지서명 - 댓글 작성 기능 

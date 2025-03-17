@@ -15,6 +15,7 @@
 <!--   프로젝트 보드 출력 -->
 	<select id="selectFundBoard" resultType="map">
 		SELECT pi.project_code,
+		pi.representative_email,
 		pi.category,
 		pi.sub_category,
 		pi.adult_check,
@@ -80,6 +81,7 @@
   		project_code
   		FROM support 
   		WHERE project_code = #{project_code}
+  		ORDER BY support_date DESC;
   	</select>
   	
 <!--   	지지서명 등록  -->

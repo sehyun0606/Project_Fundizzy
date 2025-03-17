@@ -1,4 +1,3 @@
-//오른쪽 
 $(function(){
 		let project_code = $("#project_code").val();
 	
@@ -124,6 +123,11 @@ $(document).ready(function(){
 	});
 	
 });
+	//펀딩하기 버튼 클릭 시
+	$(".purchase-btn").on("click", function(){
+		location.href="PaymentReward?project_code=" + project_code;
+	});
+	
 
 //웹 페이지가 완전 로드되기전에 실행되는 코드 
 // html이 다 로드 된 후 js가 실행되기에 안전함 

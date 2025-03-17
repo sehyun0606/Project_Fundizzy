@@ -46,7 +46,7 @@
 			</c:forEach>
 	           
 	       </div>
-	      <div class="content-right">
+	 <div class="content-right">
             <div class="purchase-section">
                 <h3>${fundStory.project_title}</h3>
                 <div class="purchase-content">
@@ -55,10 +55,10 @@
                 <p><strong>139</strong>명 참여</p>
                 <p><strong>${fundStory.progress}</strong>% 달성</p>
                 <div class="btn-group">
-	                <input type="hidden" value="${sessionScope.sId }" id="keep_email">
+	                <input type="hidden" value="${sessionScope.sId}" id="keep_email">
 	                <input type="hidden" value="${param.project_code}" id="keep_project_code">
 	                <input type="hidden" value="${keep.email}" class="keep">
-	                <c:choose>
+	                 <c:choose>
 	                	<c:when test="${empty keep.email}">
 		                   <button class="btn-small" id="btn-like"><i class="fa fa-heart-o" style="font-size:24px"></i>찜</button>
 	                	</c:when>
@@ -75,7 +75,7 @@
                 <div class="company-info">
                    <h4>${fundStory.business_name}</h4><br>
                 </div>
-                <button class="btn">문의하기</button>
+                <button class="btn" onclick="openChatRoomWindow('${fundStory.representative_email}')">문의하기</button>
             </div>
             
             <div class="reward-selection">
