@@ -98,6 +98,18 @@
  		FROM shipment
  		WHERE payment_code = #{payment_code}
  	</select>
+ 	
+ 	<delete id="deleteRefundInfo">
+ 		DELETE 
+ 		FROM refund
+ 		WHERE fund_idx = #{fund_idx}
+ 	</delete>
+ 	
+ 	<update id="updateRefundStatus">
+ 		UPDATE fund_history
+ 		SET refund_stat = 'N'
+ 		WHERE fund_idx = #{fund_idx}
+ 	</update>
 </mapper>
  
  

@@ -59,7 +59,7 @@
             color: black;
         }
         
-        .refund {
+        .refund, .refund_cancel {
             position: absolute;
             right: 20px;
             top: 20px;
@@ -355,9 +355,14 @@
 				        <div>결제금액 <fmt:formatNumber value="${fund.result_point}" type="number" />POINT</div>
 		        	</div>
 		        </div>
-		        <c:if test="${fund.send_stat eq 'SHI04'}">
-		        	<div class="refund">환불신청</div>
-		        </c:if>
+		        <c:choose>
+			        <c:when test="${fund.send_stat eq 'SHI04' && fund.refund_stat ne 'REF01'}">
+			        	<div class="refund">환불신청</div>
+			        </c:when>
+			        <c:when test="${fund.refund_stat eq 'REF01'}">
+			        	<div class="refund_cancel">환불 취소하기</div>
+			        </c:when>
+		        </c:choose>
 				<div class="ship">
 			        <c:if test="${fund.send_stat eq 'SHI03'}">
 						<input type="button" value="배송완료" class="shipCompleteBtn">
@@ -553,6 +558,23 @@
 			});
 	    	
 				
+		});
+	    
+	    $(".refund_cancel").on("click", function() {
+	    	let fund_idx = $(this).parent().children().filter(".fund_idx").val();
+
+	    	if(confirm("환불 신청을 취소하시겠습니까?")) {
+				$.ajax({
+					type : "GET",
+					url : "CancelRefund",
+					data : {
+						fund_idx
+					}
+				}).done(function() {
+					alert("환불이 취소되었습니다");
+					location.reload();
+				});
+			}
 		});
 	    
 

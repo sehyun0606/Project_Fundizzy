@@ -51,4 +51,9 @@ public class FundHistoryService {
 	public List<Map<String, Object>> getShipInfoList(String payment_code) {
 		return historyMapper.selectShipInfoList(payment_code);
 	}
+
+	public void removeRefundInfo(int fund_idx) {
+		historyMapper.updateRefundStatus(fund_idx);
+		historyMapper.deleteRefundInfo(fund_idx);
+	}
 }

@@ -34,4 +34,8 @@ public interface FundHistoryMapper {
 
 	List<Map<String, Object>> selectShipInfoList(String payment_code);
 
+	int deleteRefundInfo(int fund_idx);
+
+	void updateRefundStatus(int fund_idx);
+
 }
