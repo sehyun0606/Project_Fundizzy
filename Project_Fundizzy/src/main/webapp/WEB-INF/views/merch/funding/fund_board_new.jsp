@@ -41,7 +41,7 @@
 	               <input type="hidden" class="news_code" value="${news.news_code}">
 	               <h4>${news.news_title}</h4>
 	               <p>${news.news_content}</p>
-	               <p>${news.news_date}</p>
+	               <p><fmt:formatDate value="${news.news_date}" pattern="yyyy-MM-dd"/></p>
 	           </div>
 			</c:forEach>
 	           

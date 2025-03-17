@@ -271,103 +271,44 @@
 	</insert>
 	
 <!--   	펀딩내역 insert -->
-<insert id="insertFundHistory">
-    <selectKey keyProperty="fund_idx" order="BEFORE" resultType="int">
-        SELECT IFNULL(MAX(fund_idx), 0) FROM fund_history
-    </selectKey>
-        INSERT INTO fund_history (
-            fund_idx, 
-            project_code, 
-            member_email, 
-            project_title, 
-            representative_picture, 
-            product_name,
-            business_name, 
-            result_point, 
-            refund_stat, 
-            reward_code, 
-            purchase_date, 
-            product_count, 
-            payment_code
-        ) VALUES 
-		    <foreach collection="sendList" item="reward" separator=",">
-	        	(
-	            #{fund_idx} + 1,
-	            #{project_code},
-	            #{email},
-	            (SELECT project_title FROM project_list WHERE project_code = #{project_code}),
-	            (SELECT representative_picture FROM project_list WHERE project_code = #{project_code}),
-	            #{reward.product_name},
-	            (SELECT business_name FROM project_info WHERE project_code = #{project_code}),
-	            #{reward.payment_price},
-	            'N',
-	            #{reward.reward_code},
-	            NOW(),
-	            #{reward.total_count},
-	            (SELECT payment_code FROM payment WHERE billing_email = #{email} ORDER BY payment_complete_date DESC LIMIT 1)
-	        	)
-  			 </foreach>
+	<insert id="insertFundHistory">
+    INSERT INTO fund_history (
+        project_code, 
+        member_email, 
+        project_title, 
+        representative_picture, 
+        product_name,
+        business_name, 
+        result_point, 
+        refund_stat, 
+        reward_code, 
+        purchase_date, 
+        product_count, 
+        payment_code
+    ) 
+    VALUES 
+    <foreach collection="sendList" item="reward" separator=",">
+        (
+            #{reward.project_code},
+            #{reward.email},
+            (SELECT project_title FROM project_list WHERE project_code = #{reward.project_code}),
+            (SELECT representative_picture FROM project_list WHERE project_code = #{reward.project_code}),
+            (SELECT product_name FROM reward WHERE project_code = #{reward.project_code} AND reward_code = #{reward.reward_code}),
+            (SELECT business_name FROM project_info WHERE project_code = #{reward.project_code}),
+            (SELECT price FROM reward WHERE project_code = #{reward.project_code} AND reward_code = #{reward.reward_code}) * #{reward.product_count},
+            'N',
+            #{reward.reward_code},
+            NOW(),
+            #{reward.product_count},
+            (SELECT payment_code FROM payment WHERE billing_email = #{reward.email} ORDER BY payment_complete_date DESC LIMIT 1)
+        )
+    </foreach>
 </insert>
 
-
-<!--   	<insert id="insertFundHistory"> -->
-<!--   		<selectKey keyProperty="fund_idx" order="BEFORE" resultType="int"> -->
-<!--   			SELECT IFNULL(MAX(fund_idx),0) -->
-<!-- 			FROM fund_history -->
-<!--   		</selectKey> -->
-<!--   		INSERT INTO fund_history -->
-<!--   		( -->
-<!--   			fund_idx -->
-<!--   			,project_code -->
-<!--   			,member_email -->
-<!--   			,project_title -->
-<!--   			,representative_picture -->
-<!--   			,product_name -->
-<!--   			,business_name -->
-<!--   			,result_point -->
-<!--   			,send_stat -->
-<!--   			,refund_stat -->
-<!--   			,reward_code -->
-<!--   			,purchase_date -->
-<!--   			,product_count -->
-<!--   			,payment_code -->
-<!--   		)VALUES( -->
-<!--   			#{fund_idx} + 1 -->
-<!--   			,#{project_code}  -->
-<!--   			,#{email} -->
-<!--   			, ( -->
-<!--   				SELECT project_title -->
-<!--   				FROM project_list -->
-<!--   				WHERE project_code = #{project_code} -->
-<!--   			) -->
-<!--   			, ( -->
-<!--   				SELECT representative_picture -->
-<!--   				FROM project_list -->
-<!--   				WHERE project_code = #{project_code} -->
-<!--   			) -->
-<!--   			,#{product_name} -->
-<!--   			,( -->
-<!--   				SELECT business_name -->
-<!--   				FROM project_info -->
-<!--   				WHERE project_code = #{project_code} -->
-<!--   			) -->
-<!--   			,#{payment_price}  -->
-<!--   			,'SHI01' -->
-<!--   			,'N' -->
-<!--   			,#{reward_code}  -->
-<!--   			,NOW()  -->
-<!--   			,#{total_count}  -->
-<!--   			, ( -->
-<!--   				SELECT payment_code -->
-<!--   				FROM payment -->
-<!--   				WHERE billing_email = #{email} -->
-<!--   				ORDER BY payment_complete_date DESC -->
-<!--   				limit 1 -->
-<!--   			) -->
-<!--   		) -->
-<!--   	</insert> -->
-
-	
-
+	<select id="selectResultList" resultType="map">
+		SELECT *
+		FROM fund_history
+		WHERE pay_tran_id = #{pay_tran_id}
+	</select>
 
   </mapper>

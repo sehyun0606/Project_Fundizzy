@@ -72,7 +72,7 @@ $(function() {
         }
     });
 
-    // 지지서명 댓글 보여주기 & 숨기기
+    // 지지서명 댓글 보여주기 & 숨기기 -- 이거 지지서명 코드 가져와서 다 다르게 
     $(".reply-show").on("click", function() {
         let replyWrite = document.querySelector(".reply-write");
         if (replyWrite.style.display === "none" || replyWrite.style.display === "") {

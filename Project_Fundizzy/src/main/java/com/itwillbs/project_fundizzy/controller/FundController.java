@@ -36,6 +36,7 @@ import com.itwillbs.project_fundizzy.service.PaymentService;
 import com.itwillbs.project_fundizzy.vo.FundHistoryVO;
 import com.itwillbs.project_fundizzy.vo.FundizzyPay;
 import com.itwillbs.project_fundizzy.vo.Payment;
+import com.itwillbs.project_fundizzy.vo.ProjectInfoVO;
 import com.itwillbs.project_fundizzy.vo.ProjectStoryVO;
 import com.itwillbs.project_fundizzy.vo.RewardVO;
 
@@ -373,6 +374,9 @@ public class FundController {
 				rewardList.add(reward);
 	    	}
 	    }
+	    // 배송비 저장을 위한 project info 테이블 가져오기
+	    ProjectInfoVO project_info = new ProjectInfoVO();
+	    model.addAttribute("project_info", project_info);
 	    
 	    // 선택한 리워드 정보와 개수 모델에저장
 	    model.addAttribute("rewardList", rewardList);
@@ -398,13 +402,16 @@ public class FundController {
 	
 	//결제 완료창으로 이동 - post
 	@PostMapping("PaymentComplete")
-	public String paymentComplete(@RequestParam Map<String, String> map, HttpSession session ,Model model) {
-	    System.out.println("필요한거 : " + map);
+	public String paymentComplete(@RequestParam Map<String, String> map, HttpSession session ,Model model, String payment_price,
+			String delivery_fee) {
 	    String email = (String) session.getAttribute("sId");
-	    
+	    String pay_tran_id = UUID.randomUUID().toString();
 	    // 1 페이로 결제한 내역 계산 후 pay table에 insert 작업 
 	    map.put("email", email);
-	    map.put("pay_tran_id", UUID.randomUUID().toString());
+	    map.put("pay_tran_id", pay_tran_id);
+	    map.put("payment_price", payment_price);
+	    map.put("delivery_fee", delivery_fee);
+	    System.out.println("필요한거 : " + map);
 	    
 	    
 	    // 2. 결제내역 input
@@ -418,11 +425,12 @@ public class FundController {
 	    	model.addAttribute("msg", "결제에 실패하셨습니다.");
 	    	return "result/fail";
 	    }
-//	    }
+	    
+	    List<Map<String, Object>> resultList = fundService.getResultList(pay_tran_id);
+	    model.addAttribute("resultList", resultList);
+	    System.out.println("resultList" + resultList);
 	    return "merch/payment/payment_complete";
 	}
-
-	
 	
 	//결제 완료창 - get 비지니스 로직
 	@GetMapping("PaymentComplete")

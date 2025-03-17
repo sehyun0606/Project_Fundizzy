@@ -40,22 +40,17 @@
 			<form action="PaymentComplete" id="complete-form" method="post">
 <!-- 			순서대로 프로젝트코드, 리워드코드 ,리워드명, 리워드설명 ,수량  -->
 				<input type="hidden" id="project_code"  name="project_code" value="${param.project_code}"> 
-<%-- 				<input type="hidden" name="reward_code" value="${reward_code}"> --%>
-<%-- 				<input type="hidden" name="reward_code" value="${reward_code2}"> --%>
-<%-- 				<input type="hidden" name="reward_code" value="${reward_code3}"> --%>
-<%-- 				<input type="hidden" name="reward_code" value="${reward_code4}"> --%>
-<%-- 				<input type="hidden" name="reward_code" value="${reward_code5}"> --%>
+				<input type="hidden" id="delivery_fee" name="delivery_fee" value="${project_info.delivery_fee}">
 <%-- 				<input type="hidden" id="product_name"  name="product_name" value="${selectedReward.product_name}">  --%>
 <%-- 				<input type="hidden" id="product_desc"  name="product_desc" value="${selectedReward.product_desc}">  --%>
 <!-- 				전체 수량 -->
 <%-- 				<input type="hidden" id="total_count" name="total_count" value="${total_count}">  --%>
 <!-- 				리워드 별 수량 -->
-<!-- 				<input type="hidden" id="" value="" name=""> -->
 <%-- 				<input type="hidden" id="rewardList" value="${rewardList}" name="rewardList"> --%>
 <!-- 				리워드 스트링  -->
 <%-- 				<input type="hidden" id="reward_string" name="reward_string" value="${reward_string}"> --%>
 <%-- 				<input type="hidden" id="reward_price" value="${selectedReward.price}"> --%>
-<%-- 				<input type="hidden" id="payment_price" name="payment_price" value="${total_price + selectedReward.delivery_fee}"> --%>
+				<input type="hidden" id="payment_price" name="payment_price" value="${total_price + selectedReward.delivery_fee}">
 <%-- 				<input type="hidden" id="db_post_code" value="${member.post_code}"><br> --%>
 <%-- 				<input type="hidden" id="db_address1" value="${member.address1}"><br> --%>
 <%-- 				<input type="hidden" id="db_address2" value="${member.address2}"> --%>

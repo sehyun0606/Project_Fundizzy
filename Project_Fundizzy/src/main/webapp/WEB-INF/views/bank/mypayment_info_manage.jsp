@@ -9,7 +9,8 @@
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bank/mypayment_info_manage.css" />
 <!-- 아이콘 -->
-<!-- <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script> -->
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 <!-- js연결 -->
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/bank/mypayment_info_manage.js"></script>
@@ -59,14 +60,8 @@
 								id="add_button"
 							</c:otherwise>
 						</c:choose>
-					>+ button<i class='fas fa-plus'></i></button>
+					><i class='fas fa-plus' style='font-size:48px;'></i></button>
 				</div>
-			</div>
-		</div>
-		<div id="cardInfoDiv">
-			<div class="subTitle">간편결제카드</div>
-			<div id="addCard">
-				<img alt="간편카드등록" src="${pageContext.request.contextPath}/resources/images/bank/plus.png">
 			</div>
 		</div>
 	</article>

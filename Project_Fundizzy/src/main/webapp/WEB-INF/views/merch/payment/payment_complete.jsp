@@ -26,17 +26,17 @@
 	        <div class="payment-complete">
 	           <h3>결제가 완료되었습니다.</h3>
       	       	<div class="section-product">
-		        	 <c:forEach var="paramMap" items="${paramMap}">
-			            <h3>${paramMap.product_name}</h3>
-			            <p>${paramMap.product_desc}</p>
-			            <p>수량: ${paramMap.product_count}개<br><span id="product_price" class="product_price"><fmt:formatNumber pattern="#,###원" value="${rewardList.price}"></fmt:formatNumber></span></p>
-	       			</c:forEach>: ${paramMap.total_count}개<br><span id="total_price" class="totalPrice"><fmt:formatNumber pattern="#,###원" value="${map.total_price}"></fmt:formatNumber></span>
+		        	 <c:forEach var="reward" items="${resultList}">
+			            <h3>${reward.product_name}</h3>
+			            <p>${reward.product_desc}</p>
+			            <p>수량: ${reward.product_count}개<br><span id="product_price" class="product_price"><fmt:formatNumber pattern="#,###원" value="${reward.price}"></fmt:formatNumber></span></p>
+	       			</c:forEach>
 	        	</div>
        	        <div class="section-price">
 		            <h4>결제 금액</h4>
-		             <p>리워드 금액 <span class="total_price"><fmt:formatNumber pattern="#,###원" value="${map.total_price}"></fmt:formatNumber></span></p>
-<%-- 		             <p>배송비 <span class="price">${delivery_fee}원</span></p> --%>
-		             <p class="total">총 결제 금액 <span id="total_price_delivery"><fmt:formatNumber pattern="#,###원" value="${map.payment_price}"></fmt:formatNumber></span></p>
+		             <p>리워드 금액 <span class="total_price"><fmt:formatNumber pattern="#,###원" value="${total_price}"></fmt:formatNumber></span></p>
+		             <p>배송비 <span class="price">${delivery_fee}원</span></p>
+		             <p class="total">총 결제 금액 <span id="total_price_delivery"><fmt:formatNumber pattern="#,###원" value="${payment_price}"></fmt:formatNumber></span></p>
 	        	</div>
 	        	<div class="two-button">
 		           <button onclick="location.href='http://localhost:8081/'">홈으로</button>

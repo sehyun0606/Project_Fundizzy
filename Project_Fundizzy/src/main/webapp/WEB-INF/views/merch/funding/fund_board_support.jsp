@@ -45,8 +45,8 @@
 <!-- 				        댓글영역 -->
 				        <div>
 <!-- 				        댓글 작성 -->
-				        	<input type="button" value="댓글" class="reply-show"><br>
 				        	<form action="SupportReply" method="post">
+					        	<input type="button" value="댓글" class="reply-show"><br>
 					        	<div class="reply-write ${sessionScope.sId eq admin ? 'show' : 'hide'}">
 <%-- 					        		<c:choose> --%>
 <%-- 					        			<c:when test="${sessionScope.sId eq admin}"> --%>

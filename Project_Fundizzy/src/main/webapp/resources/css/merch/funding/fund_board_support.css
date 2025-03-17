@@ -73,6 +73,12 @@ body {
   display: flex;
 
 }
+
+.reply-container {
+    display: flex;  /* 한 줄 배치 */
+    align-items: center;  /* 수직 가운데 정렬 */
+    gap: 10px;  /* 요소 간 간격 조정 */
+}
 .reply-write textarea{
   width: 600px;  /* 너비 고정 */
   height: 30px; /* 높이 고정 */
@@ -82,6 +88,7 @@ body {
 #reply-submit-btn{
 	width: 63px;
 	height: 40px;
+	padding: 5px 10px;
 }
 .reply-list{
 	display: none;
@@ -98,6 +105,10 @@ body {
 	margin-top: 20px;
 	margin-bottom: 20px;
 }
+
+
+
+
 
 
 
