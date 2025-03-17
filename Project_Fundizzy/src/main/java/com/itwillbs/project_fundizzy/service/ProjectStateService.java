@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.itwillbs.project_fundizzy.mapper.ProjectStateMapper;
 import com.itwillbs.project_fundizzy.vo.FundHistoryVO;
 import com.itwillbs.project_fundizzy.vo.NewsVO;
+import com.itwillbs.project_fundizzy.vo.ProjectDateVO;
 import com.itwillbs.project_fundizzy.vo.RefundVO;
 import com.itwillbs.project_fundizzy.vo.ShipmentVO;
 
@@ -29,6 +30,10 @@ public class ProjectStateService {
 
 	public List<Map<String, Object>> getCumulativePaymentList(String project_code) {
 		return stateMapper.selectCumulativePaymentList(project_code);
+	}
+	
+	public ProjectDateVO getProjectDate(String project_code) {
+		return stateMapper.selectProjectDate(project_code);
 	}
 	
 	// ================================== 새소식 ==================================
@@ -135,6 +140,8 @@ public class ProjectStateService {
 		stateMapper.updateProjectListFinalSettlementStatus(map);
 		return stateMapper.updateFinalSettlement(map);
 	}
+
+	
 
 
 

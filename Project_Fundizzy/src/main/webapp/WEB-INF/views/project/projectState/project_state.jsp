@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>프로젝트 현황</title>
 <link rel="styleSheet" type="text/css" href="resources/css/projectState/project_state_default.css" >
 <link rel="stylesheet" type="text/css" href="resources/css/projectState/project_state.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
@@ -31,7 +31,7 @@
 				<div class="state">
 					<div class="subtitle">펀딩 달성률</div>
 					<div class="item-container">
-						<span class="item">71</span>
+						<span class="item">${progress}</span>
 						<span class="unit">%</span>
 					</div>
 				</div>

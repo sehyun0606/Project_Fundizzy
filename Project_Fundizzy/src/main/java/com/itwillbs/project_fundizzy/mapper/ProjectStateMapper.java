@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.itwillbs.project_fundizzy.vo.FundHistoryVO;
 import com.itwillbs.project_fundizzy.vo.NewsVO;
+import com.itwillbs.project_fundizzy.vo.ProjectDateVO;
 import com.itwillbs.project_fundizzy.vo.RefundVO;
 import com.itwillbs.project_fundizzy.vo.ShipmentVO;
 
@@ -21,6 +22,7 @@ public interface ProjectStateMapper {
 	
 	List<Map<String, Object>> selectCumulativePaymentList(String project_code);
 	
+	ProjectDateVO selectProjectDate(String project_code);
 	
 	// ================================== 새소식 ==================================
 	int insertNewsBoard(Map<String, String> map);
@@ -87,6 +89,8 @@ public interface ProjectStateMapper {
 	int updateFinalSettlement(Map<String, Object> map);
 
 	void updateProjectListFinalSettlementStatus(Map<String, Object> map);
+
+	
 
 
 

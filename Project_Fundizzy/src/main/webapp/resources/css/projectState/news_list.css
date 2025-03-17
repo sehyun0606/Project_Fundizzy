@@ -134,6 +134,10 @@ h1 {
 	width: 1000px;
 }
 
+.notice {
+	margin: 20px 0 50px 0;
+}
+
 .list-container {
 	display: flex;
 	justify-content: space-between;
