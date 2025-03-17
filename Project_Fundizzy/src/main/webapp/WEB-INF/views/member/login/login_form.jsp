@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fundizy 로그인</title>
+    <title>Fundizzy 로그인</title>
     <!-- 카카오 API SDK -->
     <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.4/kakao.min.js" 
     integrity="sha384-DKYJZ8NLiK8MN4/C5P2dtSmLQ4KwPaoqAfyA/DfmEc1VDxu4yyC7wy6K1Hs90nka" crossorigin="anonymous"></script>
@@ -17,7 +17,7 @@
 </head>
 <body>
 
-	<h1 class="logo" onclick="location.href='./'">Fundizy</h1>
+	<h1 class="logo" onclick="location.href='./'">Fundizzy</h1>
 	
 	<form action="LoginSuccess" method="post">
 		<div class="login-options">

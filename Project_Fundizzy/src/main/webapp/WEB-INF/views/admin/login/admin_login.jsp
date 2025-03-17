@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fundizy 로그인</title>
+    <title>Fundizzy 로그인</title>
     <script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
     <style>
         body {
@@ -74,7 +74,7 @@
 </head>
 <body>
 
-<h1 class="logo" onclick="location.href='./'">Fundizy</h1>
+<h1 class="logo" onclick="location.href='./'">Fundizzy</h1>
 <h2 class="logo2" >Admin</h2>
 
 <form action="adminLoginAction" method="post">

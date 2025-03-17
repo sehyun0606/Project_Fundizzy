@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.annotation.JsonCreator.Mode;
+import com.itwillbs.project_fundizzy.aop.LoginCheck;
+import com.itwillbs.project_fundizzy.aop.LoginCheck.MemberRole;
 import com.itwillbs.project_fundizzy.service.HelpCenterService;
 import com.itwillbs.project_fundizzy.service.MemberService;
 
@@ -28,6 +30,7 @@ public class HelpCenterController {
 	@Autowired
 	private MemberService memberService;
 	
+	@LoginCheck(memberRole = MemberRole.USER)
 	@GetMapping("HelpCenter")
 	public String HelpCenter(Model model) {
 		List<Map<String, String>> boardList = helpCenterService.getBoardList();

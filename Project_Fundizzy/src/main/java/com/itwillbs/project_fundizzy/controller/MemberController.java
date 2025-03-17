@@ -275,7 +275,7 @@ public class MemberController {
 				BCryptPasswordEncoder bpe,
 				HttpServletResponse response) {
 			
-			System.out.println("넘어온 로그인 정보 : " + loginInfo);
+//			System.out.println("넘어온 로그인 정보 : " + loginInfo);
 
 			Map<String, String> dbMember = memberService.getMember(loginInfo.get("email"));
 			System.out.println("DB에 저장되어있는 멤버 정보 : " + dbMember);
