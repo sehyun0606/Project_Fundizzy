@@ -1,6 +1,7 @@
 package com.itwillbs.project_fundizzy.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -30,5 +31,7 @@ public interface FundHistoryMapper {
 	int updateShipCompleteStatus(String payment_code);
 
 	void updateFundHistoryStatus(int fund_idx);
+
+	List<Map<String, Object>> selectShipInfoList(String payment_code);
 
 }

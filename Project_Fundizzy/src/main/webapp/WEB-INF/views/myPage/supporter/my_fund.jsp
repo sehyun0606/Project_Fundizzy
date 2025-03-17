@@ -364,12 +364,8 @@
 			        </c:if>
 			        <c:if test="${fund.send_stat eq 'SHI03' || fund.send_stat eq 'SHI04'}">
 					        <input type="hidden" id="t_key" name="t_key" value="2n3pmCsoZ4CJC0Fqu54m1Q">
-					        <input type="hidden" name="t_code" id="t_code" <c:choose><c:when test="${fund.courier eq '우체국택배'}">value="01"</c:when>
-																			    	<c:when test="${fund.courier eq 'cj대한통운'}">value="04"</c:when>
-																			    	<c:when test="${fund.courier eq '한진택배'}">value="05"</c:when>
-																			    	<c:when test="${fund.courier eq '로젠택배'}">value="06"</c:when>
-																			    	<c:when test="${fund.courier eq '롯데택배'}">value="08"</c:when></c:choose>>
-					        <input type="hidden" name="t_invoice" id="t_invoice" value="${fund.tracking_num}">
+					        <input type="hidden" name="t_code" id="t_code">
+					        <input type="hidden" name="t_invoice" id="t_invoice">
 							<input type="button" value="배송조회" class="shipCheckBtn">
 			        </c:if>
 				</div>
@@ -520,11 +516,42 @@
 	    
 	    // 배송조회창 열림
 	    $(".shipCheckBtn").click(function() {
-	    	let courier = $("#t_code").val();
-	    	let tracking_num = $("#t_invoice").val();
+	    	let payment_code = $(this).closest(".product-box").children().filter(".payment_code").val();
+	    	let courier; 		// 택배사
+	    	let tracking_num;	// 운송장 번호
 	    	
-			window.open("https://info.sweettracker.co.kr/tracking/4?t_key=2n3pmCsoZ4CJC0Fqu54m1Q&t_code="
-					+ courier + "&t_invoice=" + tracking_num, "_blank", "width=500,height=700,top=100,left=200");
+	    	$.ajax({
+	    		type : "GET",
+	    		url : "ShipmentInvoiceInfo",
+	    		data : {
+	    			payment_code
+	    		}
+	    	}).done(function(shipList) {
+				for(let ship of shipList) {
+					if(ship.courier == "우체국택배") {
+						courier = $("#t_code").val(01);
+					} else if(ship.courier == "cj대한통운") {
+						$("#t_code").val(04);
+						courier = courier = "04";
+					} else if(ship.courier == "한진택배") {
+						$("#t_code").val(05);
+						courier = courier = "05";
+					} else if(ship.courier == "로젠택배") {
+						$("#t_code").val(06);
+						courier = courier = "06";
+					} else if(ship.courier == "롯데택배") {
+						$("#t_code").val(08);
+						courier = courier = "08";
+					}
+					tracking_num = ship.tracking_num;
+					$("#t_invoice").val(tracking_num);
+				}
+				
+				// 배송조회 새창으로 열기
+				window.open("https://info.sweettracker.co.kr/tracking/4?t_key=2n3pmCsoZ4CJC0Fqu54m1Q&t_code="
+						+ courier + "&t_invoice=" + tracking_num, "_blank", "width=500,height=700,top=100,left=200");
+			});
+	    	
 				
 		});
 	    

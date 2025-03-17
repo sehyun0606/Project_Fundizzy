@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
- <mapper namespace="com.itwillbs.project_fundizzy.mapper.FundHistoryMapper">
+<mapper namespace="com.itwillbs.project_fundizzy.mapper.FundHistoryMapper">
  	<select id="selectFundHistoryListCount" resultType="int">
  		SELECT COUNT(*)
  		FROM fund_history
@@ -11,10 +11,10 @@
  	
  	<select id="selectFundList" resultType="FundHistory">
  		SELECT 
-			f.fund_idx, 
-		    f.project_code, 
-		    f.member_email, 
-		    f.project_title, 
+			f.fund_idx,
+		    f.project_code,
+		    f.member_email,
+		    f.project_title,
 		    f.representative_picture, 
 		    f.product_name, 
 		    f.business_name, 
@@ -26,13 +26,7 @@
 		    f.refund_date, 
 		    f.send_date, 
 		    f.product_count, 
-		    f.payment_code, 
-		    (SELECT courier
-		     FROM shipment
-		     WHERE payment_code = 'PAR021') as courier,
-		    (SELECT tracking_num
-		     FROM shipment
-		     WHERE payment_code = 'PAR021') as tracking_num
+		    f.payment_code
  		FROM fund_history f
  		WHERE member_email = #{member_email}
  		ORDER BY
@@ -98,7 +92,13 @@
  		SET send_stat = 'SHI04'
  		WHERE fund_idx = #{fund_idx}
  	</update>
- </mapper>
+ 	
+ 	<select id="selectShipInfoList" resultType="map">
+ 		SELECT *
+ 		FROM shipment
+ 		WHERE payment_code = #{payment_code}
+ 	</select>
+</mapper>
  
  
  
