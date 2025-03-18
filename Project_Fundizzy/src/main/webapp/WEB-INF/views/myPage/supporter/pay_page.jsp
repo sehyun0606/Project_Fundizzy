@@ -19,7 +19,7 @@
 		<jsp:include page="/WEB-INF/views/inc/profile_side.jsp"></jsp:include>
 	</div>
 	<div class="pay-container">
-		<p>${sessionScope.sId} 님의 페이</p>
+	  <span id="title">${sessionScope.sId} 님의 페이</span>
 	  <div class="pay-info">
 	  	<div class="fundizy-pay">Fundizy Pay</div> <br>
 	  	<div class="pay-money"><fmt:formatNumber pattern="#,###원" value="${fundizzy_pay_info.pay_balance}"></fmt:formatNumber></div>  	

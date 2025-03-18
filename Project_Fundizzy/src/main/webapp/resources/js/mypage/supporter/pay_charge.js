@@ -14,6 +14,16 @@ $(document).ready(function() {
 		$("#fundizy-pay").val(300000);
 	});
 	
+	//금액 미 입력시 화면 이동 안되도록
+	let amount = $("#fundizy-pay").val();
+	
+	if($("#charge-submit").on("click", function(){
+		
+		if(amount == null || amount == ""){
+			alert("충전할 금액을 입력해 주세요.");
+			return false;
+		}
+	}));
 	
 	
 });

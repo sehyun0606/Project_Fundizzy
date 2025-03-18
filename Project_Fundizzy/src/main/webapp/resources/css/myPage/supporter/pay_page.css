@@ -10,24 +10,27 @@ body {
 .pay-container {
     width: 410px;
     height: 653px;
-/*     background-color: #ffffff; */
     position: absolute;
     top: 47%;
     left: 50%;
     transform: translate(-50%, -50%);
     border-radius: 8px;
 }
-.pay-container p{
-	font-size: 23px;
-	text-align: center;
-}
 
+#title{
+	font-size: 20px;
+	text-align: center;
+	z-index: 1;
+	position: absolute;
+    top: 9%;
+    left: 13%;
+}
 .pay-info{
 	width: 370px;
     height: 190px;
     background-color: #e6cfffc4;
     position: absolute;
-    top: 28%;
+    top: 29%;
     left: 50%;
     transform: translate(-50%, -50%);
     border-radius: 8px;
