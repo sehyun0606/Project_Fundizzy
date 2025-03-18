@@ -52,33 +52,33 @@ article {
     padding: 10px;
     background-color: white;
 }
-.recent-join {
+.unAnswer {
     margin-bottom: 20px;
 }
-.recent-join h2 {
+.unAnswer h2 {
     margin-bottom: 10px;
     color: mediumseagreen;
 }
-.recent-join p {
+.unAnswer p {
     margin: 5px 0;
 }
-.member-info {
+.qna {
     margin-top: 30px;
 }
-.member-info h2 {
+.qna h2 {
     color: mediumseagreen;
     margin-bottom: 10px;
 }
-.member-info table {
+.qna table {
     width: 100%;
     border-collapse: collapse;
 }
-.member-info table th, .member-info table td {
+.qna table th, .qna table td {
     border-bottom: 1px solid #ddd;
     padding: 8px;
     text-align: left;
 }
-.member-info table th {
+.qna table th {
     background-color: lightgreen;
 }
 .search-bar {
@@ -101,19 +101,19 @@ article {
     display: flex;
     justify-content: space-between; 
 }
-.recent-join, .recent-leave, .dormant-account {
+.unAnswer, .answer, .dormant-account {
     width: 50%;
     margin-bottom: 20px;
     margin-right: 50px;
 }
-.recent-join h2, .recent-leave h2, .dormant-account h2 {
+.unAnswer h2, .answer h2, .dormant-account h2 {
     margin-bottom: 10px;
     color: mediumseagreen;
 }
-.recent-join p, .recent-leave p, .dormant-account p {
+.unAnswer p, .answer p, .dormant-account p {
     margin: 5px 0;
 }
-.recent-join hr, .recent-leave hr, .dormant-account hr {
+.unAnswer hr, .answer hr, .dormant-account hr {
     margin: 10px 0;
 }
 table {
@@ -157,7 +157,78 @@ table tr:hover {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
 
+/* 모달 기본 스타일 */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* 모달창 컨텐츠 */
+.modal-content {
+    background-color: white;
+    margin: 5% auto;  /* 가운데 정렬 */
+    padding: 20px;
+    width: 50%;  /* 모달창 너비 */
+    max-width: 600px;  /* 최대 너비 설정 */
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    font-size: 14px;
+}
+
+/* 닫기 버튼 */
+.close {
+    float: right;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: red;
+}
+
+/* ✅ 관리자 답변 입력 구역 */
+.admin-reply {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.admin-reply textarea {
+    width: 100%;  /* 좌우 여백 고려한 너비 설정 */
+    height: 120px;  /* 높이 조정 */
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    resize: none;
+    font-size: 14px;
+    box-sizing: border-box; /* ✅ 패딩 포함한 너비 설정 */
+    margin-top: 10px;
+}
+
+/* ✅ 버튼 크기 조정 */
+.admin-reply button {
+    width: 100%; /* 부모 요소에 맞게 */
+    background-color: black;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.admin-reply button:hover {
+    background-color: #333;
+}
 
 
 
