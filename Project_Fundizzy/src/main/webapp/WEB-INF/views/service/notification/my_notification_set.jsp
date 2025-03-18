@@ -25,21 +25,21 @@
 					</div>	
 				</div>
 				<label class="switch">
-				  <input type="checkbox" class="setCheck" id="is_recv_notification" <c:if test="${memberNOTSetInfo.is_receive_notification eq 'Y'}">checked</c:if>>
+				  <input type="checkbox" class="setCheck" id="is_recv_notification" <c:if test="${memberNOTSetInfo.is_recv_notification eq 'Y'}">checked</c:if>>
 				  <span class="slider"></span>
 				</label>
 			</div>
 			<div class="notifications">
 				<div class="methodName">E-mail 수신</div>
 				<label class="switch">
-				  <input type="checkbox" class="setCheck" id="is_recv_by_email" <c:if test="${memberNOTSetInfo.is_recv_by_email eq 'Y'}">checked</c:if>>
+				  <input type="checkbox" class="setCheck" id="is_recv_by_email" <c:if test="${memberNOTSetInfo.is_recv_notification eq 'Y' && memberNOTSetInfo.is_recv_by_email eq 'Y'}">checked</c:if>>
 				  <span class="slider"></span>
 				</label>
 			</div>
 			<div class="notifications">
 				<div class="methodName">SMS 수신</div>
 				<label class="switch">
-				  <input type="checkbox" class="setCheck" id="is_recv_by_sms" <c:if test="${memberNOTSetInfo.is_recv_by_sms eq 'Y'}">checked</c:if>>
+				  <input type="checkbox" class="setCheck" id="is_recv_by_sms" <c:if test="${memberNOTSetInfo.is_recv_notification eq 'Y' && memberNOTSetInfo.is_recv_by_sms eq 'Y'}">checked</c:if>>
 				  <span class="slider"></span>
 				</label>
 			</div>
@@ -55,19 +55,19 @@
 				</div>
 				<label class="switch">
 				  <input type="checkbox" class="setCheck"  id="is_recv_site" 
-				  	<c:if test="${memberNOTSetInfo.is_receive_notification eq 'Y' && memberNOTSetInfo.is_recv_site eq 'Y'}">
+				  	<c:if test="${memberNOTSetInfo.is_recv_notification eq 'Y' && memberNOTSetInfo.is_recv_site eq 'Y'}">
 				  		checked
 			  		</c:if>>
 				  <span class="slider"></span>
 				</label>
 			</div>
 			<div class="receivingitems">
-				<div class="receiveItemName">팔로잉 Maker 알림<br>
-					<div class="explanation">팔로잉하는 Maker의 새로운 소식을 받아보세요</div>	
+				<div class="receiveItemName">지지서명한 Project 알림<br>
+					<div class="explanation">지지서명한 Project의 새로운 소식을 받아보세요</div>	
 				</div>
 				<label class="switch">
-				  <input type="checkbox" class="setCheck"  id="is_recv_following"
-				  	<c:if test="${memberNOTSetInfo.is_receive_notification eq 'Y' && memberNOTSetInfo.is_recv_following eq 'Y'}">
+				  <input type="checkbox" class="setCheck"  id="is_recv_support"
+				  	<c:if test="${memberNOTSetInfo.is_recv_notification eq 'Y' && memberNOTSetInfo.is_recv_support eq 'Y'}">
 				  		checked
 			  		</c:if>>
 				  <span class="slider"></span>
@@ -79,7 +79,7 @@
 				</div>
 				<label class="switch">
 				  <input type="checkbox" class="setCheck" id="is_recv_wish"
-				  	<c:if test="${memberNOTSetInfo.is_receive_notification eq 'Y' && memberNOTSetInfo.is_recv_wish eq 'Y'}">
+				  	<c:if test="${memberNOTSetInfo.is_recv_notification eq 'Y' && memberNOTSetInfo.is_recv_wish eq 'Y'}">
 				  		checked
 			  		</c:if>>
 				  <span class="slider"></span>
@@ -91,7 +91,7 @@
 				</div>
 				<label class="switch">
 				  <input type="checkbox" class="setCheck" id="is_recv_myproject"
-				  	<c:if test="${memberNOTSetInfo.is_receive_notification eq 'Y' && memberNOTSetInfo.is_recv_myproject eq 'Y'}">
+				  	<c:if test="${memberNOTSetInfo.is_recv_notification eq 'Y' && memberNOTSetInfo.is_recv_myproject eq 'Y'}">
 				  		checked
 			  		</c:if>>
 				  <span class="slider"></span>
@@ -103,7 +103,7 @@
 				</div>
 				<label class="switch">
 				  <input type="checkbox" class="setCheck" id="is_recv_joinproject"
-				  	<c:if test="${memberNOTSetInfo.is_receive_notification eq 'Y' && memberNOTSetInfo.is_recv_joinproject eq 'Y'}">
+				  	<c:if test="${memberNOTSetInfo.is_recv_notification eq 'Y' && memberNOTSetInfo.is_recv_joinproject eq 'Y'}">
 				  		checked
 			  		</c:if>>
 				  <span class="slider"></span>

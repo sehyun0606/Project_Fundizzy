@@ -15,14 +15,17 @@
 	</header>
 	<article>
 		<div id="title">
-			알림
+			<div>알림</div>
+			<div>
+				<img src="/resources/images/notification/settings.png" title="알림설정" onclick="location.href='NotificationSetPage'">
+			</div>
 		</div>
 		<div id="topGroup">
 			<div>
 				<select>
 					<option value="">전체알림</option>
 					<option value="NOT01">Fundizzy</option>
-					<option value="NOT02">팔로잉메이커</option>
+					<option value="NOT02">지지서명 프로젝트</option>
 					<option value="NOT03">찜 프로젝트</option>
 					<option value="NOT04">내 프로젝트</option>
 					<option value="NOT05">참여 프로젝트</option>
@@ -63,8 +66,7 @@
 						</c:choose>
 					</div>
 					<div class="notificationDate">
-						<fmt:formatDate value="${myNOT.regist_date}" pattern="yyyy-MM-dd" /><br>
-						<fmt:formatDate value="${myNOT.regist_date}" pattern="HH:mm" />
+						${myNOT.regist_date}
 					</div>
 				</div>
 				<div class="notificationBody">
@@ -82,6 +84,6 @@
 	<footer>
 		<jsp:include page="/WEB-INF/views/inc/footer.jsp" />
 	</footer>
-	<script src="/resources/js/service/my_notification_board.js"></script>
+	<script src="/resources/js/service/notification/my_notification_board.js"></script>
 </body>
 </html>

@@ -5,15 +5,10 @@
 <mapper namespace="com.itwillbs.project_fundizzy.mapper.NotificationMapper">
 	<!-- 회원가입시 선택한 알림설정을 알림설정테이블에 삽입 -->
 	<insert id="insertNOTSetInfo">
-		<selectKey keyProperty="idx" resultType="int" order="BEFORE">
-			SELECT IFNULL(MAX(idx), 0)
-			FROM notification_set;
-		</selectKey>
-		
 		INSERT
 		INTO notification_set
 		VALUES (
-			#{idx} + 1
+			null
 			, #{email}
 			,
 			<choose>
@@ -65,6 +60,7 @@
 			, #{notification_content}
 			, 'N'
 			, now()
+			, #{project_code}
 		)
 	</insert>
 	
@@ -73,6 +69,26 @@
 		SELECT *
 		FROM notification
 		WHERE member_email = #{email}	
+		ORDER BY idx DESC
 	</select>
 	
+	<!-- 해당프로젝트를 찜한 멤버 조회 -->
+	<select id="selectKeepMember" resultType="string">
+		SELECT DISTINCT email
+		FROM keep
+		WHERE project_code = #{project_code}
+	</select>
+	
+	<!-- 해당프로젝트를 지지서명한 멤버 조회 -->
+	<select id="selectSupprotMember" resultType="string">
+		SELECT DISTINCT email
+		FROM support
+		WHERE project_code = #{project_code}
+	</select>
+	
+	<select id="selectProjectInfo" resultType="map">
+		SELECT *
+		FROM project_list
+		WHERE project_code = #{project_code}
+	</select>
 </mapper>

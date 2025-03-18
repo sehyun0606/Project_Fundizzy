@@ -141,6 +141,11 @@ $(function() {
 	    removeImgInPreview(index);
 	});
 
+	// 채팅메시지의 이미지 사진 클릭시 새창으로 확대
+	$(document).on("click", ".chat_img img", function () {
+		url = $(this).attr("class");
+	    window.open(url, url, "width=600, height=600, top=100, left=750");
+	});
 	
 });
 
@@ -212,7 +217,7 @@ function appendMesage(data) {
 			let hrefUrl = "/resources/upload/" + data.message.split(":")[0]; // 원본 이미지 경로
 			let imgUrl = "/resources/upload/" + data.message.split(":")[1]; // 썸네일 이미지 경로
 			
-			spanMessage = "<span class='chat_img'><a href='" + hrefUrl + "' target='_blank'><img src='" + imgUrl + "'></a></span>"; 
+			spanMessage = "<span class='chat_img'><img src='" + imgUrl + "' class='" + hrefUrl +"'><a href='" + hrefUrl + "' download>다운로드</a></span>";
 		}
 		
 		// 마지막 메세지와 같은 시간:분인지 체크후 같은 시간이면 다음에 메시지 스팬만 추가
