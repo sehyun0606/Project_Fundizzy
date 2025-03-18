@@ -1,0 +1,510 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+}
+/* top바 */
+.fund-top {
+    display: flex;
+    justify-content: center; /* 가로 중앙 정렬 */
+    align-items: center; /* 세로 중앙 정렬 */
+    gap: 15px; /* 버튼 간 간격 */
+    height: 30px; 
+    margin-top: 10px;
+}
+
+.fund-top a{
+    font-size: 16px;
+    color: black;
+    text-decoration: none;
+}
+
+.fund-top button:hover{
+   font-weight: bolder;
+}
+.story{
+   font-weight: bolder;
+}
+
+/* 내용부분 */
+.container {
+    display: flex;
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    gap: 20px;
+}
+
+.content-left, .content-right {
+    flex: 2;
+}
+
+.content-left-under1, .content-left-under2{
+   display: flex;
+}
+
+/* 내용 중 왼쪽부분 */
+.content-left {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    
+}
+/* 왼쪽 - 메인 이미지 */
+.main-image {
+    width: 650px;
+    height: 400px;
+    background-color: #ddd;
+    position: relative;
+    overflow: hidden;
+}
+
+.main-image img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+/*     object-fit: cover; */
+/*     opacity: 0; */
+/*     animation: fade 21s infinite; 3장의 이미지가 7초마다 바뀜 */
+}
+
+.main-image img:nth-child(1) {
+    animation-delay: 0s;
+}
+.main-image img:nth-child(2) {
+    animation-delay: 3s;
+}
+.main-image img:nth-child(3) {
+    animation-delay: 6s;
+}
+@keyframes fade {
+    0% { opacity: 0; }
+    10% { opacity: 1; }
+    30% { opacity: 1; }
+    40% { opacity: 0; }
+    100% { opacity: 0; }
+}
+
+.content-left-under {
+    display: flex;
+    gap: 10px;
+}
+
+.content-left-under img {
+    width: 320px;
+    height: 100px;
+    background-color: #ddd;
+    object-fit: cover;
+
+}
+/* 왼-프로젝트 들어갈 자리 */
+.project-story {
+    display: flex;
+    flex-direction: column; 
+    gap: 10px; 
+}
+.project-story p{
+   font-size: 20px;
+   font-weight: bolder;
+   text-align: left;
+}
+.project-story img{
+    width: 650px;
+    height: 1464px;
+    background-color: #ddd;
+    object-fit: cover;
+}
+
+.project-story button{
+    background-color: white;
+    color: #9370db;
+    border: 1px solid #9370db;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    display: block;
+    width: 100%;
+    height: 60px;
+    text-align: center;
+    font-size: 17px;   
+}
+.project-story button:hover{
+   background-color: #e9dbff;
+   
+}
+/* 왼-같이보면 좋은 프로젝트 */
+.image-group{
+   display: flex;
+    align-items: center;
+    gap: 10px; 
+}
+.image-group img{
+    width: 235px;
+    height: 95px;
+    background-color: #ddd;
+    object-fit: cover;
+
+}
+
+/* 여기부터 오른쪽  */
+.reward-list img {
+    width: 100%;
+    object-fit: cover;
+}
+
+.image-group, .reward-list {
+    display: flex;
+    gap: 10px;
+}
+
+.reward-list img {
+    width: 455px;
+    height: 185px;
+    background-color: #ddd;
+    object-fit: cover;
+
+}
+
+.purchase-section, .reward-selection, .project-info {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.purchase-content{
+   font-size: 14px;
+}
+
+.btn {
+    background-color: #9370db;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+    font-size: 17px;
+}
+
+.btn:hover {
+    background-color: #b08ae6;
+}
+
+.btn-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.btn-small {
+    flex: 1;
+    background-color: #9370db;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+    width: 60px;
+    height: 60px;
+    font-size: 13px;
+}
+.btn-small:hover {
+    background-color: #b08ae6;
+}
+
+.purchase-btn{
+    background-color: #9370db;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    display: block;
+    width: 70%;
+    height: 60px;
+    text-align: center;
+    font-size: 17px;   
+
+}
+.purchase-btn:hover {
+    background-color: #b08ae6;
+}
+
+.btn-midium{
+    flex: 0;
+    background-color: #9370db;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 6px;
+    text-align: center;
+    padding: 1em 1em 1em 1em; 
+    white-space: nowrap; /* 내용 줄바꿈 방지 */
+    flex-shrink: 0; /* 내용이 줄어들지 않도록 설정 */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(590%, 16%);
+}
+.btn-midium:hover {
+    background-color: #b08ae6;
+}
+
+/* 리워드 선택부분 */
+.reward-selection .btn {
+    margin-top: 20px;
+}
+
+.reward-list .reward{
+	background-color:#f2e5ff;
+	border-radius: 10px;
+	padding-left: 18px;
+}
+
+.project-info h4{
+   margin-top: 0px;
+}
+.company-info {
+    display: flex;
+    align-items: center; /* 세로 정렬 */
+    gap: 10px; /* 버튼과 다른 요소 사이 간격 */
+}
+
+.company-info #follow{
+	margin-left: 2px;
+	font-size: 14px;
+	position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(69%, 221%);
+	
+}
+
+.reward-selection h3{
+   margin-top: 0px;
+}
+
+
+.reward-list{
+   display: flex;
+   flex-direction: column;
+}
+
+.post {
+    background-color: #fff;
+    margin-bottom: 20px;
+    padding: 12px;
+    border: 1px solid #ccc;
+}
+
+.post h4 {
+
+    margin: 0 0 10px;
+
+}
+
+.post p {
+    margin: 5px 0;
+    color: #555;
+}
+
+.image-group p{
+   margin: 1px;
+}
+
+.discount {
+    color: purple;
+    font-weight: bold;
+    font-size: 1.0em;
+}
+
+.rating {
+    color: #555;
+    font-size: 0.7em;
+}
+
+.name{
+   font-size: 0.8em;
+}
+/* 여기서 부턴 모달창 관련 css */
+.support_modal {
+	margin-top: 10px;
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.support_content {
+    background-color: #fff;
+    margin: 10% 38%; 
+    padding: 9px;
+    border: 1px solid #888;
+    width: 580px; 
+    height: 340px; 
+    overflow-y: auto;
+    text-align: center;
+}
+.top {
+    display: flex;
+    justify-content: space-between; /* 제목과 버튼을 양쪽 끝으로 정렬 */
+    align-items: center; /* 수직 정렬 */
+    margin-top: 16px;
+    margin-bottom: 12px;
+}
+
+.subject {
+    font-weight: bold;
+    font-size: 25px;
+    text-align: center;
+    margin-left: 21px;
+}
+
+.x {
+    border: none;
+    background-color: white;
+    font-size: 30px;
+    cursor: pointer; /* 버튼 클릭 가능하도록 설정 */
+    margin-bottom: 6px;
+    margin-right: 17px;
+}
+
+/* 안내 문구 스타일 */
+.top b:last-child {
+    font-size: 16px; /* 기본 크기로 유지 */
+    font-weight: normal;
+    display: block; /* 줄바꿈 적용 */
+    margin-top: 5px; /* 제목과 간격 조정 */
+}
+
+
+.support_content > .keyword-info {
+    font-size: 14px;      /* 글자 크기 */
+    color: #555;         /* 글자 색상 */
+    margin-bottom: 10px; /* 아래쪽 여백 */
+    display: block;      /* 블록 요소로 변경 */
+}
+.support_content p{
+	text-align: left;
+	padding-left: 20px;
+}
+.btn-support-list{
+	margin-top: 25px;
+	margin-bottom: 25px;
+}
+.btn-support-list button{
+	border: 1px solid black;
+	background-color: white;
+	font-size: 17px;
+	border-radius: 5px;
+	padding: 7px 14px; /* 내부 여백 추가 (가독성 향상) */
+	margin-left: 2px;
+	margin-right: 2px;
+    cursor: pointer; /* 버튼 클릭 가능하도록 설정 */
+    transition: border 0.2s ease-in-out;
+}
+.btn-support-list button:hover{
+	background-color: #e2c8ff;
+	border: none;
+}
+.btn-support-list button.selected {
+    border: 1px solid #bb7dff;
+  	color: #bb7dff;
+}
+/* .support_content div { */
+/* 	text-align: center; */
+/* 	margin-bottom: 10px; */
+/* } */
+
+.support_content #supportContent{
+	margin-bottom: 5px;
+	width: 90%;
+	height: 30px;
+	font-size: 17px;
+	padding: 9px;
+	padding-left: 12px;
+}
+.support_content .support-submit{
+	margin-top: 12px;
+	margin-bottom: 12px;
+	width: 95%;
+	height: 50px;
+	font-size: 17px;
+}
+.support-submit{
+	background-color: #9370db;
+    color: white;
+    border: none;
+    padding: 13px 15px 13px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+	
+}
+
+
+/* 🔹 트렌드 아이템 리스트 (2개씩 3열 정렬) */
+.trend-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* ✅ 2개씩 정렬 */
+    gap: 10px;
+}
+
+/* 🔹 마지막 프로젝트 4개 -  */
+.trend-item {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out;
+    padding: 1px;
+}
+
+.trend-item img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.trend-item:hover {
+    transform: scale(1.05);
+}
+
+/* 🔹 트렌드 성공률 표시 */
+.trend-success {
+    font-size: 14px;
+    font-weight: bold;
+    color: mediumpurple;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.trend-item span {
+    font-size: 12px;
+    color: black;
+    margin-top: 0px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;  /* 최대 2줄까지만 보이게 설정 */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis; /* 넘치면 ... 처리 */
+    white-space: normal; /* 여러 줄 허용 */
+    word-break: break-word; /* 단어가 길 경우 줄바꿈 */
+    line-height: 1.4em; /* 줄 높이 설정 */
+    max-height: 2.8em; /* 2줄 높이까지만 유지 */
+}

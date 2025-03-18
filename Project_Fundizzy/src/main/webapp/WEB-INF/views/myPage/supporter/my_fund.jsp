@@ -166,13 +166,6 @@
 		    margin-top: 10px;
 		}
 		
-		input, textarea {
-		    width: 90%;
-		    padding: 8px;
-		    margin-top: 5px;
-		    border: 1px solid #ccc;
-		    border-radius: 5px;
-		}
 		
 		/* input-group: 단위(원, 개)를 오른쪽에 표시 */
 		.input-group {

@@ -45,19 +45,19 @@
 		    <button class="next">&gt;</button>
 		</div>
 	    <nav class="category-nav">
-		    <button><img alt="" src="resources/images/list/all.png">전체</button>
-		    <button><img alt="" src="resources/images/list/electronic.png">테크·가전</button>
-		    <button><img alt="" src="resources/images/list/fashion.png">패션</button>
-		    <button><img alt="" src="resources/images/list/beauty.png">뷰티</button>
-		    <button><img alt="" src="resources/images/list/home.png">홈·리빙</button>
-		    <button><img alt="" src="resources/images/list/sports.png">스포츠</button>
-		    <button><img alt="" src="resources/images/list/food.png">푸드</button>
-		    <button><img alt="" src="resources/images/list/book.png">도서</button>
-		    <button name="e-book"><img alt="" src="resources/images/list/ebook.png">전자책·클래스</button>
-		    <button><img alt="" src="resources/images/list/pet.png">반려동물</button>
-		    <button><img alt="" src="resources/images/list/art.png">아트</button>
-		    <button><img alt="" src="resources/images/list/character.png">캐릭터·굿즈</button>
-		    <button><img alt="" src="resources/images/list/movie.png">영화·음악</button>
+		    <button onclick="location.href='/FundList'"><img alt="" src="resources/images/list/all.png">전체</button>
+		    <button onclick="location.href='/FundList'"><img alt="" src="resources/images/list/electronic.png">테크·가전</button>
+		    <button onclick="location.href='/FundList'"><img alt="" src="resources/images/list/fashion.png">패션</button>
+		    <button onclick="location.href='/FundList'"><img alt="" src="resources/images/list/beauty.png">뷰티</button>
+		    <button onclick="location.href='/FundList'"><img alt="" src="resources/images/list/home.png">홈·리빙</button>
+		    <button onclick="location.href='/FundList'"><img alt="" src="resources/images/list/sports.png">스포츠</button>
+		    <button onclick="location.href='/FundList'"><img alt="" src="resources/images/list/food.png">푸드</button>
+		    <button onclick="location.href='/FundList'"><img alt="" src="resources/images/list/book.png">도서</button>
+		    <button onclick="location.href='/FundList'"name="e-book"><img alt="" src="resources/images/list/ebook.png">전자책·클래스</button>
+		    <button onclick="location.href='/FundList'"><img alt="" src="resources/images/list/pet.png">반려동물</button>
+		    <button onclick="location.href='/FundList'"><img alt="" src="resources/images/list/art.png">아트</button>
+		    <button onclick="location.href='/FundList'"><img alt="" src="resources/images/list/character.png">캐릭터·굿즈</button>
+		    <button onclick="location.href='/FundList'"><img alt="" src="resources/images/list/movie.png">영화·음악</button>
 	    </nav>
 		<hr>
 	    <div class="filter-nav">

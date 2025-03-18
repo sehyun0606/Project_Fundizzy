@@ -52,11 +52,76 @@ $(document).ready(function () {
             return false; // 결제 진행 중단
         }
 
+	    // 체크해야 하는 모든 필수 체크박스
+	    let allChecked = $("#agree1").is(":checked") && $("#agree2").is(":checked") && $("#agree3").is(":checked");
+	
+	    // 하나라도 체크되지 않으면 알람 출력 후 폼 제출 방지
+	    if (!allChecked) {
+	        alert("모든 필수 항목에 동의해야 결제 진행이 가능합니다.");
+	        event.preventDefault(); // 기본 폼 제출 방지
+	        return false; // 추가 실행 방지
+	    }
         // 결제 가능하면 폼 제출
         $("#complete-form").submit();
     });
 
-});
+// ------------------------------- 충전 모달창 관련 js ----------------------------
+
+    // 충전 버튼 클릭 시 페이지 이동 전에 데이터 저장
+    $("#charge-btn-modal").on("click", function () {
+	   	$(".charge_modal").css("display", "block");
+	});
+		
+	$(".x").click(function(){
+		$(".charge_modal").css("display", "none");
+	});
+	
+		// +5만 버튼 클릭 시 50000원 자동 입력 
+	$("#50000").on("click", function(){
+		$("#fundizy-pay").val(50000);
+	});
+	
+	// +10만 버튼 클릭 시 50000원 자동 입력 
+	$("#100000").on("click", function(){
+		$("#fundizy-pay").val(100000);
+	});
+	
+	// +30만 버튼 클릭 시 50000원 자동 입력 
+	$("#300000").on("click", function(){
+		$("#fundizy-pay").val(300000);
+	});
+	
+	$("#charge-submit-modal").click(function (event) {
+            event.preventDefault(); // 기본 제출 막기
+
+            let amount = $("#fundizy-pay").val().trim(); // 입력된 금액 가져오기
+
+            if (!amount || isNaN(amount) || Number(amount) <= 0) {
+                alert("올바른 충전 금액을 입력해주세요.");
+                return;
+            }
+
+            // AJAX로 서버에 충전 요청
+            $.ajax({
+                type: "POST",
+                url: "PayCharge",
+                data: { tran_amt: amount },
+                success: function (response) {
+                    alert("충전되었습니다!");
+                    $("#fundizy-pay").val(""); // 입력창 초기화
+					$(".charge_modal").css("display", "none");
+					location.reload();
+					
+                },
+                error: function () {
+                    alert("충전에 실패했습니다. 다시 시도해주세요.");
+                }
+            });
+        });
+	//체크박스 미 체크 시 다음 결제창으로 못 넘어가도록 
+	
+
+}); //전체 함수 종료
 
 
 //주소입력 api

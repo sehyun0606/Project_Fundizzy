@@ -9,8 +9,10 @@
 		SELECT *
 		FROM project_story ps
 		JOIN project_list pl ON ps.project_code = pl.project_code
+		JOIN project_date pd ON ps.project_code = pd.project_code
 		WHERE approved_date IS NOT NULL
 		AND date_config = "Y"
+		AND NOW() BETWEEN project_start_date AND project_end_date 
 	</select>
 	
 <!--   프로젝트 보드 출력 -->

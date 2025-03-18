@@ -6,7 +6,13 @@
 	<select id="selectProjectListCount" resultType="int">
 		SELECT COUNT(*)
 		FROM project_list
+		WHERE approve_stat = "request"
+	</select>
+	<select id="selectALLProjectListCount" resultType="int">
+		SELECT COUNT(*)
+		FROM project_list
 		WHERE approve_stat = "accept"
+		AND date_config = 'Y'
 	</select>
 	
 	<select id="selectProjectList" resultType="ProjectList">
@@ -34,6 +40,10 @@
 			project_date
 		ON
 			project_list.project_code = project_date.project_code
+		WHERE
+			project_list.approve_stat = 'accept'
+		AND 
+			date_config = 'Y'
  		ORDER BY
  			project_list.project_date DESC
  		LIMIT

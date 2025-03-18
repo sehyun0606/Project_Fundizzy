@@ -5,7 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>펀딩새소식-글</title>
-<link rel="stylesheet" type="text/css" href="resources/css/merch/funding/fund_board_new_board.css">
+<link rel="stylesheet" type="text/css" href="resources/css/merch/open/fund_board_new_board.css">
+<link rel="stylesheet" type="text/css" href="resources/css/merch/open/open_default.css">
 </head>
 <body>
 	<header>
@@ -16,9 +17,6 @@
 	        <a href="OpenBoardStory" class="story">스토리</a>
 	        <a href="OpenBoardNew" class="new">새소식</a>
 	        <a href="OpenBoardSupport" class="support">지지서명</a>
-	       	<a href="OpenBoardSupporter" class="supporter">서포터</a>
-	        <a href="OpenBoardRefund" class="refund">환불·정책</a>
-	        <a href="OpenBoardReward" class="reward">리워드정보</a>
 	 	</div>
 	    <hr>
     <div class="container">

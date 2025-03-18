@@ -9,7 +9,7 @@ body {
 /* 설정 페이지 컨테이너 */
 .pay-container {
     width: 410px;
-    height: 600px;
+    height: 200px;
     background-color: #ffffff;
     position: absolute;
     top: 50%;
@@ -17,20 +17,23 @@ body {
     transform: translate(-50%, -50%);
     border-radius: 8px;
 }
-.pay-container p{
-	font-size: 21px;
+#title{
+	font-size: 20px;
 	text-align: center;
 	z-index: 1;
+	position: absolute;
+    top: -98%;
+    left: 8%;
 }
 
 .pay-info{
 	width: 370px;
-    height: 500px;
+    height: 250px;
     background-color: #e6cfffc4;
     position: absolute;
     top: 45%;
     left: 50%;
-    transform: translate(-50%, -40%);
+    transform: translate(-50%, -100%);
     border-radius: 8px;
 }
 #fundizy-pay{
@@ -39,7 +42,6 @@ body {
     left: 4%;
     width: 340px;
     height: 40px;
-    
 }
 .btn-list{
 	display: flex;
@@ -53,16 +55,13 @@ body {
 	margin-left:10px;
 	width:30%;
 	height: 10%;
-
 }
-
-
 
 #charge-submit{
 	position: absolute;
 	width: 320px;
 	height: 37px; 
-	top: 90%;
+	top: 80%;
     left: 6%;
 }
 

@@ -1,0 +1,466 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+}
+/* top바 */
+.fund-top {
+    display: flex;
+    justify-content: center; /* 가로 중앙 정렬 */
+    align-items: center; /* 세로 중앙 정렬 */
+    gap: 15px; /* 버튼 간 간격 */
+    height: 30px; 
+    margin-top: 10px;
+}
+
+.fund-top a{
+    font-size: 16px;
+    color: black;
+    text-decoration: none;
+}
+
+.fund-top button:hover{
+   font-weight: bolder;
+}
+.support{
+   font-weight: bolder;
+}
+
+/* 내용부분 */
+.container {
+    display: flex;
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    gap: 20px;
+}
+
+.content-left, .content-right {
+    flex: 2;
+}
+
+.content-left-under1, .content-left-under2{
+   display: flex;
+}
+
+/* 내용 중 왼쪽부분 */
+.content-left {
+    display: flex;
+    flex-direction: column;
+}
+.content-left h3{
+	margin: 0px;
+}
+.tag-style{
+	background-color: #ffc0f79e;
+}
+/* 댓글 영역 */
+.reply-show{
+	border-color: none;
+	background-color: none;
+	font-size: 14px;
+	padding-top: 7px;
+	padding-bottom: 7px;
+	padding-left: 8px;
+	padding-right: 8px;
+	margin-bottom: 12px;
+}
+.reply-write{
+	display: none;
+}
+
+.reply-write.show {
+  display: flex;
+
+}
+
+.reply-container {
+    display: flex;  /* 한 줄 배치 */
+    align-items: center;  /* 수직 가운데 정렬 */
+    gap: 10px;  /* 요소 간 간격 조정 */
+}
+.reply-write textarea{
+  width: 600px;  /* 너비 고정 */
+  height: 30px; /* 높이 고정 */
+  resize: none;  /* 크기 조절 비활성화 */
+}
+
+#reply-submit-btn{
+	width: 63px;
+	height: 40px;
+	padding: 5px 10px;
+}
+.reply-list{
+	display: none;
+}
+
+.reply-list table{
+	border: none;
+}
+
+#replyArea {
+	width: 500px;
+	height: 100%;
+	margin: auto;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+
+
+
+
+
+
+/* ---- 댓글 목록 표시 영역 ---- */
+#replyListArea {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	font-size: 12px;
+}
+
+
+.replyContent {
+	width: 300px;
+	text-align: left;
+}
+
+.replyContent img {
+	width: 10px;
+	height: 10px;
+}
+
+.replyWriter {
+	width: 80px;
+}
+
+.replyRegDate {
+	width: 120px;
+}
+
+.replyDelete {
+    width: 20px; 
+    height: 20px;
+    padding: 0; 
+    border: none; 
+    background: none; 
+    cursor: pointer; 
+}
+
+.deleteImg {
+    width: 20px; 
+    height: 20px; 
+    object-fit: cover; 
+}
+
+/* 삭제된 댓글 글자색 변경 */
+.deleted {
+	color: gray;
+}
+
+
+
+/* 여기부터 오른쪽  */
+.reward-list img {
+    width: 100%;
+    object-fit: cover;
+}
+
+.image-group, .reward-list {
+    display: flex;
+    gap: 10px;
+}
+
+.reward-list img {
+    width: 455px;
+    height: 185px;
+    background-color: #ddd;
+    object-fit: cover;
+
+}
+
+.purchase-section, .reward-selection, .project-info {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.purchase-content{
+   font-size: 14px;
+}
+
+.btn {
+    background-color: #9370db;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+    font-size: 17px;
+}
+
+.btn:hover {
+    background-color: #b08ae6;
+}
+
+.btn-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.btn-small {
+    flex: 1;
+    background-color: #9370db;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+    width: 60px;
+    height: 60px;
+    font-size: 13px;
+}
+.btn-small:hover {
+    background-color: #b08ae6;
+}
+
+.purchase-btn{
+    background-color: #9370db;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    display: block;
+    width: 70%;
+    height: 60px;
+    text-align: center;
+    font-size: 17px;   
+
+}
+.purchase-btn:hover {
+    background-color: #b08ae6;
+}
+
+.btn-midium{
+    flex: 1;
+    background-color: #9370db;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+    float: right;
+   width: auto;
+    padding: 0.5em 0em 0.5em 0em; 
+    white-space: nowrap; /* 내용 줄바꿈 방지 */
+    flex-shrink: 0; /* 내용이 줄어들지 않도록 설정 */
+}
+.btn-midium:hover {
+    background-color: #b08ae6;
+}
+
+.reward-selection .btn {
+    margin-top: 20px;
+}
+
+.project-info h4{
+   margin-top: 0px;
+}
+.company-info {
+    display: flex;
+    align-items: center; /* 세로 정렬 */
+    gap: 10px; /* 버튼과 다른 요소 사이 간격 */
+}
+.reward-selection h3{
+   margin-top: 0px;
+}
+
+
+.reward-list{
+   display: flex;
+   flex-direction: column;
+}
+
+.support-post {
+    background-color: #fff;
+    margin-bottom: 10px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    width: 650px;
+}
+
+.support-post h4 {
+
+    margin: 0 0 10px;
+
+}
+
+.support-post p {
+
+    margin: 5px 0;
+
+    color: #555;
+
+}
+
+.image-group p{
+
+   margin: 1px;
+
+}
+
+.discount {
+
+    color: purple;
+
+    font-weight: bold;
+
+    font-size: 1.0em;
+
+}
+
+.rating {
+
+    color: #555;
+
+    font-size: 0.7em;
+
+}
+
+.name{
+
+   font-size: 0.8em;
+
+}
+
+/* 여기서 부턴 모달창 관련 css */
+.support_modal {
+	margin-top: 10px;
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.support_content {
+    background-color: #fff;
+    margin: 10% 38%; 
+    padding: 9px;
+    border: 1px solid #888;
+    width: 580px; 
+    height: 340px; 
+    overflow-y: auto;
+    text-align: center;
+}
+.top {
+    display: flex;
+    justify-content: space-between; /* 제목과 버튼을 양쪽 끝으로 정렬 */
+    align-items: center; /* 수직 정렬 */
+    margin-top: 16px;
+    margin-bottom: 12px;
+}
+
+.subject {
+    font-weight: bold;
+    font-size: 25px;
+    text-align: center;
+    margin-left: 21px;
+}
+
+.x {
+    border: none;
+    background-color: white;
+    font-size: 30px;
+    cursor: pointer; /* 버튼 클릭 가능하도록 설정 */
+    margin-bottom: 6px;
+    margin-right: 17px;
+}
+
+/* 안내 문구 스타일 */
+.top b:last-child {
+    font-size: 16px; /* 기본 크기로 유지 */
+    font-weight: normal;
+    display: block; /* 줄바꿈 적용 */
+    margin-top: 5px; /* 제목과 간격 조정 */
+}
+.reward-list .reward{
+	background-color:#f2e5ff;
+	border-radius: 10px;
+	padding-left: 18px;
+}
+
+.support_content > .keyword-info {
+    font-size: 14px;      /* 글자 크기 */
+    color: #555;         /* 글자 색상 */
+    margin-bottom: 10px; /* 아래쪽 여백 */
+    display: block;      /* 블록 요소로 변경 */
+}
+.support_content p{
+	text-align: left;
+	padding-left: 20px;
+}
+.btn-support-list{
+	margin-top: 25px;
+	margin-bottom: 25px;
+}
+.btn-support-list button{
+	border: 1px solid black;
+	background-color: white;
+	font-size: 17px;
+	border-radius: 5px;
+	padding: 7px 14px; /* 내부 여백 추가 (가독성 향상) */
+	margin-left: 2px;
+	margin-right: 2px;
+    cursor: pointer; /* 버튼 클릭 가능하도록 설정 */
+    transition: border 0.2s ease-in-out;
+}
+.btn-support-list button:hover{
+	background-color: #e2c8ff;
+	border: none;
+}
+.btn-support-list button.selected {
+    border: 1px solid #bb7dff;
+  	color: #bb7dff;
+}
+
+.support_content #supportContent{
+	margin-bottom: 5px;
+	width: 90%;
+	height: 30px;
+	font-size: 17px;
+	padding: 9px;
+	padding-left: 12px;
+}
+.support_content .support-submit{
+	margin-top: 12px;
+	margin-bottom: 12px;
+	width: 95%;
+	height: 50px;
+	font-size: 17px;
+}
+.support-submit{
+	background-color: #9370db;
+    color: white;
+    border: none;
+    padding: 13px 15px 13px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+	
+}

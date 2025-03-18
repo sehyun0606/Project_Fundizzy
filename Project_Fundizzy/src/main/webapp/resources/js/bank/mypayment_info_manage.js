@@ -13,7 +13,7 @@ $(function(){
 	
 	//계좌 연결
 	$("#auth-button").on("click", function(){
-		alert("버튼 클릭됨");
+		console.log("버튼 클릭됨");
 		// 빈 새창을 열고 이름은 authwindow로 주고 width=500 height=700을 준다
 		let authWindow = window.open("about:blank", "authWindow", "width=500,height=700");
 		// authwindow의 주소값 전달 (// 요청주소에서 testapi로 수정해야함)

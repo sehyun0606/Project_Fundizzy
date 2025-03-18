@@ -1,0 +1,41 @@
+@charset "UTF-8";
+
+.purchase-section, .reward-selection, .project-info {
+    width: 500px;
+}
+
+.purchase-btn {
+	width: 80%;
+	height: 50px;
+}
+
+.purchase-btn.clicked {
+	background-color: #fff;
+	color: #495057;
+	border: 1px solid #cdd3d8;
+	width: 80%;
+	height: 50px;
+}
+
+
+.btn-group {
+	gap: 15px;
+}
+
+.btn-small {
+    background-color: #fff;
+	border: 1px solid #cdd3d8;
+	height: 50px;
+}
+
+.btn-small:hover, .purchase-btn.clicked:hover {
+	border-color: #adb5bd;
+    background-color: #f2f4f6;
+    color: #343a40;
+}
+
+
+
+
+
+

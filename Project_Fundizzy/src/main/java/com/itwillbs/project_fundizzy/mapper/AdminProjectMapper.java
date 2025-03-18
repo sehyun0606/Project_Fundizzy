@@ -13,6 +13,8 @@ import com.itwillbs.project_fundizzy.vo.RewardVO;
 public interface AdminProjectMapper {
 
 	int selectProjectListCount();
+	
+	int selectALLProjectListCount();
 
 	List<ProjectListVO> selectProjectList(@Param("startRow") int startRow, 
 										  @Param("listLimit") int listLimit);

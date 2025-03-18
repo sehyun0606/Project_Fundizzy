@@ -389,7 +389,12 @@ public class MyPageController {
 	
 	//페이 입금 페이지 (아이티윌 -> 정유나) - 비지니스 로직 
 	@GetMapping("PayTransfer")
-	public String payTransfer() {
+	public String payTransfer(HttpSession session, Model model) {
+		String email = (String) session.getAttribute("sId");
+		//페이 잔액 출력을 위한 잔액 정보 가져오기 
+		FundizzyPay fundizzy_pay_info = bankService.getFundizzyPayInfo(email);
+		System.out.println("@@fundizzy_pay_info = " + fundizzy_pay_info);
+		model.addAttribute("fundizzy_pay_info", fundizzy_pay_info);
 		return "myPage/supporter/pay_transfer";
 	}
 	

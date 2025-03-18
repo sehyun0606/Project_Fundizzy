@@ -21,6 +21,10 @@ public class AdminProjectService {
 	public int getprojectListCount() {
 		return projectMapper.selectProjectListCount();
 	}
+	
+	public int getAllProjectListCount() {
+		return projectMapper.selectALLProjectListCount();
+	}
 
 	public List<ProjectListVO> getProjectList(int startRow, int listLimit) {
 		return projectMapper.selectProjectList(startRow,listLimit);

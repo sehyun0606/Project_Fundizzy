@@ -155,6 +155,10 @@ public class ProjectStateService {
 		return stateMapper.updateFinalSettlement(map);
 	}
 
+	public String getProjectDate(String project_code) {
+		return stateMapper.selectProjectDate(project_code);
+	}
+
 	
 
 	

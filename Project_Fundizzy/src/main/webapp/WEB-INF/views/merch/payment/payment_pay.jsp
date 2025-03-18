@@ -38,24 +38,9 @@
 			</div>
 			
 			<form action="PaymentComplete" id="complete-form" method="post">
-<!-- 			순서대로 프로젝트코드, 리워드코드 ,리워드명, 리워드설명 ,수량  -->
 				<input type="hidden" id="project_code"  name="project_code" value="${param.project_code}"> 
 				<input type="hidden" id="delivery_fee" name="delivery_fee" value="${project_info.delivery_fee}">
-<%-- 				<input type="hidden" id="product_name"  name="product_name" value="${selectedReward.product_name}">  --%>
-<%-- 				<input type="hidden" id="product_desc"  name="product_desc" value="${selectedReward.product_desc}">  --%>
-<!-- 				전체 수량 -->
-<%-- 				<input type="hidden" id="total_count" name="total_count" value="${total_count}">  --%>
-<!-- 				리워드 별 수량 -->
-<%-- 				<input type="hidden" id="rewardList" value="${rewardList}" name="rewardList"> --%>
-<!-- 				리워드 스트링  -->
-<%-- 				<input type="hidden" id="reward_string" name="reward_string" value="${reward_string}"> --%>
-<%-- 				<input type="hidden" id="reward_price" value="${selectedReward.price}"> --%>
 				<input type="hidden" id="payment_price" name="payment_price" value="${total_price + selectedReward.delivery_fee}">
-<%-- 				<input type="hidden" id="db_post_code" value="${member.post_code}"><br> --%>
-<%-- 				<input type="hidden" id="db_address1" value="${member.address1}"><br> --%>
-<%-- 				<input type="hidden" id="db_address2" value="${member.address2}"> --%>
-<%-- 				<input type="hidden" id="db_phone" value="${member.phone}"> --%>
-				
 				
 		       <div class="section-product">
 	       			<c:forEach var="rewardList" items="${rewardList}" varStatus="status">
@@ -80,55 +65,21 @@
 			            <p>이메일 ${member.email}</p> 
 			        </div>
 			        <div class="section-shipment">
-			        	<c:choose>
-			        		<c:when test="${empty member.post_code}">
-					            <div id="div_new_address">
-						            <input type="radio" value="새로운 입력" name="addressRadio" id="new_address" checked="checked">
-						            <label for="new_address">새로입력</label>
-						            <div class="new_address_box">
-						            	<span id="ship-new-name">이름</span><input type="text" name="name" class="addressInfo" id="ship-newName" required="required"><br>
-						            	<span id="ship-new-phone">휴대폰</span><input type="text" name="phone_num" value="${member.phone}" id="ship-newPhone" class="addressInfo" required="required"><br> 
-						            	<span id="address_add">주소
-						            		<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-						            	</span>
-						            	<input type="text" class="addressInfo" id="sample6_postcode" placeholder="우편번호" name="post_code" value="${member.post_code}" required="required"><br>
-										<input type="text" class="addressInfo" id="sample6_address" placeholder="주소" name="address1" value="${member.address1}" required="required"><br>
-										<input type="text" class="addressInfo" id="sample6_detailAddress" placeholder="상세주소"  name="address2" value="${member.address2}" required="required">
-										<input type="text" class="addressInfo" id="sample6_extraAddress" placeholder="참고항목" name="extra_address" value=""> 
-						            </div>
-					             </div>
-			        		</c:when>
-			        		<c:otherwise>
-					            <h4>리워드 배송지</h4>
-					            <span class="notice">* 회원정보를 기반으로 생성한 배송지 입니다.</span><br>
-					            <div id="div_address">
-					            	<input type="radio" name="addressRadio" id="address" value="최근 배송지" checked="checked">
-					            	<label for="address">
-						            	<input type="text" id="ship-name" placeholder="배송 받으실 분 이름을 입력해주세요." maxlength="10" required="required"><br>
-				            	        <span id="ship-phone">${member.phone}</span><br>
-								        <span id="ship-postcode">(${member.post_code})</span> 
-								        <span id="ship-address1">${member.address1}</span> 
-								        <span id="ship-address2">${member.address2}</span>
-					             	</label>
-				             	</div>
-       				            <div id="div_new_address">
-						            <input type="radio" value="새로운 입력" name="addressRadio" id="new_address">
-						            <label for="new_address">새로입력</label>
-						            <div class="new_address_box">
-						            	<span id="ship-new-name">이름</span><input type="text" name="name" class="addressInfo" id="ship-newName" required="required"><br>
-						            	<span id="ship-new-phone">휴대폰</span><input type="text" name="phone_num" value="${member.phone}" id="ship-newPhone" class="addressInfo" required="required"><br> 
-						            	<span id="address_add">주소
-						            		<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-						            	</span>
-						            	<input type="text" class="addressInfo" id="sample6_postcode" placeholder="우편번호" name="post_code" value="${member.post_code}" required="required"><br>
-										<input type="text" class="addressInfo" id="sample6_address" placeholder="주소" name="address1" value="${member.address1}" required="required"><br>
-										<input type="text" class="addressInfo" id="sample6_detailAddress" placeholder="상세주소"  name="address2" value="${member.address2}" required="required">
-										<input type="text" class="addressInfo" id="sample6_extraAddress" placeholder="참고항목" name="extra_address" value=""> 
-						            </div>
-					             </div>
-			             	</c:otherwise>
-		             	</c:choose>
-
+		            	<div id="div_new_address">
+								<!-- 			            <input type="radio" value="새로운 입력" name="addressRadio" id="new_address"> -->
+			            <h4>배송지 입력</h4>	
+			            <div class="new_address_box">
+			            	<span id="ship-new-name">이름</span><input type="text" name="name" class="addressInfo" id="ship-newName" required="required"><br>
+			            	<span id="ship-new-phone">휴대폰</span><input type="text" name="phone_num" value="${member.phone}" id="ship-newPhone" class="addressInfo" required="required"><br> 
+			            	<span id="address_add">주소
+			            		<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+			            	</span>
+			            	<input type="text" class="addressInfo" id="sample6_postcode" placeholder="우편번호" name="post_code" value="${member.post_code}" required="required"><br>
+							<input type="text" class="addressInfo" id="sample6_address" placeholder="주소" name="address1" value="${member.address1}" required="required"><br>
+							<input type="text" class="addressInfo" id="sample6_detailAddress" placeholder="상세주소"  name="address2" value="${member.address2}" required="required">
+							<input type="text" class="addressInfo" id="sample6_extraAddress" placeholder="참고항목" name="extra_address" value=""> 
+			            </div>
+		             </div>
 			            <input type="text" id="shipment-box" name="delivery_req" placeholder="배송 시 요청사항(선택)">
 			        </div>
 		        </div>
@@ -139,7 +90,7 @@
 		          <div class="upload-box">
 				     <p class="fundizzy-pay">Fundizzy Pay</p>
 				     <span id="pay_amt"><fmt:formatNumber pattern="#,###원" value="${fundizzy_pay.pay_balance}"></fmt:formatNumber></span>
-				     <input type="button" id="charge-btn" value="충전" onclick="location.href='PayCharge'"> 
+				     <input type="button" id="charge-btn-modal" value="충전"> 
 				 </div>
 		        </div>
 		      	<div class="payment-notice">
@@ -162,6 +113,28 @@
 			</form>
 	    </div>
 	</article>
+	<!-- 	충전 모달창  -->
+	<div class="charge_modal" id="Deposit_and_withdrawal">
+	    <div class="charge_modal">
+	        <div class="top">
+	            <button type="button" class="x">x</button><br>
+	        </div>
+			<div class="pay-container">
+			    <p>${sessionScope.sId} 님의 페이 충전</p>
+			    <form id="payChargeForm">
+			        <div class="pay-info">
+			            <input type="search" id="fundizy-pay" name="tran_amt" placeholder="충전할 금액 입력">
+			            <div class="btn-list">
+			                <input type="button" id="50000" value="+5만" onclick="addAmount(50000)">
+			                <input type="button" id="100000" value="+10만" onclick="addAmount(100000)">
+			                <input type="button" id="300000" value="+30만" onclick="addAmount(300000)">
+			            </div>
+			            <input type="button" value="충전하기" id="charge-submit-modal">
+			        </div>
+			    </form>
+			</div>
+		</div>
+	</div>
 	<footer>
 		<jsp:include page="/WEB-INF/views/inc/footer.jsp" />
 	</footer>

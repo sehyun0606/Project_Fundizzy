@@ -1,0 +1,56 @@
+/* 전체 스타일 */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+    height: 100vh;
+}
+
+/* 설정 페이지 컨테이너 */
+.pay-container {
+    width: 410px;
+    height: 653px;
+    position: absolute;
+    top: 47%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 8px;
+}
+
+.pay-info{
+	width: 370px;
+    height: 190px;
+    background-color: #e6cfffc4;
+    position: absolute;
+    top: 29%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 8px;
+}
+
+#span1{
+    display: block;
+    font-size: 18px;
+    font-weight: bold;
+    margin-left: 34px;
+    margin-top: 15px;
+    color: #333;
+}
+
+ #span2 {
+    display: block;
+    font-size: 18px;
+    font-weight: bold;
+    margin-left: 34px;
+    margin-top: 8px;
+    color: #333;
+}
+
+#home {
+    width: 90%;
+    height: 30px;
+    font-size: 16px;
+	margin-left: 22px;
+	margin-top: 36px;
+}
+
