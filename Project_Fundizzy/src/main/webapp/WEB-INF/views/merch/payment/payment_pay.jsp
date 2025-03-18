@@ -139,7 +139,7 @@
 		          <div class="upload-box">
 				     <p class="fundizzy-pay">Fundizzy Pay</p>
 				     <span id="pay_amt"><fmt:formatNumber pattern="#,###원" value="${fundizzy_pay.pay_balance}"></fmt:formatNumber></span>
-				     <input type="button" id="charge-btn" value="충전" onclick="location.href='PayCharge'"> 
+				     <input type="button" id="charge-btn-modal" value="충전"> 
 				 </div>
 		        </div>
 		      	<div class="payment-notice">
@@ -162,6 +162,28 @@
 			</form>
 	    </div>
 	</article>
+	<!-- 	충전 모달창  -->
+	<div class="charge_modal" id="Deposit_and_withdrawal">
+	    <div class="charge_modal">
+	        <div class="top">
+	            <button type="button" class="x">x</button><br>
+	        </div>
+			<div class="pay-container">
+			    <p>${sessionScope.sId} 님의 페이 충전</p>
+			    <form id="payChargeForm">
+			        <div class="pay-info">
+			            <input type="search" id="fundizy-pay" name="tran_amt" placeholder="충전할 금액 입력">
+			            <div class="btn-list">
+			                <input type="button" id="50000" value="+5만" onclick="addAmount(50000)">
+			                <input type="button" id="100000" value="+10만" onclick="addAmount(100000)">
+			                <input type="button" id="300000" value="+30만" onclick="addAmount(300000)">
+			            </div>
+			            <input type="button" value="충전하기" id="charge-submit-modal">
+			        </div>
+			    </form>
+			</div>
+		</div>
+	</div>
 	<footer>
 		<jsp:include page="/WEB-INF/views/inc/footer.jsp" />
 	</footer>
