@@ -399,6 +399,7 @@
 	<update id="updateProjectListFinalSettlementStatus">
 		UPDATE project_list
 		SET settlement_status = 'SET06'
+			, approve_stat = 'end'
 		WHERE project_code = #{project_code}
 	</update>
 	
@@ -439,6 +440,15 @@
 			, news_status = 'Y'
 		WHERE news_code = #{news_code}
 	</update>
+	
+	<select id="selectProjectDate" resultType="String">
+		SELECT CASE 
+					WHEN open_end_date > NOW() THEN 0
+					WHEN NOW() BETWEEN project_start_date AND project_end_date THEN 1
+				END as projectDate
+		FROM project_date
+		WHERE project_code = #{project_code}
+	</select>
 	
 
 </mapper>

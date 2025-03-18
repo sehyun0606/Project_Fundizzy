@@ -74,16 +74,22 @@
 												<span>임시저장</span>
 											</c:when>
 											<c:otherwise>
-												<h3><a href="FundBoardNew?project_code=${news.project_code}&news_code=${news.news_code}">${news.news_title}</a></h3>
+												<c:choose>
+													<c:when test="${projectDate eq 0}">
+														<h3><a href="OpenBoardNew?project_code=${news.project_code}&news_code=${news.news_code}">${news.news_title}</a></h3>
+													</c:when>
+													<c:when test="${projectDate eq 1}">
+														<h3><a href="FundBoardNew?project_code=${news.project_code}&news_code=${news.news_code}">${news.news_title}</a></h3>
+													</c:when>
+												</c:choose>
 											</c:otherwise>
 										</c:choose>
 									</div>
-									<div>${news.news_date}</div>
+									<div class="date">${news.news_date}</div>
 								</div>
 								<div class="btn-container">
 									<c:choose>
 										<c:when test="${news.news_status eq 'S'}">
-											<input type="button" value="내용보기" class="readBtn">
 											<input type="button" value="게시" class="post2Btn">
 										</c:when>
 										<c:otherwise>

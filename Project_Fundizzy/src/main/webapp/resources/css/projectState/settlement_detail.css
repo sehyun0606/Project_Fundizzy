@@ -187,18 +187,18 @@ form .set-info:first-child {
 .btn-container {
 	display: flex;
 	justify-content: flex-end;
-	gap: 5px;
+	gap: 7px;
 	padding-top: 20px; 
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
 }
 
-.btn-container input {
+.btn-container input:last-child {
 	padding: 10px 15px;
     border-radius: 3px;
     cursor: pointer;
     font-weight: 500;
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
 }
 
 .preBtn, .finalBtn {

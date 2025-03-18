@@ -174,14 +174,14 @@ public class ProjectStateController {
 		
 		// 총 환불금액
 		List<RefundVO> refundList = stateService.getRefund(project_code);
-
 		int refundAmount;
 		
-		if(refundList != null) {
+		if(refundList == null) {
 			refundAmount = 0;
 		} else {
 			refundAmount = stateService.getRefundAmount(project_code);
 		}
+		System.out.println("refundAmount : " + refundAmount);
 		model.addAttribute("refundAmount", refundAmount);
 		
 		// 최종정산 금액(나머지 금액 - 환불금액)
@@ -601,6 +601,9 @@ public class ProjectStateController {
 //		List<NewsVO> newsList = stateService.getNewsList(project_code);
 //		List<NewsVO> newsList = stateService.getNewsList();
 //		model.addAttribute("newsList", newsList);
+		
+		String projectDate = stateService.getProjectDate(project_code);
+		model.addAttribute("projectDate", projectDate);
 		
 		int listCount = stateService.getNewsListCount(project_code);
 		
