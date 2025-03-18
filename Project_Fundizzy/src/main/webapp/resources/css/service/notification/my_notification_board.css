@@ -11,14 +11,19 @@ article {
     font-size: 27px;
     font-weight: 700;
     text-align: left;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+#title img {
+	cursor: pointer;
 }
 
 #topGroup {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
 }
 
 #topGroup input[type=checkbox] {
@@ -71,14 +76,12 @@ article {
     display: flex;
     flex-direction: column;
     gap: 5px;
-    margin-bottom: 20px;
 }
 
 .notificationHeader {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
 }
 
 .notificationTitle {

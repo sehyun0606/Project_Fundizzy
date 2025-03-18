@@ -14,8 +14,8 @@ public class NotificationService {
 	private NotificationMapper notificationMapper;
 	
 	// 회원가입시 선택한 알림정보를 알림설정테이블에 입력
-	public void registNOTSetInfo(Map<String, String> map) {
-		notificationMapper.insertNOTSetInfo(map);
+	public void registNOTSetInfo(String email) {
+		notificationMapper.insertNOTSetInfo(email);
 	}
 	
 	// 해당 회원의 알림설정정보 조회
@@ -36,6 +36,21 @@ public class NotificationService {
 	// 내 알림 리스트 조회
 	public List<Map<String, Object>> getMyNOTList(String email) {
 		return notificationMapper.selectMyNOTList(email);
+	}
+	
+	// 해당프로젝트를 찜한 멤버조회
+	public List<String> getKeepMemberEmail(String project_code) {
+		return notificationMapper.selectKeepMember(project_code);
+	}
+	
+	// 해당프로젝트를 지지서명한 멤버조회
+	public List<String> getSupportMemberEmail(String project_code) {
+		return notificationMapper.selectSupprotMember(project_code);
+	}
+	
+	// 프로젝트 정보조회
+	public Map<String, String> getProjectInfo(String project_code) {
+		return notificationMapper.selectProjectInfo(project_code);
 	}
 	
 }

@@ -33,7 +33,6 @@ public class NotificationController {
 		//디비에 저장된 회원의 알림설정 정보 조회
 		Map<String, Object> memberNOTSetInfo = notificationService.getMemberNOTSetInfo(email);
 		model.addAttribute("memberNOTSetInfo", memberNOTSetInfo);
-		
 		return "service/notification/my_notification_set";
 	}
 	

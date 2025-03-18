@@ -51,7 +51,7 @@
 					메이커
 					<span class="foldingBtn"></span>
 					<div class="titleDescription">
-						(팔로잉, 찜 및 참여한 프로젝트의 메이커)
+						(지지서명, 찜 및 참여한 프로젝트의 메이커)
 					</div>
 				</div>
 				<div class="peopleList">

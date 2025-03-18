@@ -32,8 +32,8 @@
 		<div id="menuBar">
 			<label for="file"><img src="/resources/images/chat/clip.png"></label>
 			<input type="file" id="file" accept="image/*" onchange="sendFilePreview()" multiple>
-			<img src="/resources/images/chat/transferIcon.png">
-			<input type="button" id="sendBtn" value="전송">
+<!-- 			<img src="/resources/images/chat/transferIcon.png"> -->
+			<input type="button" id="sendBtn" value="전송" onclick="sendInputMessage()">
 		</div>
 		<div id="chatInput">
 			<textarea id="messageBox" maxlength="1000" placeholder="메시지를 입력하여 주세요" onkeyup="checkEnterKey(event)"></textarea>

@@ -136,7 +136,11 @@ function appendChatRoom(room) {
 	let receiverInfo = JSON.parse(room.receiverInfo);
 	
 	// 마지막 메세지 존재 여부 판단 후 글자수 조절
-	let last_message = formatLastMessage(room.last_message);
+	let last_message = room.last_message;
+	
+	if(last_message) {
+		last_message = formatLastMessage(last_message);
+	}
 	
 	let last_accessed_time = formatLastAccessedTime(room.last_accessed_time);
 	

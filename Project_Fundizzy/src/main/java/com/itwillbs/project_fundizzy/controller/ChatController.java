@@ -98,7 +98,6 @@ public class ChatController {
 			uploadResultList.add(uploadResult);
 		}
 		
-		System.out.println(uploadResultList);
 		return new Gson().toJson(uploadResultList);
 	}
 	
