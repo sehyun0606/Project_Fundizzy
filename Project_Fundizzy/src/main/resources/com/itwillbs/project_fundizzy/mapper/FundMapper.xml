@@ -8,9 +8,9 @@
 	<select id="selectFundList" resultType="map">
 		SELECT *
 		FROM project_story ps
-		JOIN project_list pl ON ps.project_title = pl.project_title
+		JOIN project_list pl ON ps.project_code = pl.project_code
 		WHERE approved_date IS NOT NULL
-
+		AND date_config = "Y"
 	</select>
 	
 <!--   프로젝트 보드 출력 -->
@@ -42,8 +42,9 @@
 <!-- 	프로젝트 board 출력 - 리워드 테이블 가져오기  -->
 	<select id="selectReward" resultType="map">
 		SELECT *
-		FROM reward 
-		WHERE project_code = #{project_code}
+		FROM reward r
+		JOIN project_info pi ON pi.project_code = r.project_code
+		WHERE r.project_code = #{r.project_code}
 	</select>
 	
 <!-- 	프로젝트 board 출력 - 찜 테이블 가져오기  -->
@@ -194,7 +195,12 @@
   		FROM member
   		WHERE email = #{email}
   	</select>
-  
+<!--   배송비 출력을 위한 projectinfo 테이블 가져오기 -->
+	<select id="selectProjectInfo" resultType="map">
+		SELECT *
+		FROM project_info
+		WHERE project_code = #{project_code}
+	</select>
 <!--   페이로 결제한 내역 계산  -->
 	<insert id="insertPaymentPay">
 		<selectKey keyProperty="pay_balance" order="BEFORE" resultType="int">

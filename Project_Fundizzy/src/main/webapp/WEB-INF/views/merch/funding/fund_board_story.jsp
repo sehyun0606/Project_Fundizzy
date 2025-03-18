@@ -39,118 +39,106 @@
 	           <div class="project-story">
 	                <p>프로젝트 스토리</p>
 	                <img src="${projectStory.product_picture}" alt="프로젝트 스토리 이미지">
-	                <button>스토리 더보기v</button>
+<!-- 	                <button>스토리 더보기v</button> -->
 	           </div>
            	</c:forEach>
             <div class="product-list">
-                <h3>같이 보면 좋은 프로젝트</h3>
-                <div class="image-group">
-                   <div>
-                       <img src="rec1.jpg" alt="추천 프로젝트 1">
-                       <div class="product-info">
-                         <p class="discount">4,541%달성 </p>
-                         <p class="name">[4차앵콜] 티타늄 텀블러 싱글</p>
-                         <p class="rating">⭐ 4.7(148)</p>
-                     </div>
-                  </div>
-                   <div>
-                       <img src="rec1.jpg" alt="추천 프로젝트 2">
-                       <div class="product-info">
-                         <p class="discount">4,541%달성 </p>
-                         <p class="name">[4차앵콜] 티타늄 텀블러 싱글</p>
-                         <p class="rating">⭐ 4.7(148)</p>
-                     </div>
-                  </div>
-                   <div>
-                       <img src="rec1.jpg" alt="추천 프로젝트 3">
-                       <div class="product-info">
-                         <p class="discount">4,541%달성 </p>
-                         <p class="name">[4차앵콜] 티타늄 텀블러 싱글</p>
-                         <p class="rating">⭐ 4.7(148)</p>
-                     </div>
-                  </div>
-                   <div>
-                       <img src="rec1.jpg" alt="추천 프로젝트 4">
-                       <div class="product-info">
-                         <p class="discount">4,541%달성 </p>
-                         <p class="name">[4차앵콜] 티타늄 텀블러 싱글</p>
-                         <p class="rating">⭐ 4.7(148)</p>
-                     </div>
-                  </div>
-                </div>
-                <br>
-                <div class="image-group">
-                   <div>
-                       <img src="rec1.jpg" alt="추천 프로젝트 1">
-                       <div class="product-info">
-                         <p class="discount">4,541%달성 </p>
-                         <p class="name">[4차앵콜] 티타늄 텀블러 싱글</p>
-                         <p class="rating">⭐ 4.7(148)</p>
-                     </div>
-                  </div>
-                   <div>
-                       <img src="rec1.jpg" alt="추천 프로젝트 2">
-                       <div class="product-info">
-                         <p class="discount">4,541%달성 </p>
-                         <p class="name">[4차앵콜] 티타늄 텀블러 싱글</p>
-                         <p class="rating">⭐ 4.7(148)</p>
-                     </div>
-                  </div>
-                   <div>
-                       <img src="rec1.jpg" alt="추천 프로젝트 3">
-                       <div class="product-info">
-                         <p class="discount">4,541%달성 </p>
-                         <p class="name">[4차앵콜] 티타늄 텀블러 싱글</p>
-                         <p class="rating">⭐ 4.7(148)</p>
-                     </div>
-                  </div>
-                   <div>
-                       <img src="rec1.jpg" alt="추천 프로젝트 4">
-                       <div class="product-info">
-                         <p class="discount">4,541%달성 </p>
-                         <p class="name">[4차앵콜] 티타늄 텀블러 싱글</p>
-                         <p class="rating">⭐ 4.7(148)</p>
-                     </div>
-                  </div>
-                </div>
+<!--                 <h3>같이 보면 좋은 프로젝트</h3> -->
+<!--                 <div class="image-group"> -->
+<!--                    <div> -->
+<!--                        <img src="rec1.jpg" alt="추천 프로젝트 1"> -->
+<!--                        <div class="product-info"> -->
+<!--                          <p class="discount">4,541%달성 </p> -->
+<!--                          <p class="name">[4차앵콜] 티타늄 텀블러 싱글</p> -->
+<!--                          <p class="rating">⭐ 4.7(148)</p> -->
+<!--                      </div> -->
+<!--                   </div> -->
+<!--                    <div> -->
+<!--                        <img src="rec1.jpg" alt="추천 프로젝트 2"> -->
+<!--                        <div class="product-info"> -->
+<!--                          <p class="discount">4,541%달성 </p> -->
+<!--                          <p class="name">[4차앵콜] 티타늄 텀블러 싱글</p> -->
+<!--                          <p class="rating">⭐ 4.7(148)</p> -->
+<!--                      </div> -->
+<!--                   </div> -->
+<!--                    <div> -->
+<!--                        <img src="rec1.jpg" alt="추천 프로젝트 3"> -->
+<!--                        <div class="product-info"> -->
+<!--                          <p class="discount">4,541%달성 </p> -->
+<!--                          <p class="name">[4차앵콜] 티타늄 텀블러 싱글</p> -->
+<!--                          <p class="rating">⭐ 4.7(148)</p> -->
+<!--                      </div> -->
+<!--                   </div> -->
+<!--                    <div> -->
+<!--                        <img src="rec1.jpg" alt="추천 프로젝트 4"> -->
+<!--                        <div class="product-info"> -->
+<!--                          <p class="discount">4,541%달성 </p> -->
+<!--                          <p class="name">[4차앵콜] 티타늄 텀블러 싱글</p> -->
+<!--                          <p class="rating">⭐ 4.7(148)</p> -->
+<!--                      </div> -->
+<!--                   </div> -->
+<!--                 </div> -->
+<!--                 <br> -->
+<!--                 <div class="image-group"> -->
+<!--                    <div> -->
+<!--                        <img src="rec1.jpg" alt="추천 프로젝트 1"> -->
+<!--                        <div class="product-info"> -->
+<!--                          <p class="discount">4,541%달성 </p> -->
+<!--                          <p class="name">[4차앵콜] 티타늄 텀블러 싱글</p> -->
+<!--                          <p class="rating">⭐ 4.7(148)</p> -->
+<!--                      </div> -->
+<!--                   </div> -->
+<!--                    <div> -->
+<!--                        <img src="rec1.jpg" alt="추천 프로젝트 2"> -->
+<!--                        <div class="product-info"> -->
+<!--                          <p class="discount">4,541%달성 </p> -->
+<!--                          <p class="name">[4차앵콜] 티타늄 텀블러 싱글</p> -->
+<!--                          <p class="rating">⭐ 4.7(148)</p> -->
+<!--                      </div> -->
+<!--                   </div> -->
+<!--                    <div> -->
+<!--                        <img src="rec1.jpg" alt="추천 프로젝트 3"> -->
+<!--                        <div class="product-info"> -->
+<!--                          <p class="discount">4,541%달성 </p> -->
+<!--                          <p class="name">[4차앵콜] 티타늄 텀블러 싱글</p> -->
+<!--                          <p class="rating">⭐ 4.7(148)</p> -->
+<!--                      </div> -->
+<!--                   </div> -->
+<!--                    <div> -->
+<!--                        <img src="rec1.jpg" alt="추천 프로젝트 4"> -->
+<!--                        <div class="product-info"> -->
+<!--                          <p class="discount">4,541%달성 </p> -->
+<!--                          <p class="name">[4차앵콜] 티타늄 텀블러 싱글</p> -->
+<!--                          <p class="rating">⭐ 4.7(148)</p> -->
+<!--                      </div> -->
+<!--                   </div> -->
+<!--                 </div> -->
             </div>
             <hr>
             <div class="product-list">
-                <h3>펀딩/프리오더 베스트 프로젝트</h3>
-               <div class="image-group">
-                   <div>
-                       <img src="rec1.jpg" alt="추천 프로젝트 1">
-                       <div class="product-info">
-                         <p class="discount">4,541%달성 </p>
-                         <p class="name">[4차앵콜] 티타늄 텀블러 싱글</p>
-                         <p class="rating">⭐ 4.7(148)</p>
-                     </div>
-                  </div>
-                   <div>
-                       <img src="rec1.jpg" alt="추천 프로젝트 2">
-                       <div class="product-info">
-                         <p class="discount">4,541%달성 </p>
-                         <p class="name">[4차앵콜] 티타늄 텀블러 싱글</p>
-                         <p class="rating">⭐ 4.7(148)</p>
-                     </div>
-                  </div>
-                   <div>
-                       <img src="rec1.jpg" alt="추천 프로젝트 3">
-                       <div class="product-info">
-                         <p class="discount">4,541%달성 </p>
-                         <p class="name">[4차앵콜] 티타늄 텀블러 싱글</p>
-                         <p class="rating">⭐ 4.7(148)</p>
-                     </div>
-                  </div>
-                   <div>
-                       <img src="rec1.jpg" alt="추천 프로젝트 4">
-                       <div class="product-info">
-                         <p class="discount">4,541%달성 </p>
-                         <p class="name">[4차앵콜] 티타늄 텀블러 싱글</p>
-                         <p class="rating">⭐ 4.7(148)</p>
-                     </div>
-                  </div>
-                </div>
+                <h3>펀딩 베스트 프로젝트</h3>
+<!--                <div class="image-group"> -->
+<!--                    <div> -->
+<!--                        <img src="rec1.jpg" alt="추천 프로젝트 1"> -->
+<!--                        <div class="product-info"> -->
+<!--                          <p class="discount">4,541%달성 </p> -->
+<!--                          <p class="name">[4차앵콜] 티타늄 텀블러 싱글</p> -->
+<!--                          <p class="rating">⭐ 4.7(148)</p> -->
+<!--                      </div> -->
+<!--                   </div> -->
+<!--                 </div> -->
+                
+                     <div class="trend-list">
+		                <c:forEach var="pll" items="${projectLikeList}" begin="0" end="3">
+			                <div class="trend-item">
+			                    <img src="${pll.representative_picture}" alt="프로젝트 이미지">
+			                    <p class="trend-success">
+			                    	<fmt:formatNumber value="${pll.progress}" type="number"/>% 달성!
+			                    </p>
+			                    <span>${pll.project_title}</span>
+			                </div>
+		            	</c:forEach>
+		            </div>
             </div>
         </div>
 <!--         오른쪽 부분 -->
@@ -160,6 +148,7 @@
                 <div class="purchase-content">
                    ${fundStory.project_content}
                 </div>
+                <input type="hidden" value="${sessionScope.sId}" id="sId">
                 <p><strong>${fundHistory}</strong>명 참여</p>
                 <p><strong>${fundStory.progress}</strong>% 달성</p>
                 <div class="btn-group">
@@ -199,10 +188,8 @@
 			               <p>${reward.product_name}</p>
 			               <p>${reward.product_desc}</p>
 			               <hr>
-			               <p>배송비 ${reward.delivery_fee}</p>
-			               <p>발송 시작일</p>
-			               <p>제한수량 ${reward.product_limit}</p>
-			               <hr>
+			               <p>배송비  : <fmt:formatNumber pattern="#,###원 " value="${reward.delivery_fee}"></fmt:formatNumber></p>
+			               <p>제한수량 : ${reward.product_limit} 개</p>
 			            </div>
                 	</c:forEach>
                 </div>

@@ -84,9 +84,12 @@ body {
     height: 185px;
     background-color: #ddd;
     object-fit: cover;
-
 }
-
+.reward-list .reward{
+	background-color:#f2e5ff;
+	border-radius: 10px;
+	padding-left: 18px;
+}
 .purchase-section, .reward-selection, .project-info {
     background: white;
     padding: 20px;
@@ -199,6 +202,11 @@ body {
    flex-direction: column;
 }
 
+.reward-list .reward{
+	background-color:#f2e5ff;
+	border-radius: 10px;
+	padding-left: 18px;
+}
 .post {
     background-color: #fff;
     margin-bottom: 10px;
@@ -208,47 +216,31 @@ body {
 }
 
 .post h4 {
-
     margin: 0 0 10px;
-
 }
 
 .post p {
-
     margin: 5px 0;
-
     color: #555;
-
 }
 
 .image-group p{
-
    margin: 1px;
-
 }
 
 .discount {
-
     color: purple;
-
     font-weight: bold;
-
     font-size: 1.0em;
-
 }
 
 .rating {
-
     color: #555;
-
     font-size: 0.7em;
-
 }
 
 .name{
-
    font-size: 0.8em;
-
 }
 
 /* 여기서 부턴 모달창 관련 css */

@@ -87,19 +87,32 @@ article{
 .slide-button .prev {
   position: absolute;
   z-index: 9999; /* 가장 앞으로 배치 */
-  bottom: 33em;
-  left: 38%;
+  bottom: 44em;
+  left: 38.5%;
   transform: translate(-50%);
+  width: 2.5em; 
+  height: 4.5em;
+  padding: 0px;
+  border: none;
+  color: #fff;
+  background-color: rgba(0,0,0,.3);
 }
 
   
 .slide-button .next {
-  position:absolute;
-  z-index:1;
-  bottom:33em;
-  left:60%;
-  transform:translate(-50%);
+  position: absolute;
+  z-index: 1;
+  bottom: 44em;
+  left: 60%;
+  transform: translate(-50%);
+  width: 2.5em; 
+  height: 4.5em;
+  padding: 0px;
+  border: none;
+  color: #fff;
+  background-color: rgba(0,0,0,.3);
 }
+
 
 .category-nav {
     display: flex;

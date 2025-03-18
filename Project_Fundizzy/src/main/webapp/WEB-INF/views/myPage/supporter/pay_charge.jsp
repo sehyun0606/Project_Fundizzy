@@ -25,7 +25,6 @@
 					<input type="button"  id="300000" value="+30만">
 				</div>
 				<div>
-					내가 등록한 계좌 띄우기 
 				</div>
 				<input type="submit" value="충전하기" id="charge-submit">
 			</div>

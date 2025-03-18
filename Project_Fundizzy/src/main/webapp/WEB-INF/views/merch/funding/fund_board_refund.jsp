@@ -8,9 +8,11 @@
 <meta charset="UTF-8">
 <title>환불정책</title>
 <link rel="stylesheet" type="text/css" href="resources/css/merch/funding/fund_board_refund.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <!-- js파일 로드 script -->
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
   <script src="${pageContext.request.contextPath}/resources/js/merch/funding/fund_board_refund.js"></script>
+   <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 </head>
 <body>
 	<header>
@@ -100,18 +102,10 @@
 			               <p>${reward.product_name}</p>
 			               <p>${reward.product_desc}</p>
 			               <hr>
-			               <p>배송비 ${reward.delivery_fee}</p>
-			               <p>발송 시작일</p>
-			               <p>제한수량 ${reward.product_limit}</p>
-			               <hr>
+			               <p>배송비 : <fmt:formatNumber pattern="#,###원 " value="${reward.delivery_fee}"></fmt:formatNumber></p>
+			               <p>제한수량 : ${reward.product_limit} 개</p>
 			            </div>
                 	</c:forEach>
-                </div>
-<!--                 구매 및 지지서명, 찜버튼 -->
-                <div class="btn-group">
-                   <button class="btn-small" id="btn-like"><i class="fa fa-heart" style="font-size:24px"></i>찜</button>
-                   <button class="btn-small" id="btn-support"><i class='far fa-handshake' style='font-size:24px'></i>지지</button>
-                   <button class="purchase-btn" onclick="location.href='PaymentReward'">펀딩하기</button>
                 </div>
             </div>
         </div>

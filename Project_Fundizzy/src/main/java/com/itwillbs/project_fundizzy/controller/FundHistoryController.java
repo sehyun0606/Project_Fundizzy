@@ -152,6 +152,21 @@ public class FundHistoryController {
 		return response;
 	}
 	
+	// 배송조회
+	@ResponseBody
+	@GetMapping("ShipmentInvoiceInfo")
+	public List<Map<String, Object>> shipmentInvoiceInfo(String payment_code) {
+		List<Map<String, Object>> shipInfoList = historyService.getShipInfoList(payment_code);
+		
+		return shipInfoList;
+	}
+	
+	@ResponseBody
+	@GetMapping("CancelRefund")
+	public void cancelRefund(int fund_idx) {
+		historyService.removeRefundInfo(fund_idx);
+	}
+	
 	//파일 업로드 및 다운로드를 위한 유틸리티 메서드
 	//파일 업로드에 사용될 실제 업로드 디렉토리 경로를 리턴하는 메서드
 	private String getRealPath(HttpSession session, String virturalPath) {
