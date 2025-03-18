@@ -9,10 +9,10 @@ body {
 /* 설정 페이지 컨테이너 */
 .pay-container {
     width: 410px;
-    height: 600px;
-    background-color: #ffffff;
+    height: 653px;
+/*     background-color: #ffffff; */
     position: absolute;
-    top: 50%;
+    top: 47%;
     left: 50%;
     transform: translate(-50%, -50%);
     border-radius: 8px;
@@ -131,6 +131,10 @@ body {
     cursor: pointer; /* 버튼 클릭 가능하도록 설정 */
     margin-bottom: 6px;
     margin-right: 17px;
+}
+
+#explanation{
+	text-align: center;
 }
 
 /* 안내 문구 스타일 */

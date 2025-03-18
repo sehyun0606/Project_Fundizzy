@@ -8,9 +8,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>pay</title>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/myPage/supporter/pay_page.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<!-- js연결 -->
 	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/mypage/supporter/pay_page.js"></script>
+	<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 <body>
 	<jsp:include page="/WEB-INF/views/inc/top.jsp"></jsp:include>
 	<div >
@@ -35,8 +37,9 @@
 	    <div class="Deposit_and_withdrawal">
 	        <div class="top">
 	            <b class="subject">${sessionScope.sId} 님의 페이 입출금 내역 목록</b>
-	            <button type="button" class="x">x</button>
+	            <button type="button" class="x">x</button><br>
 	        </div>
+	        <span id="explanation"><i class='far fa-check-square' style='font-size:24px'></i>CH: 충전 DE: 송금 PA: 결제 RE: 환불</span>
         <div class="account_list_table">
             <table>
                 <tr>

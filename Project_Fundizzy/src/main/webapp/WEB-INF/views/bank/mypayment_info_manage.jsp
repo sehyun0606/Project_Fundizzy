@@ -60,12 +60,12 @@
 								id="add_button"
 							</c:otherwise>
 						</c:choose>
-					>button</button>
+					><img src="${pageContext.request.contextPath}/resources/images/bank/plus2.png"></button>
 				</div>
 			</div>
 		</div>
 	</article>
-<%-- 	<img src="${pageContext.request.contextPath}/resources/images/bank/plus2.png"> --%>
+<%-- 	 --%>
 	<div class="account_modal" id="account_modal">
 	    <div class="account_content">
 	        <div class="top">
