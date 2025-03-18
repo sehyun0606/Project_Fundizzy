@@ -151,6 +151,12 @@
         height: 40px;
         margin-top: 10px;
         }
+        .profile-image img {
+		    width: 80px;
+		    height: 80px;
+		    border-radius: 10%; /* 원형 */
+		    border: 3px solid #c85fdf; /* 보라색 테두리 */
+		}
     </style>
 </head>
 

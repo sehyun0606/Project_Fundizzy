@@ -62,7 +62,7 @@ public class AdminProjectController {
 	public String adminProjectList(@RequestParam(defaultValue = "1") int pageNum,  Model model) {
 		int listLimit = 5;
 		int startRow = (pageNum - 1) * listLimit;
-		int listCount = projectService.getprojectListCount();
+		int listCount = projectService.getAllProjectListCount();
 		int pageListLimit = 5;
 		
 		int maxPage = listCount / listLimit + (listCount % listLimit > 0 ? 1 : 0);
