@@ -31,7 +31,7 @@
 	         	<label>대표 이미지</label>
 			    <div class="file-upload">
 			        <input type="file" id="fileInput" name="representativePicture" accept="image/*" style="display: none;">
-			        <img id="previewImage" class="preview" name="representativePicture" src="/resources/upload/${projectStory.representative_picture}" alt="미리보기" >
+			        <img id="previewImage" class="preview" name="representativePicture" src="${projectStory.representative_picture}" alt="미리보기" >
 			        <input type="button" class="image-upload" value="사진을 넣어주세요" style="display: none;">
 			        <p id="fileName">1/1</p>
 			    </div>

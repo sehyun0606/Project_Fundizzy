@@ -76,7 +76,7 @@
 							                <div class="image-placeholder">이미지 등록 필요</div>
 			    						</c:when>
 			    						<c:otherwise>
-			    							<img src="/resources/upload/${project.representative_picture}" style="width: 100%; height: 120px;">
+			    							<img src="${project.representative_picture}" style="width: 100%; height: 120px;">
 			    						</c:otherwise>
 			    					</c:choose>
 			    					<c:choose>

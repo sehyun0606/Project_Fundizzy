@@ -14,7 +14,7 @@
         }
         
         .container {
-            width: 60%;
+            width: 80%;
             margin: 50px auto;
         }
         
@@ -308,8 +308,10 @@
 		}
 		.name{
 			display: flex;
-			align-items: center;
-			margin-right: 20px;
+		    align-items: center;
+		    width: 10%;
+		    text-align: center;
+		    margin-left: 20px;
 		}
     </style>
    	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -334,7 +336,7 @@
 		    	<input type="hidden" value="${like.project_code}" class="code">
 		        <div class="info">
 		        	<div class="img-section">
-		        		<img class="img" src="/resources/upload/${like.representative_picture }"/>
+		        		<img class="img" src="${like.representative_picture }"/>
 		        	</div>
 		        </div>
 		        <div class="category">${like.project_title}</div>

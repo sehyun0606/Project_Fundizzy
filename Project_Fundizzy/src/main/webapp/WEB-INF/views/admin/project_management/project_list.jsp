@@ -45,7 +45,7 @@
 		            	<c:forEach var="project" items="${projectList}" varStatus="status">
 			                    <tr>
 			                        <td class="project_code">${project.project_code}</td>
-			                        <td><img class="project_img" alt="" src="/resources/upload/${project.representative_picture}" style="height: 100px;"></td>
+			                        <td><img class="project_img" alt="" src="${project.representative_picture}" style="height: 100px;"></td>
 			                        <td>${project.project_title}</td>
 			                        <td>
 			                            <fmt:formatDate value="${project.open_start_date}" pattern="yyyy-MM-dd"/> ~ <fmt:formatDate value="${project.open_end_date}" pattern="yyyy-MM-dd"/>

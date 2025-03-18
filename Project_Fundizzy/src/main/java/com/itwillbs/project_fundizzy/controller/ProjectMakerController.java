@@ -296,7 +296,7 @@ public class ProjectMakerController {
 
 	    if (representativePicture != null && !representativePicture.getOriginalFilename().isEmpty()) {
 	        String repFileName = UUID.randomUUID().toString() + "_" + representativePicture.getOriginalFilename();
-	        projectStory.setRepresentative_picture( projectCode +"/ProjectStory/" + repFileName);
+	        projectStory.setRepresentative_picture( "/resources/upload/" +projectCode +"/ProjectStory/" + repFileName);
 	        try {
 	            representativePicture.transferTo(new File(realPath, repFileName));
 	        } catch (IOException e) {

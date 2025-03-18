@@ -26,7 +26,7 @@ $(document).ready(function() {
 		    $("#adult-check").text(result.adult_check === "Y" ? "성인용" : "일반");
 		    
 		    // 대표 이미지 처리
-		    $("#representative-picture").attr("src", "/resources/upload/" + result.representative_picture);
+		    $("#representative-picture").attr("src", result.representative_picture);
 			
 		}).fail(function(){
 			console.log("실패..")
@@ -77,7 +77,7 @@ $(document).ready(function() {
 			    $("#adult-check").text(result.adult_check === "Y" ? "성인용" : "일반");
 			    
 			    // 대표 이미지 처리
-			    $("#representative-picture").attr("src", "/resources/upload/" + result.representative_picture);
+			    $("#representative-picture").attr("src", result.representative_picture);
 				
 			}).fail(function(){
 				console.log("실패..")
