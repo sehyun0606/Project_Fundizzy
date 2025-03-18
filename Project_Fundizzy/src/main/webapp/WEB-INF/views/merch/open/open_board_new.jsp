@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <!-- js파일 로드 script -->
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-  <script src="${pageContext.request.contextPath}/resources/js/merch/open/fund_board_new.js"></script>
+  <script src="/resources/js/merch/open/fund_board_new.js"></script>
    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 </head>
 <body>
@@ -60,22 +60,21 @@
                 <div class="purchase-content">
                    ${fundStory.project_content}
                 </div>
-                <p><strong>${fundHistory}</strong>명 참여</p>
-                <p><strong>${fundStory.progress}</strong>% 달성</p>
+                <p style="color: mediumpurple; font-weight: 600; margin-bottom: 30px"><strong style="font-size: 20px; font-weight: 700;"><fmt:formatDate value="${fundStory.project_start_date}" pattern="MM/dd(EEE)"/></strong> 오픈예정</p>
                 <div class="btn-group">
 	                <input type="hidden" value="${sessionScope.sId}" id="keep_email">
 	                <input type="hidden" value="${param.project_code}" id="keep_project_code">
 	                <input type="hidden" value="${keep.email}" class="keep">
-	                 <c:choose>
-	                	<c:when test="${empty keep.email}">
-		                   <button class="btn-small" id="btn-like"><i class="fa fa-heart-o" style="font-size:24px"></i>찜</button>
-	                	</c:when>
-	                	<c:otherwise>
-		                   <button class="btn-small clicked" id="btn-like"><i class="fa fa-heart" style="font-size:24px"></i>찜</button>
-	                	</c:otherwise>
-	                </c:choose>
-                   <button class="btn-small" id="btn-support"><i class='far fa-handshake' style='font-size:24px'></i>지지</button>
-                   <button class="purchase-btn">펀딩하기</button>
+	                <button class="btn-small" id="btn-support"><img src="/resources/images/fund/support.png" width="30px" height="30px"></button>
+					<c:choose>
+						<c:when test="${empty keep.email}">
+							<input type="hidden" class="count" value="${keepCount}">
+		                    <button class="purchase-btn" id="btn-like">오픈 알림 신청 &nbsp;<span style="font-size: 12px">${keepCount}명 기다려요</span></button>
+						</c:when>
+						<c:otherwise>
+		                    <button class="purchase-btn clicked" id="btn-like">알림 신청 완료 &nbsp;<span style="font-size: 12px">${keepCount}명 기다려요</span></button>
+						</c:otherwise>
+					</c:choose>
                 </div>
             </div>
 <!--             회사정보 div -->
@@ -85,25 +84,6 @@
                 </div>
                   <button class="btn" onclick="openChatRoomWindow('${fundStory.representative_email}')"
                 	<c:if test="${sessionScope.sId == fundStory.representative_email || empty sessionScope.sId}">disabled</c:if>>문의하기</button>
-            </div>
-            
-            <div class="reward-selection">
-<!--             리워드 목록 -->
-                <h3>리워드 목록 </h3>
-                <div class="reward-list">
-                	<c:forEach var="reward" items="${reward}">
-	                	<div class="reward">
-		<!--             	해당 프로젝트 코드를 넘기기 위한 hidden 속성 -->
-						   <input type="hidden" id="project_code" name="project_code" value="${reward.project_code}">
-			               <h4><fmt:formatNumber pattern="#,###원 " value="${reward.price}"></fmt:formatNumber></h4>
-			               <p>${reward.product_name}</p>
-			               <p>${reward.product_desc}</p>
-			               <hr>
-			               <p>배송비 : <fmt:formatNumber pattern="#,###원 " value="${reward.delivery_fee}"></fmt:formatNumber></p>
-			               <p>제한수량 : ${reward.product_limit} 개</p>
-			            </div>
-                	</c:forEach>
-                </div>
             </div>
         </div>
     </div>
