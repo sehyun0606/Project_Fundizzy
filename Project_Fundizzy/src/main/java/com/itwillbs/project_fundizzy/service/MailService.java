@@ -3,6 +3,7 @@ package com.itwillbs.project_fundizzy.service;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -168,6 +169,63 @@ public class MailService {
         // 메일 발송에 사용한 정보를 Map으로 반환
         Map<String, String> sendPasswdMail = new HashMap<>();
         sendPasswdMail.put("email", info.get("email"));
+        return sendPasswdMail;
+	}
+
+	public Map<String, String> sendQnaMail(Map<String, String> map) {
+		String subject = "[Fundizzy] " + (map.get("content") != null ? map.get("content") : "문의사항") + "에 대한 답변입니다.";
+		
+		// 인증코드만 발송하여 사용자가 인증 페이지에서 직접 코드값을 입력해야할 경우 사용
+		String content = "<!DOCTYPE html>" +
+	            "<html lang='ko'>" +
+	            "<head>" +
+	            "<meta charset='UTF-8'>" +
+	            "<meta name='viewport' content='width=device-width, initial-scale=1.0'>" +
+	            "<title>펀디즈 고객센터 이메일</title>" +
+	            "</head>" +
+	            "<body style='font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #f4f4f4;'>" +
+	            "<div style='width: 600px; background-color: f1f1f1; padding: 20px; border-radius: 8px; box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1); margin: auto;'>" +
+	            "<div style='font-size: 16px; font-weight: bold; color: #000000;'>펀디즈 고객센터</div>" +
+	            "<div style='font-size: 12px; color: #000000; margin-bottom: 10px;'>" + 
+	            (map.get("dateTime") != null ? map.get("dateTime") : java.time.LocalDate.now()) + 
+	            "</div>" +
+	            "<div style='font-size: 14px; line-height: 1.6;'>" +
+	            "<p style='margin: 0; color: #000000;'>안녕하세요.</p>" +
+	            "<p style='margin: 0; color: #000000;'>펀디즈입니다.</p>" +
+	            "<hr>" +
+	            "<p style='margin: 10px 0; color: #000000;'>" + 
+	            (map.get("replyContent") != null && !map.get("replyContent").trim().isEmpty() 
+	                ? map.get("replyContent") 
+	                : "문의 내용이 없습니다.") + 
+	            "</p>" +
+	            "<hr>" +
+	            "<p style='margin: 10px 0; color: #000000;'>추가 문의 사항이 있으시면, 언제든지 고객센터로 연락 주시기 바랍니다.</p>" +
+	            "<p style='margin: 10px 0; color: #000000;'>감사합니다.</p>" +
+	            "<p style='font-weight: bold; color: #000000;'>- 펀디즈 드림 -</p>" +
+	            "</div>" +
+	            "<div style='margin-top: 20px; padding: 15px; background-color: #f1f1f1; border-radius: 5px; font-size: 12px;'>" +
+	            "<p style='margin: 5px 0; color: #000000;'><strong>펀디즈 고객센터</strong></p>" +
+	            "<p style='margin: 5px 0; color: #000000;'>운영 시간: 평일 오전 9시 ~ 오후 6시</p>" +
+	            "<p style='margin: 5px 0; color: #000000;'>📍 부산광역시 동천로 199 삼한골든게이트 7층 펀디즈</p>" +
+	            "</div>" +
+	            "</div>" +
+	            "</body>" +
+	            "</html>";
+
+		
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				// 별도의 쓰레드로 수행할 작업 => 메일 발송 코드 기술
+				mailClient.sendMail(map.get("email"), subject, content);
+			}
+			
+		}).start();
+		
+        // 메일 발송에 사용한 정보를 Map으로 반환
+        Map<String, String> sendPasswdMail = new HashMap<>();
+        sendPasswdMail.put("email", map.get("email"));
         return sendPasswdMail;
 	}
 
