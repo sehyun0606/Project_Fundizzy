@@ -10,6 +10,7 @@
 <title>지지서명</title>
 <link rel="stylesheet" type="text/css" href="resources/css/merch/funding/fund_board_support.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/merch/funding/fund_board_support.js"></script>
 <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
@@ -65,32 +66,7 @@
 							    ${tagText}
 							</p>
 					        <fmt:formatDate value="${support.support_date}" pattern="yyyy-MM-dd"/><br>
-					        <!-- 댓글 버튼 -->
-<%-- 					        <input type="button" value="댓글" class="reply-show" data-support-num="${support.support_num}"><br> --%>
-					
-					        <!-- 댓글 폼 (support_num 별로 구별) -->
-<%-- 					        <form action="SupportReply" method="post" class="reply-form" data-support-num="${support.support_num}" style="display: none;"> --%>
-<%-- 					            <input type="hidden" value="${param.project_code}" name="project_code"> --%>
-<%-- 					            <input type="hidden" value="${support.support_num}" name="support_num"> --%>
-<!-- 					            <textarea name="reply_content"></textarea> -->
-<!-- 					            <input type="submit" value="등록" id="reply-submit-btn"> -->
-<!-- 					        </form> -->
 					    </div>
-<!-- 			        	<div class="reply-list"> -->
-<!-- <!-- 				        	작성된 댓글- 댓글 삭제상태가 1일 경우엔 표시하지 않기 --> 
-<!-- 			        		<table> -->
-<%-- 							    <c:forEach var="reply" items="${ReplyList}" varStatus="status"> --%>
-<!-- 							        <tr class="replyTr"> -->
-<%-- 							            <td class="replyContent"><input type="hidden" value ="${reply.reply_num}" id="replyDelete">${reply.reply_content}</td> --%>
-<%-- 							            <td class="replyWriter">${reply.maker_email}</td> --%>
-<%-- 							            <td class="replyRegDate"><fmt:formatDate value="${reply.reply_date}" pattern="yyyy-MM-dd"/></td> --%>
-<%-- 						       			<td><button class="replyDelete" data-reply-num="${reply.reply_num}"> --%>
-<%-- 									    <img src="${pageContext.request.contextPath}/resources/images/fund/delete-icon.png" class="deleteImg" title="댓글삭제"> --%>
-<!-- 									</button></td> -->
-<!-- 							        </tr> -->
-<%-- 							    </c:forEach> --%>
-<!-- 			        		</table> -->
-<!-- 			        	</div> -->
 					</c:forEach>
 				</c:otherwise>
 			</c:choose>
@@ -104,18 +80,18 @@
                 <p><strong>${fundHistory}</strong>명 참여</p>
                 <p><strong>${fundStory.progress}</strong>% 달성</p>
                 <div class="btn-group">
-	                <input type="hidden" value="${sessionScope.sId }" id="keep_email">
+	                <input type="hidden" value="${sessionScope.sId}" id="keep_email">
 	                <input type="hidden" value="${param.project_code}" id="keep_project_code">
 	                <input type="hidden" value="${keep.email}" class="keep">
 	                <c:choose>
 	                	<c:when test="${empty keep.email}">
-		                   <button class="btn-small" id="btn-like"><i class="fa fa-heart-o" style="font-size:24px"></i>찜</button>
+		                   <button class="btn-small" id="btn-like"><i class="fa fa-heart-o" style="font-size:27px"></i></button>
 	                	</c:when>
 	                	<c:otherwise>
-		                   <button class="btn-small clicked" id="btn-like"><i class="fa fa-heart" style="font-size:24px"></i>찜</button>
+		                   <button class="btn-small clicked" id="btn-like"><i class="fa fa-heart" style="font-size:27px"></i></button>
 	                	</c:otherwise>
 	                </c:choose>
-                   <button class="btn-small" id="btn-support"><i class='far fa-handshake' style='font-size:24px'></i>지지</button>
+                   <button class="btn-small" id="btn-support"><i class="fa fa-thumbs-o-up" style="font-size:27px"></i></button>
                    <button class="purchase-btn">펀딩하기</button>
                 </div>
             </div>
@@ -125,7 +101,7 @@
                    <h4>${fundStory.business_name}</h4><br>
                 </div>
    				  <button class="btn" onclick="openChatRoomWindow('${fundStory.representative_email}')"
-                	<c:if test="${sessionScope.sId == fundStory.representative_email || empty sessionScope.sId}">disabled</c:if>>문의하기</button>
+                	<c:if test="${sessionScope.sId == fundStory.representative_email || empty sessionScope.sId}">disabled</c:if>><i class="fa fa-comments-o" style="font-size:24px, margin-right:2px"></i>문의하기</button>
             </div>
             
             <div class="reward-selection">

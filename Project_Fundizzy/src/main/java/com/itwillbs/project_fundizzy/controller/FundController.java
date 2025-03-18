@@ -474,7 +474,7 @@ public class FundController {
 	
 	//결제 완료창 - get 비지니스 로직
 	@GetMapping("PaymentComplete")
-	public String paymentCompletePage(String project_code, Model model) {
+	public String paymentCompletePage() {
 		return "merch/payment/payment_complete";
 	}
 	

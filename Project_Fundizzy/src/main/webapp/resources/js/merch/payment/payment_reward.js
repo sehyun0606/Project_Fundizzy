@@ -57,11 +57,12 @@ $(function() {
 		let price = $(this).siblings(".rewordPrice").val();
 	});
 
-	$("#next-button").on("click", function() {
+	$("#next-button").on("click", function(event) {
 		// 총결제금액이 0이면 리워드 선택 알람 출력
 		if ($("#total_price").val() == 0) {
 		    alert("최소 한개 이상의 리워드를 선택해 주세요.");
-			return;
+			 event.preventDefault(); // 폼 제출 방지
+        	return false; // 추가적으로 실행되지 않도록 종료
 		}
 		
 		// 폼 제출

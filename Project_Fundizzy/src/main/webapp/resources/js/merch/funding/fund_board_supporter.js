@@ -26,17 +26,7 @@ $(function(){
 		location.href="FundBoardReward?project_code=" + project_code;
 	});
 	
-	
-	//펀딩하기 버튼 클릭 시
-	$(".purchase-btn").on("click", function(){
-		if(email == null || email == ""){
-			alert("로그인 후 이용 가능합니다.");
-			return;
-		}
-		location.href="PaymentReward?project_code=" + project_code;
-	});
-	
-	//	찜버튼 클릭시 
+	//1.찜버튼 클릭시 
 	$("#btn-like").click(function(){
 
 		if(email == null || email == ""){
@@ -87,6 +77,30 @@ $(function(){
 		
 	});
 	
+	//2. 지지서명 버튼 클릭시 모달창 띄우기 
+	    $("#btn-support").click(function(){
+			if(email == null || email == ""){
+				alert("로그인 후 이용 가능합니다.");
+				return;
+			}
+	        console.log("btn-support 버튼 클릭됨!"); 
+	        $(".support_modal").css("display", "block");
+	    });
+	//2-1. x 누르면 모달창 닫히게 
+	    $(".x").click(function(){
+	        console.log("모달 닫기 버튼 클릭됨!");
+	        $(".support_modal").css("display", "none");
+	    });
+
+	//3. 펀딩하기 버튼 클릭 시
+	$(".purchase-btn").on("click", function(){
+		if(email == null || email == ""){
+			alert("로그인 후 이용 가능합니다.");
+			return;
+		}
+		location.href="PaymentReward?project_code=" + project_code;
+	});
+	
 	$(".reply-show").on("click", function(){
 	 let replyWrite = document.querySelector(".reply-write");
             if (replyWrite.style.display === "none" || replyWrite.style.display === "") {
@@ -105,22 +119,7 @@ $(function(){
 });
 
 
-$(document).ready(function(){
-// 지지서명 버튼 클릭시 모달창 띄우기 
-    $("#btn-support").click(function(){
-		if(email == null || email == ""){
-			alert("로그인 후 이용 가능합니다.");
-			return;
-		}
-        console.log("btn-support 버튼 클릭됨!"); 
-        $(".support_modal").css("display", "block");
-    });
-// x 누르면 모달창 닫히게 
-    $(".x").click(function(){
-        console.log("모달 닫기 버튼 클릭됨!");
-        $(".support_modal").css("display", "none");
-    });
-});
+
 	// 키워드 5가지 클릭 시 체크됐다고 표시 
 	$(".like").click(function(){
 		$(".like-check").click();

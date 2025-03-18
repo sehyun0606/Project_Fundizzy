@@ -51,7 +51,6 @@
                 <div class="purchase-content">
                    ${fundStory.project_content}
                 </div>
-                <input type="hidden" value="${sessionScope.sId}" id="sId">
                 <p><strong>${fundHistory}</strong>명 참여</p>
                 <p><strong>${fundStory.progress}</strong>% 달성</p>
                 <div class="btn-group">
@@ -60,13 +59,13 @@
 	                <input type="hidden" value="${keep.email}" class="keep">
 	                <c:choose>
 	                	<c:when test="${empty keep.email}">
-		                   <button class="btn-small" id="btn-like"><i class="fa fa-heart-o" style="font-size:24px"></i>찜</button>
+		                   <button class="btn-small" id="btn-like"><i class="fa fa-heart-o" style="font-size:27px"></i></button>
 	                	</c:when>
 	                	<c:otherwise>
-		                   <button class="btn-small clicked" id="btn-like"><i class="fa fa-heart" style="font-size:24px"></i>찜</button>
+		                   <button class="btn-small clicked" id="btn-like"><i class="fa fa-heart" style="font-size:27px"></i></button>
 	                	</c:otherwise>
 	                </c:choose>
-                   <button class="btn-small" id="btn-support"><i class='far fa-handshake' style='font-size:24px'></i>지지</button>
+                   <button class="btn-small" id="btn-support"><i class="fa fa-thumbs-o-up" style="font-size:27px"></i></button>
                    <button class="purchase-btn">펀딩하기</button>
                 </div>
             </div>
@@ -76,7 +75,7 @@
                    <h4>${fundStory.business_name}</h4><br>
                 </div>
   				  <button class="btn" onclick="openChatRoomWindow('${fundStory.representative_email}')"
-                	<c:if test="${sessionScope.sId == fundStory.representative_email || empty sessionScope.sId}">disabled</c:if>>문의하기</button>
+                	<c:if test="${sessionScope.sId == fundStory.representative_email || empty sessionScope.sId}">disabled</c:if>><i class="fa fa-comments-o" style="font-size:24px, margin-right:2px"></i>문의하기</button>
             </div>
             
             <div class="reward-selection">

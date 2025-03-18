@@ -52,6 +52,15 @@ $(document).ready(function () {
             return false; // 결제 진행 중단
         }
 
+	    // 체크해야 하는 모든 필수 체크박스
+	    let allChecked = $("#agree1").is(":checked") && $("#agree2").is(":checked") && $("#agree3").is(":checked");
+	
+	    // 하나라도 체크되지 않으면 알람 출력 후 폼 제출 방지
+	    if (!allChecked) {
+	        alert("모든 필수 항목에 동의해야 결제 진행이 가능합니다.");
+	        event.preventDefault(); // 기본 폼 제출 방지
+	        return false; // 추가 실행 방지
+	    }
         // 결제 가능하면 폼 제출
         $("#complete-form").submit();
     });
@@ -109,7 +118,7 @@ $(document).ready(function () {
                 }
             });
         });
-	
+	//체크박스 미 체크 시 다음 결제창으로 못 넘어가도록 
 	
 
 }); //전체 함수 종료
