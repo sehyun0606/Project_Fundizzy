@@ -21,9 +21,9 @@ public class FundService {
 	private FundMapper mapper;
 	
 	//펀딩 리스트 출력 ( 펀딩+ 메인페이지 )
-	public List<Map<String, Object>> getFundList() {
+	public List<Map<String, Object>> getFundList(String cat) {
 		// TODO Auto-generated method stub
-		return mapper.selectFundList();
+		return mapper.selectFundList(cat);
 	}
 	//프로젝트 대표사진 및 상세사진 가져오기 
 	public List<ProjectStoryVO> getProjectStory(String project_code) {

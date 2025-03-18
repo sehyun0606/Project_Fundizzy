@@ -69,8 +69,8 @@ public class FundController {
 	//왼쪽 
 	//fund 목록 (= 펀딩+ 누르면 이동하는 가장 첫 페이지)
 	@GetMapping("FundList")
-	public String fundList(Model model) {
-		List<Map<String, Object>> fundList = fundService.getFundList();
+	public String fundList(Model model,String cat) {
+		List<Map<String, Object>> fundList = fundService.getFundList(cat);
 		System.out.println("fundList = " + fundList);
 		model.addAttribute("fundList", fundList);
 		return "merch/funding/fund_list";
@@ -474,7 +474,7 @@ public class FundController {
 	
 	//결제 완료창 - get 비지니스 로직
 	@GetMapping("PaymentComplete")
-	public String paymentCompletePage() {
+	public String paymentCompletePage(String project_code, Model model) {
 		return "merch/payment/payment_complete";
 	}
 	

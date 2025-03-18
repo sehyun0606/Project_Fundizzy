@@ -6,14 +6,18 @@
   
 <!--   펀딩 리스트 출력 -->
 	<select id="selectFundList" resultType="map">
-		SELECT *
-		FROM project_story ps
-		JOIN project_list pl ON ps.project_code = pl.project_code
-		JOIN project_date pd ON ps.project_code = pd.project_code
-		WHERE approved_date IS NOT NULL
-		AND date_config = "Y"
-		AND NOW() BETWEEN project_start_date AND project_end_date 
-	</select>
+	SELECT * FROM project_story ps 
+	JOIN project_list pl 
+	ON ps.project_code = pl.project_code 
+	JOIN project_date pd 
+	ON ps.project_code = pd.project_code 
+	JOIN project_info pi 
+	ON ps.project_code = pi.project_code 
+	WHERE approved_date IS NOT NULL 
+	AND date_config = "Y" 
+	AND project_end_date > NOW()
+<if test="cat != null and cat != ''"> AND (category = #{cat} OR sub_category = #{cat}) </if>
+</select>
 	
 <!--   프로젝트 보드 출력 -->
 	<select id="selectFundBoard" resultType="map">

@@ -13,7 +13,7 @@ import com.itwillbs.project_fundizzy.vo.RewardVO;
 @Mapper
 public interface FundMapper {
 	//펀딩 리스트 출력
-	List<Map<String, Object>> selectFundList();
+	List<Map<String, Object>> selectFundList(String cat);
 	
 	//대표사진 및 상세사진 가져오기
 	List<ProjectStoryVO> selectProjectStory(String project_code);
