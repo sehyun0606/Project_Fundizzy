@@ -120,6 +120,25 @@
 	        text-decoration: none;
 	   		color: mediumpurple;
         }
+        .notIconDiv {
+        	position: relative;
+        }
+        .notificationCount {
+		    position: absolute;
+		    top: -7px;
+		    left: -7px;
+		    width: 20px;
+		    height: 20px;
+		    background-color: red;
+		    color: white; 
+		    border-radius: 50%;
+		    display: none;
+		    justify-content: center;
+		    align-items: center;
+		    font-size: 15px;
+		    font-weight: bold;
+		    box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+		}
     </style>
     
 </head>
@@ -147,17 +166,18 @@
 					<c:otherwise> <%-- 로그인 한 사용자일 경우 --%>
 						<c:choose>
 							<c:when test="${sessionScope.loginType == 'kakao'}">
-							    <a href="NotificationBoard"><img class="bell" src="/resources/images/bell.png"></a>
+								
+							    <div class="notIconDiv"><span class="notificationCount">0</span><a href="NotificationBoard"><img class="bell" src="/resources/images/bell.png"></a></div>
 								<a href="SupporterPage" class="top-items">${DBKakaoUserInfo.nickname}</a> 님 | 
 								<a href="javascript:void(0)" onclick="logout()">로그아웃</a>
 							</c:when>
 							<c:when test="${sessionScope.loginType == 'naver'}">
-							    <a href="NotificationBoard"><img class="bell" src="/resources/images/bell.png"></a>
+							    <div class="notIconDiv"><span class="notificationCount">0</span><a href="NotificationBoard"><img class="bell" src="/resources/images/bell.png"></a></div>
 								<a href="SupporterPage" class="top-items">${DBNaverUserInfo.nickname}</a> 님 | 
 								<a href="javascript:void(0)" onclick="logout()">로그아웃</a>
 							</c:when>
 							<c:when test="${sessionScope.loginType == 'local'}">
-							    <a href="NotificationBoard"><img class="bell" src="/resources/images/bell.png"></a>
+							    <div class="notIconDiv"><span class="notificationCount">0</span><a href="NotificationBoard"><img class="bell" src="/resources/images/bell.png"></a></div>
 								<a href="SupporterPage" class="top-items">${member.nickname}</a> 님 | 
 								<a href="javascript:void(0)" onclick="logout()">로그아웃</a>
 							</c:when>

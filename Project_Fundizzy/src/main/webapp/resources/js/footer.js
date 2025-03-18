@@ -3,6 +3,7 @@ const TYPE_FILE = "TYPE_FILE";
 const TYPE_SYSTEM = "TYPE_SYSTEM";
 const TYPE_INIT = "TYPE_INIT";
 const TYPE_INIT_CHATROOM = "TYPE_INIT_CHATROOM";
+const REQUEST_NOTIFICATION_UNREAD = "REQUEST_NOTIFICATION_UNREAD"
 
 // => 자식창에서도 접근 가능하도록 전역 변수로 선언하기 위해 var 로 변수 선언
 var ws;
@@ -17,8 +18,6 @@ var chatRoomWindowObj = {};
 const sEmail = $("#sId").val();
 
 $(function() {
-	$(".messageCount").hide();
-	
 	if(sEmail) {
 		// 채팅방 입장을 위한 웹소켓 연결
 		connect();
@@ -28,6 +27,7 @@ $(function() {
 		if(ws.readyState == ws.OPEN) {
 			// ws연결되면 읽지않은 카운트 수 조회후 표시
 			sendMessage(TYPE_INIT, "", "", "", "");
+			sendMessage(REQUEST_NOTIFICATION_UNREAD,"", "", "", "");
 			
 			clearInterval(wsCheckInterval);
 		}
@@ -38,7 +38,7 @@ $(function() {
 		if(parseInt($(this).text()) == 0) {
 	        $(this).hide();
 	    } else {
-	        $(this).show();
+	        $(this).css("display", "flex");
 		}
 	});
 });
@@ -116,6 +116,12 @@ function onMessage(event) {
 				$(".messageCount").text(result).change();
 			}
 		})
+	// ws객체 연결시 읽지않은 알림 수 조회
+	} else if(data.type == REQUEST_NOTIFICATION_UNREAD) {
+		if(".notificationCount" && data.read_state != 0) {
+			$(".notificationCount").css("display", "flex");
+			$(".notificationCount").text(data.read_state);
+		}
 	}
 	
 	// 채팅창이 연결 되어있을 경우 postMessage()로 전송

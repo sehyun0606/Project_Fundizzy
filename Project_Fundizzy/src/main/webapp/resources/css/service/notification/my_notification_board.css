@@ -18,6 +18,7 @@ article {
 
 #title img {
 	cursor: pointer;
+	opacity: 0.7;
 }
 
 #topGroup {
@@ -116,6 +117,7 @@ article {
 	line-height: 26px;
     font-size: 16px;
     color: #333;
+    width: 375px;
 }
 
 .checkbox {

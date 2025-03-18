@@ -91,4 +91,37 @@
 		FROM project_list
 		WHERE project_code = #{project_code}
 	</select>
+	
+	<!-- 알림 읽음표시 -->
+	<update id="updateNotStatus">
+		UPDATE notification
+		SET is_read = 'Y'
+		WHERE member_email = #{email}
+			AND is_read = 'N'
+	</update>
+	
+	<!-- 읽지 않은 알림 수 조회 -->
+	<select id="selectUnReadCount" resultType="int">
+		SELECT COUNT(*)
+		FROM notification
+		WHERE member_email = #{email}
+			AND is_read = 'N'
+	</select>
+	
+	<!-- 알림 삭제 -->
+	<delete id="deleteNotFromDB">
+		DELETE FROM notification
+		WHERE notification_code IN (
+			<foreach collection="codeArr" item="code" separator=",">
+				#{code}
+			</foreach>
+		)
+	</delete>
+	
+	<!-- 정산 상태 조회 -->
+	<select id="selectSettlementStatus" resultType="string">
+		SELETE settlement_status
+		FROM settlement
+		WHERE project_code = #{project_code}
+	</select>
 </mapper>

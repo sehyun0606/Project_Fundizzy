@@ -71,7 +71,7 @@ public class NotificationHandler {
 		}
 	}
 	
-	// 프로젝트찜한 회원에게 알림 전송
+	// 프로젝트 찜한 전체 회원에게 알림 전송
 	public void sendNotToKeepMember(String project_code, String is_recv, String not_code,  String content) {
 		// 해당프로젝트 찜한 멤버 이메일 조회
 		List<String> keepMember = notificationService.getKeepMemberEmail(project_code);
@@ -86,7 +86,7 @@ public class NotificationHandler {
 		}
 	}
 	
-	// 프로젝트 찜한 회원에게 알림전송
+	// 프로젝트 지지서명한 전체 회원에게 알림전송
 	public void sendNotToSupportMember(String project_code, String is_recv, String not_code, String content) {
 		// 해당프로젝트 지지서명한 멤버 이메일 조회
 		List<String> supportMember = notificationService.getSupportMemberEmail(project_code);

@@ -38,6 +38,23 @@
 			</div>
 		</div>
 		<div id="notificationList">
+		<c:if test="${empty myNOTList}">
+			<div class="notification">
+				<div class="notificationHeader">
+					<div class="notificationTitle">
+						<img src="/resources/images/notification/siteNotIcon.png">
+						Fundizzy 알림
+					</div>
+				</div>
+				<div class="notificationBody">
+					<div class="notificationContent">
+						현재 수신된 알림이 없습니다.
+					</div>
+					<div class="checkbox">
+					</div>
+				</div>
+			</div>
+		</c:if>
 		<c:forEach var="myNOT" items="${myNOTList}">
 			<div class="notification">
 				<div class="notificationHeader">
@@ -49,7 +66,7 @@
 							</c:when>
 							<c:when test="${myNOT.common_code eq 'NOT02'}">
 								<img src="/resources/images/notification/followingIcon.png">
-								팔로잉 메이커 알림
+								지지서명 프로젝트 알림
 							</c:when>
 							<c:when test="${myNOT.common_code eq 'NOT03'}">
 								<img src="/resources/images/notification/wishIcon.png">
@@ -74,7 +91,7 @@
 						${myNOT.notification_content}
 					</div>
 					<div class="checkbox">
-						<input type="checkbox">
+						<input type="checkbox" class="notCheck" value="${myNOT.notification_code}">
 					</div>
 				</div>
 			</div>

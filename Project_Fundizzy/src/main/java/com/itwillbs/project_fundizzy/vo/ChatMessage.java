@@ -33,4 +33,5 @@ public class ChatMessage {
 	public static final String TYPE_ERROR = "TYPE_ERROR"; // 채팅 관련 에러
 	public static final String TYPE_FILE = "TYPE_FILE"; // 파일 전송
 	public static final String TYPE_CHANGE_ROOMNAME = "TYPE_CHANGE_ROOMNAME"; // 채팅방 이름 변경
+	public static final String REQUEST_NOTIFICATION_UNREAD = "REQUEST_NOTIFICATION_UNREAD"; // 읽지 않은 알림 수 조회요청
 }

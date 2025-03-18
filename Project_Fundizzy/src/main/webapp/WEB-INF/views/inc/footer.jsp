@@ -69,7 +69,7 @@
 		    background-color: red;
 		    color: white; 
 		    border-radius: 50%;
-		    display: flex;
+		    display: none;
 		    justify-content: center;
 		    align-items: center;
 		    font-size: 15px;

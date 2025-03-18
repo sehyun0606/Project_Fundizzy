@@ -53,4 +53,24 @@ public class NotificationService {
 		return notificationMapper.selectProjectInfo(project_code);
 	}
 	
+	// 알림페이지 접근시 현재까지 받은 알림 읽음처리
+	public void changeNotStatus(String email) {
+		notificationMapper.updateNotStatus(email);
+	}
+	
+	// 읽지않은 알림 수 조회
+	public int getUnReadNOTCount(String email) {
+		return notificationMapper.selectUnReadCount(email);
+	}
+	
+	// 알림 삭제
+	public int removeNotFromDB(String[] codeArr) {
+		return notificationMapper.deleteNotFromDB(codeArr);
+	}
+	
+	// 정산상태 조회
+	public String getSettlementStatus(String project_code) {
+		return notificationMapper.selectSettlementStatus(project_code);
+	}
+	
 }
