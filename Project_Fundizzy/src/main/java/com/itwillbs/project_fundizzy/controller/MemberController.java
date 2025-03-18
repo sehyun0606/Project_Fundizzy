@@ -288,7 +288,7 @@ public class MemberController {
 				model.addAttribute("msg", "로그인 실패!");
 				return "result/result";
 				
-			} else if(dbMember.get("member_status") == "2") { 
+			} else if(dbMember.get("member_status").equals("2")) { 
 				model.addAttribute("msg", "탈퇴한 회원입니다!");
 				return "result/result";
 				
@@ -317,7 +317,7 @@ public class MemberController {
 				
 				session.setAttribute("member", dbMember);
 				
-				return "main";
+				return "redirect:/";
 				// ---------------------------------------------------------------------------
 				// [ 특정 페이지 로그인 필수 처리 후 로그인 완료 시 원래 페이지로 이동 처리 ]
 				// - 세션에 저장된 "prevURL" 속성값이 null 이 아닐 경우 해당 주소로 리다이렉트하고
@@ -341,7 +341,7 @@ public class MemberController {
 			
 			session.invalidate();
 			
-			return "main";
+			return "redirect:/";
 		}
 		
 		// 아이디 찾기 페이지 이동

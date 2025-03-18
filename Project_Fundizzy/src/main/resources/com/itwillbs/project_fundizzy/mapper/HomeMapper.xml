@@ -34,17 +34,7 @@
 		WHERE approve_stat = 'accept'
 		ORDER BY progress desc;
 	</select>
-
-
-
-
-
-
-
-
-
-
-
+	
 
 
 
