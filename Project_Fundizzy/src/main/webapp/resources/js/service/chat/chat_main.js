@@ -1,9 +1,9 @@
 const TYPE_INIT_MAIN = "TYPE_INIT_MAIN";
 const TYPE_TALK = "TYPE_TALK";
+const TYPE_FILE = "TYPE_FILE";
 const TYPE_SYSTEM = "TYPE_SYSTEM";
 const TYPE_INIT_CHATROOM = "TYPE_INIT_CHATROOM";
 
-var ws = opener.ws;
 const sEmail = $("#sId", opener.document).val();
 
 $(function() {
@@ -54,7 +54,7 @@ $(function() {
 			
 			// 초기화시 읽지않은 메세지 수 사이드바에 표시
 			$(".messageTotalCount").text(data.read_state).change();
-		} else if(data.type == TYPE_TALK || data.type == TYPE_SYSTEM) {
+		} else if(data.type == TYPE_TALK || data.type == TYPE_SYSTEM || data.type ==TYPE_FILE) {
 			// 총 읽지않은 메세지수 변경
 			if(data.sender_email != sEmail) {
 				// 총 읽지 않은 메세지 수 변경
@@ -148,7 +148,7 @@ $(function() {
 function initChatWindow() {
 	let wsCheckInterval = setInterval(() => {
 		// 부모창의 웹소켓 객체가 없거나 연결상태가 아닐경우 부모창의 연결 메서드 호출
-		if(ws == null || ws.readyState != ws.OPEN) {
+		if(opener.ws == null || opener.ws.readyState != opener.ws.OPEN) {
 			opener.connect();
 		} else {
 			// 부모창을 통해 메세지를 전송할 sendMessage()함수 호출

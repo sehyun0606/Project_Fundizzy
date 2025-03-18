@@ -51,7 +51,7 @@
 				</div>
 				
 				<div id="addAccount">
-					<button id="fas"
+					<button 
 						<c:choose>
 							<c:when test="${empty sessionScope.token}">
 								id="auth-button"
@@ -60,12 +60,12 @@
 								id="add_button"
 							</c:otherwise>
 						</c:choose>
-					><img src="${pageContext.request.contextPath}/resources/images/bank/plus2.png"></button>
+					>button</button>
 				</div>
 			</div>
 		</div>
 	</article>
-	
+<%-- 	<img src="${pageContext.request.contextPath}/resources/images/bank/plus2.png"> --%>
 	<div class="account_modal" id="account_modal">
 	    <div class="account_content">
 	        <div class="top">

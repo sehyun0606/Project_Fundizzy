@@ -15,7 +15,7 @@
 				채팅 리스트
 			</div>
 			<div id="memberSearchBox">
-				<input type="text" placeholder="닉네임 or 채팅방이름을 입력해 주세요" >
+				<input type="text" placeholder="닉네임 또는 채팅방이름을 입력해 주세요" >
 				<img src="resources/images/chat/searchIcon.png">
 			</div>
 		</div>

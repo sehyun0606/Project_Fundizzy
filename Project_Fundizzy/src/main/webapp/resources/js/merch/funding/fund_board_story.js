@@ -31,6 +31,10 @@ $(function(){
 	
 //	찜버튼 클릭시 
 	$("#btn-like").click(function(){
+		if($("#sId").val() == null || $("#sId").val() == ""){
+			alert("로그인 후 이용 가능합니다.");
+			return;
+		}
 		//클릭이 되었을때 이미 찜한 상태라면 찜 취소
 		if($(this).hasClass("clicked")){
 			$(this).removeClass("clicked")
@@ -77,6 +81,10 @@ $(function(){
 	
 	//리워드 미선택 - 펀딩하기 클릭 시
 	$(".purchase-btn").on("click", function(){
+		if($("#sId").val() == null || $("#sId").val() == ""){
+			alert("로그인 후 이용 가능합니다.");
+			return;
+		}
 		location.href="PaymentReward?project_code=" + project_code;
 	});
 	
@@ -84,6 +92,10 @@ $(function(){
 $(document).ready(function(){
 	
     $("#btn-support").click(function(){
+		if($("#sId").val() == null || $("#sId").val() == ""){
+			alert("로그인 후 이용 가능합니다.");
+			return;
+		}
         console.log("btn-support 버튼 클릭됨!"); 
         $(".support_modal").css("display", "block");
     });
@@ -112,6 +124,7 @@ $(document).ready(function(){
 
 	//제출버튼
 	$(".support-submit").click(function(event){
+
 		let support_keyword = "";
 		
 		$(".selected").each(function() {

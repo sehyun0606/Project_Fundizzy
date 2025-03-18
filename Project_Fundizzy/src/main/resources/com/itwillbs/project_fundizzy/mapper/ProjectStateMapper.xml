@@ -189,7 +189,10 @@
 			 FROM refund r
 			 JOIN member m
 			 ON r.member_email = m.email
-			 WHERE payment_code = #{payment_code}) as nickname
+			 WHERE payment_code = #{payment_code}) as nickname,
+			(SELECT refund_img
+			 FROM refund r
+ 		     WHERE r.fund_idx = fh.fund_idx) as refund_img
 		FROM 
 			fund_history fh
 		WHERE 

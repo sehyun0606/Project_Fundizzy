@@ -21,11 +21,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 import com.itwillbs.project_fundizzy.handler.FileHandler;
+import com.itwillbs.project_fundizzy.service.ChatService;
 
 
 @Controller
 public class ChatController {
 	@Autowired
+	private ChatService chatService;
 	
 	// 채팅 아이콘 클릭시 채팅메인 페이지로 이동
 	@GetMapping("ChatMain")
@@ -60,11 +62,11 @@ public class ChatController {
 			if(!file.getContentType().startsWith("image/")) {
 				uploadResult.put("result", "fail");
 				uploadResult.put("orginalName", file.getOriginalFilename());
+				
 			} else {
 				uploadResult.put("orginalName", file.getOriginalFilename());
 				// 실제 경로 리턴받기
 				String realPath = FileHandler.getRealPath(session, "/resources/upload");
-				System.out.println("realPath : " + realPath);
 				
 				// 멀티파일 처리
 					
@@ -92,13 +94,19 @@ public class ChatController {
 					uploadResult.put("fileName", fileName);
 					uploadResult.put("thumbnailFileName", thumbnailFileName);
 				}
-				
-				uploadResultList.add(uploadResult);
 			}	
+			uploadResultList.add(uploadResult);
 		}
 		
 		System.out.println(uploadResultList);
 		return new Gson().toJson(uploadResultList);
+	}
+	
+	// 읽지않은 수 카운트
+	@ResponseBody
+	@PostMapping("RequestUnreadCount")
+	public int requestUnreadCount(HttpSession session) {
+		return chatService.getTotalUnReadCount((String)session.getAttribute("sId"));
 	}
 	
 }

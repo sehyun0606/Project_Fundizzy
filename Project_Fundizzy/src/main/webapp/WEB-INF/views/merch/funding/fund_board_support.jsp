@@ -9,8 +9,10 @@
 <meta charset="UTF-8">
 <title>지지서명</title>
 <link rel="stylesheet" type="text/css" href="resources/css/merch/funding/fund_board_support.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/merch/funding/fund_board_support.js"></script>
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 </head>
 <body>
 	<header>
@@ -64,31 +66,31 @@
 							</p>
 					        <fmt:formatDate value="${support.support_date}" pattern="yyyy-MM-dd"/><br>
 					        <!-- 댓글 버튼 -->
-					        <input type="button" value="댓글" class="reply-show" data-support-num="${support.support_num}"><br>
+<%-- 					        <input type="button" value="댓글" class="reply-show" data-support-num="${support.support_num}"><br> --%>
 					
 					        <!-- 댓글 폼 (support_num 별로 구별) -->
-					        <form action="SupportReply" method="post" class="reply-form" data-support-num="${support.support_num}" style="display: none;">
-					            <input type="hidden" value="${param.project_code}" name="project_code">
-					            <input type="hidden" value="${support.support_num}" name="support_num">
-					            <textarea name="reply_content"></textarea>
-					            <input type="submit" value="등록" id="reply-submit-btn">
-					        </form>
+<%-- 					        <form action="SupportReply" method="post" class="reply-form" data-support-num="${support.support_num}" style="display: none;"> --%>
+<%-- 					            <input type="hidden" value="${param.project_code}" name="project_code"> --%>
+<%-- 					            <input type="hidden" value="${support.support_num}" name="support_num"> --%>
+<!-- 					            <textarea name="reply_content"></textarea> -->
+<!-- 					            <input type="submit" value="등록" id="reply-submit-btn"> -->
+<!-- 					        </form> -->
 					    </div>
-			        	<div class="reply-list">
-<!-- 				        	작성된 댓글- 댓글 삭제상태가 1일 경우엔 표시하지 않기 -->
-			        		<table>
-							    <c:forEach var="reply" items="${ReplyList}" varStatus="status">
-							        <tr class="replyTr">
-							            <td class="replyContent"><input type="hidden" value ="${reply.reply_num}" id="replyDelete">${reply.reply_content}</td>
-							            <td class="replyWriter">${reply.maker_email}</td>
-							            <td class="replyRegDate"><fmt:formatDate value="${reply.reply_date}" pattern="yyyy-MM-dd"/></td>
-						       			<td><button class="replyDelete" data-reply-num="${reply.reply_num}">
-									    <img src="${pageContext.request.contextPath}/resources/images/fund/delete-icon.png" class="deleteImg" title="댓글삭제">
-									</button></td>
-							        </tr>
-							    </c:forEach>
-			        		</table>
-			        	</div>
+<!-- 			        	<div class="reply-list"> -->
+<!-- <!-- 				        	작성된 댓글- 댓글 삭제상태가 1일 경우엔 표시하지 않기 --> 
+<!-- 			        		<table> -->
+<%-- 							    <c:forEach var="reply" items="${ReplyList}" varStatus="status"> --%>
+<!-- 							        <tr class="replyTr"> -->
+<%-- 							            <td class="replyContent"><input type="hidden" value ="${reply.reply_num}" id="replyDelete">${reply.reply_content}</td> --%>
+<%-- 							            <td class="replyWriter">${reply.maker_email}</td> --%>
+<%-- 							            <td class="replyRegDate"><fmt:formatDate value="${reply.reply_date}" pattern="yyyy-MM-dd"/></td> --%>
+<%-- 						       			<td><button class="replyDelete" data-reply-num="${reply.reply_num}"> --%>
+<%-- 									    <img src="${pageContext.request.contextPath}/resources/images/fund/delete-icon.png" class="deleteImg" title="댓글삭제"> --%>
+<!-- 									</button></td> -->
+<!-- 							        </tr> -->
+<%-- 							    </c:forEach> --%>
+<!-- 			        		</table> -->
+<!-- 			        	</div> -->
 					</c:forEach>
 				</c:otherwise>
 			</c:choose>
@@ -138,10 +140,8 @@
 			               <p>${reward.product_name}</p>
 			               <p>${reward.product_desc}</p>
 			               <hr>
-			               <p>배송비 ${reward.delivery_fee}</p>
-			               <p>발송 시작일</p>
-			               <p>제한수량 ${reward.product_limit}</p>
-			               <hr>
+			               <p>배송비 : <fmt:formatNumber pattern="#,###원 " value="${reward.delivery_fee}"></fmt:formatNumber></p>
+			               <p>제한수량 : ${reward.product_limit} 개</p>
 			            </div>
                 	</c:forEach>
                 </div>

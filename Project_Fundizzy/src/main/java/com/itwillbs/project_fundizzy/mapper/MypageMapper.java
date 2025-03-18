@@ -24,4 +24,13 @@ public interface MypageMapper {
 
 	int selectLikeListCount(String email);
 
+
+	int selectSupportListCount(String email);
+
+	List<Map<String, Object>> selectMysupport(@Param("email")String email, 
+												@Param("startRow") int startRow, 
+												@Param("listLimit") int listLimit);
+
+	void memberWithdraw(String email);
+
 }

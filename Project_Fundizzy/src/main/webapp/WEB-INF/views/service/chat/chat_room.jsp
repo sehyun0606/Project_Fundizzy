@@ -31,9 +31,9 @@
 	<div id="chatInputArea">
 		<div id="menuBar">
 			<label for="file"><img src="/resources/images/chat/clip.png"></label>
-			<input type="file" id="file" accept="image/*" onchange="sendFile()" multiple>
+			<input type="file" id="file" accept="image/*" onchange="sendFilePreview()" multiple>
 			<img src="/resources/images/chat/transferIcon.png">
-			<input type="button" id="sendBtn" value="전송" onclick="sendInputMessage()">
+			<input type="button" id="sendBtn" value="전송">
 		</div>
 		<div id="chatInput">
 			<textarea id="messageBox" maxlength="1000" placeholder="메시지를 입력하여 주세요" onkeyup="checkEnterKey(event)"></textarea>
@@ -43,7 +43,7 @@
 		<div id="modalForChangeName">
 			<div class="modalTitle">채팅방 이름 변경</div>
 			<div>
-				<input type="text" class="inputName" placeholder="변경할 채팅방 이름을 입력해주세요">
+				<input type="text" class="inputName" placeholder="변경할 채팅방 이름을 입력해주세요" maxlength="20">
 				<div class="buttonGroup">
 					<input type="button" class="changeBtn" value="변경">
 					<input type="button" class="closeBtn" value="닫기">

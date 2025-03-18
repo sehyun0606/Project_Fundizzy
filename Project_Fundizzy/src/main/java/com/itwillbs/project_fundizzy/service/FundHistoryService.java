@@ -1,6 +1,7 @@
 package com.itwillbs.project_fundizzy.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,5 +46,14 @@ public class FundHistoryService {
 	public int modifyShipCompleteStatus(String payment_code, int fund_idx) {
 		historyMapper.updateFundHistoryStatus(fund_idx);
 		return historyMapper.updateShipCompleteStatus(payment_code);
+	}
+
+	public List<Map<String, Object>> getShipInfoList(String payment_code) {
+		return historyMapper.selectShipInfoList(payment_code);
+	}
+
+	public void removeRefundInfo(int fund_idx) {
+		historyMapper.updateRefundStatus(fund_idx);
+		historyMapper.deleteRefundInfo(fund_idx);
 	}
 }

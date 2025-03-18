@@ -86,7 +86,7 @@ body {
 .section-shipment {
 	background-color: #f8f8f8;
     padding-bottom: 10px;
-    padding-left: 10px;
+    padding-left: 22px;
     border-bottom: 1px solid #ddd;
     width: 250px;
 }
@@ -116,14 +116,12 @@ body {
 }
 
 .new_address_box {
-    display: flex;
     flex-direction: column; /* 입력 필드를 세로 배치 */
-    gap: 8px; /* 간격 추가 */
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
     width: 300px; /* 입력 박스 크기 조정 */
-    display: none; /* 기본적으로 숨김 */
+/*     display: none; 기본적으로 숨김 */
 }
 
 .address-content {
@@ -151,8 +149,11 @@ body {
 	display: flex;
 }
 
+#shipment_box{
+	margin-left: 5px;
+}
 .new_address_box {
-	display: none;
+/* 	display: none; */
 	background-color: #CCCC;
 	padding: 10px;
 	border-radius: 7px;

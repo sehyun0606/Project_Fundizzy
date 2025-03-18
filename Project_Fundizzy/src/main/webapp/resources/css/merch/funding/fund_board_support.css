@@ -400,7 +400,11 @@ body {
     display: block; /* 줄바꿈 적용 */
     margin-top: 5px; /* 제목과 간격 조정 */
 }
-
+.reward-list .reward{
+	background-color:#f2e5ff;
+	border-radius: 10px;
+	padding-left: 18px;
+}
 
 .support_content > .keyword-info {
     font-size: 14px;      /* 글자 크기 */

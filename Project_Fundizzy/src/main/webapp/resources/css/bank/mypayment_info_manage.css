@@ -259,8 +259,8 @@ article input[type=button]:hover {
 
 /* 버튼 스타일 */
 #fas {
-    width: 44px;
-    height: 45px;
+    width: 104px;
+    height: 105px;
     display: flex; /* 아이콘을 가운데 정렬하기 위해 flex 사용 */
     align-items: center;
     justify-content: center;

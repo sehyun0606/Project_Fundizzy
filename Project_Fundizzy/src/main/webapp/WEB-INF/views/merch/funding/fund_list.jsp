@@ -19,25 +19,25 @@
 	<article>
 	    <div class="main-banner">
 	    	 <div class="slide">
-		        <img src="resources/images/fund/image1.jpg" alt="메인 이미지">
+		        <img src="https://cdn3.wadiz.kr/studio/images/2025/02/19/8ce3d611-5f2d-4197-aea0-d6da6ff80d81.gif" alt="메인 이미지">
 			</div>
 			<div class="slide">
-			    <img src="resources/images/fund/image2.jpg" alt="메인 이미지">
+			    <img src="https://cdn3.wadiz.kr/studio/images/2025/02/10/4339dc45-c900-4af6-84a6-cbc6ae502d9c.gif" alt="메인 이미지">
 			</div>
 			<div class="slide">
-		    	<img src="resources/images/fund/image3.jpg" alt="메인 이미지">
+		    	<img src="https://cdn3.wadiz.kr/studio/images/2025/02/27/15d4c81f-6617-4d1e-8bde-9c46d8c3e504.jpg/wadiz/resize/1200/format/jpg/quality/80/" alt="메인 이미지">
 			</div>
 			<div class="slide">
-				<img src="resources/images/fund/image4.jpg" alt="메인 이미지"> 
+				<img src="https://cdn3.wadiz.kr/studio/images/2025/02/06/01d4b63b-30f4-4879-a4a3-9afb80cce237.gif" alt="메인 이미지"> 
 			</div>
 			<div class="slide">
-		    	<img src="resources/images/fund/image5.jpg" alt="메인 이미지">
+		    	<img src="https://cdn3.wadiz.kr/studio/images/2025/02/24/6e4f7f4c-2588-41a8-ae95-90b738a3d4b8.gif" alt="메인 이미지">
 			</div>
 			<div class="slide">
-		    	<img src="resources/images/fund/image6.jpg" alt="메인 이미지">
+		    	<img src="https://cdn3.wadiz.kr/studio/images/2025/03/05/72a0eb61-021f-4380-a8c9-df663f2f77d1.gif" alt="메인 이미지">
 			</div>
 			<div class="slide">
-		    	<img src="resources/images/fund/image7.jpg" alt="메인 이미지">
+		    	<img src="https://cdn3.wadiz.kr/studio/images/2025/03/06/ba6d1480-9e6a-44ca-ba67-89ab0d6ae641.jpg/wadiz/resize/1200/format/jpg/quality/80/" alt="메인 이미지">
 			</div>
 	    </div>
 		<div class="slide-button">
@@ -76,17 +76,14 @@
         	<c:forEach var="list" items="${fundList}">
         		<div class="product">
         			<input type="hidden" class ="project_code" value="${list.project_code}">
-		            <div class="product-img">${list.representative_picture}</div>
+		            <img class="product-img" src="${list.representative_picture}">
 		            <div class="product-info">
-		                <p class="discount">${list.progress}%</p>
+		                <p class="discount">${list.progress}% 달성!</p>
 		                <p class="name">${list.project_title}</p>
 		            </div>
        			 </div>
         	</c:forEach>
 	    </section>
-	    
-	    
-	    
 	</article>
 	<footer>
 		<jsp:include page="/WEB-INF/views/inc/footer.jsp" />

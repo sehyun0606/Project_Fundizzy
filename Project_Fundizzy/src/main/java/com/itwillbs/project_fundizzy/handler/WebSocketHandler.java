@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.springframework.aop.framework.AbstractAdvisingBeanPostProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
@@ -42,6 +43,8 @@ public class WebSocketHandler extends TextWebSocketHandler {
 		// 접속중인 사용자의 웹소켓 객체 맵에 저장
 		userSessionList.put(session.getId(), session);
 		userList.put(getHttpSessionId(session), session.getId());
+		System.out.println("userSessionList" + userSessionList);
+		System.out.println("userList" + userList);
 	}
 
 	@Override
@@ -129,7 +132,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
 		} else if (type.equals(ChatMessage.TYPE_INIT_CHATROOM)) {
 			System.out.println("채팅방 초기화 완료");
 			// 회원의 현재 상태 판별후 비활성화일때 에러메세지 전달
-			if(!otherInfo.get("member_status").equals("1")) {
+			if(otherInfo == null || !otherInfo.get("member_status").equals("1")) {
 				chatMessage.setType(ChatMessage.TYPE_ERROR);
 				chatMessage.setMessage("휴면회원이거나 탈퇴한 회원입니다.\n채팅을 종료합니다");
 				sendMessasge(session, chatMessage);

@@ -69,8 +69,8 @@
 		        <div class="section-price">
 		            <h4>결제 금액</h4>
 		            <p>리워드 금액 <span class="total_price"><fmt:formatNumber pattern="#,###원" value="${total_price}"></fmt:formatNumber></span></p>
-		            <p>배송비 <span class="price">${delivery_fee}원</span></p>
-		            <p class="total">총 결제 금액 <span id="total_price_delivery"><fmt:formatNumber pattern="#,###원" value="${total_price + selectedReward.delivery_fee}"></fmt:formatNumber></span></p>
+		            <p>배송비 <span class="price"><fmt:formatNumber pattern="#,###원" value="${project_info.delivery_fee}"></fmt:formatNumber></span></p>
+		            <p class="total">총 결제 금액 <span id="total_price_delivery"><fmt:formatNumber pattern="#,###원" value="${total_price + project_info.delivery_fee}"></fmt:formatNumber></span></p>
 		        </div>
 		        <div class="support-ship">
 			        <div class="section-supporter">
@@ -80,34 +80,55 @@
 			            <p>이메일 ${member.email}</p> 
 			        </div>
 			        <div class="section-shipment">
-			            <h4>리워드 배송지</h4>
-			            <span class="notice">* 회원정보를 기반으로 생성한 배송지 입니다.</span><br>
-			            <div id="div_address">
-			            	<input type="radio" name="addressRadio" id="address" value="최근 배송지" checked="checked">
-			            	<label for="address">
-				            	<input type="text" id="ship-name" placeholder="배송 받으실 분 이름을 입력해주세요." maxlength="10" required="required"><br>
-		            	        <span id="ship-phone">${member.phone}</span><br>
-						        <span id="ship-postcode">(${member.post_code})</span> 
-						        <span id="ship-address1">${member.address1}</span> 
-						        <span id="ship-address2">${member.address2}</span>
-			             	</label>
-		             	</div>
-			            <div id="div_new_address">
-	<!-- 		            해야함 -->
-				            <input type="radio" value="새로운 입력" name="addressRadio" id="new_address">
-				            <label for="new_address">새로입력</label>
-				            <div class="new_address_box">
-				            	<span id="ship-new-name">이름</span><input type="text" name="name" class="addressInfo" id="ship-newName" required="required"><br>
-				            	<span id="ship-new-phone">휴대폰</span><input type="text" name="phone_num" value="${member.phone}" id="ship-newPhone" class="addressInfo" required="required"><br> 
-				            	<span id="address_add">주소
-				            		<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-				            	</span>
-				            	<input type="text" class="addressInfo" id="sample6_postcode" placeholder="우편번호" name="post_code" value="${member.post_code}" required="required"><br>
-								<input type="text" class="addressInfo" id="sample6_address" placeholder="주소" name="address1" value="${member.address1}" required="required"><br>
-								<input type="text" class="addressInfo" id="sample6_detailAddress" placeholder="상세주소"  name="address2" value="${member.address2}" required="required">
-								<input type="text" class="addressInfo" id="sample6_extraAddress" placeholder="참고항목" name="extra_address" value=""> 
-				            </div>
-			             </div>
+			        	<c:choose>
+			        		<c:when test="${empty member.post_code}">
+					            <div id="div_new_address">
+						            <input type="radio" value="새로운 입력" name="addressRadio" id="new_address" checked="checked">
+						            <label for="new_address">새로입력</label>
+						            <div class="new_address_box">
+						            	<span id="ship-new-name">이름</span><input type="text" name="name" class="addressInfo" id="ship-newName" required="required"><br>
+						            	<span id="ship-new-phone">휴대폰</span><input type="text" name="phone_num" value="${member.phone}" id="ship-newPhone" class="addressInfo" required="required"><br> 
+						            	<span id="address_add">주소
+						            		<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+						            	</span>
+						            	<input type="text" class="addressInfo" id="sample6_postcode" placeholder="우편번호" name="post_code" value="${member.post_code}" required="required"><br>
+										<input type="text" class="addressInfo" id="sample6_address" placeholder="주소" name="address1" value="${member.address1}" required="required"><br>
+										<input type="text" class="addressInfo" id="sample6_detailAddress" placeholder="상세주소"  name="address2" value="${member.address2}" required="required">
+										<input type="text" class="addressInfo" id="sample6_extraAddress" placeholder="참고항목" name="extra_address" value=""> 
+						            </div>
+					             </div>
+			        		</c:when>
+			        		<c:otherwise>
+					            <h4>리워드 배송지</h4>
+					            <span class="notice">* 회원정보를 기반으로 생성한 배송지 입니다.</span><br>
+					            <div id="div_address">
+					            	<input type="radio" name="addressRadio" id="address" value="최근 배송지" checked="checked">
+					            	<label for="address">
+						            	<input type="text" id="ship-name" placeholder="배송 받으실 분 이름을 입력해주세요." maxlength="10" required="required"><br>
+				            	        <span id="ship-phone">${member.phone}</span><br>
+								        <span id="ship-postcode">(${member.post_code})</span> 
+								        <span id="ship-address1">${member.address1}</span> 
+								        <span id="ship-address2">${member.address2}</span>
+					             	</label>
+				             	</div>
+       				            <div id="div_new_address">
+						            <input type="radio" value="새로운 입력" name="addressRadio" id="new_address">
+						            <label for="new_address">새로입력</label>
+						            <div class="new_address_box">
+						            	<span id="ship-new-name">이름</span><input type="text" name="name" class="addressInfo" id="ship-newName" required="required"><br>
+						            	<span id="ship-new-phone">휴대폰</span><input type="text" name="phone_num" value="${member.phone}" id="ship-newPhone" class="addressInfo" required="required"><br> 
+						            	<span id="address_add">주소
+						            		<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+						            	</span>
+						            	<input type="text" class="addressInfo" id="sample6_postcode" placeholder="우편번호" name="post_code" value="${member.post_code}" required="required"><br>
+										<input type="text" class="addressInfo" id="sample6_address" placeholder="주소" name="address1" value="${member.address1}" required="required"><br>
+										<input type="text" class="addressInfo" id="sample6_detailAddress" placeholder="상세주소"  name="address2" value="${member.address2}" required="required">
+										<input type="text" class="addressInfo" id="sample6_extraAddress" placeholder="참고항목" name="extra_address" value=""> 
+						            </div>
+					             </div>
+			             	</c:otherwise>
+		             	</c:choose>
+
 			            <input type="text" id="shipment-box" name="delivery_req" placeholder="배송 시 요청사항(선택)">
 			        </div>
 		        </div>

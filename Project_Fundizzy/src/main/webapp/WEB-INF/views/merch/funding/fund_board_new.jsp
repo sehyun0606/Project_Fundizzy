@@ -8,9 +8,11 @@
 <meta charset="UTF-8">
 <title>펀딩 새소식</title>
 <link rel="stylesheet" type="text/css" href="resources/css/merch/funding/fund_board_new.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <!-- js파일 로드 script -->
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
   <script src="${pageContext.request.contextPath}/resources/js/merch/funding/fund_board_new.js"></script>
+   <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 </head>
 <body>
 	<header>
@@ -36,16 +38,21 @@
 	          </div>
 	          <hr>
 <!-- 	          새소식 글  -->
-			<c:forEach var="news" items="${newsList}">
-				<c:if test="${news.news_status eq 'Y'}">
-					<div class="post">
-		               <input type="hidden" class="news_code" value="${news.news_code}">
-		               <h4>${news.news_title}</h4>
-		               <p>${news.news_content}</p>
-		               <p><fmt:formatDate value="${news.news_date}" pattern="yyyy-MM-dd"/></p>
-		           </div>
-				</c:if>
-			</c:forEach>
+				<c:choose>
+					<c:when test="${news.news_status eq 'Y'}">
+						<c:forEach var="news" items="${newsList}">
+							<div class="post">
+				               <input type="hidden" class="news_code" value="${news.news_code}">
+				               <h4>${news.news_title}</h4>
+				               <p>${news.news_content}</p>
+				               <p><fmt:formatDate value="${news.news_date}" pattern="yyyy-MM-dd"/></p>
+				           </div>
+						</c:forEach>
+					</c:when>
+					<c:when test="${empty newsList}">
+						등록된 글이 없습니다.
+					</c:when>
+				</c:choose>
 	           
 	       </div>
 	 <div class="content-right">
@@ -93,10 +100,8 @@
 			               <p>${reward.product_name}</p>
 			               <p>${reward.product_desc}</p>
 			               <hr>
-			               <p>배송비 ${reward.delivery_fee}</p>
-			               <p>발송 시작일</p>
-			               <p>제한수량 ${reward.product_limit}</p>
-			               <hr>
+			               <p>배송비 : <fmt:formatNumber pattern="#,###원 " value="${reward.delivery_fee}"></fmt:formatNumber></p>
+			               <p>제한수량 : ${reward.product_limit} 개</p>
 			            </div>
                 	</c:forEach>
                 </div>
