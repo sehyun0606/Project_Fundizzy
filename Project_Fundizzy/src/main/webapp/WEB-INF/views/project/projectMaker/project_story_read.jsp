@@ -38,7 +38,7 @@
 			       <div class="multi-preview-container" id="multiPreviewContainer">
 			       		<c:forEach items="${imgList}" var="img">
 			       			<div class="multi-preview-wrapper">
-			       				<img class="multi-preview" src="/resources/upload/${img}">
+			       				<img class="multi-preview" src="${img}">
 			       			</div>
 			       		</c:forEach>
 			       </div>

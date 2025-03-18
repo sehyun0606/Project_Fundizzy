@@ -312,7 +312,7 @@ public class ProjectMakerController {
 	        for (MultipartFile file : productPictures) {
 	            if (file != null && !file.getOriginalFilename().isEmpty()) {
 	                String fileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
-	                productPicturePaths.add( projectCode + "/ProjectStory/" + fileName);
+	                productPicturePaths.add("/resources/upload/" + projectCode + "/ProjectStory/" + fileName);
 
 	                try {
 	                    file.transferTo(new File(realPath, fileName));
