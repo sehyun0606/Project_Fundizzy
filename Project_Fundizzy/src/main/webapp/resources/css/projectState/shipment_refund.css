@@ -95,7 +95,7 @@ th, td {
 /*     max-height: 700px; */
 /*     overflow-y: auto; */
 	margin-bottom: 70px;
-	width: 1100px;
+	width: 1000px;
     border-top: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
 }
@@ -233,7 +233,11 @@ th, td {
     padding: 10px;
 }
 
-h3 {
+.content h3 {
+    font-size: 20px;
+}
+
+.modal h3 {
     text-align: center;
     font-size: 20px;
     margin: 0;
@@ -355,6 +359,39 @@ h4 {
     max-width: 100%;
     max-height: 100%;
     margin-bottom: 10px;
+}
+
+.all-container {
+	display: flex;
+	gap: 30px;
+}
+
+.refund-amt {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+/* 	border: 1px solid #ddd; */
+	border-radius: 5px;
+/* 	padding: 10px; */
+    height: 100%;
+    background: #fff; /* 배경색 추가 */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05); /* 그림자 추가 */
+}
+
+
+.refund_title {
+	font-size: 16px;
+    font-weight: 600;
+    letter-spacing: -1px;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+
+.refund_content {
+    padding: 10px;
+    font-weight: bold;
 }
 
 /* 전체 스크롤바 스타일 */

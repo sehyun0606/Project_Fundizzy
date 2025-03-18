@@ -19,124 +19,127 @@
 		<div class="content">
 			<h1>발송·환불 관리</h1>
 			<h3>서포터 관리</h3>
-		    <div class="status-container">
-		        <div class="section">
-		            <div class="title">발송·배송 상태</div>
-		            <div class="status">
-		                <div>
-		                	<span>미발송</span>
-		                	<c:set var="found" value="false" />
-		                	<c:forEach var="ship" items="${shipStateCount}">
-			                    <c:if test="${ship.common_code eq 'SHI01'}">
-		                    		<span class="count">${ship.count}<span>건</span></span>
-				                	<c:set var="found" value="true" />
-		                    	</c:if>
-		                    </c:forEach>
-		                    <!-- status가 존재하지 않을 시 0건 -->
-		                    <c:if test="${!found}">
-	                    		<span class="count">0<span>건</span></span>
-		                    </c:if>
-		                </div>
-		                <div>
-       						<span>발송완료</span>
-					        <c:set var="found" value="false" />
-					        <c:forEach var="ship" items="${shipStateCount}">
-					            <c:if test="${ship.common_code eq 'SHI02'}">
-					                <span class="count">${ship.count}<span>건</span></span>
-					                <c:set var="found" value="true" />
-					            </c:if>
-					        </c:forEach>
-		                    <!-- status가 존재하지 않을 시 0건 -->
-					        <c:if test="${!found}">
-					            <span class="count">0<span>건</span></span>
-					        </c:if>
-					    </div>
-		                <div>
-		                 	<span>배송중</span>
-					        <c:set var="found" value="false" />
-					        <c:forEach var="ship" items="${shipStateCount}">
-					            <c:if test="${ship.common_code eq 'SHI03'}">
-					                <span class="count">${ship.count}<span>건</span></span>
-					                <c:set var="found" value="true" />
-					            </c:if>
-					        </c:forEach>
-		                    <!-- status가 존재하지 않을 시 0건 -->
-					        <c:if test="${!found}">
-					            <span class="count">0<span>건</span></span>
-					        </c:if>
-		                </div>
-		                <div>
-		                 	<span>배송완료</span>
-					        <c:set var="found" value="false" />
-					        <c:forEach var="ship" items="${shipStateCount}">
-					            <c:if test="${ship.common_code eq 'SHI04'}">
-					                <span class="count">${ship.count}<span>건</span></span>
-					                <c:set var="found" value="true" />
-					            </c:if>
-					        </c:forEach>
-		                    <!-- status가 존재하지 않을 시 0건 -->
-					        <c:if test="${!found}">
-					            <span class="count">0<span>건</span></span>
-					        </c:if>
-					    </div>
-		            </div>
+			<div class="all-container">
+			    <div class="status-container">
+			        <div class="section">
+			            <div class="title">발송·배송 상태</div>
+			            <div class="status">
+			                <div>
+			                	<span>미발송</span>
+			                	<c:set var="found" value="false" />
+			                	<c:forEach var="ship" items="${shipStateCount}">
+				                    <c:if test="${ship.common_code eq 'SHI01'}">
+			                    		<span class="count">${ship.count}<span>건</span></span>
+					                	<c:set var="found" value="true" />
+			                    	</c:if>
+			                    </c:forEach>
+			                    <!-- status가 존재하지 않을 시 0건 -->
+			                    <c:if test="${!found}">
+		                    		<span class="count">0<span>건</span></span>
+			                    </c:if>
+			                </div>
+			                <div>
+	       						<span>발송완료</span>
+						        <c:set var="found" value="false" />
+						        <c:forEach var="ship" items="${shipStateCount}">
+						            <c:if test="${ship.common_code eq 'SHI02'}">
+						                <span class="count">${ship.count}<span>건</span></span>
+						                <c:set var="found" value="true" />
+						            </c:if>
+						        </c:forEach>
+			                    <!-- status가 존재하지 않을 시 0건 -->
+						        <c:if test="${!found}">
+						            <span class="count">0<span>건</span></span>
+						        </c:if>
+						    </div>
+			                <div>
+			                 	<span>배송중</span>
+						        <c:set var="found" value="false" />
+						        <c:forEach var="ship" items="${shipStateCount}">
+						            <c:if test="${ship.common_code eq 'SHI03'}">
+						                <span class="count">${ship.count}<span>건</span></span>
+						                <c:set var="found" value="true" />
+						            </c:if>
+						        </c:forEach>
+			                    <!-- status가 존재하지 않을 시 0건 -->
+						        <c:if test="${!found}">
+						            <span class="count">0<span>건</span></span>
+						        </c:if>
+			                </div>
+			                <div>
+			                 	<span>배송완료</span>
+						        <c:set var="found" value="false" />
+						        <c:forEach var="ship" items="${shipStateCount}">
+						            <c:if test="${ship.common_code eq 'SHI04'}">
+						                <span class="count">${ship.count}<span>건</span></span>
+						                <c:set var="found" value="true" />
+						            </c:if>
+						        </c:forEach>
+			                    <!-- status가 존재하지 않을 시 0건 -->
+						        <c:if test="${!found}">
+						            <span class="count">0<span>건</span></span>
+						        </c:if>
+						    </div>
+			            </div>
+			        </div>
+			        <div class="section">
+			            <div class="title">환불 상태</div>
+			            <div class="status">
+			                <div>
+			                    <span>신청</span>
+			                    <c:set var="found" value="false" />
+			                    <c:forEach var="refund" items="${refundStateCount}">
+				                    <c:if test="${refund.refund_stat eq 'REF01'}">
+			                    		<span class="count">${refund.count}<span>건</span></span>
+					                    <c:set var="found" value="true" />
+			                    	</c:if>
+			                    </c:forEach>
+			                    <!-- status가 존재하지 않을 시 0건 -->
+						        <c:if test="${!found}">
+						            <span class="count">0<span>건</span></span>
+						        </c:if>
+			                </div>
+			                <div>
+			                    <span>승인</span>
+			                    <c:set var="found" value="false" />
+			                    <c:forEach var="refund" items="${refundStateCount}">
+				                    <c:if test="${refund.refund_stat eq 'REF02'}">
+			                    		<span class="count">${refund.count}<span>건</span></span>
+					                    <c:set var="found" value="true" />
+			                    	</c:if>
+			                    </c:forEach>
+			                    <!-- status가 존재하지 않을 시 0건 -->
+						        <c:if test="${!found}">
+						            <span class="count">0<span>건</span></span>
+						        </c:if>
+			                </div>
+			                <div>
+			                    <c:set var="found" value="false" />
+			                    <span>거절</span>
+			                    <c:forEach var="refund" items="${refundStateCount}">
+				                    <c:if test="${refund.refund_stat eq 'REF03'}">
+			                    		<span class="count">${refund.count}<span>건</span></span>
+					                    <c:set var="found" value="true" />
+			                    	</c:if>
+			                    </c:forEach>
+			                    <!-- status가 존재하지 않을 시 0건 -->
+						        <c:if test="${!found}">
+						            <span class="count">0<span>건</span></span>
+						        </c:if>
+			                </div>
+			            </div>
+			        </div>
+			    </div>
+			    <div class="refund-amt">
+		        	<div class="refund_title">환불 가능 금액</div>
+		        	<div class="refund_content"><fmt:formatNumber value="${finalAmount}" pattern="#,###원" /></div>
 		        </div>
-		        <div class="section">
-		            <div class="title">환불 상태</div>
-		            <div class="status">
-		                <div>
-		                    <span>신청</span>
-		                    <c:set var="found" value="false" />
-		                    <c:forEach var="refund" items="${refundStateCount}">
-			                    <c:if test="${refund.refund_stat eq 'REF01'}">
-		                    		<span class="count">${refund.count}<span>건</span></span>
-				                    <c:set var="found" value="true" />
-		                    	</c:if>
-		                    </c:forEach>
-		                    <!-- status가 존재하지 않을 시 0건 -->
-					        <c:if test="${!found}">
-					            <span class="count">0<span>건</span></span>
-					        </c:if>
-		                </div>
-		                <div>
-		                    <span>승인</span>
-		                    <c:set var="found" value="false" />
-		                    <c:forEach var="refund" items="${refundStateCount}">
-			                    <c:if test="${refund.refund_stat eq 'REF02'}">
-		                    		<span class="count">${refund.count}<span>건</span></span>
-				                    <c:set var="found" value="true" />
-		                    	</c:if>
-		                    </c:forEach>
-		                    <!-- status가 존재하지 않을 시 0건 -->
-					        <c:if test="${!found}">
-					            <span class="count">0<span>건</span></span>
-					        </c:if>
-		                </div>
-		                <div>
-		                    <c:set var="found" value="false" />
-		                    <span>거절</span>
-		                    <c:forEach var="refund" items="${refundStateCount}">
-			                    <c:if test="${refund.refund_stat eq 'REF03'}">
-		                    		<span class="count">${refund.count}<span>건</span></span>
-				                    <c:set var="found" value="true" />
-		                    	</c:if>
-		                    </c:forEach>
-		                    <!-- status가 존재하지 않을 시 0건 -->
-					        <c:if test="${!found}">
-					            <span class="count">0<span>건</span></span>
-					        </c:if>
-		                </div>
-		            </div>
-		        </div>
-		    </div>
+	        </div>
 	        <div class="note">
 	            리워드 발송을 완료하면 발송 정보 입력을 통해 발송 처리를 진행해 주세요.<br>
 	            상태 건수는 발송 받는 기준으로 계산돼요.
 	        </div>
 
-		    <div class="refund-amt">
-	        	<div class="title">환불 가능 금액</div>
-	        </div>
 			
 			<div class="order-summary">
 				<span>목록</span>
@@ -147,11 +150,10 @@
 					 <thead>
 			            <tr>
 			                <th width="103px">목록</th>
-			                <th width="171px">서포터 정보</th>
+			                <th width="200px">서포터 정보</th>
 			                <th width="120px">결제일</th>
 			                <th width="120px">결제 금액</th>
 			                <th width="120px">발송 정보</th>
-			                <th width="120px">발송 예정일</th>
 			                <th width="120px">발송 상태</th>
 			                <th width="86px">발송 번호</th>
 			                <th width="86px">환불</th>
@@ -161,15 +163,15 @@
 		            <tbody>
 			            <c:forEach var="order" items="${orderList}" varStatus="status">
 				            <tr>
-				                <td width="103px">${status.index + 1}<input type="hidden" class="payment_code" value="${order.payment_code}"></td>
-				                <td width="171px">
+				                <td width="95px">${status.index + 1}<input type="hidden" class="payment_code" value="${order.payment_code}"></td>
+				                <td width="160px">
 				                    ${order.name}<br>
 				                    ${order.supporter_email}<br>
 				                    ${order.phone_num}
 				                </td>
-				                <td width="120px"><fmt:formatDate value="${order.payment_complete_date}" pattern="yyyy-MM-dd"/> </td>
-				                <td width="120px">${order.payment_amount}원</td>
-				                <td width="120px">
+				                <td width="110px"><fmt:formatDate value="${order.payment_complete_date}" pattern="yyyy-MM-dd"/> </td>
+				                <td width="110px">${order.payment_amount}원</td>
+				                <td width="110px">
 				                	<c:choose>
 				                		<c:when test="${empty order.tracking_num}">
 							                <input type="button" value="입력" class="shipInfoBtn">
@@ -180,8 +182,7 @@
 				                		</c:when>
 				                	</c:choose>
 		                		</td>
-				                <td width="120px">2025-01-01</td>
-				                <td width="120px">
+				                <td width="110px">
 					                <c:choose>
 						            	<c:when test="${order.shipment_common_code eq 'SHI01'}">
 						            		미발송
