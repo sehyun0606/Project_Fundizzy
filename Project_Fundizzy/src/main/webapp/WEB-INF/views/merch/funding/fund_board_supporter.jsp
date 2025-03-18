@@ -8,9 +8,11 @@
 <meta charset="UTF-8">
 <title>참여하는 서포터</title>
 <link rel="stylesheet" type="text/css" href="resources/css/merch/funding/fund_board_supporter.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <!-- js파일 로드 script -->
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
   <script src="${pageContext.request.contextPath}/resources/js/merch/funding/fund_board_supporter.js"></script>
+  <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 </head>
 <body>
 	<header>
@@ -49,6 +51,7 @@
                 <div class="purchase-content">
                    ${fundStory.project_content}
                 </div>
+                <input type="hidden" value="${sessionScope.sId}" id="sId">
                 <p><strong>${fundHistory}</strong>명 참여</p>
                 <p><strong>${fundStory.progress}</strong>% 달성</p>
                 <div class="btn-group">

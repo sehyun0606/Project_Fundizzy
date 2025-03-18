@@ -1,6 +1,6 @@
 $(function(){
 	let project_code = $("#project_code").val();
-	
+	let email = $("#keep_email").val();
 	//상단 메뉴바 선택 시 
 	$(".story").on("click", function(e){
 		location.href="FundBoardStory?project_code=" + project_code;
@@ -29,11 +29,20 @@ $(function(){
 	
 	//펀딩하기 버튼 클릭 시
 	$(".purchase-btn").on("click", function(){
+		if(email == null || email == ""){
+			alert("로그인 후 이용 가능합니다.");
+			return;
+		}
 		location.href="PaymentReward?project_code=" + project_code;
 	});
 	
 	//	찜버튼 클릭시 
 	$("#btn-like").click(function(){
+
+		if(email == null || email == ""){
+			alert("로그인 후 이용 가능합니다.");
+			return;
+		}
 		//클릭이 되었을때 이미 찜한 상태라면 찜 취소
 		if($(this).hasClass("clicked")){
 			$(this).removeClass("clicked")
@@ -55,7 +64,6 @@ $(function(){
 			})
 			//찜이 처음이라면 찜 되도록 
 	    } else {
-		
 			$(this).addClass("clicked")
 	      	let iElement = $(this).find('i');
 			iElement.removeClass("fa-heart-o");
@@ -100,6 +108,10 @@ $(function(){
 $(document).ready(function(){
 // 지지서명 버튼 클릭시 모달창 띄우기 
     $("#btn-support").click(function(){
+		if(email == null || email == ""){
+			alert("로그인 후 이용 가능합니다.");
+			return;
+		}
         console.log("btn-support 버튼 클릭됨!"); 
         $(".support_modal").css("display", "block");
     });

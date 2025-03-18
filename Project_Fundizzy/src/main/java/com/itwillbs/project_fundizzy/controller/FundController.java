@@ -83,7 +83,7 @@ public class FundController {
 		System.out.println("project_code = " + project_code);
 		String email = (String) session.getAttribute("sId");
 		
-		//*대표이미지와 상세 이미지 가져오기 
+		// *대표이미지와 상세 이미지 가져오기 
 		List<ProjectStoryVO> projectStoryList = fundService.getProjectStory(project_code);
 		model.addAttribute("projectStoryList", projectStoryList); //ok
 		
@@ -329,7 +329,7 @@ public class FundController {
 		model.addAttribute("reward", reward);
 		
 		//찜테이블 가져오기
-		Map<String, String> keep = fundService.getKeep(email,project_code); 
+		Map<String, String> keep = fundService.getKeep(email, project_code); 
 		model.addAttribute("keep", keep);
 		
 		//fund-history table 가져오기 - 구매자 수 출력 
