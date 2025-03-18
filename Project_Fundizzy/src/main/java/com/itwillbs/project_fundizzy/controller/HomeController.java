@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,7 +38,6 @@ public class HomeController {
 		List<Map<String, String>> projectLikeList = homeService.getProjectLikeList();
 		List<Map<String, String>> projectRandomList = homeService.getProjectRandomList();
 		List<Map<String, String>> projectProgressList = homeService.getProjectProgressList();
-		
 		
 		
 		

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface AdminMapper {
@@ -21,7 +22,17 @@ public interface AdminMapper {
 	List<Map<String, String>> selectUnansweredQnaList();
 
 	List<Map<String, String>> selectAnsweredQnaList();
-
+	
 	List<Map<String, String>> selectQnaList();
+
+//	List<Map<String, Object>> selectQnaList(
+//			@Param("searchType") String searchType, 
+//			@Param("searchKeyword") String searchKeyword,
+//			@Param("startRow") int startRow, 
+//			@Param("listLimit") int listLimit);
+//
+//	int selectBoardListCount(
+//			@Param("searchType") String searchType, 
+//			@Param("searchKeyword") String searchKeyword);
 
 }

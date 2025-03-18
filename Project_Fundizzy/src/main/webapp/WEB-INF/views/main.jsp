@@ -134,12 +134,13 @@
 	            </div>
 	            <ul class="ranking-list">
 	            	<c:forEach var="ppl" items="${projectProgressList }" varStatus="status" begin="0" end="7">
-	                	<li>
+	                	<li onclick="location.href='FundBoardStory?project_code=${ppl.project_code}'">
 		                    <span class="rank-number">${status.index + 1}</span>
 		                    <div class="rank-content">
 		                        <p>${ppl.project_title}</p>
 		                        <span class="rank-highlight">
 		                        	<fmt:formatNumber value="${ppl.progress}" type="number"/>% 달성!
+		                        	<input type="hidden" value="${ppl.project_code }">
 		                        </span>
 		                    </div>
 		                    <img src="${ppl.representative_picture}" alt="순위1">

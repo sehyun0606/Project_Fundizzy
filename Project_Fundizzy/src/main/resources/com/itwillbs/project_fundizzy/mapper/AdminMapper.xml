@@ -54,9 +54,10 @@
 		order by qna_create desc;
 	</select>
 	
-	<select id="selectQnaList" resultType="map">
+	<select id="selectQnaList" >
 		SELECT *
 		FROM qna
 		order by qna_create desc;
 	</select>
+	
 </mapper>

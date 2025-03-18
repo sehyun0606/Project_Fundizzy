@@ -44,4 +44,13 @@ public class AdminService {
 	public List<Map<String, String>> getQnaList() {
 		return mapper.selectQnaList();
 	}
+
+
+//	public List<Map<String, Object>> getQnaList(String searchType, String searchKeyword, int startRow, int listLimit) {
+//		return mapper.selectQnaList(searchType, searchKeyword, startRow, listLimit);
+//	}
+//
+//	public int getBoardListCount(String searchType, String searchKeyword) {
+//		return mapper.selectBoardListCount(searchType, searchKeyword);
+//	}
 }

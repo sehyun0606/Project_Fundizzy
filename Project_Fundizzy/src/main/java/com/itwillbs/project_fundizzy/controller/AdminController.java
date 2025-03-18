@@ -22,7 +22,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import com.itwillbs.project_fundizzy.service.AdminService;
+import com.itwillbs.project_fundizzy.vo.PageInfo;
 
 @Controller
 public class AdminController {
@@ -142,11 +144,13 @@ public class AdminController {
 	
 	@GetMapping("QnaManage")
 	public String QnaManage(Model model) {
+		
 		List<Map<String, String>> unanswerQnaList = adminService.getUnansweredQnaList();
 		System.out.println("미답변 문의사항 : " + unanswerQnaList);
 		List<Map<String, String>> answerQnaList = adminService.getAnsweredQnaList();
 		System.out.println("답변 문의사항 : " + answerQnaList);
 		List<Map<String, String>> qnaList = adminService.getQnaList();
+//		System.out.println("모든 문의사항 : " + qnaList);
 		
 		
 		model.addAttribute("unanswerQnaList", unanswerQnaList);
@@ -154,6 +158,11 @@ public class AdminController {
 		model.addAttribute("qnaList", qnaList);
 		return "admin/admin_community/admin_community_qna";
 	}
+	
+	
+	
+	
+	
 	
 	
 	

@@ -7,7 +7,7 @@ body {
 	background-color: mediumseagreen;
 	color: white;
 	padding: 20px;
-	height: 100vh;
+	height: auto;
 }
 .sidebar h2 {
 	font-size: 24px;
@@ -229,7 +229,14 @@ table tr:hover {
 .admin-reply button:hover {
     background-color: #333;
 }
-
+.pageList {
+	margin-left: 43%;
+    margin-top: 2%;
+}
+.pageList2 {
+	margin-left: 43%;
+    margin-top: 2%;
+}
 
 
 

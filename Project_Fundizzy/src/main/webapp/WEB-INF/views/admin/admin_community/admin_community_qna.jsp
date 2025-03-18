@@ -24,7 +24,7 @@
 	
 		<div class="main-content">
 		    <div class="flex-container">
-		        <!-- 최근 가입자 -->
+		        <!-- 미답변 문의사항 -->
 				<div class="unAnswer">
 				    <h2>미답변 문의사항</h2>
 				    <table>
@@ -37,29 +37,36 @@
 				            </tr>
 				        </thead>
 				        <tbody style="font-size: 12px;">
-				            <c:forEach var="unanswerQna" items="${unanswerQnaList}" varStatus="status">
-				                <c:if test="${status.index < 5}"> <%-- 0~4 번째 요소(5개)만 출력 --%>
-				                    <tr class="qna-row" 
-						                data-email="${unanswerQna.email}" 
-						                data-category="${unanswerQna.qna_category}" 
-						                data-content="${unanswerQna.qna_content}"
-						                data-date="<fmt:formatDate value='${unanswerQna.qna_create}' pattern='yyyy-MM-dd HH:mm'/>"
-						                data-status="${unanswerQna.qna_status}"  <%-- ✅ 답변 상태 추가 --%>
-						                data-reply="${unanswerQna.reply_content}"  <%-- ✅ 관리자 답변 내용 추가 --%>
-						                onclick="openModal(this)">
-				                        <td>${unanswerQna.email}</td>
-				                        <td>${unanswerQna.qna_category}</td>
-				                        <td>${unanswerQna.qna_content}</td>
-				                        <td>
-				                            <fmt:formatDate value="${unanswerQna.qna_create}" pattern="yyyy-MM-dd HH:mm"/>
-				                        </td>
-				                    </tr>
-				                </c:if>
-				            </c:forEach>
+				        <c:choose>
+				        	<c:when test="${empty unanswerQnaList}">
+				        		<tr><td colspan="4">게시물이 존재하지 않습니다</td></tr>
+				        	</c:when>
+				        	<c:otherwise>
+					            <c:forEach var="unanswerQna" items="${unanswerQnaList}" varStatus="status">
+					                <c:if test="${status.index < 5}"> <%-- 0~4 번째 요소(5개)만 출력 --%>
+					                    <tr class="qna-row" 
+						                    data-email="${unanswerQna.email}" 
+						                    data-category="${unanswerQna.qna_category}" 
+						                    data-content="${unanswerQna.qna_content}"
+							                data-date="<fmt:formatDate value='${unanswerQna.qna_create}' pattern='yyyy-MM-dd'/>"
+							                data-status="${unanswerQna.qna_status}"  <%-- ✅ 답변 상태 추가 --%>
+							                data-reply="${unanswerQna.reply_content}"  <%-- ✅ 관리자 답변 내용 추가 --%>
+							                onclick="openModal(this)">
+					                        <td>${unanswerQna.email}</td>
+					                        <td>${unanswerQna.qna_category}</td>
+					                        <td>${unanswerQna.qna_content}</td>
+					                        <td>
+					                            <fmt:formatDate value="${unanswerQna.qna_create}" pattern="yyyy-MM-dd"/>
+					                        </td>
+					                    </tr>
+					                </c:if>
+					            </c:forEach>
+				        	</c:otherwise>
+				        </c:choose>
 				        </tbody>
 				    </table>
 				</div>
-				<!-- 최근 탈퇴자 -->
+				<!-- 답변한 문의사항 -->
 				<div class="answer">
 				    <h2>답변한 문의사항</h2>
 				    <table>
@@ -104,25 +111,23 @@
 				    </table>
 				</div>
 			</div>
-	    
-		    <!-- 메인 콘텐츠 -->
-		    <!-- 회원 정보 -->
+		    <!-- 전체 문의사항 -->
 		    <div class="qna">
 			    <h2>문의사항</h2>
-			    <form id="searchForm"> 
-				    <div class="search-bar">
-				        <select name="searchType" id="searchType" style="height: 29px; font-size: 10px;">
-				            <option value="전체">전체</option>
-				            <option value="펀디즈">펀디즈</option>
-				            <option value="서포터">서포터</option>
-				            <option value="메이커">메이커</option>
-				            <option value="비회원">비회원</option>
-				            <option value="기타">기타</option>
-				        </select>
-				        <input type="text" id="searchText" placeholder="회원명">
-				        <button type="button" class="search-btn">검색</button>
-				    </div>
-				</form>
+			    	<form action="qnaBoardList" method="get">
+					    <div class="search-bar">
+					        <select name="searchType" id="searchType" style="height: 29px; font-size: 10px;">
+					            <option value="전체">전체</option>
+					            <option value="펀디즈">펀디즈</option>
+					            <option value="서포터">서포터</option>
+					            <option value="메이커">메이커</option>
+					            <option value="비회원">비회원</option>
+					            <option value="기타">기타</option>
+					        </select>
+					        <input type="text"  id="searchText" name="searchKeyword" required>
+					        <button type="button" class="search-btn">검색</button>
+					    </div>
+				    </form> 
 			
 			    <table>
 			        <thead>
@@ -144,8 +149,7 @@
 						        data-content="${qna.qna_content}"
 						        data-date="<fmt:formatDate value='${qna.qna_create}' pattern='yyyy-MM-dd HH:mm'/>"
 						        data-status="${qna.qna_status}"
-						        data-reply="${qna.reply_content}"
-						        style="${status.index >= 6 ? 'display: none;' : ''}"
+<%-- 						        style="${status.index >= 6 ? 'display: none;' : ''}" --%>
 						        onclick="openModal(this)">
 						        <td>${qna.qna_num}</td>
 						        <td>${qna.receive_email}</td>
@@ -188,7 +192,7 @@
 			    <label for="replyContent"><strong>관리자 답변:</strong></label>
 			    <textarea id="replyContent" placeholder="답변을 입력하세요"></textarea>
 			    <p id="replyCompleted" style="display: none; color: green; font-weight: bold;">답변 완료</p>  <%-- ✅ 답변 완료 텍스트 추가 --%>
-			    <button id="saveReplyBtn" onclick="saveReply()">답변 저장</button>
+			    <button id="saveReplyBtn" onclick="saveReply()">답변 보내기</button>
 			</div>
 	    </div>
 	</div>
@@ -198,32 +202,37 @@
 		document.addEventListener("DOMContentLoaded", function () {
 		    document.getElementById("searchType").addEventListener("change", filterTable);
 		    document.querySelector(".search-btn").addEventListener("click", filterTable);
-		});
-	
-		// ✅ 필터링 및 검색 기능
-		function filterTable() {
-		    var selectedType = document.getElementById("searchType").value;
-		    var searchText = document.getElementById("searchText").value.trim().toLowerCase();
-		    var rows = document.querySelectorAll(".qna-row");
-	
-		    rows.forEach(function (row, index) {
-		        var category = row.getAttribute("data-category") ? row.getAttribute("data-category").trim().toLowerCase() : "";
-		        var email = row.cells[2].textContent.trim().toLowerCase();
-		        var name = row.cells[1].textContent.trim().toLowerCase();
-		        var qnaContent = row.cells[4].textContent.trim().toLowerCase();
-	
-		        // ✅ 검색 조건
-		        var categoryMatch = (selectedType === "전체" || category === selectedType.toLowerCase());
-		        var textMatch = (searchText === "" || email.includes(searchText) || name.includes(searchText) || qnaContent.includes(searchText));
-	
-		        // ✅ 조건이 모두 만족하면 보이도록 설정
-		        if (categoryMatch && textMatch) {
-		            row.style.display = "table-row";
-		        } else {
-		            row.style.display = "none";
+		    document.getElementById("searchText").addEventListener("keyup", function (event) {
+		        if (event.key === "Enter") {
+		            filterTable();
 		        }
 		    });
+		});
+	
+		// ✅ 필터링 기능 개선 (미답변/답변 리스트는 변경되지 않음)
+		function filterTable() {
+		    var selectedType = document.getElementById("searchType").value.trim();
+		    var searchText = document.getElementById("searchText").value.trim().toLowerCase();
+		    
+		    // ✅ 검색 대상: "문의사항" 테이블 내부의 행들만 필터링
+		    var rows = document.querySelectorAll("#qnaTable .qna-row");
+	
+		    rows.forEach(function (row) {
+		        var category = row.getAttribute("data-category") ? row.getAttribute("data-category").trim() : "";
+		        var email = row.getAttribute("data-email") ? row.getAttribute("data-email").trim().toLowerCase() : "";
+		        var receiveEmail = row.cells[1] ? row.cells[1].textContent.trim().toLowerCase() : "";
+		        var qnaContent = row.getAttribute("data-content") ? row.getAttribute("data-content").trim().toLowerCase() : "";
+	
+		        // ✅ 필터링 조건 (카테고리 또는 검색어 일치 여부)
+		        var categoryMatch = (selectedType === "전체" || category === selectedType);
+		        var textMatch = (searchText === "" || email.includes(searchText) || receiveEmail.includes(searchText) || qnaContent.includes(searchText));
+	
+		        // ✅ 검색 결과가 일치하는 경우만 보이기
+		        row.style.display = (categoryMatch && textMatch) ? "table-row" : "none";
+		    });
 		}
+
+
 
 
 		// ✅ 모달창 열기
@@ -275,21 +284,21 @@
 		    }
 
 		    // AJAX 요청으로 답변 저장
-// 		    $.ajax({
-// 		        type: "POST",
-// 		        url: "saveReply",
-// 		        data: {
-// 		            email: email,
-// 		            replyContent: replyContent
-// 		        },
-// 		        success: function(response) {
-// 		            alert("답변이 저장되었습니다.");
-// 		            closeModal();
-// 		        },
-// 		        error: function() {
-// 		            alert("답변 저장에 실패했습니다.");
-// 		        }
-// 		    });
+		    $.ajax({
+		        type: "POST",
+		        url: "saveReply",
+		        data: {
+		            email: email,
+		            replyContent: replyContent
+		        },
+		        success: function(response) {
+		            alert("답변이 저장되었습니다.");
+		            closeModal();
+		        },
+		        error: function() {
+		            alert("답변 저장에 실패했습니다.");
+		        }
+		    });
 		}
 
 		// ✅ ESC 키 눌렀을 때 모달 닫기
