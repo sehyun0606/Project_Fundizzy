@@ -272,7 +272,6 @@ body {
    margin-top: 0px;
 }
 .company-info {
-    display: flex;
     align-items: center; /* 세로 정렬 */
     gap: 10px; /* 버튼과 다른 요소 사이 간격 */
 }
@@ -505,4 +504,9 @@ body {
     word-break: break-word; /* 단어가 길 경우 줄바꿈 */
     line-height: 1.4em; /* 줄 높이 설정 */
     max-height: 2.8em; /* 2줄 높이까지만 유지 */
+}
+.profile_img{
+    width: 80px;
+    border: 1px solid mediumpurple;
+    border-radius: 50px;
 }

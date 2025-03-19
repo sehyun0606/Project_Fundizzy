@@ -32,12 +32,20 @@
 		pd.project_start_date,
 		pd.project_end_date,
 		pi.business_name,
-		pl.progress
+		pl.progress,
+		mi.maker_email,
+		mi.maker_name,
+		mi.maker_phone,
+		mi.facebook_address,
+		mi.twitter_address,
+		mi.instagram_address,
+		mi.profile_img
 		FROM project_info pi 
 		JOIN project_date pd ON pi.project_code = pd.project_code
 		JOIN project_story ps ON pd.project_code = ps.project_code
 		JOIN project_list pl ON pl.project_code = ps.project_code
-		WHERE ps.project_code = #{ps.project_code};
+		JOIN maker_info mi ON mi.project_code = pi.project_code
+		WHERE ps.project_code = #{project_code};
 	</select>
 <!-- 	대표사진 및 상세사진 출력 -->
 	<select id="selectProjectStory" resultType="ProjectStory">
