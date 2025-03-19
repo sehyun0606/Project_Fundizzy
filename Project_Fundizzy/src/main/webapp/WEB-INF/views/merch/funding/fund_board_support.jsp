@@ -66,7 +66,7 @@
 							    <!-- 출력 -->
 							    ${tagText}
 							</p>
-					        <fmt:formatDate value="${support.support_date}" pattern="yyyy-MM-dd"/><br>
+					        <p class="date" style="font-size: 14px; color: #aaa;">${support.support_date}</p>
 					    </div>
 					</c:forEach>
 				</c:otherwise>

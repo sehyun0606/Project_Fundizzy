@@ -63,7 +63,7 @@
 							    <!-- 출력 -->
 							    ${tagText}
 							</p>
-					        <fmt:formatDate value="${support.support_date}" pattern="yyyy-MM-dd"/><br>
+					        <p class="date" style="font-size: 14px; color: #aaa;">${support.support_date}</p>
 					        <!-- 댓글 버튼 -->
 <%-- 					        <input type="button" value="댓글" class="reply-show" data-support-num="${support.support_num}"><br> --%>
 					
