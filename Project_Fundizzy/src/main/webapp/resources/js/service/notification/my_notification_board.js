@@ -46,6 +46,27 @@ $(function() {
 		});
 	});
 	
+	// 설렉트 박스 선택시 해당 키워드의 알림만 표시
+	$("#selectNot").change(function() {
+		// 선택된 코드
+		let notCode = $(this).val();
+		
+		// 전체알림 선택시 다표시
+		if(notCode == "") {
+			$(".notCode").closest(".notification").show();
+			return;
+		}
+		
+		$(".notCode").each(function() {
+			// 출력된 알림의 코드
+			if($(this).val() == notCode) {
+				$(this).closest(".notification").show();
+			} else {
+				$(this).closest(".notification").hide();
+			}
+		})
+	});
+	
 	// 지지서명 알림 키워드 아이콘 표시
 	$(".notificationContent input[type=hidden]").each(function() {
         // 1이 포함된 경우

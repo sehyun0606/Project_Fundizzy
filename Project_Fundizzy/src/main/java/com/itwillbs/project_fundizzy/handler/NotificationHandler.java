@@ -1,10 +1,12 @@
 package com.itwillbs.project_fundizzy.handler;
 
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.TaskScheduler;
 import org.springframework.stereotype.Component;
 
 import com.itwillbs.project_fundizzy.service.NotificationService;
@@ -30,6 +32,13 @@ public class NotificationHandler {
     
     @Autowired
     private NotificationService notificationService;
+    
+    // 스케줄러사용을 위한 의존성주입
+    @Autowired
+    private TaskScheduler scheduler;
+    
+    @Autowired
+    private MailClient mailClient;
 	    
     // 알림코드에 따른 메시지 수신 여부 판단 메서드
 	public Boolean isReceiveThisNOT(String email, String is_recv) {
@@ -42,6 +51,23 @@ public class NotificationHandler {
 			return false;
 			// 알림코드에 해당하는 알림 수신 여부 판별
 		} else if(((String)dbNOTOptionInfo.get(is_recv)).equals("N")) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	// 해당회원의 메일 수신 여부 판별
+	public Boolean isReceiveMail(String email) {
+		// 디비에 저장된 회원의 알림 옵션 정보 조회
+		Map<String, Object> dbNOTOptionInfo = notificationService.getMemberNOTSetInfo(email);
+		
+		// 알림 수신 여부 - 전체적인 알림을 받을 것인가에 대한 판별
+		// N일 경우 메서드 작업 종료
+		if(((String)dbNOTOptionInfo.get(IS_RECV_NOT)).equals("N")) {
+			return false;
+			// 알림코드에 해당하는 알림 수신 여부 판별
+		} else if(((String)dbNOTOptionInfo.get(IS_RECV_EMAIL)).equals("N")) {
 			return false;
 		} else {
 			return true;
@@ -68,6 +94,11 @@ public class NotificationHandler {
 		if(isReceiveThisNOT(email, is_recv)) {
 			// 알림등록 메서드 호출
 			registNOTOnDB(email, project_code, not_code, content);
+		}
+		
+		if(isReceiveMail(email)) {
+			System.err.println(content);
+			mailClient.sendMail(email, "Fundizzy 알림", content);
 		}
 	}
 	
@@ -100,5 +131,100 @@ public class NotificationHandler {
 			}
 		}
 	}
+	
+	// 프로젝트 참여한 전체 회원에게 알림전송
+	public void sendNotToJoinMember(String project_code, String is_recv, String not_code, String content) {
+		// 해당프로젝트 지지서명한 멤버 이메일 조회
+		List<String> joinMember = notificationService.getJoinMemberEmail(project_code);
+		
+		if(joinMember.size() > 0) {
+			for(String email : joinMember) {
+				if(isReceiveThisNOT(email, is_recv)) {
+					// 알림등록 메서드 호출
+					registNOTOnDB(email, project_code, not_code, content);
+				}
+			}
+		}
+	}
+	
+	// 프로젝트 시작 알림 스케줄링 메서드
+    public void scheduleStartNotification(java.util.Date startTime, String projectCode) {
+    	scheduler.schedule(() -> {
+    		// 프로젝트 정보 조회
+    		Map<String, String> projectInfo = notificationService.getProjectInfo(projectCode);
+    		
+    		// 메이커에게 알림 전송
+    		sendNotToJoinMember(projectCode, IS_RECV_MY, NOT_MYPROJECT_CODE,
+    				"프로젝트 <a href='FundBoardStory?projectject_code=" + projectCode + "'>"
+							+ projectInfo.get("project_title") + "</a>가 시작되었습니다.");
+    		
+    		// 동시에 인설트되는걸 방지하기위해 1초 타이머설정
+	        try {
+	            Thread.sleep(1000);
+	        } catch (InterruptedException e) {
+	            e.printStackTrace();
+	        }
+    		
+    		//찜한 서포터에게 알림 전송
+    		sendNotToKeepMember(projectCode, IS_RECV_WISH, NOT_WISH_CODE, "회원님이 찜한 프로젝트 <a href='FundBoardStory?projectject_code=" + projectCode + "'>"
+							+ projectInfo.get("project_title") + "</a>가 시작되었습니다.");
+    	
+    		// 동시에 인설트되는걸 방지하기위해 1초 타이머설정
+    		try {
+    			Thread.sleep(1000);
+    		} catch (InterruptedException e) {
+    			e.printStackTrace();
+    		}
+    		
+    		//지지서명한 서포터에게 알림 전송
+    		sendNotToSupportMember(projectCode, IS_RECV_SUPPORT, NOT_SUPPORT, "회원님이 지지서명한 프로젝트 <a href='FundBoardStory?projectject_code=" + projectCode + "'>"
+							+ projectInfo.get("project_title") + "</a>가 시작되었습니다.");
+        }, startTime);
+    }
 
+    // 프로젝트 종료 알림 스케줄링 메서드
+    public void scheduleEndNotification(java.util.Date endTime, String projectCode) {
+    	scheduler.schedule(() -> {
+    		// 프로젝트 정보 조회
+    		Map<String, String> projectInfo = notificationService.getProjectInfo(projectCode);
+    		
+    		// 메이커에게 알림 전송
+    		sendNotToJoinMember(projectCode, IS_RECV_MY, NOT_MYPROJECT_CODE,
+    				"프로젝트 <a href='FundBoardStory?projectject_code=" + projectCode + "'>"
+    						+ projectInfo.get("project_title") + "</a>가 종료되었습니다.");
+    		
+    		// 동시에 인설트되는걸 방지하기위해 1초 타이머설정
+    		try {
+    			Thread.sleep(1000);
+    		} catch (InterruptedException e) {
+    			e.printStackTrace();
+    		}
+    		
+    		//찜한 서포터에게 알림 전송
+    		sendNotToKeepMember(projectCode, IS_RECV_WISH, NOT_WISH_CODE, "회원님이 찜한 프로젝트 <a href='FundBoardStory?projectject_code=" + projectCode + "'>"
+    				+ projectInfo.get("project_title") + "</a>가 종료되었습니다.");
+    		
+    		// 동시에 인설트되는걸 방지하기위해 1초 타이머설정
+    		try {
+    			Thread.sleep(1000);
+    		} catch (InterruptedException e) {
+    			e.printStackTrace();
+    		}
+    		
+    		//지지서명한 서포터에게 알림 전송
+    		sendNotToSupportMember(projectCode, IS_RECV_SUPPORT, NOT_SUPPORT, "회원님이 지지서명한 프로젝트 <a href='FundBoardStory?projectject_code=" + projectCode + "'>"
+    				+ projectInfo.get("project_title") + "</a>가 종료되었습니다.");
+    		
+    		// 동시에 인설트되는걸 방지하기위해 1초 타이머설정
+    		try {
+    			Thread.sleep(1000);
+    		} catch (InterruptedException e) {
+    			e.printStackTrace();
+    		}
+    		
+    		//프로젝트 참가한 서포터에게 알림 전송
+    		sendNotToJoinMember(projectCode, IS_RECV_JOIN, NOT_JOINPROJECT_CODE, "회원님이 참가한 프로젝트 <a href='FundBoardStory?projectject_code=" + projectCode + "'>"
+    				+ projectInfo.get("project_title") + "</a>가 종료되었습니다.");
+        }, endTime);
+    }
 }

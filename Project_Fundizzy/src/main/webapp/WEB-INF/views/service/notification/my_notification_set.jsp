@@ -36,13 +36,13 @@
 				  <span class="slider"></span>
 				</label>
 			</div>
-			<div class="notifications">
-				<div class="methodName">SMS 수신</div>
-				<label class="switch">
-				  <input type="checkbox" class="setCheck" id="is_recv_by_sms" <c:if test="${memberNOTSetInfo.is_recv_notification eq 'Y' && memberNOTSetInfo.is_recv_by_sms eq 'Y'}">checked</c:if>>
-				  <span class="slider"></span>
-				</label>
-			</div>
+<!-- 			<div class="notifications"> -->
+<!-- 				<div class="methodName">SMS 수신</div> -->
+<!-- 				<label class="switch"> -->
+<%-- 				  <input type="checkbox" class="setCheck" id="is_recv_by_sms" <c:if test="${memberNOTSetInfo.is_recv_notification eq 'Y' && memberNOTSetInfo.is_recv_by_sms eq 'Y'}">checked</c:if>> --%>
+<!-- 				  <span class="slider"></span> -->
+<!-- 				</label> -->
+<!-- 			</div> -->
 		</div>
 		<div id="desiredNotifications">
 			<div class="subTitle">

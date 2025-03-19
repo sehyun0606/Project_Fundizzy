@@ -29,6 +29,9 @@ public interface NotificationMapper {
 	// 해당프로젝트를 지지서명한 멤버이메일 조회
 	List<String> selectSupprotMember(String project_code);
 	
+	// 해당 프로젝트를 참여한 멤버이메일 조회
+	List<String> selectJoinMember(String project_code);
+	
 	// 프로젝트 정보 조회
 	Map<String, String> selectProjectInfo(String project_code);
 	
@@ -40,7 +43,12 @@ public interface NotificationMapper {
 	
 	// 알림 삭제
 	int deleteNotFromDB(@Param("codeArr") String[] codeArr);
-
+	
+	// 정산현황 조회
 	String selectSettlementStatus(String project_code);
+	
+	// 페이먼트 코드로 해당 회원의 정보, 구매상품 조회
+	List<Map<String, String>> selectRewardList(String payment_code);
+
 
 }

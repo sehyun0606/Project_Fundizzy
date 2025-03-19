@@ -1,5 +1,9 @@
 package com.itwillbs.project_fundizzy.aop;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.List;
 import java.util.Map;
 
 import org.aspectj.lang.JoinPoint;
@@ -8,6 +12,7 @@ import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.TaskScheduler;
 import org.springframework.stereotype.Component;
 
 import com.itwillbs.project_fundizzy.handler.NotificationHandler;
@@ -15,6 +20,7 @@ import com.itwillbs.project_fundizzy.service.FundService;
 import com.itwillbs.project_fundizzy.service.MemberService;
 import com.itwillbs.project_fundizzy.service.NotificationService;
 import com.itwillbs.project_fundizzy.service.ProjectStateService;
+import com.itwillbs.project_fundizzy.vo.ProjectDateVO;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -34,6 +40,7 @@ public class NotificationAspect {
 	@Autowired
 	private FundService fundService;
 	
+	// 갱신전 달성률 저장을 위한 멤버변수
 	private int progressBefore = 0;
 	
 	// memberService의 회원가입 메서드 실행 완료 후 해당멤버의 알림여부선택 값 알림설정 테이블에 적용
@@ -233,10 +240,59 @@ public class NotificationAspect {
 		progressBefore = fundService.getProgressOfProject(project_code);
 	}
 	
+	// 프로젝트의 시작, 끝 알림
+	@AfterReturning("execution(* com.itwillbs.project_fundizzy.service.ProjectMakerService.setProjectDate*(..))")
+	public void projectStartEndNot(JoinPoint joinPoint) {
+		// 파라미터
+		Object[] args = joinPoint.getArgs();
+		
+		//메이커가 등록한 프로젝트 시간 vo
+		ProjectDateVO date = (ProjectDateVO)args[0];
+		
+		//프로젝트 코드
+		String project_code = (String)args[1];
+		
+		// 프로젝트 시작 날짜
+		Date project_start_date = date.getProject_start_date();
+		// 스케줄러사용을 위해 util.Date 사용
+        java.util.Date start_date = new java.util.Date(project_start_date.getTime());
+        
+        // 프로젝트 끝 날짜
+        Date project_end_date = date.getProject_end_date();
+        java.util.Date end_date = new java.util.Date(project_start_date.getTime());
+        
+        System.err.println(project_start_date);
+        System.err.println(project_end_date);
+        
+        // 현재 시간 가져오기
+        Calendar calendar = Calendar.getInstance();
+
+        // 1분 추가
+        calendar.add(Calendar.MINUTE, 1);
+        
+        // 현재 시간 가져오기
+        Calendar calendar2 = Calendar.getInstance();
+        
+        // 1분 추가
+        calendar2.add(Calendar.MINUTE, 2);
+
+        // java.util.Date 객체로 변환
+        java.util.Date oneMinuteLater = calendar.getTime();
+        // java.util.Date 객체로 변환
+        java.util.Date oneMinuteLater2 = calendar2.getTime();
+        
+        // 스케줄 시작 알림
+        notHandler.scheduleStartNotification(oneMinuteLater, project_code);
+        
+        // 스케줄 종료 알림
+        notHandler.scheduleEndNotification(oneMinuteLater2, project_code);
+
+	}
+	
 	// 회원이 프로젝트 참가시 10% 달성시마다 알림보내고 100%달성시 펀딩 성공 알림
 	// 회원이 프로젝트 참가할때마다 알림이가면 너무 많은 알림이가므로 달성률만 표시
 	@AfterReturning("execution(* com.itwillbs.project_fundizzy.service.FundService.insertForPayment*(..))")
-	public void progressProject(JoinPoint joinPoint) {
+	public void progressProjectNot(JoinPoint joinPoint) {
 		// 파라미터
 		Object[] args = joinPoint.getArgs();
 		Map<String, String> map = (Map<String, String>)args[0];
@@ -257,7 +313,7 @@ public class NotificationAspect {
 			if(progress > 100 && progress < 110) {
 				notHandler.sendNotToMaker(makerInfo.get("email"), project_code
 						, notHandler.IS_RECV_MY, notHandler.NOT_MYPROJECT_CODE,
-						"프로젝트 <a href='FundBoardStory?projectject_code=" + project_code + "'>"
+						"프로젝트 <a href='FundBoardStory?project_code=" + project_code + "'>"
 								+ projectInfo.get("project_title") + "</a>100% 달성!<br> 프로젝트 성공하였습니다.");
 			} else {
 				notHandler.sendNotToMaker(makerInfo.get("email"), project_code
@@ -267,5 +323,53 @@ public class NotificationAspect {
 				
 			}
 		}
+	}
+	
+	// 메이커가 프로젝트에 새소식 등록 알림
+	@AfterReturning("execution(* com.itwillbs.project_fundizzy.service.ProjectStateService.registNewsBoard(..))")
+	public void addNewsBoardNot(JoinPoint joinPoint) {
+		// 파라미터
+		Object[] args = joinPoint.getArgs();
+		Map<String, String> map = (Map<String, String>)args[0];
+		String project_code = map.get("project_code");
+		
+		//프로젝트 정보 조회
+		Map<String, String> projectInfo = notificationService.getProjectInfo(project_code);
+		
+		notHandler.sendNotToJoinMember(project_code, notHandler.IS_RECV_JOIN, notHandler.NOT_JOINPROJECT_CODE,
+				"프로젝트 <a href='FundBoardNew?project_code=" + project_code + "'>"
+						+ projectInfo.get("project_title") + "</a>에 새소식이 등록되었습니다.");
+	}
+	
+	// 메이커가 프로젝트에 발송정보 입력시 해당 회원에게 발송정보 입력 알림
+	@AfterReturning("execution(* com.itwillbs.project_fundizzy.service.ProjectStateService.modifyShipmentStatus(..))")
+	public void registShipmentInfoNot(JoinPoint joinPoint) {
+		// 파라미터
+		Object[] args = joinPoint.getArgs();
+		Map<String, String> map = (Map<String, String>)args[0];
+		String payment_code = map.get("payment_code");
+		
+		// 페이먼트 코드로 해당 회원 구매상품 조회
+		List<Map<String, String>> rewardList = notificationService.getRewardListFromPaymentCode(payment_code);
+		String project_code = rewardList.get(0).get("project_code");
+		
+		// 알림 전달할 리워드스트링
+		String rewardStr = "";
+		
+		int count = 1;
+		
+		for(Map<String, String> reward : rewardList) {
+			if(rewardList.size() == count) {
+				rewardStr += reward.get("product_name");
+				break;
+			}
+			rewardStr += reward.get("product_name") + "<br>";
+			count++;
+		}
+		
+		// 구매한 상품 배송 시작됨 알림 
+		notHandler.sendNotToJoinMember(project_code, notHandler.IS_RECV_JOIN, notHandler.NOT_JOINPROJECT_CODE,
+				"회원님의 리워드가 배송시작 되었습니다.<br>배송조회가 가능합니다<a href='FundHistory'>"
+				+ "(이동하기)</a><br> - 리워드상품 - <br>" + rewardStr);
 	}
 }

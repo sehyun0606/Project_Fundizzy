@@ -86,6 +86,14 @@
 		WHERE project_code = #{project_code}
 	</select>
 	
+	<!-- 해당프로젝트를 참여한 멤버 조회 -->
+	<select id="selectJoinMember" resultType="string">
+		SELECT DISTINCT billing_email
+		FROM payment
+		WHERE project_code = #{project_code}
+	</select>
+	
+	<!-- 해당프로젝트 정보 조회 -->
 	<select id="selectProjectInfo" resultType="map">
 		SELECT *
 		FROM project_list
@@ -123,5 +131,14 @@
 		SELETE settlement_status
 		FROM settlement
 		WHERE project_code = #{project_code}
+	</select>
+	
+	<!-- 페이먼트코드로 회원의 정보, 구매내역 조회 -->
+	<select id="selectRewardList" resultType="map">
+		SELECT *
+		FROM fund_history f
+		JOIN payment p
+		ON f.payment_code = p.payment_code
+		WHERE f.payment_code = #{payment_code};
 	</select>
 </mapper>

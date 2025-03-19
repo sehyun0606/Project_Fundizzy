@@ -22,7 +22,7 @@
 		</div>
 		<div id="topGroup">
 			<div>
-				<select>
+				<select id="selectNot">
 					<option value="">전체알림</option>
 					<option value="NOT01">Fundizzy</option>
 					<option value="NOT02">지지서명 프로젝트</option>
@@ -56,9 +56,10 @@
 			</div>
 		</c:if>
 		<c:forEach var="myNOT" items="${myNOTList}">
-			<div class="notification">
+			<div class="notification" >
 				<div class="notificationHeader">
 					<div class="notificationTitle">
+						<input type="hidden" class="notCode" value="${myNOT.common_code}">
 						<c:choose>
 							<c:when test="${myNOT.common_code eq 'NOT01'}">
 								<img src="/resources/images/notification/siteNotIcon.png">

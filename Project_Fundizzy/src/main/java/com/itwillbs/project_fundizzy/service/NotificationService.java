@@ -48,6 +48,11 @@ public class NotificationService {
 		return notificationMapper.selectSupprotMember(project_code);
 	}
 	
+	// 해당프로젝트 참여한 모든 멤버 조회
+	public List<String> getJoinMemberEmail(String project_code) {
+		return notificationMapper.selectJoinMember(project_code);
+	}
+	
 	// 프로젝트 정보조회
 	public Map<String, String> getProjectInfo(String project_code) {
 		return notificationMapper.selectProjectInfo(project_code);
@@ -72,5 +77,11 @@ public class NotificationService {
 	public String getSettlementStatus(String project_code) {
 		return notificationMapper.selectSettlementStatus(project_code);
 	}
+	
+	// 페이먼트 코드로 해당 회원의 정보, 구매상품 조회
+	public List<Map<String, String>> getRewardListFromPaymentCode(String payment_code) {
+		return notificationMapper.selectRewardList(payment_code);
+	}
+	
 	
 }
