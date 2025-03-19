@@ -151,7 +151,6 @@ public class ProjectStateController {
 		
 		// 수수료 계산
 		int settlementFee = stateService.getSettlementFee(project_code);
-		model.addAttribute("settlementFee", settlementFee);
 		
 		// 선정산 금액(60%)
 		int preAmount = stateService.getPreSettlementAmount(project_code);
@@ -161,9 +160,11 @@ public class ProjectStateController {
 		int prePaymentAmount = 0;
 		if(totalAmount > 1000000) {
 			prePaymentAmount = preAmount - settlementFee - 90000;
+			settlementFee += 90000;
 		} else {
 			prePaymentAmount = preAmount - settlementFee;
 		}
+		model.addAttribute("settlementFee", settlementFee);
 		model.addAttribute("prePaymentAmount", prePaymentAmount);
 		
 		
@@ -481,8 +482,11 @@ public class ProjectStateController {
 		
 		// 최종정산 금액(나머지 금액 - 환불금액)
 		int finalAmount;
-		
-		finalAmount = totalAmount - preAmount - refundAmount;
+		if(totalAmount > 1000000) {
+			finalAmount = totalAmount - preAmount - refundAmount - 90000;
+		} else {
+			finalAmount = totalAmount - preAmount - refundAmount;
+		}
 		model.addAttribute("finalAmount", finalAmount);
 
 		

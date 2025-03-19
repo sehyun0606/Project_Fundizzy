@@ -37,21 +37,19 @@
 	          </div>
 	          <hr>
 <!-- 	          새소식 글  -->
-				<c:choose>
-					<c:when test="${news.news_status eq 'Y'}">
-						<c:forEach var="news" items="${newsList}">
-							<div class="post">
-				               <input type="hidden" class="news_code" value="${news.news_code}">
-				               <h4>${news.news_title}</h4>
-				               <p>${news.news_content}</p>
-				               <p><fmt:formatDate value="${news.news_date}" pattern="yyyy-MM-dd"/></p>
-				           </div>
-						</c:forEach>
-					</c:when>
-					<c:when test="${empty newsList}">
-						등록된 글이 없습니다.
-					</c:when>
-				</c:choose>
+			<c:forEach var="news" items="${newsList}">
+				<c:if test="${news.news_status eq 'Y'}">
+					<div class="post">
+		               <input type="hidden" class="news_code" value="${news.news_code}">
+		               <h4>${news.news_title}</h4>
+		               <p>${news.news_content}</p>
+		               <p class="date" style="font-size: 14px; color: #aaa;">${news.news_date}</p>
+		           </div>
+				</c:if>
+			</c:forEach>
+			<c:if test="${empty newsList}">
+				등록된 글이 없습니다.
+			</c:if>
 	           
 	       </div>
 	 <div class="content-right">
