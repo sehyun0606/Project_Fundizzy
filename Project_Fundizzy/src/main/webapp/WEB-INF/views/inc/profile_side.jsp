@@ -75,6 +75,7 @@
 	    color: mediumpurple;
 	    border-radius: 15px;
 	    width: 70%;
+	    cursor: pointer;
 		}
 		.settings:hover{
         	color: white;
@@ -159,6 +160,12 @@
 		    height: 80px;
 		    border-radius: 10%; /* 원형 */
 		    border: 3px solid #c85fdf; /* 보라색 테두리 */
+		}
+		#pay_btn {
+			cursor: pointer;
+		}
+		#pay_btn:hover {
+			background-color: #f2f4f6;
 		}
     </style>
 </head>
