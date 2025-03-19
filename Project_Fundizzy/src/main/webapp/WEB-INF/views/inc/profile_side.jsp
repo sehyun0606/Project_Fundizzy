@@ -184,14 +184,13 @@
         <div class="menu-item">
         	<span class="menu-title">고객센터</span>
             <div class="submenu2">
-                <div class="submenu-item2"><a>채팅 상담</a></div>
-                <div class="submenu-item2"><a>도움말 센터</a></div>
+                <div class="submenu-item2"><a href="HelpCenter">도움말 센터</a></div>
             </div>
         </div>
         <div class="menu-item">
         	<span class="menu-title">소식</span>
             <div class="submenu2">
-                <div class="submenu-item2"><a>공지사항</a></div>
+                <div class="submenu-item2"><a href="Notice">공지사항</a></div>
             </div>
         </div>
     </div>
