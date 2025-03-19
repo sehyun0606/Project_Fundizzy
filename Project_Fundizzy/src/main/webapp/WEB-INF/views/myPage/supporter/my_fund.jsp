@@ -355,6 +355,9 @@
 			        <c:when test="${fund.refund_stat eq 'REF01'}">
 			        	<div class="refund_cancel">환불 취소하기</div>
 			        </c:when>
+			        <c:when test="${fund.refund_stat eq 'REF02' || fund.refund_stat eq 'REF03'}">
+			        	<div>ddd</div>
+			        </c:when>
 		        </c:choose>
 				<div class="ship">
 			        <c:if test="${fund.send_stat eq 'SHI03'}">

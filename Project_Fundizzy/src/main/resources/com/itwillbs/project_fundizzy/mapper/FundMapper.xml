@@ -15,7 +15,7 @@
 	ON ps.project_code = pi.project_code 
 	WHERE approved_date IS NOT NULL 
 	AND date_config = "Y" 
-	AND project_end_date > NOW()
+	AND NOW() BETWEEN project_start_date AND project_end_date
 <if test="cat != null and cat != ''"> AND (category = #{cat} OR sub_category = #{cat}) </if>
 </select>
 	
