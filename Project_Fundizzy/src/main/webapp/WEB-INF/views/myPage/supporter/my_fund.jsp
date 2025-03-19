@@ -69,6 +69,15 @@
             cursor: pointer;
         }
         
+        .refund_complete {
+        	position: absolute;
+            right: 20px;
+            top: 20px;
+            color: #8a2be2;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
         .pagination {
             text-align: center;
             margin-top: 20px;
@@ -246,6 +255,10 @@
 			margin: 0;
 			width: unset;
 			cursor: pointer;
+			background-color: #eee;
+		    border: 1px solid #ddd;
+		    border-radius: 5px;
+		    padding: 5px;
 		}
 		.funding-box {
 		   	width: 90%;
@@ -349,14 +362,17 @@
 		        	</div>
 		        </div>
 		        <c:choose>
-			        <c:when test="${fund.send_stat eq 'SHI04' && fund.refund_stat ne 'REF01'}">
+			        <c:when test="${fund.send_stat eq 'SHI04' && fund.refund_stat ne 'REF01' && fund.refund_stat ne 'REF02' && fund.refund_stat ne 'REF03'}">
 			        	<div class="refund">환불신청</div>
 			        </c:when>
 			        <c:when test="${fund.refund_stat eq 'REF01'}">
 			        	<div class="refund_cancel">환불 취소하기</div>
 			        </c:when>
-			        <c:when test="${fund.refund_stat eq 'REF02' || fund.refund_stat eq 'REF03'}">
-			        	<div>ddd</div>
+			        <c:when test="${fund.refund_stat eq 'REF02'}">
+			        	<div class="refund_complete">환불 처리됨</div>
+			        </c:when>
+			        <c:when test="${fund.refund_stat eq 'REF03'}">
+			        	<div class="refund_complete">환불 거절됨</div>
 			        </c:when>
 		        </c:choose>
 				<div class="ship">

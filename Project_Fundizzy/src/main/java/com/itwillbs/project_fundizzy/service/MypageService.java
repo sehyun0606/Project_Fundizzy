@@ -45,6 +45,7 @@ public class MypageService {
 	}
 
 	public void memberWithdraw(String email) {
+		mypageMapper.updateNotOption(email);
 		mypageMapper.memberWithdraw(email);
 	}
 }

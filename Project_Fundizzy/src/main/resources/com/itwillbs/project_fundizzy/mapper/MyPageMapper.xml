@@ -100,4 +100,13 @@
 		WHERE
 			email = #{email}
 	</update>
+	
+	<update id="updateNotOption">
+		UPDATE
+			notification_set
+		SET
+			is_recv_notification = 'N'
+		WHERE
+			member_email = #{email}
+	</update>
 </mapper>

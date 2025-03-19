@@ -356,5 +356,18 @@
 						WHERE pay_tran_id = #{pay_tran_id}
 					);
 	</select>
-
+	
+	
+	<!-- 프로젝트 달성률 조회 -->
+	<select id="selectProgress" resultType="int">
+		SELECT FLOOR((SELECT SUM(result_point)
+						FROM fund_history
+						WHERE project_code = #{project_code})
+					/ (SELECT  target_amount
+						from project_info
+						WHERE project_code = #{project_code})
+					* 100) as progress
+		FROM DUAL
+	</select>
+	
   </mapper>

@@ -1,5 +1,5 @@
 $(function() {
-    let project_code = $("#project_code").val();
+    let project_code = $("#keep_project_code").val();
 	let email = $("#keep_email").val();
 	console.log ("email = " + email);
 	
@@ -48,7 +48,7 @@ $(function() {
                 url: "FundBoardStoryKeepDelete",
                 data: {
                     email: email,
-                    project_code: keep_project_code
+                    project_code: project_code
                 }
             }).done(function(result) {}).fail(function() {
                 alert("@찜 등록 중 오류가 발생했습니다. 다시 시도해주세요.");
@@ -68,7 +68,7 @@ $(function() {
                 url: "FundBoardStoryKeep",
                 data: {
                     email: email,
-                    project_code: keep_project_code
+                    project_code: project_code
                 }
             }).done(function(result) {
                 alert("상품 찜 등록이 완료되었습니다.");

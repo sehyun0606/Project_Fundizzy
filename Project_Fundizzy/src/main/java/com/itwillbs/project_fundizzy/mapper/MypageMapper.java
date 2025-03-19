@@ -33,4 +33,6 @@ public interface MypageMapper {
 
 	void memberWithdraw(String email);
 
+	void updateNotOption(String email);
+
 }

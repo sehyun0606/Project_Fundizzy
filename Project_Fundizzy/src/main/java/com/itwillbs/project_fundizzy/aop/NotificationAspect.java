@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.itwillbs.project_fundizzy.handler.NotificationHandler;
+import com.itwillbs.project_fundizzy.service.FundService;
 import com.itwillbs.project_fundizzy.service.MemberService;
 import com.itwillbs.project_fundizzy.service.NotificationService;
 import com.itwillbs.project_fundizzy.service.ProjectStateService;
@@ -28,6 +29,9 @@ public class NotificationAspect {
 	
 	@Autowired
 	private MemberService memberservice;
+	
+	@Autowired
+	private FundService fundService;
 	
 	// memberService의 회원가입 메서드 실행 완료 후 해당멤버의 알림여부선택 값 알림설정 테이블에 적용
 	@After("execution(* com.itwillbs.project_fundizzy.service.MemberService.insert*(..))")
@@ -212,5 +216,18 @@ public class NotificationAspect {
 					+ "</a>에 지지서명 꽝!!<span class='keyword'></span><input type='hidden' value='" + supportKeyword + "'>");
 		}
 		
+	}
+	
+	// 회원이 프로젝트 참가시 10% 달성시마다 알림보내고 100%달성시 펀딩 성공 알림
+	// 회원이 프로젝트 참가할때마다 알림이가면 너무 많은 알림이가므로 달성률만 표시
+	@AfterReturning("execution(* com.itwillbs.project_fundizzy.service.FundService.insertForPayment*(..))")
+	public void progressProject(JoinPoint joinPoint) {
+		// 파라미터
+		Object[] args = joinPoint.getArgs();
+		Map<String, String> map = (Map<String, String>)args[0];
+		String project_code = map.get("project_code");
+		
+		// 달성률 계산
+		int progress = fundService.getProgressOfProject(project_code);
 	}
 }
