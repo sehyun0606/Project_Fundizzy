@@ -223,6 +223,11 @@ public class FundService {
 		// TODO Auto-generated method stub
 		return mapper.selectProjectInfo(project_code);
 	}
+	
+	// 프로젝트의 달성률 계산
+	public int getProgressOfProject(String project_code) {
+		return mapper.selectProgress(project_code);
+	}
 
 
 
