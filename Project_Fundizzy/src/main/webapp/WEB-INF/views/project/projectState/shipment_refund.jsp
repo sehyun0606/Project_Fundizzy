@@ -328,7 +328,7 @@
 <!-- 							<textarea rows="7" cols="15" ></textarea> -->
 <!-- 							<div>600자</div> -->
 						</div>
-						<div><img src="" class="refund-img"></div>
+						<div><a href="" download class="refund-a"><img src="" class="refund-img"></a></div>
 						<div class="refund-amount">
 							<h4>반환 금액</h4>
 							<div class="refund-info">
@@ -536,6 +536,7 @@
 								$("#refund-modal .receiver-info:nth-child(2) span:nth-child(2)").text(rewardList[index].nickname);
 								
 								$("#refund-modal .refund-img").attr("src", "/resources/upload/" + rewardList[index].refund_img);
+								$("#refund-modal .refund-a").attr("href", "/resources/upload/" + rewardList[index].refund_img);
 								
 								$("#refund-modal .refund_amount").val(rewardList[index].result_point);
 								$("#refund-modal .email").val(rewardList[index].member_email);
