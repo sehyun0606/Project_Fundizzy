@@ -32,6 +32,7 @@ $(function() {
     $("#btn-like").click(function() {
 		if(email == null || email == ""){
 			alert("로그인 후 이용 가능합니다.");
+			location.href="/Login";
 			return;
 		}
         // 클릭이 되었을때 이미 찜한 상태라면 찜 취소
@@ -81,6 +82,7 @@ $(function() {
     $("#btn-support").click(function() {
 		if(email == null || email == ""){
 			alert("로그인 후 이용 가능합니다.");
+			location.href="/Login";
 			return;
 		}
         console.log("btn-support 버튼 클릭됨!");
@@ -136,6 +138,7 @@ $(function() {
 	$(".purchase-btn").on("click", function(){
 		if(email == null || email == ""){
 			alert("로그인 후 이용 가능합니다.");
+			location.href="/Login";
 			return;
 		}
 		location.href="PaymentReward?project_code=" + project_code;
