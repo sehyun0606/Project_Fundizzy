@@ -70,9 +70,6 @@
 </body>
 <script>
 	$(function() {
-		if(myChart) {
-			myChart.destroy();
-		}
 		
 		// 현황 차트
 		let dateArr = new Array();
