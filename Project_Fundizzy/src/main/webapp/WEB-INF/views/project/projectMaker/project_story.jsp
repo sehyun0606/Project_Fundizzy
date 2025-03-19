@@ -43,7 +43,6 @@
 			   </div>	
 			   	<div id="project-summary">
 			        <div><label for="summary">프로젝트 요약</label></div>
-			        <div><a class="ai-link">ai어드바이저에게 추천받기</a></div>
 			   	</div>
 		        <span class="helper-text">소개 이미지와 함깨 보이는 글이에요 프로젝트를 쉽고 간결하게 소개해 주세요</span>
 		        <textarea id="summary"  name="project_content" placeholder="내용 입력"></textarea>

@@ -25,7 +25,7 @@
     <!-- 메인 콘텐츠 -->
     <main class="main-content">
         
-            <h2>${sessionScope.sId} 님 안녕하세요 - 서포터 마이 페이지</h2> 
+            <h2>${sessionScope.sId} 님 안녕하세요</h2> 
             <p></p>
             
             
