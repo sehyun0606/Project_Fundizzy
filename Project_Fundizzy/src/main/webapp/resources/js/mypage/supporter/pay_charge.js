@@ -15,10 +15,10 @@ $(document).ready(function() {
 	});
 	
 	//금액 미 입력시 화면 이동 안되도록
-	let amount = $("#fundizy-pay").val();
 	
 	if($("#charge-submit").on("click", function(){
 		
+		let amount = $("#fundizy-pay").val();
 		if(amount == null || amount == ""){
 			alert("충전할 금액을 입력해 주세요.");
 			return false;

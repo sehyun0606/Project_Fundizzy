@@ -39,7 +39,7 @@
 	            <b class="subject">${sessionScope.sId} 님의 페이 입출금 내역 목록</b>
 	            <button type="button" class="x">x</button><br>
 	        </div>
-	        <span id="explanation"><i class='far fa-check-square' style='font-size:24px'></i>CH: 충전 DE: 송금 PA: 결제 RE: 환불</span>
+	        <span id="explanation"><i class="fa fa-check-square-o" style="font-size:24px"></i>CH-충전 DE-송금 PA-결제 RE-환불</span><br>
         <div class="account_list_table">
             <table>
                 <tr>

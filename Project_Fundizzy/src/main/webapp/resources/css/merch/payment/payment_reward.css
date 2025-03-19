@@ -68,6 +68,8 @@ hr {
 	padding: 10px;
 	border-radius: 5px;
 	margin-bottom: 10px;
+	width: 400px;
+	height: 150px;
 }
 
 .reward-item input {
