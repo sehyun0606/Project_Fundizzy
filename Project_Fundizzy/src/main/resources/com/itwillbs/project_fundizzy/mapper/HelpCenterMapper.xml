@@ -62,6 +62,7 @@
 			, #{projectNumber} 
 			, 'N'
 			, now()
+			, null
 		)
 	</insert>
 	

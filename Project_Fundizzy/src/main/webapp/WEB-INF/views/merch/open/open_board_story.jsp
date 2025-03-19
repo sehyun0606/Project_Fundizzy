@@ -83,14 +83,6 @@
 	                <input type="hidden" value="${sessionScope.sId}" id="keep_email">
 	                <input type="hidden" value="${param.project_code}" id="keep_project_code">
 	                <input type="hidden" value="${keep.email}" class="keep">
-<%-- 	                 <c:choose> --%>
-<%-- 	                	<c:when test="${empty keep.email}"> --%>
-<!-- 		                   <button class="btn-small" id="btn-like"><i class="fa fa-heart-o" style="font-size:24px"></i>찜</button> -->
-<%-- 	                	</c:when> --%>
-<%-- 	                	<c:otherwise> --%>
-<!-- 		                   <button class="btn-small clicked" id="btn-like"><i class="fa fa-heart" style="font-size:24px"></i>찜</button> -->
-<%-- 	                	</c:otherwise> --%>
-<%-- 	                </c:choose> --%>
                     <button class="btn-small" id="btn-support"><img src="/resources/images/fund/support.png" width="30px" height="30px"></button>
 					<c:choose>
 						<c:when test="${empty keep.email}">
@@ -116,7 +108,7 @@
     </div>
 	</article>
 	<div class="support_modal" id="support_modal">
-		<form action="SupportSignature" method="POST" class="support_content">
+		<form action="SupportSignatureOpen" method="POST" class="support_content">
 			<input type="hidden" id="project_code" name="project_code" value="${param.project_code}">
 			<input type="hidden" id="sessionUserEmail" name="email" value="${sessionScope.sId}">
 			

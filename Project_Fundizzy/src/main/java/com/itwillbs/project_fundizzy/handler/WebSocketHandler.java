@@ -17,6 +17,7 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 import com.google.gson.Gson;
 import com.itwillbs.project_fundizzy.service.ChatService;
 import com.itwillbs.project_fundizzy.service.MemberService;
+import com.itwillbs.project_fundizzy.service.NotificationService;
 import com.itwillbs.project_fundizzy.vo.ChatMessage;
 import com.itwillbs.project_fundizzy.vo.ChatRoom;
 
@@ -35,6 +36,9 @@ public class WebSocketHandler extends TextWebSocketHandler {
 	
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	private NotificationService notificationService;
 
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
@@ -43,8 +47,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
 		// 접속중인 사용자의 웹소켓 객체 맵에 저장
 		userSessionList.put(session.getId(), session);
 		userList.put(getHttpSessionId(session), session.getId());
-		System.out.println("userSessionList" + userSessionList);
-		System.out.println("userList" + userList);
+		
 	}
 
 	@Override
@@ -246,6 +249,12 @@ public class WebSocketHandler extends TextWebSocketHandler {
 			// 채팅 전송
 			sendMessasge(session, chatMessage);
 			sendMessageAfterSearchReceiver(receiver_email, chatMessage);
+			
+		// 읽지 않은 알림 수 조회
+		} else if(type.equals(ChatMessage.REQUEST_NOTIFICATION_UNREAD)) {
+			int unReadCount = notificationService.getUnReadNOTCount(sender_email);
+			chatMessage.setRead_state(unReadCount);
+			sendMessasge(session, chatMessage);
    		} 
 	}
 

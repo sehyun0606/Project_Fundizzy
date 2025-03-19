@@ -1,6 +1,9 @@
 package com.itwillbs.project_fundizzy.controller;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -24,12 +27,15 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.itwillbs.project_fundizzy.service.AdminService;
+import com.itwillbs.project_fundizzy.service.MailService;
 import com.itwillbs.project_fundizzy.vo.PageInfo;
 
 @Controller
 public class AdminController {
 	@Autowired
 	private AdminService adminService;
+	@Autowired
+	private MailService mailService;
 	
 	@GetMapping("adminPageLoginNoInputUser")
 	public String admin(HttpSession session) {
@@ -159,10 +165,35 @@ public class AdminController {
 		return "admin/admin_community/admin_community_qna";
 	}
 	
+	@ResponseBody
+	@GetMapping("sendReply")
+	public String sendReply(@RequestParam Map<String, String> map) {
+		String result = "";
+		System.out.println("ajax요청 : " + map);
+		LocalDateTime now = LocalDateTime.now();
+	    // 올바른 포맷 적용
+	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+	    String formattedDate = now.format(formatter);
+	    System.out.println(formattedDate);
+	    int updateQnaReply = adminService.updateQnaReply(map);
+	    
+		if(map != null) {
+			map.put("dateTime", formattedDate);
+			Map<String, String> sendMailInfo = mailService.sendQnaMail(map);
+			System.out.println("보낸 것 : " + map);
+			System.out.println("인증메일 정보 : " + sendMailInfo);
+			result = "true";
+			return result;
+		} else {
+			return result;
+		}
+	}
 	
 	
-	
-	
+	@GetMapping("mail")
+	public String mail() {
+		return "member/mail/mail";
+	}
 	
 	
 	

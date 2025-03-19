@@ -1,6 +1,7 @@
 //오른쪽 
 $(function(){
-		let project_code = $("#project_code").val();
+	let project_code = $("#project_code").val();
+	let email = $("#keep_email").val();
 	
 	//상단 메뉴바 선택 시 
 	$(".story").on("click", function(e){
@@ -15,42 +16,37 @@ $(function(){
 		location.href="OpenBoardSupport?project_code=" + project_code;
 	});
 	
-		//펀딩하기 버튼 클릭 시
-	$(".purchase-btn").on("click", function(){
-		if($("#keep_email").val() == null || $("#keep_email").val() == "" ){
-			alert("로그인 후 이용 가능합니다.");
-			return;
-		}
-		location.href="PaymentReward?project_code=" + project_code;
-	});
 //	찜버튼 클릭시 
-	$("#btn-like").click(function(){
-		if($("#keep_email").val() == null || $("#keep_email").val() == "" ){
+	$(document).on("click", "#btn-like", function() {
+		if($("#keep_email").val() == null || $("#keep_email").val() == ""){
 			alert("로그인 후 이용 가능합니다.");
 			return;
 		}
 		//클릭이 되었을때 이미 찜한 상태라면 찜 취소
 		if($(this).hasClass("clicked")){
-			$(this).removeClass("clicked")
 	      	let iElement = $(this).find('i');
 			iElement.removeClass("fa-heart");
 			iElement.addClass("fa-heart-o");
+			
 			//테이블에 이름 , 프젝 코드 빼기  
 			$.ajax({
 				type: "POST",
 				url: "FundBoardStoryKeepDelete",
 				data: {
 					email: email,
-					project_code: keep_project_code
+					project_code: project_code
 				}
 			}).done(function(result){
+				$(this).removeClass("clicked")
+		        if(confirm("신청을 취소하면 알림을 받으실 수 없습니다 \n정말 취소하시겠습니까?")) {
+					location.reload();
+				}
 			}).fail(function(){
-		        alert("@찜 등록 중 오류가 발생했습니다. 다시 시도해주세요.");
+		        alert("알림 취소 중 오류가 발생했습니다. 다시 시도해주세요.");
 				location.reload();
 			})
-			//찜이 처음이라면 찜 되도록 
 	    } else {
-		
+			//찜이 처음이라면 찜 되도록 
 			$(this).addClass("clicked")
 	      	let iElement = $(this).find('i');
 			iElement.removeClass("fa-heart-o");
@@ -62,12 +58,12 @@ $(function(){
 				url: "FundBoardStoryKeep",
 				data: {
 					email: email,
-					project_code: keep_project_code
+					project_code: project_code
 				}
 			}).done(function(result){
-				alert("상품 찜 등록이 완료되었습니다.");
-			}).fail(function(){
-		        alert("!찜 등록 중 오류가 발생했습니다. 다시 시도해주세요.");
+				location.reload();
+			}).fail(function(error){
+		        alert(error + "알림 신청 중 오류가 발생했습니다. 다시 시도해주세요.");
 				location.reload();
 			})
 	    }

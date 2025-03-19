@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface NotificationMapper {
@@ -30,5 +31,16 @@ public interface NotificationMapper {
 	
 	// 프로젝트 정보 조회
 	Map<String, String> selectProjectInfo(String project_code);
+	
+	// 알림 읽음 처리
+	void updateNotStatus(String email);
+	
+	// 읽지않은 알림 수 조회
+	int selectUnReadCount(String email);
+	
+	// 알림 삭제
+	int deleteNotFromDB(@Param("codeArr") String[] codeArr);
+
+	String selectSettlementStatus(String project_code);
 
 }

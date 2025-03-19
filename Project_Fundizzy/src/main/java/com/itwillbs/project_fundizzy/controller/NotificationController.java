@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
 import com.itwillbs.project_fundizzy.service.NotificationService;
 
 import lombok.extern.log4j.Log4j2;
@@ -73,5 +75,29 @@ public class NotificationController {
 		
 		//디비에 저장된 회원의 알림설정 정보 조회
 		return notificationService.getMemberNOTSetInfo(email);
+	}
+	
+	// 알림 읽음 처리
+	@ResponseBody
+	@PostMapping("UpdateNotStatus")
+	public void updateNotStatus(HttpSession session) {
+		String email = (String)session.getAttribute("sId");
+		
+		// 알림페이지 접근시 현재까지 받은 알림 읽음처리
+		notificationService.changeNotStatus(email);
+	}
+	
+	// 알림 제거
+	@ResponseBody
+	@PostMapping("RemoveNotification")
+	public String removeNotification(String jsonCodeArr) {
+		String[] codeArr = new Gson().fromJson(jsonCodeArr, String[].class);
+		int deleteResult = notificationService.removeNotFromDB(codeArr);
+		
+		if(deleteResult == 0) {
+			return "";
+		}
+		
+		return "true";
 	}
 }

@@ -45,6 +45,10 @@ public class AdminService {
 		return mapper.selectQnaList();
 	}
 
+	public int updateQnaReply(Map<String, String> map) {
+		return mapper.updateQnaReply(map);
+	}
+
 
 //	public List<Map<String, Object>> getQnaList(String searchType, String searchKeyword, int startRow, int listLimit) {
 //		return mapper.selectQnaList(searchType, searchKeyword, startRow, listLimit);

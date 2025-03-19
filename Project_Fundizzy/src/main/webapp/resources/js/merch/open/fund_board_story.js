@@ -52,6 +52,7 @@ $(function(){
 		        if(confirm("신청을 취소하면 알림을 받으실 수 없습니다 \n정말 취소하시겠습니까?")) {
 					location.reload();
 				}
+				return false;
 			}).fail(function(){
 		        alert("알림 취소 중 오류가 발생했습니다. 다시 시도해주세요.");
 				location.reload();

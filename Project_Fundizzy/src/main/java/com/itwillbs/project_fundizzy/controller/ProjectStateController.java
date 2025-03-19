@@ -120,11 +120,6 @@ public class ProjectStateController {
 		return "project/projectState/project_state";
 	}
 
-	@GetMapping("SettlementInfo")
-	public String settlementInfo() {
-		return "project/projectState/settlement_info";
-	}
-
 	// 정산관리 페이지
 	@GetMapping("SettlementDetail")
 	public String settlementDetail(HttpSession session, Model model) {
@@ -463,6 +458,32 @@ public class ProjectStateController {
 		// 환불 조회
 		List<RefundVO> refund = stateService.getRefund(project_code);
 		model.addAttribute("refund", refund);
+		
+		// === 환불 가능 금액(=최종정산 받을 금액) ===
+		// 총 결제금액
+		int totalAmount = stateService.getTotalPayemtAmount(project_code);
+		model.addAttribute("totalAmount", totalAmount);
+		
+		// 선정산 금액(60%)
+		int preAmount = stateService.getPreSettlementAmount(project_code);
+		model.addAttribute("preAmount", preAmount);
+		
+		// 총 환불금액
+		List<RefundVO> refundList = stateService.getRefund(project_code);
+		int refundAmount;
+		
+		if(refundList == null) {
+			refundAmount = 0;
+		} else {
+			refundAmount = stateService.getRefundAmount(project_code);
+		}
+		model.addAttribute("refundAmount", refundAmount);
+		
+		// 최종정산 금액(나머지 금액 - 환불금액)
+		int finalAmount;
+		
+		finalAmount = totalAmount - preAmount - refundAmount;
+		model.addAttribute("finalAmount", finalAmount);
 
 		
 		return "project/projectState/shipment_refund";

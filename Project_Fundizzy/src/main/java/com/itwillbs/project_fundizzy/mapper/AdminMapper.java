@@ -25,6 +25,8 @@ public interface AdminMapper {
 	
 	List<Map<String, String>> selectQnaList();
 
+	int updateQnaReply(Map<String, String> map);
+
 //	List<Map<String, Object>> selectQnaList(
 //			@Param("searchType") String searchType, 
 //			@Param("searchKeyword") String searchKeyword,

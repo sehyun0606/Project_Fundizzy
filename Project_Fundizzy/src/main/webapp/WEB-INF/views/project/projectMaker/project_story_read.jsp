@@ -29,7 +29,7 @@
 		        
 	         	<label>대표 이미지</label>
 			    <div class="file-upload">
-			        <img id="previewImage" class="preview" name="representativePicture" src="/resources/upload/${projectStory.representative_picture}" alt="미리보기" >
+			        <img id="previewImage" class="preview" name="representativePicture" src="${projectStory.representative_picture}" alt="미리보기" >
 			        <p id="fileName">1/1</p>
 			    </div>
 		
@@ -38,7 +38,7 @@
 			       <div class="multi-preview-container" id="multiPreviewContainer">
 			       		<c:forEach items="${imgList}" var="img">
 			       			<div class="multi-preview-wrapper">
-			       				<img class="multi-preview" src="/resources/upload/${img}">
+			       				<img class="multi-preview" src="${img}">
 			       			</div>
 			       		</c:forEach>
 			       </div>

@@ -326,24 +326,24 @@
 	</select>
 	
 	<select id="selectSettlementFee" resultType="int">
-		SELECT FLOOR(SUM(payment_amount) * (SELECT CASE 
+		SELECT IFNULL(FLOOR(SUM(payment_amount) * (SELECT CASE 
 														WHEN service_type = 'pro' THEN 0.1
 														WHEN service_type = 'basic' THEN 0.05
 												   END as type
 											FROM project_list
-											WHERE project_code = #{project_code})) as fee
+											WHERE project_code = #{project_code})), 0) as fee
 		FROM payment
 		WHERE project_code = #{project_code}
 	</select>
 	
 	<select id="selectPreSettlementAmount" resultType="int">
-		SELECT FLOOR(SUM(payment_amount) * 0.6) as pre_amount
+		SELECT IFNULL(FLOOR(SUM(payment_amount) * 0.6), 0) as pre_amount
 		FROM payment
 		WHERE project_code = #{project_code}
 	</select>
 	
 	<select id="selectRefundAmount" resultType="int">
-		SELECT SUM(refund_amound) as refund_amount
+		SELECT IFNULL(SUM(refund_amound), 0) as refund_amount
 		FROM refund
 		WHERE project_code = #{project_code}
 	</select>

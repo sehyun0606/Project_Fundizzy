@@ -60,4 +60,10 @@
 		order by qna_create desc;
 	</select>
 	
+	<insert id="updateQnaReply">
+		UPDATE qna
+		SET qna_answer = #{replyContent}, qna_status = 'Y'
+		WHERE qna_num = #{qnaNum};
+	</insert>
+	
 </mapper>

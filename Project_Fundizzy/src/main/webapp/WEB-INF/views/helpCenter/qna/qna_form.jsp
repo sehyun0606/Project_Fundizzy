@@ -26,16 +26,15 @@
 	            <label for="qna-type">어떤 도움이 필요하신가요?</label>
 	            <select id="qna-type" name="qnaType">
 	                <option value="">문의 유형을 선택하세요</option>
-	                <option value="펀디즈">펀디즈 문의하기</option>
-	                <option value="서포터">서포터 문의하기</option>
-	                <option value="메이커">메이커 문의하기</option>
-	                <option value="비회원">비회원 문의하기</option>
-	                <option value="기타">기타 문의</option>
+	                <option value="fundizzy">펀디즈 문의하기</option>
+	                <option value="supporter">서포터 문의하기</option>
+	                <option value="maker">메이커 문의하기</option>
+	                <option value="guest">비회원 문의하기</option>
 	            </select>
 			</div>
             
             <div class="form-group required-field">
-			    <label for="email">이메일 주소 <span class="required">*</span></label>
+			    <label for="email">답변 받을 이메일 주소 <span class="required">*</span></label>
 			    <input type="email" id="email" name="email" required>
 			</div>
 			
@@ -79,11 +78,6 @@
                 <p class="privacy-note">
                     개인정보 수집 동의를 거부할 수 있으나, 거부할 경우 업무 처리의 부재로 답변 및 상담이 제한될 수 있습니다.
                 </p>
-            </div>
-            
-           	<label for="file-upload">첨부 파일 선택</label>
-            <div class="file-upload required-field">
-                <input type="file" id="file-upload" name="fileUpload">
             </div>
 
             <button type="submit" class="submit-btn">제출</button>

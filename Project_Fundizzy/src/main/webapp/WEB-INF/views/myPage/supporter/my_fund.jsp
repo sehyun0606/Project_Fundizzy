@@ -326,7 +326,7 @@
 		        <div class="product-name">${fund.product_name}</div>
 		        <div class="info">
 		        	<div class="img-section">
-		        		<img class="img" src="/resources/upload/${fund.representative_picture }"/>
+		        		<img class="img" src="${fund.representative_picture }"/>
 		        	</div>
 		        	<div class="payment-info">
 		        		<div><fmt:formatDate value="${fund.purchase_date}" pattern="yyyy-MM-dd" /></div>
