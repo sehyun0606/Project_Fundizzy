@@ -76,12 +76,23 @@
                 </div>
             </div>
 <!--             회사정보 div -->
-            <div class="project-info">
+             <div class="project-info">
                 <div class="company-info">
-                   <h4>${fundStory.business_name}</h4><br>
+                   <h4>${fundStory.maker_name}</h4><br>
+                   <img class="profile_img" src="${fundStory.profile_img}">
+                   <h3>${fundStory.maker_email}</h3>
+                   <c:if test="!${empty fundStory.facebook_address }">
+	                   <p>페이스북 : <a href="${fundStory.facebook_address }" >${fundStory.facebook_address}</a></p>
+                   </c:if>
+                   <c:if test="!${empty fundStory.twitter_address }">
+	                   <p>트위터 : <a href="${fundStory.twitter_address }" >${fundStory.twitter_address}</a></p>
+                   </c:if>
+                   <c:if test="!${empty fundStory.instagram_address }">
+	                   <p>인스타그램 : <a href="${fundStory.instagram_address }" >${fundStory.instagram_address}</a></p>
+                   </c:if>
                 </div>
-                  <button class="btn" onclick="openChatRoomWindow('${fundStory.representative_email}')"
-                	<c:if test="${sessionScope.sId == fundStory.representative_email || empty sessionScope.sId}">disabled</c:if>>문의하기</button>
+                <button class="btn" onclick="openChatRoomWindow('${fundStory.representative_email}')"
+                	<c:if test="${sessionScope.sId == fundStory.representative_email || empty sessionScope.sId}">disabled</c:if>><i class="fa fa-comments-o" style="font-size:24px, margin-right:2px"></i>문의하기</button>
             </div>
         </div>
     </div>
