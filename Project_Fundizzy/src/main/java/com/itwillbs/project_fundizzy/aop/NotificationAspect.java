@@ -94,30 +94,30 @@ public class NotificationAspect {
 			if(methodName.equals("projectAccept")) {
 				// 프로젝트 메이커에 알림
 				notHandler.sendNotToMaker(makerEmail, project_code, notHandler.IS_RECV_MY, notHandler.NOT_MYPROJECT_CODE,
-						"고객님의 프로젝트<br><a href='FundBoardStory?porject_code=" + project_code + "'>"
+						"고객님의 프로젝트<br><a href='FundBoardStory?project_code=" + project_code + "'>"
 				+ dbData.get("project_title") + "</a><br>이(가) 승인되었습니다.<br><a href='SupportPage'>프로젝트 관리 페이지</a>에서 날짜를 설정 해 주세요!");
 				// 해당프로젝트의 찜 회원에게 알림
 				notHandler.sendNotToKeepMember(project_code, notHandler.IS_RECV_WISH, notHandler.NOT_WISH_CODE,
-						"회원님이 찜한<br><a href='FundBoardStory?porject_code=" + project_code + "'>"
+						"회원님이 찜한<br><a href='FundBoardStory?project_code=" + project_code + "'>"
 				+ dbData.get("project_title") + "</a><br>이(가) 승인되었습니다.");
 				// 해당프로젝트의 찜 회원에게 알림
 				notHandler.sendNotToSupportMember(project_code, notHandler.IS_RECV_SUPPORT, notHandler.NOT_SUPPORT,
-						"회원님이 지지서명한<br><a href='FundBoardStory?porject_code=" + project_code + "'>"
+						"회원님이 지지서명한<br><a href='FundBoardStory?project_code=" + project_code + "'>"
 				+ dbData.get("project_title") + "</a><br>이(가) 승인되었습니다.");
 			
 			// 프로젝트 거절 알림
 			} else if(methodName.equals("projectDeny") || methodName.equals("insertNaverUser")) {
 				// 프로젝트 메이커에 알림
 				notHandler.sendNotToMaker(makerEmail, project_code, notHandler.IS_RECV_MY, notHandler.NOT_MYPROJECT_CODE,
-						"고객님의 프로젝트<br><a href='FundBoardStory?porject_code=" + project_code + "'>"
+						"고객님의 프로젝트<br><a href='FundBoardStory?project_code=" + project_code + "'>"
 				+ dbData.get("project_title") + "</a><br>이(가) 거절되었습니다.");
 				// 해당프로젝트의 찜 회원에게 알림
 				notHandler.sendNotToKeepMember(project_code, notHandler.IS_RECV_WISH, notHandler.NOT_WISH_CODE,
-						"회원님이 찜한<br><a href='FundBoardStory?porject_code=" + project_code + "'>"
+						"회원님이 찜한<br><a href='FundBoardStory?project_code=" + project_code + "'>"
 				+ dbData.get("project_title") + "</a><br>이(가)  거절되었습니다.");
 				// 해당프로젝트의 찜 회원에게 알림
 				notHandler.sendNotToSupportMember(project_code, notHandler.IS_RECV_SUPPORT, notHandler.NOT_SUPPORT,
-						"회원님이 지지서명한<br><a href='FundBoardStory?porject_code=" + project_code + "'>"
+						"회원님이 지지서명한<br><a href='FundBoardStory?project_code=" + project_code + "'>"
 				+ dbData.get("project_title") + "</a><br>이(가) 거절되었습니다.");
 			}
 		}
@@ -147,12 +147,12 @@ public class NotificationAspect {
 		// 선정산 완료 알림
 		if(settlement_status.equals("SET04")) {
 			notHandler.sendNotToMaker(email, project_code, notHandler.IS_RECV_MY, notHandler.NOT_MYPROJECT_CODE,
-					"회원님의 프로젝트<br><a href='FundBoardStory?porject_code=" + project_code + "'>"
+					"회원님의 프로젝트<br><a href='FundBoardStory?project_code=" + project_code + "'>"
 			+ dbData.get("project_title") + "</a><br>의 선정산이 완료되었습니다.");
 		// 최종정산 완료 알림
 		} else if(settlement_status.equals("SET07")) {
 			notHandler.sendNotToMaker(email, project_code, notHandler.IS_RECV_MY, notHandler.NOT_MYPROJECT_CODE,
-					"회원님의 프로젝트<br><a href='FundBoardStory?porject_code=" + project_code + "'>"
+					"회원님의 프로젝트<br><a href='FundBoardStory?project_code=" + project_code + "'>"
 			+ dbData.get("project_title") + "</a><br>의 최종정산 완료되었습니다.");
 		}
 	}
@@ -185,7 +185,7 @@ public class NotificationAspect {
 		
 		
 		if(notHandler.isReceiveThisNOT(email, notHandler.IS_RECV_WISH)) {
-			notHandler.registNOTOnDB(email, project_code, notHandler.NOT_WISH_CODE, "프로젝트 - <a href='FundBoardStory?porject_code=" + project_code + "'>"
+			notHandler.registNOTOnDB(email, project_code, notHandler.NOT_WISH_CODE, "프로젝트 - <a href='FundBoardStory?project_code=" + project_code + "'>"
 					+ projectInfo.get("project_title") + "</a> 찜!<br>앞으로 이 프로젝트의 최신정보가 알림으로 전송됩니다.");
 		}
 	}
@@ -209,12 +209,12 @@ public class NotificationAspect {
 		Map<String, String> supportInfo = memberservice.getMember(email);
 		
 		notHandler.sendNotToMaker(makerInfo.get("email"), project_code, notHandler.IS_RECV_MY, notHandler.NOT_MYPROJECT_CODE,
-				supportInfo.get("nickname") + " 님이 회원님의 프로젝트 <a href='FundBoardStory?porject_code=" + project_code + "'>"
+				supportInfo.get("nickname") + " 님이 회원님의 프로젝트 <a href='FundBoardStory?project_code=" + project_code + "'>"
 						+ projectInfo.get("project_title")
 						+ "</a>에 지지서명하였습니다.<span class='keyword'></span><input type='hidden' value='" + supportKeyword + "'>");
 		
 		if(notHandler.isReceiveThisNOT(email, notHandler.IS_RECV_SUPPORT)) {
-			notHandler.registNOTOnDB(email, project_code, notHandler.NOT_SUPPORT, " <a href='FundBoardStory?porject_code=" + project_code + "'>"
+			notHandler.registNOTOnDB(email, project_code, notHandler.NOT_SUPPORT, " <a href='FundBoardStory?project_code=" + project_code + "'>"
 					+ projectInfo.get("project_title")
 					+ "</a>에 지지서명 꽝!!<span class='keyword'></span><input type='hidden' value='" + supportKeyword + "'>");
 		}
@@ -251,20 +251,18 @@ public class NotificationAspect {
 		
 		// 달성률 계산
 		int progress = fundService.getProgressOfProject(project_code);
-		System.err.println("ffffffffffffffffffff" + progressBefore);
-		System.err.println("ffffffffffffffffffff" + progress);
 		
 		// 10으로나눈 몫이 다를경우 10%단위 달성률이 변했다는 의미
-		if(progress % 10 != progressBefore %10) {
+		if(progress / 10 != progressBefore / 10) {
 			if(progress > 100 && progress < 110) {
 				notHandler.sendNotToMaker(makerInfo.get("email"), project_code
 						, notHandler.IS_RECV_MY, notHandler.NOT_MYPROJECT_CODE,
-						"프로젝트 <a href='FundBoardStory?porject_code=" + project_code + "'>"
+						"프로젝트 <a href='FundBoardStory?projectject_code=" + project_code + "'>"
 								+ projectInfo.get("project_title") + "</a>100% 달성!<br> 프로젝트 성공하였습니다.");
 			} else {
 				notHandler.sendNotToMaker(makerInfo.get("email"), project_code
 						, notHandler.IS_RECV_MY, notHandler.NOT_MYPROJECT_CODE,
-						"프로젝트 <a href='FundBoardStory?porject_code=" + project_code + "'>"
+						"프로젝트 <a href='FundBoardStory?project_code=" + project_code + "'>"
 								+ projectInfo.get("project_title") + "</a>에" + supportInfo.get("nickname") + "님 참여!(달성률 - " + progress + "%)");
 				
 			}

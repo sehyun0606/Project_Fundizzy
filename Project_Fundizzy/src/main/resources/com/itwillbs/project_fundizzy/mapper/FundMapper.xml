@@ -360,13 +360,13 @@
 	
 	<!-- 프로젝트 달성률 조회 -->
 	<select id="selectProgress" resultType="int">
-		SELECT FLOOR((SELECT IFNULL(SUM(result_point), 0)
+		SELECT IFNULL(FLOOR((SELECT IFNULL(SUM(result_point), 0)
 						FROM fund_history
 						WHERE project_code = #{project_code})
 					/ (SELECT IFNULL(target_amount, 0)
 						from project_info
 						WHERE project_code = #{project_code})
-					* 100) as progress
+					* 100), 0) as progress
 		FROM DUAL
 	</select>
 	
