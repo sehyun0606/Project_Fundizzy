@@ -361,3 +361,8 @@ body {
     border-radius: 5px;
 	
 }
+.profile_img{
+    width: 80px;
+    border: 1px solid mediumpurple;
+    border-radius: 50px;
+}

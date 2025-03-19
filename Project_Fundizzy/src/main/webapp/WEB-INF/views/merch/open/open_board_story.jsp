@@ -37,7 +37,7 @@
 				
 	           <div class="project-story">
 	                <p>프로젝트 스토리</p>
-	                <img src="${projectStory.product_picture}" alt="프로젝트 스토리 이미지">
+	                ${projectStory.open_story}
 <!-- 	                <button>스토리 더보기v</button> -->
 	           </div>
            	</c:forEach>
@@ -100,7 +100,7 @@
                 <div class="company-info">
                    <h4>${fundStory.maker_name}</h4><br>
                    <img class="profile_img" src="${fundStory.profile_img}">
-                   <h3>${fundStory.representative_email}</h3>
+                   <h3>${fundStory.maker_email}</h3>
                    <c:if test="!${empty fundStory.facebook_address }">
 	                   <p>페이스북 : <a href="${fundStory.facebook_address }" >${fundStory.facebook_address}</a></p>
                    </c:if>
