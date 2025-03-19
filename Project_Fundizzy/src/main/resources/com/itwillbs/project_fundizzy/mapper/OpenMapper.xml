@@ -13,7 +13,7 @@
 		ON ps.project_code = pd.project_code
 		WHERE approved_date IS NOT NULL
 		AND date_config = 'Y'
-		AND open_end_date > NOW()
+		AND NOW() BETWEEN open_start_date AND open_end_date
 	</select>
 	
 	<select id="selectKeepCount" resultType="int">

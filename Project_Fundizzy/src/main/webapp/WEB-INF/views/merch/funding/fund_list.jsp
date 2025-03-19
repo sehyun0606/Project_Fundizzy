@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <title>메인</title>
 <link rel="stylesheet" type="text/css" href="resources/css/merch/funding/fund_list.css">
+<link rel="stylesheet" type="text/css" href="resources/css/merch/funding/fund_default.css">
 <!-- js 연결 -->
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/merch/funding/fund_list.js"></script>

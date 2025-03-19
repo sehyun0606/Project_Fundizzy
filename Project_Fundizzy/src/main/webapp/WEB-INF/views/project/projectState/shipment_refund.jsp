@@ -175,6 +175,7 @@
 				                	<c:choose>
 				                		<c:when test="${empty order.tracking_num}">
 							                <input type="button" value="입력" class="shipInfoBtn">
+							                <input type="hidden" value="${order.project_code}" class="project_code">
 				                		</c:when>
 <%-- 				                		<c:when test="${not empty order.tracking_num and order.shipment_common_code ne 'SHI04'}"> --%>
 				                		<c:when test="${not empty order.tracking_num}">
@@ -420,51 +421,72 @@
 			
 	    	// (발송정보) 입력 버튼 클릭 시 모달창 생성 
 			$(document).on("click", ".shipInfoBtn", function() {
-				$("#ship-modal").fadeOut(0, function() {
-					$("#ship-modal").fadeIn();
-				});
-				$("#refund-modal").css("display", "none");
+				
 				
 				let payment_code = $(this).closest("tr").find(".payment_code").val();
+				let project_code = $(this).closest("tr").find(".project_code").val();
 				
-				// 발송정보 입력 모달창에 정보 출력
-				for(let order of jsonOrderList) {
-					if(order.payment_code == payment_code) {
-						let address = order.address + " " + order.address1;
-// 						console.log(order);
-						$("#ship-modal .receiver-info:nth-child(1) span:nth-child(2)").text(order.payment_code);
-						$("#ship-modal .receiver-info:nth-child(2) span:nth-child(2)").text(order.payment_amount);
-						$("#ship-modal .receiver-info:nth-child(3) span:nth-child(2)").text(order.name);
-						$("#ship-modal .receiver-info:nth-child(4) span:nth-child(2)").text(order.phone_num);
-						$("#ship-modal .receiver-info:nth-child(5) span:nth-child(2)").text(order.post_code);
-						$("#ship-modal .receiver-info:nth-child(6) span:nth-child(2)").text(address);
-
-						$("#ship-modal .payment_code").val(payment_code);
-					}
-				}
 				
+				console.log("pc : " + project_code);
+				
+				// 프로젝트 종료 전에 발송정보 입력 클릭 시
 				$.ajax({
 					type : "GET",
-					url : "PaymentRewardDetail",
+					url : "ProjectListSetStatus",
 					data : {
-						payment_code
+						project_code
 					}
-				}).done(function(rewardList) {
-					// 발송정보 입력 폼에 주문 리워드 정보 출력
-					$("#ship-modal .reward-container").empty()
-					for(let reward of rewardList) {
-						console.log(reward);
-						$("#ship-modal form").prepend(
-							"<div class='reward-container'>"
-							+ "<div class='reward-title'>" + reward.product_name + "</div>"
-							+ "<div class='reward-info'>" + reward.result_point + "원 / " + reward.product_count + "개</div>"
-							+ "</div>"		
-						)
+					
+				}).done(function(setStatus) {
+					if(setStatus == 'SET01') {
+						alert("프로젝트 종료 후 입력해주세요");
+						return false;
+					} else {
+						$.ajax({
+							type : "GET",
+							url : "PaymentRewardDetail",
+							data : {
+								payment_code
+							}
+						}).done(function(rewardList) {
+							$("#ship-modal").fadeOut(0, function() {
+								$("#ship-modal").fadeIn();
+							});
+							$("#refund-modal").css("display", "none");
+							// 발송정보 입력 모달창에 정보 출력
+							for(let order of jsonOrderList) {
+								if(order.payment_code == payment_code) {
+									let address = order.address + " " + order.address1;
+	//		 						console.log(order);
+									$("#ship-modal .receiver-info:nth-child(1) span:nth-child(2)").text(order.payment_code);
+									$("#ship-modal .receiver-info:nth-child(2) span:nth-child(2)").text(order.payment_amount);
+									$("#ship-modal .receiver-info:nth-child(3) span:nth-child(2)").text(order.name);
+									$("#ship-modal .receiver-info:nth-child(4) span:nth-child(2)").text(order.phone_num);
+									$("#ship-modal .receiver-info:nth-child(5) span:nth-child(2)").text(order.post_code);
+									$("#ship-modal .receiver-info:nth-child(6) span:nth-child(2)").text(address);
+	
+									$("#ship-modal .payment_code").val(payment_code);
+								}
+							}
+							// 발송정보 입력 폼에 주문 리워드 정보 출력
+							$("#ship-modal .reward-container").empty()
+							for(let reward of rewardList) {
+								console.log(reward);
+								$("#ship-modal form").prepend(
+									"<div class='reward-container'>"
+									+ "<div class='reward-title'>" + reward.product_name + "</div>"
+									+ "<div class='reward-info'>" + reward.result_point + "원 / " + reward.product_count + "개</div>"
+									+ "</div>"		
+								)
+							}
+							console.log("성공");
+						}).fail(function() {
+							console.log("실패");
+						});
+						
 					}
-				}).fail(function() {
-					console.lof("실패");
+					
 				});
-				
 				
 			}); 
 

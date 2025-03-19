@@ -34,6 +34,11 @@ public class OpenController {
 	public String openList(Model model) {
 		
 		List<Map<String, Object>> openList = openService.getOpenList();
+		
+		// keep 전체 개수
+		for(Map<String, Object> open : openList) {
+			open.put("keepCount", openService.getKeepCount((String)open.get("project_code")));
+		}
 		model.addAttribute("openList", openList);
 		
 		return "merch/open/open_list";

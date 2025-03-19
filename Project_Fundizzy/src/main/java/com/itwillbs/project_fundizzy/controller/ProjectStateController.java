@@ -489,11 +489,18 @@ public class ProjectStateController {
 		}
 		model.addAttribute("finalAmount", finalAmount);
 		
-		// 프로젝트 기간이 끝나지 않으면 발송정보 입력 불가
-		
-
-		
 		return "project/projectState/shipment_refund";
+	}
+	
+	@ResponseBody
+	@GetMapping("ProjectListSetStatus")
+	public String projectListSetStatus(String project_code) {
+		// 프로젝트 기간이 끝나지 않으면 발송정보 입력 불가
+		String setStatus = stateService.getProjectListSetStatus(project_code);
+		System.out.println("dddddddddddddddddddddd : " + setStatus);
+		System.out.println("pc : " + project_code);
+		
+		return setStatus;
 	}
 	
 	@ResponseBody

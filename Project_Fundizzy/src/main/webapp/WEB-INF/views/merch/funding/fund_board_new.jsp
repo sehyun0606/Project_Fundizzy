@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <title>펀딩 새소식</title>
 <link rel="stylesheet" type="text/css" href="resources/css/merch/funding/fund_board_new.css">
+<link rel="stylesheet" type="text/css" href="resources/css/merch/funding/fund_default.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <!-- js파일 로드 script -->
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -73,7 +74,8 @@
 		                   <button class="btn-small clicked" id="btn-like"><i class="fa fa-heart" style="font-size:27px"></i></button>
 	                	</c:otherwise>
 	                </c:choose>
-                   <button class="btn-small" id="btn-support"><i class="fa fa-thumbs-o-up" style="font-size:27px"></i></button>
+<!-- 	               <button class="btn-small" id="btn-support"><i class="fa fa-thumbs-o-up" style="font-size:27px"></i></button> -->
+                   <button class="btn-small" id="btn-support"><img src="/resources/images/fund/support.png" width="30px" height="30px"></button>
                    <button class="purchase-btn">펀딩하기</button>
                 </div>
             </div>

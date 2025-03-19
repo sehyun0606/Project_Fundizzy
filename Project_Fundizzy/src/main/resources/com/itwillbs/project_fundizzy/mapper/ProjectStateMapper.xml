@@ -443,13 +443,19 @@
 	
 	<select id="selectProjectDate" resultType="String">
 		SELECT CASE 
-					WHEN open_end_date > NOW() THEN 0
+					WHEN NOW() BETWEEN open_start_date AND open_end_date THEN 0
 					WHEN NOW() BETWEEN project_start_date AND project_end_date THEN 1
+					ELSE 10
 				END as projectDate
 		FROM project_date
 		WHERE project_code = #{project_code}
 	</select>
 	
+	<select id="selectProjectListSetStatus" resultType="string">
+		SELECT settlement_status
+		FROM project_list
+		WHERE project_code = #{project_code}
+	</select>
 
 </mapper>
 

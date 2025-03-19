@@ -79,7 +79,7 @@
         			<input type="hidden" class ="project_code" value="${list.project_code}">
 		            <img class="product-img" src="${list.representative_picture}">
 		            <div class="product-info">
-		                <p class="discount">${list.progress}%</p>
+		                <p class="discount">${list.keepCount}명이 기다려요</p>
 		                <p class="name">${list.project_title}</p>
 		            </div>
        			 </div>

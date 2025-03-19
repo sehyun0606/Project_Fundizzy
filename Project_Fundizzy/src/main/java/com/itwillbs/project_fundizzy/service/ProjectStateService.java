@@ -159,6 +159,10 @@ public class ProjectStateService {
 		return stateMapper.selectProjectDate(project_code);
 	}
 
+	public String getProjectListSetStatus(String project_code) {
+		return stateMapper.selectProjectListSetStatus(project_code);
+	}
+
 	
 
 	

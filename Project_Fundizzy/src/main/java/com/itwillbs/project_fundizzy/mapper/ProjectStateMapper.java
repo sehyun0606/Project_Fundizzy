@@ -99,6 +99,8 @@ public interface ProjectStateMapper {
 
 	String selectProjectDate(String project_code);
 
+	String selectProjectListSetStatus(String project_code);
+
 	
 
 	

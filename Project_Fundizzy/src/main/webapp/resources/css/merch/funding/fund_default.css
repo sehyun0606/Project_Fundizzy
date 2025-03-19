@@ -20,12 +20,14 @@ body {
 }
 
 .btn-group {
-	gap: 15px;
+	gap: 5px;
 }
 
 .btn-small {
+	flex: none;
     background-color: #fff;
 	border: 1px solid #cdd3d8;
+	color: #343a40;
 /* 	height: 50px; */
 }
 
@@ -57,10 +59,7 @@ body {
 }
 
 .post {
-    background-color: #fff;
-    margin-bottom: 10px;
-    padding: 10px;
-    border: 1px solid #ccc;
+	width : unset;
 }
 
 

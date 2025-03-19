@@ -58,9 +58,6 @@
 				</div>
 			</div>
 			<h3>펀딩 현황 분석</h3>
-			<div class="selectDate">
-				<input type="date"> <input type="date">
-			</div>
 			<div>
 				<canvas id="myChart" width="1200px" height="500px"></canvas>
 			</div>
@@ -157,7 +154,7 @@
 		                    drawOnChartArea: false
 		                },
 		                ticks: {
-		                    stepSize: 100000
+		                    stepSize: 500000
 		                }
 		            }
 		        }
