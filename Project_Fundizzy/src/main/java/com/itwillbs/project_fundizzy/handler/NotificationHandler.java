@@ -96,9 +96,12 @@ public class NotificationHandler {
 			registNOTOnDB(email, project_code, not_code, content);
 		}
 		
+		// 알림 이메일 수신 여부판별후 이메일 전송
 		if(isReceiveMail(email)) {
-			System.err.println(content);
-			mailClient.sendMail(email, "Fundizzy 알림", content);
+			// 알림내용안의 <a>태그 주소 변경
+			String newContent = content.replace("<a href='", "<a href='http://c5d2409t1p2.itwillbs.com/");
+			
+			mailClient.sendMail(email, "Fundizzy 알림", newContent);
 		}
 	}
 	
@@ -113,8 +116,17 @@ public class NotificationHandler {
 					// 알림등록 메서드 호출
 					registNOTOnDB(email, project_code, not_code, content);
 				}
+				
+				// 알림 이메일 수신 여부판별후 이메일 전송
+				if(isReceiveMail(email)) {
+					// 알림내용안의 <a>태그 주소 변경
+					String newContent = content.replace("<a href='", "<a href='http://c5d2409t1p2.itwillbs.com/");
+					
+					mailClient.sendMail(email, "Fundizzy 알림", newContent);
+				}
 			}
 		}
+		
 	}
 	
 	// 프로젝트 지지서명한 전체 회원에게 알림전송
@@ -127,6 +139,14 @@ public class NotificationHandler {
 				if(isReceiveThisNOT(email, is_recv)) {
 					// 알림등록 메서드 호출
 					registNOTOnDB(email, project_code, not_code, content);
+				}
+				
+				// 알림 이메일 수신 여부판별후 이메일 전송
+				if(isReceiveMail(email)) {
+					// 알림내용안의 <a>태그 주소 변경
+					String newContent = content.replace("<a href='", "<a href='http://c5d2409t1p2.itwillbs.com/");
+					
+					mailClient.sendMail(email, "Fundizzy 알림", newContent);
 				}
 			}
 		}
@@ -142,6 +162,14 @@ public class NotificationHandler {
 				if(isReceiveThisNOT(email, is_recv)) {
 					// 알림등록 메서드 호출
 					registNOTOnDB(email, project_code, not_code, content);
+				}
+				
+				// 알림 이메일 수신 여부판별후 이메일 전송
+				if(isReceiveMail(email)) {
+					// 알림내용안의 <a>태그 주소 변경
+					String newContent = content.replace("<a href='", "<a href='http://c5d2409t1p2.itwillbs.com/");
+					
+					mailClient.sendMail(email, "Fundizzy 알림", newContent);
 				}
 			}
 		}

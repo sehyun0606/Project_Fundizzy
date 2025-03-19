@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.stereotype.Component;
 
+import com.itwillbs.project_fundizzy.handler.MailClient;
 import com.itwillbs.project_fundizzy.handler.NotificationHandler;
 import com.itwillbs.project_fundizzy.service.FundService;
 import com.itwillbs.project_fundizzy.service.MemberService;
@@ -39,6 +40,9 @@ public class NotificationAspect {
 	
 	@Autowired
 	private FundService fundService;
+	
+	@Autowired
+    private MailClient mailClient;
 	
 	// 갱신전 달성률 저장을 위한 멤버변수
 	private int progressBefore = 0;
@@ -80,6 +84,12 @@ public class NotificationAspect {
 			if(notHandler.isReceiveThisNOT(email, notHandler.IS_RECV_SITE)) {
 				// 알림등록 메서드 호출
 				notHandler.registNOTOnDB(email, "", notHandler.NOT_SITE_CODE, notification_content);
+			}
+			
+			// 알림 이메일 수신 여부판별후 이메일 전송
+			if(notHandler.isReceiveMail(email)) {
+				// 알림내용안의 <a>태그 주소 변경
+				mailClient.sendMail(email, "Fundizzy 알림", notification_content + "<br><a href='http://c5d2409t1p2.itwillbs.com'>펀디지로 이동</a>");
 			}
 		}
 	}
