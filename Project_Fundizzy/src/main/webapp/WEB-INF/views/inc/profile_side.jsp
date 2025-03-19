@@ -147,9 +147,12 @@
         }
         
         #pay_btn{
-        width: 230px;
-        height: 40px;
-        margin-top: 10px;
+		    width: 230px;
+		    height: 40px;
+		    margin-top: 10px;
+		    background-color: white;
+		    border: 1px solid mediumpurple;
+		    border-radius: 20px;
         }
         .profile-image img {
 		    width: 80px;
@@ -174,12 +177,9 @@
         </div>
         <input type="button" class="settings" value="내 정보 설정" onclick="location.href='SettingMain'">
 
-       <input type="button" value="페이" id="pay_btn" onclick="location.href='PayPage'">
         <div class="menu-item">
-        	<span class="menu-title">프로젝트</span>
-            <div class="submenu2">
-                <div class="submenu-item2"><a>프로젝트 정산</a></div>
-            </div>
+       		<span class="menu-title">페이</span>
+	       <input type="button" value="페이" id="pay_btn" onclick="location.href='PayPage'">
         </div>
         <div class="menu-item">
         	<span class="menu-title">고객센터</span>
