@@ -28,17 +28,17 @@
 			    <h2>문의사항</h2>
 			    	<form action="qnaBoardList" method="get">
 					    <div class="search-bar">
-					    	<c:if test="${param.searchType eq '전체'}"></c:if>
+					    	<c:if test="${param.searchType eq ''}"></c:if>
 					        <select name="searchType" id="searchType" style="height: 29px; font-size: 10px;">
-					            <option value="전체">전체</option>
-					            <option value="펀디즈">펀디즈</option>
-					            <option value="서포터">서포터</option>
-					            <option value="메이커">메이커</option>
-					            <option value="비회원">비회원</option>
-					            <option value="기타">기타</option>
+					            <option value="전체" <c:if test="${param.searchType eq '전체'}">selected</c:if>>전체</option>
+					            <option value="미답변" <c:if test="${param.searchType eq '미답변'}">selected</c:if>>미답변</option>
+					            <option value="펀디즈" <c:if test="${param.searchType eq '펀디즈'}">selected</c:if>>펀디즈</option>
+					            <option value="서포터" <c:if test="${param.searchType eq '서포터'}">selected</c:if>>서포터</option>
+					            <option value="메이커" <c:if test="${param.searchType eq '메이커'}">selected</c:if>>메이커</option>
+					            <option value="비회원" <c:if test="${param.searchType eq '비회원'}">selected</c:if>>비회원</option>
 					        </select>
-					        <input type="text"  id="searchText" name="searchKeyword" value="${param.searchKeyword}" required>
-					        <button type="button" class="search-btn">검색</button>
+					        <input type="text"  id="searchText" name="searchKeyword" value="${param.searchKeyword}">
+					        <button type="submit" class="search-btn">검색</button>
 					    </div>
 				    </form> 
 			    <table>
@@ -96,32 +96,43 @@
 					</tbody>
 			    </table>
 			</div>
-			<nav class="d-flex justify-content-center">
-				<ul class="pagination">
-					<c:if test="${not empty param.searchKeyword}">
-						<c:set var="searchParam" value="&serachType=${param.searchType}&serachKeyword=${param.searchKeyword}"></c:set>
-					</c:if>
-					<li class="page-item">
-<%--                                     <a class="page-link" href="Notice?pageNum=${pageInfo.pageNum - 1}${searchParam}" <c:if test="${pageInfo.pageNum eq 1}" >disabled</c:if>>&#9664;</a> --%>
-						<input type="button" class="page-link" value="&#9664;" onclick="location.href='Notice?pageNum=${pageInfo.pageNum - 1}${searchParam}'" 
-						<c:if test="${pageInfo.pageNum eq 1}">disabled</c:if> />
-					</li>
-					<c:forEach var="i" begin="${pageInfo.startPage}" end="${pageInfo.endPage}">
-						<c:choose>
-							<c:when test="${i eq pageInfo.pageNum}">
-								<a class="page-link"><b>${i}</b></a>
-							</c:when>
-							<c:otherwise>
-								<li class="page-item"><a class="page-link" href="Notice?pageNum=${i}${searchParam}">${i}</a></li>
-							</c:otherwise>
-						</c:choose>
-					</c:forEach>
-					<li class="page-item">
-						<input type="button" class="page-link" value="&#9654;" onclick="location.href='Notice?pageNum=${pageInfo.pageNum + 1}${searchParam}'" 
-						<c:if test="${pageInfo.pageNum eq pageInfo.maxPage}" >disabled</c:if>/>
-					</li>
-				</ul>
-       		</nav>
+			<section id="pageList" class="pageList">
+				<%-- 검색어가 있을 경우 변수를 사용하여 '&searchType=타입&searchKeyword=키워드' 문자열 저장 --%>
+				<%-- 페이지 이동 하이퍼링크 파라미터부분에 검색관련 파라미터 저장된 변수 결합 --%>
+				<%-- 검색어가 없을 경우 변수가 생성되지 않으므로 널스트링("")이 결합되므로 변화 없음 --%>
+				<c:if test="${not empty param.searchKeyword}">
+					<c:set var="searchParam" value="&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}" />
+				</c:if>
+				<%-- [이전] 버튼 클릭 시 현재 페이지의 이전 페이지 요청(2 페이지 일 경우 1 페이지 요청) --%>
+				<%-- 현재 목록의 페이지번호 - 1 값을 파라미터로 전달 --%>
+				<%-- 단, 현재 페이지가 1 페이지일 경우 비활성화(disabled) --%>
+				<input type="button" value="이전" 
+					onclick="location.href='qnaBoardList?pageNum=${pageInfo.pageNum - 1}${searchParam}'" 
+					<c:if test="${pageInfo.pageNum eq 1}">disabled</c:if>>
+				
+				<%-- 계산된 페이지 번호가 저장된 PageInfo 객체(pageInfo) 를 통해 페이지번호 반복 출력 --%>
+				<%-- startPage 부터 endPage 까지 1씩 증가하면서 페이지번호 출력 --%>
+				<c:forEach var="i" begin="${pageInfo.startPage}" end="${pageInfo.endPage}">
+					<%-- 각 페이지번호 마다 하이퍼링크 설정 --%>
+					<%-- 단, 현재 페이지(i값과 pageNum 동일)는 하이퍼링크 없이 굵게(<strong>) 표시 --%>
+					<c:choose>
+						<c:when test="${i eq pageInfo.pageNum}">
+							<strong>${i}</strong>
+						</c:when>
+						<c:otherwise>
+							<%-- 페이지번호 하이퍼링크 클릭 시 BoardList 서블릿 요청(파라미터 : 페이지번호) --%>
+							<a href="qnaBoardList?pageNum=${i}${searchParam}">${i}</a>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+				
+				<%-- [다음] 버튼 클릭 시 현재 페이지의 다음 페이지 요청(2 페이지 일 경우 3 페이지 요청) --%>
+				<%-- 현재 목록의 페이지번호 + 1 값을 파라미터로 전달 --%>
+				<%-- 단, 현재 페이지가 최대 페이지 번호와 동일할 경우 비활성화(disabled) --%>
+				<input type="button" value="다음" 
+					onclick="location.href='qnaBoardList?pageNum=${pageInfo.pageNum + 1}${searchParam}'" 
+					<c:if test="${pageInfo.pageNum eq pageInfo.maxPage}">disabled</c:if>>
+			</section>
 		</div>
 	</article>
 	<!-- 모달창 -->
@@ -152,38 +163,38 @@
 
 	
 	<script type="text/javascript">
-		document.addEventListener("DOMContentLoaded", function () {
-		    document.getElementById("searchType").addEventListener("change", filterTable);
-		    document.querySelector(".search-btn").addEventListener("click", filterTable);
-		    document.getElementById("searchText").addEventListener("keyup", function (event) {
-		        if (event.key === "Enter") {
-		            filterTable();
-		        }
-		    });
-		});
+// 		document.addEventListener("DOMContentLoaded", function () {
+// 		    document.getElementById("searchType").addEventListener("change", filterTable);
+// 		    document.querySelector(".search-btn").addEventListener("click", filterTable);
+// 		    document.getElementById("searchText").addEventListener("keyup", function (event) {
+// 		        if (event.key === "Enter") {
+// 		            filterTable();
+// 		        }
+// 		    });
+// 		});
 	
-		// ✅ 필터링 기능 개선 (미답변/답변 리스트는 변경되지 않음)
-		function filterTable() {
-		    var selectedType = document.getElementById("searchType").value.trim();
-		    var searchText = document.getElementById("searchText").value.trim().toLowerCase();
+// 		// ✅ 필터링 기능 개선 (미답변/답변 리스트는 변경되지 않음)
+// 		function filterTable() {
+// 		    var selectedType = document.getElementById("searchType").value.trim();
+// 		    var searchText = document.getElementById("searchText").value.trim().toLowerCase();
 		    
-		    // ✅ 검색 대상: "문의사항" 테이블 내부의 행들만 필터링
-		    var rows = document.querySelectorAll("#qnaTable .qna-row");
+// 		    // ✅ 검색 대상: "문의사항" 테이블 내부의 행들만 필터링
+// 		    var rows = document.querySelectorAll("#qnaTable .qna-row");
 	
-		    rows.forEach(function (row) {
-		        var category = row.getAttribute("data-category") ? row.getAttribute("data-category").trim() : "";
-		        var email = row.getAttribute("data-email") ? row.getAttribute("data-email").trim().toLowerCase() : "";
-		        var receiveEmail = row.cells[1] ? row.cells[1].textContent.trim().toLowerCase() : "";
-		        var qnaContent = row.getAttribute("data-content") ? row.getAttribute("data-content").trim().toLowerCase() : "";
+// 		    rows.forEach(function (row) {
+// 		        var category = row.getAttribute("data-category") ? row.getAttribute("data-category").trim() : "";
+// 		        var email = row.getAttribute("data-email") ? row.getAttribute("data-email").trim().toLowerCase() : "";
+// 		        var receiveEmail = row.cells[1] ? row.cells[1].textContent.trim().toLowerCase() : "";
+// 		        var qnaContent = row.getAttribute("data-content") ? row.getAttribute("data-content").trim().toLowerCase() : "";
 	
-		        // ✅ 필터링 조건 (카테고리 또는 검색어 일치 여부)
-		        var categoryMatch = (selectedType === "전체" || category === selectedType);
-		        var textMatch = (searchText === "" || email.includes(searchText) || receiveEmail.includes(searchText) || qnaContent.includes(searchText));
+// 		        // ✅ 필터링 조건 (카테고리 또는 검색어 일치 여부)
+// 		        var categoryMatch = (selectedType === "전체" || category === selectedType);
+// 		        var textMatch = (searchText === "" || email.includes(searchText) || receiveEmail.includes(searchText) || qnaContent.includes(searchText));
 	
-		        // ✅ 검색 결과가 일치하는 경우만 보이기
-		        row.style.display = (categoryMatch && textMatch) ? "table-row" : "none";
-		    });
-		}
+// 		        // ✅ 검색 결과가 일치하는 경우만 보이기
+// 		        row.style.display = (categoryMatch && textMatch) ? "table-row" : "none";
+// 		    });
+// 		}
 
 
 

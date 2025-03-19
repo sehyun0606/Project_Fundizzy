@@ -7,7 +7,7 @@ body {
 	background-color: mediumseagreen;
 	color: white;
 	padding: 20px;
-	height: auto;
+	height: 900px;
 }
 .sidebar h2 {
 	font-size: 24px;
@@ -149,7 +149,7 @@ table tr:hover {
 /* ✅ 모달 크기 조정 */
 .modal-content {
     background-color: white;
-	margin: 2% 20%;
+	margin: 3% 28%;
     padding: 15px;
     width: 70%; /* 기존 50%에서 70%로 증가 */
     max-width: 900px; /* 최대 너비 설정 */
@@ -232,7 +232,9 @@ table tr:hover {
 .admin-reply button:hover {
     background-color: #333;
 }
-
+.pageList {
+	margin: 1% 45%;
+}
 
 
 

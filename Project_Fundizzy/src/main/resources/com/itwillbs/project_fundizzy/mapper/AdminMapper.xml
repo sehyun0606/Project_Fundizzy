@@ -66,4 +66,71 @@
 		WHERE qna_num = #{qnaNum};
 	</insert>
 	
+	<select id="selectBoardListCount">
+		SELECT COUNT(*)
+		FROM qna
+		<if test="!searchKeyword.equals('')">
+			WHERE
+			<choose>
+				<when test="searchType.equals('전체')">
+					qna_content LIKE CONCAT('%', #{searchKeyword}, '%')
+				</when>
+				<when test="searchType.equals('미답변')">
+					qna_status = 'N' AND
+					qna_content LIKE CONCAT('%', #{searchKeyword}, '%')
+				</when>
+				<when test="searchType.equals('펀디즈')">
+					qna_category = #{searchType} AND
+					qna_content LIKE CONCAT('%', #{searchKeyword}, '%')
+				</when>
+				<when test="searchType.equals('서포터')">
+					qna_category = #{searchType} AND
+					qna_content LIKE CONCAT('%', #{searchKeyword}, '%')
+				</when>
+				<when test="searchType.equals('메이커')">
+					qna_category = #{searchType} AND
+					qna_content LIKE CONCAT('%', #{searchKeyword}, '%')
+				</when>
+				<when test="searchType.equals('비회원')">
+					qna_category = #{searchType} AND
+					qna_content LIKE CONCAT('%', #{searchKeyword}, '%')
+				</when>
+			</choose>
+		</if>
+	</select>
+	
+	<select id="selectQnaBoardList" resultType="map">
+		SELECT *
+		FROM qna
+		<if test="!searchKeyword.equals('')">
+			WHERE
+			<choose>
+				<when test="searchType.equals('전체')">
+					qna_content LIKE CONCAT('%', #{searchKeyword}, '%')
+				</when>
+				<when test="searchType.equals('미답변')">
+					qna_status = 'N' AND
+					qna_content LIKE CONCAT('%', #{searchKeyword}, '%')
+				</when>
+				<when test="searchType.equals('펀디즈')">
+					qna_category = #{searchType} AND
+					qna_content LIKE CONCAT('%', #{searchKeyword}, '%')
+				</when>
+				<when test="searchType.equals('서포터')">
+					qna_category = #{searchType} AND
+					qna_content LIKE CONCAT('%', #{searchKeyword}, '%')
+				</when>
+				<when test="searchType.equals('메이커')">
+					qna_category = #{searchType} AND
+					qna_content LIKE CONCAT('%', #{searchKeyword}, '%')
+				</when>
+				<when test="searchType.equals('비회원')">
+					qna_category = #{searchType} AND
+					qna_content LIKE CONCAT('%', #{searchKeyword}, '%')
+				</when>
+			</choose>
+		</if>
+	</select>
+	
+	
 </mapper>
