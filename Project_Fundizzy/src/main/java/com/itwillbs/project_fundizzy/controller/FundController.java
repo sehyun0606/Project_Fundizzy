@@ -72,8 +72,11 @@ public class FundController {
 	public String fundList(Model model, String cat) {
 		List<Map<String, Object>> fundList = fundService.getFundList(cat);
 		System.out.println("### fundList = " + fundList);
-		model.addAttribute("fundList", fundList);
 		
+		for(Map<String, Object> fund : fundList) {
+			fund.put("progress", fundService.getProgressOfProject((String)fund.get("project_code")));
+		}
+		model.addAttribute("fundList", fundList);
 		
 		return "merch/funding/fund_list";
 	}
