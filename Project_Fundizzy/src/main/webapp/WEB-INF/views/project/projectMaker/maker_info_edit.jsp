@@ -30,7 +30,7 @@
 	        <label>메이커 프로필 이미지</label>
 	        <button type="button" class="image-upload" style="display: none;">이미지 등록</button>
 	        <input type="file" id="fileInput" name="profileImg" accept="image/*" style="display: none;">
-	        <img id="previewImage" class="preview" src="/resources/upload/${makerInfo.profile_img}">
+	        <img id="previewImage" class="preview" src="${makerInfo.profile_img}">
 	
 	        <label for="email">문의 이메일</label>
 	        <input type="email" id="email" name="maker_email" placeholder="이메일을 입력해 주세요" value="${makerInfo.maker_email}">

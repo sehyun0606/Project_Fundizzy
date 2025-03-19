@@ -24,7 +24,7 @@
 	
 	        <label>메이커 프로필 이미지</label>
 	        <input type="file" id="fileInput" name="profileImg" accept="image/*" style="display: none;" disabled="disabled">
-	        <img id="previewImage" class="preview" src="/resources/upload/${makerInfo.profile_img}">
+	        <img id="previewImage" class="preview" src="${makerInfo.profile_img}">
 	
 	        <label for="email">문의 이메일</label>
 	        <input type="email" id="email" name="maker_email" disabled="disabled" value="${makerInfo.maker_email}">

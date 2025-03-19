@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -81,11 +82,24 @@
                 </div>
             </div>
             <div class="project-info">
-                <div class="company-info">
-                   <h4>(주)붐코리아</h4><br>
-<!--                    143,242명 팔로우 중 -->
-                   <button class="btn-midium">♡ 팔로우</button>
-                </div>
+                 <div class="project-info">
+	                <div class="company-info">
+	                   <h4>${fundStory.maker_name}</h4><br>
+	                   <img class="profile_img" src="${fundStory.profile_img}">
+	                   <h3>${fundStory.representative_email}</h3>
+	                   <c:if test="!${empty fundStory.facebook_address }">
+		                   <p>페이스북 : <a href="${fundStory.facebook_address }" >${fundStory.facebook_address}</a></p>
+	                   </c:if>
+	                   <c:if test="!${empty fundStory.twitter_address }">
+		                   <p>트위터 : <a href="${fundStory.twitter_address }" >${fundStory.twitter_address}</a></p>
+	                   </c:if>
+	                   <c:if test="!${empty fundStory.instagram_address }">
+		                   <p>인스타그램 : <a href="${fundStory.instagram_address }" >${fundStory.instagram_address}</a></p>
+	                   </c:if>
+	                </div>
+	                <button class="btn" onclick="openChatRoomWindow('${fundStory.representative_email}')"
+	                	<c:if test="${sessionScope.sId == fundStory.representative_email || empty sessionScope.sId}">disabled</c:if>><i class="fa fa-comments-o" style="font-size:24px, margin-right:2px"></i>문의하기</button>
+	            	</div>
                 <p>프로젝트 설명</p>
                    <button class="btn">문의하기</button>
             </div>

@@ -188,7 +188,6 @@ body {
    margin-top: 0px;
 }
 .company-info {
-    display: flex;
     align-items: center; /* 세로 정렬 */
     gap: 10px; /* 버튼과 다른 요소 사이 간격 */
 }

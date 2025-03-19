@@ -369,7 +369,7 @@ public class ProjectMakerController {
 
 		    if (representativePicture != null && !representativePicture.getOriginalFilename().isEmpty()) {
 		        String repFileName = UUID.randomUUID().toString() + "_" + representativePicture.getOriginalFilename();
-		        projectStory.setRepresentative_picture( projectCode +"/ProjectStory/" + repFileName);
+		        projectStory.setRepresentative_picture("/resources/upload/" + projectCode +"/ProjectStory/" + repFileName);
 		        try {
 		            representativePicture.transferTo(new File(realPath, repFileName));
 		        } catch (IOException e) {
@@ -385,7 +385,7 @@ public class ProjectMakerController {
 		        for (MultipartFile file : productPictures) {
 		            if (file != null && !file.getOriginalFilename().isEmpty()) {
 		                String fileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
-		                productPicturePaths.add( projectCode + "/ProjectStory/" + fileName);
+		                productPicturePaths.add("/resources/upload/" + projectCode + "/ProjectStory/" + fileName);
 
 		                try {
 		                    file.transferTo(new File(realPath, fileName));
@@ -515,7 +515,7 @@ public class ProjectMakerController {
 		
 		if(!registrationCardImg.getOriginalFilename().equals("")) {
 			registrationCardName = UUID.randomUUID().toString() + "_" + registrationCardImg.getOriginalFilename();
-			makerInfo.setProfile_img(subDir + "/" + registrationCardName);
+			makerInfo.setProfile_img("/resources/upload/"+subDir + "/" + registrationCardName);
 		}
 		projectMakerService.registMakerInfo(makerInfo);
 		
@@ -564,7 +564,7 @@ public class ProjectMakerController {
 		
 		if(!profileImg.getOriginalFilename().equals("")) {
 			imgName = UUID.randomUUID().toString() + "_" + profileImg.getOriginalFilename();
-			makerInfo.setProfile_img(subDir + "/" + imgName);
+			makerInfo.setProfile_img("/resources/upload/"+subDir + "/" + imgName);
 		}
 		
 		projectMakerService.updateMakerInfo(makerInfo);
