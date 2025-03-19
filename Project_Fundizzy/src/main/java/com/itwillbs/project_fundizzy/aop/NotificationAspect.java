@@ -141,7 +141,7 @@ public class NotificationAspect {
 		
 	}
 	
-	// 프로젝트 정산신청(선정산, 최종정산) 알림(확인 필요!)
+	// 프로젝트 정산신청(선정산, 최종정산)
 	@AfterReturning("execution(* com.itwillbs.project_fundizzy.service.AdminSettlementService.registSettlementPay(..))")
 	public void projectSettlementNot(JoinPoint joinPoint) {
 		// 파라미터
