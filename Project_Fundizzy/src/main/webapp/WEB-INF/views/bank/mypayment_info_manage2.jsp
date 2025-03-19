@@ -44,7 +44,6 @@
 									<div>
 										${bankAccount.account_alias}
 										${bankAccount.account_num_masked}
-										${bankAccount.account_num}
 										${bankAccount.bank_name}
 										${bankAccount.account_holder_name}
 									</div>

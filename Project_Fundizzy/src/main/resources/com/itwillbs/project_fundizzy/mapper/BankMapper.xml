@@ -48,11 +48,11 @@
 	<insert id="insertBankAccount">
 		INSERT INTO bank_account
 		VALUES(
-			#{user_seq_no}
-			,#{account_num_masked}
-			,#{account_holder_name}
-			,#{fintech_use_num}
-			,#{account_bank_code}
+			 #{user_seq_no}
+			, #{account_num_masked}
+			, #{account_holder_name}
+			, #{fintech_use_num}
+			, #{account_bank_code}
 		)
 	</insert>
 	
@@ -215,5 +215,11 @@
 		WHERE email = #{email}
 		ORDER BY pay_date DESC
 		LIMIT 1
+	</select>
+<!-- 	매인페이지에 띄울 대표계좌 -->
+	<select id="selectBankAccountInfo" resultType="map">
+		SELECT *
+		FROM bank_account
+		WHERE user_seq_no = #{user_seq_no}
 	</select>
 </mapper>

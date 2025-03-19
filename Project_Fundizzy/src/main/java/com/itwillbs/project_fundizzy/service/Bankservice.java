@@ -162,6 +162,11 @@ public class Bankservice {
 		// TODO Auto-generated method stub
 		return mapper.updatePayTransferResult(transferResult, fundizzy_pay, email);
 	}
+	//메인 페이지에 띄울 대표계좌
+	public Map<String, Object> getBankAccountInfo(String user_seq_no) {
+		// TODO Auto-generated method stub
+		return mapper.selectBankAccountInfo(user_seq_no);
+	}
 	
 
 	

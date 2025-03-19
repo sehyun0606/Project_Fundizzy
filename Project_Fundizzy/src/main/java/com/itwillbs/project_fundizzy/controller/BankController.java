@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.itwillbs.project_fundizzy.aop.BankTokenCheck;
 import com.itwillbs.project_fundizzy.service.Bankservice;
+import com.itwillbs.project_fundizzy.vo.BankAccount;
 import com.itwillbs.project_fundizzy.vo.BankToken;
 import com.mysql.cj.log.Log;
 
@@ -39,7 +40,10 @@ public class BankController {
 			System.out.println("rsp code 출력 == " + bankUserInfo.get("rsp_Code"));
 			model.addAttribute("bankUserInfo", bankUserInfo);
 		}
-			
+		String user_seq_no = bankToken.getUser_seq_no();
+		Map<String, Object> bankAccount = bankservice.getBankAccountInfo(user_seq_no);
+		model.addAttribute("bankAccount", bankAccount);
+		System.out.println("bankAccount - " + bankAccount);
 //		if(!bankUserInfo.get("rsp_code").equals("A0000")) {
 //			model.addAttribute("msg", "요청처리과정에서 오류발생 \\n" + bankUserInfo.get("rsp_message"));
 //			return "result/fail";

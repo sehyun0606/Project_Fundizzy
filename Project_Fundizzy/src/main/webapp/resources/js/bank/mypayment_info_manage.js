@@ -1,6 +1,9 @@
 $(function(){
-	//등록된 계좌가 없을경우
-
+	//계좌 등록할 경우 (대표계좌 등록)
+ 	$(".BankAccountAdd").on("click", function(){
+	    $(".account").addClass("show"); 
+	    $(".account_modal").css("display", "none");
+	});
 	
 	//등록한 계좌 삭제 
 	$(".account_delete").on("click", function(){
@@ -10,6 +13,7 @@ $(function(){
 			$(this).closest(".account").hide();
 		}
 	});
+	
 	
 	//계좌 연결
 	$("#auth-button").on("click", function(){
@@ -37,3 +41,6 @@ $(function(){
 	
 	
 });
+
+
+

@@ -70,5 +70,8 @@ public interface BankMapper {
 	//페이 송금 후 잔액 업데이트 
 	int updatePayTransferResult(@Param("transferResult") Map<String, Object> transferResult, @Param("fundizzy_pay")FundizzyPay fundizzy_pay, @Param("email")String email);
 	
+	//메인에 띄울 대표 계좌
+	Map<String, Object> selectBankAccountInfo(String user_seq_no);
+	
 
 }

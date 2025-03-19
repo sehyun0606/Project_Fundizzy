@@ -39,8 +39,7 @@ article input[type=button]:hover {
 	margin-bottom: 20px;
 }
 
-.account, #representAccount, .card, #addAccount, #addCard {
-	display: inline-block;
+.account, #representAccount, #addAccount{
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
@@ -55,6 +54,10 @@ article input[type=button]:hover {
 	position: relative;
 	flex-direction: column;
 	justify-content: center;
+}
+
+.show {
+    display: block !important;
 }
 
 .account {

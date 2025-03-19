@@ -49,7 +49,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    
+    padding-right: 95px;
 }
 
 .content-left h3{
