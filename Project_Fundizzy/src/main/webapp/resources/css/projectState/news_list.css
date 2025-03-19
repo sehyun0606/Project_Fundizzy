@@ -118,17 +118,21 @@ h1 {
     outline: none;
 }
 
-.news-container input[type=button] {
-	background-color: #fff;
-	border: 1px solid #aaa;
-}
+/* .news-container input[type=button] { */
+/* 	background-color: #fff; */
+/* 	border: 1px solid #aaa; */
+/* } */
 
 .postBtn {
     border: none;
 	background-color: mediumpurple;
 	color: #fff;
-	
 }
+
+/* .close { */
+/* 	background-color: #f0f0f0; */
+/* 	border: none; */
+/* } */
 
 .content-container {
 	width: 1000px;

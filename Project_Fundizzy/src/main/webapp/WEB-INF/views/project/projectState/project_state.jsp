@@ -70,6 +70,10 @@
 </body>
 <script>
 	$(function() {
+		if(myChart) {
+			myChart.destroy();
+		}
+		
 		// 현황 차트
 		let dateArr = new Array();
 		let paymentCountArr = new Array();		// 누적 결제 건수

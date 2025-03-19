@@ -488,6 +488,9 @@ public class ProjectStateController {
 			finalAmount = totalAmount - preAmount - refundAmount;
 		}
 		model.addAttribute("finalAmount", finalAmount);
+		
+		// 프로젝트 기간이 끝나지 않으면 발송정보 입력 불가
+		
 
 		
 		return "project/projectState/shipment_refund";

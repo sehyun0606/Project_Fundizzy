@@ -96,7 +96,7 @@
 											<input type="button" value="수정" class="modifyBtn">
 										</c:otherwise>
 									</c:choose>
-										<input type="button" value="삭제" class="deleteBtn" onclick="confirmDelete(${news.news_code})">
+									<input type="button" value="삭제" class="deleteBtn" onclick="confirmDelete(${news.news_code})">
 								</div>
 							</div>
 						</c:if>

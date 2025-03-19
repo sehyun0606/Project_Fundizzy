@@ -53,7 +53,7 @@ $(function() {
 				</div>
 				<div class="btn-container">
 					${newsList.news_status == 'Y' ? `
-						<input type="submit" value="임시저장" class="saveBtn" name="submit">
+						<input type="button" value="닫기" class="close" name="submit">
 						<input type="submit" value="수정하기" class="postBtn" name="submit">
 						`:`
 						<input type="submit" value="임시저장" class="saveBtn" name="submit">
@@ -65,8 +65,17 @@ $(function() {
 			currentLength = newsList.news_title.length;
 			$(".char-count").text((maxLength - currentLength) + "자 남음");
 		});
+		
+		$(document).on("click", ".close", function() {
+			 $(".modal").fadeOut(200);
+			 $(".modal-content").fadeOut(200, function() {
+				location.reload();
+			});
+		});
 
 	});
+	
+	
 	
 	// 현재날짜와 비교하여 날짜 형식 변환하는 함수
 	function elapsedTime(date) {
