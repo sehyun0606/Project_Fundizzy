@@ -69,10 +69,12 @@ public class FundController {
 	//왼쪽 
 	//fund 목록 (= 펀딩+ 누르면 이동하는 가장 첫 페이지)
 	@GetMapping("FundList")
-	public String fundList(Model model,String cat) {
+	public String fundList(Model model, String cat) {
 		List<Map<String, Object>> fundList = fundService.getFundList(cat);
-		System.out.println("fundList = " + fundList);
+		System.out.println("### fundList = " + fundList);
 		model.addAttribute("fundList", fundList);
+		
+		
 		return "merch/funding/fund_list";
 	}
 	
@@ -109,6 +111,10 @@ public class FundController {
 		// 인기있는 프로젝트 출력을 위한 
 		List<Map<String, String>> projectLikeList = homeService.getProjectLikeList();
 		model.addAttribute("projectLikeList", projectLikeList);
+		
+		// 달성률 표시를 위한 코드 
+		int progress = fundService.getProgressOfProject(project_code);
+		model.addAttribute("progress", progress);
 		
 		return "merch/funding/fund_board_story";
 	}
@@ -167,6 +173,10 @@ public class FundController {
 		int fundHistory = fundService.getFundHistoryCount(project_code);
 		model.addAttribute("fundHistory", fundHistory);
 		
+		// 달성률 표시를 위한 코드 
+		int progress = fundService.getProgressOfProject(project_code);
+		model.addAttribute("progress", progress);
+		
 		return "merch/funding/fund_board_new";
 	}
 	
@@ -203,6 +213,10 @@ public class FundController {
 		//fund-history table 가져오기 - 구매자 수 출력 
 		int fundHistory = fundService.getFundHistoryCount(project_code);
 		model.addAttribute("fundHistory", fundHistory);
+		
+		// 달성률 표시를 위한 코드 
+		int progress = fundService.getProgressOfProject(project_code);
+		model.addAttribute("progress", progress);
 		
 		return "merch/funding/fund_board_support";
 	}
@@ -336,6 +350,10 @@ public class FundController {
 		int fundHistory = fundService.getFundHistoryCount(project_code);
 		model.addAttribute("fundHistory", fundHistory);
 		
+		// 달성률 표시를 위한 코드 
+		int progress = fundService.getProgressOfProject(project_code);
+		model.addAttribute("progress", progress);
+		
 		return "merch/funding/fund_board_supporter";
 	}
 	
@@ -366,6 +384,10 @@ public class FundController {
 		//fund-history table 가져오기 - 구매자 수 출력 
 		int fundHistory = fundService.getFundHistoryCount(project_code);
 		model.addAttribute("fundHistory", fundHistory);
+		
+		// 달성률 표시를 위한 코드 
+		int progress = fundService.getProgressOfProject(project_code);
+		model.addAttribute("progress", progress);
 		
 		return "merch/funding/fund_board_refund";
 	}

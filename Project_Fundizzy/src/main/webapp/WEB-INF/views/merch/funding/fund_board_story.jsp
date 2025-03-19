@@ -151,7 +151,7 @@
                 </div>
                 <input type="hidden" value="${sessionScope.sId}" id="sId">
                 <p><strong>${fundHistory}</strong>명 참여</p>
-                <p><strong>${fundStory.progress}</strong>% 달성</p>
+                <p><strong>${progress}</strong>% 달성</p>
                 <div class="btn-group">
 	                <input type="hidden" value="${sessionScope.sId}" id="keep_email">
 	                <input type="hidden" value="${param.project_code}" id="keep_project_code">

@@ -22,13 +22,13 @@
 		        <img src="https://cdn3.wadiz.kr/studio/images/2025/02/19/8ce3d611-5f2d-4197-aea0-d6da6ff80d81.gif" alt="메인 이미지">
 			</div>
 			<div class="slide">
-			    <img src="https://cdn3.wadiz.kr/studio/images/2025/02/10/4339dc45-c900-4af6-84a6-cbc6ae502d9c.gif" alt="메인 이미지">
+			    <img src="https://cdn3.wadiz.kr/studio/images/2025/02/11/31443868-d7c1-4f7a-a4e5-a8cbdfc3f6af.gif" alt="메인 이미지">
 			</div>
 			<div class="slide">
-		    	<img src="https://cdn3.wadiz.kr/studio/images/2025/02/27/15d4c81f-6617-4d1e-8bde-9c46d8c3e504.jpg/wadiz/resize/1200/format/jpg/quality/80/" alt="메인 이미지">
+		    	<img src="https://cdn3.wadiz.kr/studio/images/2025/02/19/786010d7-ac7a-4056-8157-0612d9041e94.gif" alt="메인 이미지">
 			</div>
 			<div class="slide">
-				<img src="https://cdn3.wadiz.kr/studio/images/2025/02/06/01d4b63b-30f4-4879-a4a3-9afb80cce237.gif" alt="메인 이미지"> 
+				<img src="https://cdn3.wadiz.kr/studio/images/2025/02/24/9357fcf1-40d5-4609-8dda-26c0be0757d1.gif" alt="메인 이미지"> 
 			</div>
 			<div class="slide">
 		    	<img src="https://cdn3.wadiz.kr/studio/images/2025/02/24/6e4f7f4c-2588-41a8-ae95-90b738a3d4b8.gif" alt="메인 이미지">
@@ -39,6 +39,7 @@
 			<div class="slide">
 		    	<img src="https://cdn3.wadiz.kr/studio/images/2025/03/06/ba6d1480-9e6a-44ca-ba67-89ab0d6ae641.jpg/wadiz/resize/1200/format/jpg/quality/80/" alt="메인 이미지">
 			</div>
+			
 	    </div>
 		<div class="slide-button">
 	        <button class="prev">&lt;</button>
@@ -62,8 +63,8 @@
 		<hr>
 	    <div class="filter-nav">
 	    	<select id="selectall" name="selectall">
-	    		<option value="all">전체</option>
 	    		<option value="ing">진행중</option>
+	    		<option value="all">전체</option>
 	    		<option value="fin">종료된</option>
 	    	</select>
 	        <button>추천순</button>
