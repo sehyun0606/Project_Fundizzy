@@ -178,7 +178,6 @@
         <input type="button" class="settings" value="내 정보 설정" onclick="location.href='SettingMain'">
 
         <div class="menu-item">
-       		<span class="menu-title">페이</span>
 	       <input type="button" value="페이" id="pay_btn" onclick="location.href='PayPage'">
         </div>
         <div class="menu-item">

@@ -128,7 +128,7 @@
 	
 	<!-- 정산 상태 조회 -->
 	<select id="selectSettlementStatus" resultType="string">
-		SELETE settlement_status
+		SELECT settlement_status
 		FROM settlement
 		WHERE project_code = #{project_code}
 	</select>
