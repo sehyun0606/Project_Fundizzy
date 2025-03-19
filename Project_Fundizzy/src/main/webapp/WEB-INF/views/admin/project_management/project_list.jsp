@@ -155,6 +155,10 @@
 				            <td id="target-amount"></td>
 				        </tr>
 				        <tr>
+				            <th>배달비</th>
+				            <td id="delivery-fee"></td>
+				        </tr>
+				        <tr>
 				            <th>성인 여부</th>
 				            <td id="adult-check"></td>
 				        </tr>
@@ -173,7 +177,6 @@
 					            <th>상품명</th>
 					            <th>설명</th>
 					            <th>가격</th>
-					            <th>배송비</th>
 					            <th>재고</th>
 					        </tr>
 					    </thead>

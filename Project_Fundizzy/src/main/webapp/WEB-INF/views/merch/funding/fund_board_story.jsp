@@ -38,7 +38,8 @@
 				
 	           <div class="project-story">
 	                <p>프로젝트 스토리</p>
-	                <img src="${projectStory.product_picture}" alt="프로젝트 스토리 이미지">
+<%-- 	                <img src="https://cdn3.wadiz.kr/studio/images/2025/02/27/c1940943-d5cd-4546-9622-ec5fead712a1.jpeg/wadiz/format/jpg/quality/80/" alt="프로젝트 스토리 이미지"> --%>
+					${projectStory.project_story}
 <!-- 	                <button>스토리 더보기v</button> -->
 	           </div>
            	</c:forEach>

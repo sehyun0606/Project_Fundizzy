@@ -23,6 +23,7 @@ $(document).ready(function() {
 		    $("#sub-category").text(result.sub_category);
 		    $("#service-type").text(result.service_type);
 		    $("#target-amount").text(result.target_amount.toLocaleString() + "원"); // 숫자 포맷 적용
+			$("#delivery-fee").text(result.delivery_fee.toLocaleString() + "원"); // 숫자 포맷 적용
 		    $("#adult-check").text(result.adult_check === "Y" ? "성인용" : "일반");
 		    
 		    // 대표 이미지 처리
@@ -74,6 +75,7 @@ $(document).ready(function() {
 			    $("#sub-category").text(result.sub_category);
 			    $("#service-type").text(result.service_type);
 			    $("#target-amount").text(result.target_amount.toLocaleString() + "원"); // 숫자 포맷 적용
+			    $("#delivery-fee").text(result.delivery_fee.toLocaleString() + "원"); // 숫자 포맷 적용
 			    $("#adult-check").text(result.adult_check === "Y" ? "성인용" : "일반");
 			    
 			    // 대표 이미지 처리
@@ -105,7 +107,6 @@ $(document).ready(function() {
  					        <td class="product_name">${reward.product_name}</td>
  					        <td class="product_desc">${reward.product_desc}</td>
  					        <td class="price">${formattedPrice}</td>
- 					        <td class="delivery_fee">${reward.delivery_fee}</td>
  					        <td class="product_limit">${reward.product_limit}</td>
  					    </tr>`;
  					    tableBody.append(row); // 새로운 행을 테이블에 추가

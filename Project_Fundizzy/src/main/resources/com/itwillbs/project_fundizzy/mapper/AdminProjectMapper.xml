@@ -59,7 +59,8 @@
 		    project_info.category, 
 		    project_info.sub_category,
 		    project_info.adult_check, 
-		    project_info.target_amount
+		    project_info.target_amount,
+		    project_info.delivery_fee
 		FROM
 			project_list
 		INNER JOIN 
