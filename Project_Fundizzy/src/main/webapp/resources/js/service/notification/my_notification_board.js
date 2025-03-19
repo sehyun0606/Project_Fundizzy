@@ -50,27 +50,27 @@ $(function() {
 	$(".notificationContent input[type=hidden]").each(function() {
         // 1이 포함된 경우
         if ($(this).val().includes("1")) {
-            $(".notificationContent").find("span").append('👍');
+            $(this).siblings("span").append('👍');
         }
         
         // 2가 포함된 경우
         if ($(this).val().includes("2")) {
-            $(".notificationContent").find("span").append('🔥');
+            $(this).siblings("span").append('🔥');
         }
         
         // 3이 포함된 경우
         if ($(this).val().includes("3")) {
-            $(".notificationContent").find("span").append('🛠️');
+            $(this).siblings("span").append('🛠️');
         }
 
         // 4가 포함된 경우
         if ($(this).val().includes("4")) {
-            $(".notificationContent").find("span").append('💰');
+            $(this).siblings("span").append('💰');
         }
 
         // 5가 포함된 경우
         if ($(this).val().includes("5")) {
-            $(".notificationContent").find("span").append('📣');
+            $(this).siblings("span").append('📣');
         }
     });
 });

@@ -6,6 +6,7 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -32,6 +33,8 @@ public class NotificationAspect {
 	
 	@Autowired
 	private FundService fundService;
+	
+	private int progressBefore = 0;
 	
 	// memberService의 회원가입 메서드 실행 완료 후 해당멤버의 알림여부선택 값 알림설정 테이블에 적용
 	@After("execution(* com.itwillbs.project_fundizzy.service.MemberService.insert*(..))")
@@ -92,7 +95,7 @@ public class NotificationAspect {
 				// 프로젝트 메이커에 알림
 				notHandler.sendNotToMaker(makerEmail, project_code, notHandler.IS_RECV_MY, notHandler.NOT_MYPROJECT_CODE,
 						"고객님의 프로젝트<br><a href='FundBoardStory?porject_code=" + project_code + "'>"
-				+ dbData.get("project_title") + "</a><br>이(가) 승인되었습니다.");
+				+ dbData.get("project_title") + "</a><br>이(가) 승인되었습니다.<br><a href='SupportPage'>프로젝트 관리 페이지</a>에서 날짜를 설정 해 주세요!");
 				// 해당프로젝트의 찜 회원에게 알림
 				notHandler.sendNotToKeepMember(project_code, notHandler.IS_RECV_WISH, notHandler.NOT_WISH_CODE,
 						"회원님이 찜한<br><a href='FundBoardStory?porject_code=" + project_code + "'>"
@@ -195,6 +198,7 @@ public class NotificationAspect {
 		String email = (String)args[1];
 		String project_code = (String)args[0];
 		String supportContent = (String)args[2];
+		//지지서명 키워드
 		String supportKeyword = (String)args[3];
 		
 		//프로젝트 정보 조회
@@ -203,7 +207,6 @@ public class NotificationAspect {
 		Map<String, String> makerInfo = memberservice.getMember(projectInfo.get("member_email"));
 		//지지서명한 서포터 저보조회
 		Map<String, String> supportInfo = memberservice.getMember(email);
-		//지지서명 키워드
 		
 		notHandler.sendNotToMaker(makerInfo.get("email"), project_code, notHandler.IS_RECV_MY, notHandler.NOT_MYPROJECT_CODE,
 				supportInfo.get("nickname") + " 님이 회원님의 프로젝트 <a href='FundBoardStory?porject_code=" + project_code + "'>"
@@ -218,6 +221,18 @@ public class NotificationAspect {
 		
 	}
 	
+	// 회원이 프로젝트 참가시 10% 달성시마다 알림보내고 100%달성시 펀딩 성공 알림을위해 이전 달성률조회
+	@Before("execution(* com.itwillbs.project_fundizzy.service.FundService.insertForPayment*(..))")
+	public void progressProjectBefore(JoinPoint joinPoint) {
+		// 파라미터
+		Object[] args = joinPoint.getArgs();
+		Map<String, String> map = (Map<String, String>)args[0];
+		String project_code = map.get("project_code");
+		
+		// 이전 달성률 조회
+		progressBefore = fundService.getProgressOfProject(project_code);
+	}
+	
 	// 회원이 프로젝트 참가시 10% 달성시마다 알림보내고 100%달성시 펀딩 성공 알림
 	// 회원이 프로젝트 참가할때마다 알림이가면 너무 많은 알림이가므로 달성률만 표시
 	@AfterReturning("execution(* com.itwillbs.project_fundizzy.service.FundService.insertForPayment*(..))")
@@ -227,7 +242,32 @@ public class NotificationAspect {
 		Map<String, String> map = (Map<String, String>)args[0];
 		String project_code = map.get("project_code");
 		
+		//프로젝트 정보 조회
+		Map<String, String> projectInfo = notificationService.getProjectInfo(project_code);
+		//메이커 정보 조회
+		Map<String, String> makerInfo = memberservice.getMember(projectInfo.get("member_email"));
+		//지지서명한 서포터 저보조회
+		Map<String, String> supportInfo = memberservice.getMember(map.get("email"));
+		
 		// 달성률 계산
 		int progress = fundService.getProgressOfProject(project_code);
+		System.err.println("ffffffffffffffffffff" + progressBefore);
+		System.err.println("ffffffffffffffffffff" + progress);
+		
+		// 10으로나눈 몫이 다를경우 10%단위 달성률이 변했다는 의미
+		if(progress % 10 != progressBefore %10) {
+			if(progress > 100 && progress < 110) {
+				notHandler.sendNotToMaker(makerInfo.get("email"), project_code
+						, notHandler.IS_RECV_MY, notHandler.NOT_MYPROJECT_CODE,
+						"프로젝트 <a href='FundBoardStory?porject_code=" + project_code + "'>"
+								+ projectInfo.get("project_title") + "</a>100% 달성!<br> 프로젝트 성공하였습니다.");
+			} else {
+				notHandler.sendNotToMaker(makerInfo.get("email"), project_code
+						, notHandler.IS_RECV_MY, notHandler.NOT_MYPROJECT_CODE,
+						"프로젝트 <a href='FundBoardStory?porject_code=" + project_code + "'>"
+								+ projectInfo.get("project_title") + "</a>에" + supportInfo.get("nickname") + "님 참여!(달성률 - " + progress + "%)");
+				
+			}
+		}
 	}
 }
