@@ -143,17 +143,12 @@ public class NotificationAspect {
 	
 	// 프로젝트 정산신청(선정산, 최종정산) 알림(확인 필요!)
 	@AfterReturning("execution(* com.itwillbs.project_fundizzy.service.AdminSettlementService.registSettlementPay(..))")
-	public void projectSettlementNot(JoinPoint joinPoint, int result) {
+	public void projectSettlementNot(JoinPoint joinPoint) {
 		// 파라미터
 		Object[] args = joinPoint.getArgs();
 		Map<String, Object> map = (Map<String, Object>)args[0];
 		String project_code = (String)map.get("project_code");
 		String email = (String)map.get("email");
-		
-		// joinpoin의 리턴값이 0이면 실행 실패이므로 알림 작업 안함
-		if(result == 0) {
-			return;
-		}
 		
 		// 상태 업데이트 작업 완료된지 파악(joinpoint에 리턴값이 void라 디비로 판별)
 		Map<String, String> dbData = notificationService.getProjectInfo(project_code);
