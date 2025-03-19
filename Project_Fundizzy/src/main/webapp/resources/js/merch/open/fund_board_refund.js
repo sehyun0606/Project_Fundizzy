@@ -1,5 +1,6 @@
 $(function(){
-		let project_code = $("#project_code").val();
+		let project_code = $("#keep_project_code").val();
+		let email = $("#keep_email").val();
 	
 	//상단 메뉴바 선택 시 
 	$(".story").on("click", function(e){
@@ -42,7 +43,7 @@ $(function(){
 				url: "FundBoardStoryKeepDelete",
 				data: {
 					email: email,
-					project_code: keep_project_code
+					project_code: project_code
 				}
 			}).done(function(result){
 			}).fail(function(){
@@ -63,7 +64,7 @@ $(function(){
 				url: "FundBoardStoryKeep",
 				data: {
 					email: email,
-					project_code: keep_project_code
+					project_code: project_code
 				}
 			}).done(function(result){
 				alert("상품 찜 등록이 완료되었습니다.");
