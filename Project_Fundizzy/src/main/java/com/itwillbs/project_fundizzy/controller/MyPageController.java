@@ -274,17 +274,17 @@ public class MyPageController {
 		FundizzyPay fundizzy_pay = fundizzyService.getPayBalance(email);
 		System.out.println("fundizzy_pay 데이터 확인: " + fundizzy_pay);
 		
-		if(charge_result > 0) {
-			System.out.println("충전 성공");
-			System.out.println("bankToken의 이메일: " + bankToken.getEmail());
-			//충전 성공시 잔액과 충전금액 더한값 페이 잔액에 update
-			int pay_amt_result = bankService.registPayAmtResult(chargeResult, fundizzy_pay, email);
-			if(pay_amt_result > 0) {
-				System.out.println("잔액 업데이트 성공 ");
-			}else {
-				System.out.println("잔액 업데이트 실패ㅠ");
-			}
-		}
+//		if(charge_result > 0) {
+//			System.out.println("충전 성공");
+//			System.out.println("bankToken의 이메일: " + bankToken.getEmail());
+//			//충전 성공시 잔액과 충전금액 더한값 페이 잔액에 update
+//			int pay_amt_result = bankService.registPayAmtResult(chargeResult, fundizzy_pay, email);
+//			if(pay_amt_result > 0) {
+//				System.out.println("잔액 업데이트 성공 ");
+//			}else {
+//				System.out.println("잔액 업데이트 실패ㅠ");
+//			}
+//		}
 		model.addAttribute("bank_tran_id", chargeResult.get("bank_tran_id"));
 		
 		// pay 테이블 인설트를 위한 맵객체 생성
@@ -332,7 +332,7 @@ public class MyPageController {
 		// 세션에서 토큰 가져오기
 		String email = (String) session.getAttribute("sId");
 		BankToken bankToken = (BankToken) session.getAttribute("token");
-//		System.out.println("###### banktoken = " + bankToken);
+		System.err.println("###### banktoken = " + bankToken);
 		
 		//map 객체에 세션 아이디 추가 
 		map.put("email",email);

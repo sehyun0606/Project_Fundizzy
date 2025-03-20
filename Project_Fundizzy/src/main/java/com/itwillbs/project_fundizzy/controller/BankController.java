@@ -32,15 +32,15 @@ public class BankController {
 		//토큰 가져오기
 		BankToken bankToken = (BankToken) session.getAttribute("token");
 		System.out.println("토큰 정보 = " + bankToken);
-		
+		String user_seq_no ="";
 		//토큰 있으면 model에 저장 후 view 페이지로 
 		if(bankToken != null) {
 			Map<String, Object> bankUserInfo = bankservice.getBankUserInfo(bankToken);
 			System.out.println("API 응답 데이터: " + bankUserInfo);
 			System.out.println("rsp code 출력 == " + bankUserInfo.get("rsp_Code"));
 			model.addAttribute("bankUserInfo", bankUserInfo);
+			user_seq_no = bankToken.getUser_seq_no();
 		}
-		String user_seq_no = bankToken.getUser_seq_no();
 		Map<String, Object> bankAccount = bankservice.getBankAccountInfo(user_seq_no);
 		model.addAttribute("bankAccount", bankAccount);
 		System.out.println("bankAccount - " + bankAccount);

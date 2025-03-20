@@ -128,7 +128,7 @@
 <!-- 	페이 충전 결과 페이지 -->
 	<insert id="insertFundizzyPay">
 		<selectKey order="BEFORE" keyProperty="pay_balance" resultType="int">
-			SELECT pay_balance
+			SELECT IFNULL(pay_balance, 0)
 			FROM fundizzy_pay
 			WHERE email = #{email}
 			AND pay_date = (SELECT MAX(pay_date)
@@ -142,17 +142,9 @@
 			,'CH'
 			,NOW()
 			,#{tran_id} 
-			,#{pay_balance} 
+			,#{pay_balance} + #{pay_amt}
 		)
 	</insert>
-	
-<!-- 	페이 충전 후 잔액 업데이트  -->
-	<update id="updatePayAmtResult">
-		UPDATE fundizzy_pay 
-		SET pay_balance = #{chargeResult.tran_amt} + #{fundizzy_pay.pay_balance}
-		WHERE email = #{email}
-		AND pay_date IN (SELECT MAX(fundizzy_pay.pay_date) FROM (SELECT * FROM fundizzy_pay) AS temp WHERE email = #{email})
-	</update>
 	
 <!-- 	입금 - 이용기관 토큰 조회 -->
 	<select id="selectAdminToken" resultType="bankToken">
@@ -189,16 +181,8 @@
 			SELECT MAX(pay_date)
 			FROM fundizzy_pay
 			WHERE email = #{email}
-		)
+			);
 	</select>
-	
-<!-- 	입금 후 잔액 업데이트 -->
-	<update id="updatePayTransferResult">
-		UPDATE fundizzy_pay
-		SET pay_balance =  #{fundizzy_pay.pay_balance} - #{map.tran_amt} 
-		WHERE email = #{email}
-		AND pay_date IN (SELECT MAX(fundizzy_pay.pay_date) FROM (SELECT * FROM fundizzy_pay) AS temp WHERE email = #{email})
-	</update>
 	
 <!-- 	펀디지 페이 입출금내역 가져오기  -->
 	<select id="selectFundizzyPay" resultType="fundizzyPay">
