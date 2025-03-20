@@ -81,6 +81,9 @@
 													<c:when test="${projectDate eq 1}">
 														<h3><a href="FundBoardNew?project_code=${news.project_code}&news_code=${news.news_code}">${news.news_title}</a></h3>
 													</c:when>
+													<c:otherwise>
+														<h3>${news.news_title}</h3>
+													</c:otherwise>
 												</c:choose>
 											</c:otherwise>
 										</c:choose>
@@ -88,15 +91,17 @@
 									<div class="date">${news.news_date}</div>
 								</div>
 								<div class="btn-container">
-									<c:choose>
-										<c:when test="${news.news_status eq 'S'}">
-											<input type="button" value="게시" class="post2Btn">
-										</c:when>
-										<c:otherwise>
-											<input type="button" value="수정" class="modifyBtn">
-										</c:otherwise>
-									</c:choose>
-									<input type="button" value="삭제" class="deleteBtn" onclick="confirmDelete(${news.news_code})">
+									<c:if test="${projectDate ne 10}">
+										<c:choose>
+											<c:when test="${news.news_status eq 'S'}">
+												<input type="button" value="게시" class="post2Btn">
+											</c:when>
+											<c:otherwise>
+												<input type="button" value="수정" class="modifyBtn">
+											</c:otherwise>
+										</c:choose>
+										<input type="button" value="삭제" class="deleteBtn" onclick="confirmDelete(${news.news_code})">
+									</c:if>
 								</div>
 							</div>
 						</c:if>
