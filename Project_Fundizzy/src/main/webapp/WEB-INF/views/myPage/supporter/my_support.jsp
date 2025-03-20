@@ -155,7 +155,7 @@
 			                    <span class="disabled">이전</span>
 			                </c:when>
 			                <c:otherwise>
-			                    <a href="LikeHistory?pageNum=${pageInfo.pageNum - 1}">이전</a>
+			                    <a href="MySupport?pageNum=${pageInfo.pageNum - 1}">이전</a>
 			                </c:otherwise>
 			            </c:choose>
 			
@@ -166,7 +166,7 @@
 			                        <span class="active">${i}</span>
 			                    </c:when>
 			                    <c:otherwise>
-			                        <a href="LikeHistory?pageNum=${i}">${i}</a>
+			                        <a href="MySupport?pageNum=${i}">${i}</a>
 			                    </c:otherwise>
 			                </c:choose>
 			            </c:forEach>
@@ -177,7 +177,7 @@
 			                    <span class="disabled">다음</span>
 			                </c:when>
 			                <c:otherwise>
-			                    <a href="LikeHistory?pageNum=${pageInfo.pageNum + 1}">다음</a>
+			                    <a href="MySupport?pageNum=${pageInfo.pageNum + 1}">다음</a>
 			                </c:otherwise>
 			            </c:choose>
 			        </c:if>
