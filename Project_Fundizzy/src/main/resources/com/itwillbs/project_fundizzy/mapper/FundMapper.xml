@@ -97,6 +97,7 @@
 		SELECT *
 		FROM news
 		WHERE project_code = #{project_code}
+		ORDER BY news_date DESC
 	</select>
 	
 <!--   	지지서명 조회 후 목록 출력 -->
