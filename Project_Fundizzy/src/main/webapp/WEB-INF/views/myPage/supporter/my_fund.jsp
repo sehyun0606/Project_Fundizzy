@@ -456,7 +456,7 @@
                <small class="text-count">500자</small>
 
                <!-- 제한 수량 -->
-               <label for="limit">제한 수량</label>
+               <label for="limit">증빙 사진</label>
                <div class="input-group">
                    <input type="file" id="limit" name="refundImg" required="required">
                </div>
