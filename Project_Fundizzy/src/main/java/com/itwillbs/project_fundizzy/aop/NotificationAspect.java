@@ -117,7 +117,7 @@ public class NotificationAspect {
 				notHandler.sendNotToKeepMember(project_code, notHandler.IS_RECV_WISH, notHandler.NOT_WISH_CODE,
 						"회원님이 찜한<br><a href='FundBoardStory?project_code=" + project_code + "'>"
 				+ dbData.get("project_title") + "</a><br>이(가) 승인되었습니다.");
-				// 해당프로젝트의 찜 회원에게 알림
+				// 해당프로젝트의 지지서명 회원에게 알림
 				notHandler.sendNotToSupportMember(project_code, notHandler.IS_RECV_SUPPORT, notHandler.NOT_SUPPORT,
 						"회원님이 지지서명한<br><a href='FundBoardStory?project_code=" + project_code + "'>"
 				+ dbData.get("project_title") + "</a><br>이(가) 승인되었습니다.");
@@ -132,7 +132,7 @@ public class NotificationAspect {
 				notHandler.sendNotToKeepMember(project_code, notHandler.IS_RECV_WISH, notHandler.NOT_WISH_CODE,
 						"회원님이 찜한<br><a href='FundBoardStory?project_code=" + project_code + "'>"
 				+ dbData.get("project_title") + "</a><br>이(가)  거절되었습니다.");
-				// 해당프로젝트의 찜 회원에게 알림
+				// 해당프로젝트의 지지서명한 회원에게 알림
 				notHandler.sendNotToSupportMember(project_code, notHandler.IS_RECV_SUPPORT, notHandler.NOT_SUPPORT,
 						"회원님이 지지서명한<br><a href='FundBoardStory?project_code=" + project_code + "'>"
 				+ dbData.get("project_title") + "</a><br>이(가) 거절되었습니다.");
@@ -141,7 +141,7 @@ public class NotificationAspect {
 		
 	}
 	
-	// 프로젝트 정산신청(선정산, 최종정산)
+	// 프로젝트 정산신청(선정산, 최종정산)완료 알림 
 	@AfterReturning("execution(* com.itwillbs.project_fundizzy.service.AdminSettlementService.registSettlementPay(..))")
 	public void projectSettlementNot(JoinPoint joinPoint) {
 		// 파라미터
@@ -178,9 +178,19 @@ public class NotificationAspect {
 		//회원 정보조회
 		String email = (String)map.get("email");
 		
+		String content = "회원님의 대표계좌가 설정되었습니다.<br>펀디지 페이사용이 가능합니다.<br>"
+				+ "한층 향상된 크라우드펀딩 경험을 즐겨보세요!<br><a href='PayPage'>페이로 이동</a>";
+				
 		if(notHandler.isReceiveThisNOT(email, notHandler.IS_RECV_SITE)) {
-			notHandler.registNOTOnDB(email, "", notHandler.NOT_SITE_CODE, "회원님의 대표계좌가 설정되었습니다.<br>펀디지 페이사용이 가능합니다.<br>"
-				+ "한층 향상된 크라우드펀딩 경험을 즐겨보세요!<br><a href='PayPage'>페이로 이동</a>");
+			notHandler.registNOTOnDB(email, "", notHandler.NOT_SITE_CODE, content);
+		}
+		
+		// 알림 이메일 수신 여부판별후 이메일 전송
+		if(notHandler.isReceiveMail(email)) {
+			// 알림내용안의 <a>태그 주소 변경
+			String newContent = content.replace("<a href='", "<a href='http://c5d2409t1p2.itwillbs.com/");
+			
+			mailClient.sendMail(email, "Fundizzy 알림", newContent);
 		}
 	}
 	
@@ -195,10 +205,19 @@ public class NotificationAspect {
 		//프로젝트 정보 조회
 		Map<String, String> projectInfo = notificationService.getProjectInfo(project_code);
 		
+		String content = "프로젝트 - <a href='FundBoardStory?project_code=" + project_code + "'>"
+				+ projectInfo.get("project_title") + "</a> 찜!<br>앞으로 이 프로젝트의 최신정보가 알림으로 전송됩니다.";
 		
 		if(notHandler.isReceiveThisNOT(email, notHandler.IS_RECV_WISH)) {
-			notHandler.registNOTOnDB(email, project_code, notHandler.NOT_WISH_CODE, "프로젝트 - <a href='FundBoardStory?project_code=" + project_code + "'>"
-					+ projectInfo.get("project_title") + "</a> 찜!<br>앞으로 이 프로젝트의 최신정보가 알림으로 전송됩니다.");
+			notHandler.registNOTOnDB(email, project_code, notHandler.NOT_WISH_CODE, content);
+		}
+		
+		// 알림 이메일 수신 여부판별후 이메일 전송
+		if(notHandler.isReceiveMail(email)) {
+			// 알림내용안의 <a>태그 주소 변경
+			String newContent = content.replace("<a href='", "<a href='http://c5d2409t1p2.itwillbs.com/");
+			
+			mailClient.sendMail(email, "Fundizzy 알림", newContent);
 		}
 	}
 	
@@ -220,29 +239,36 @@ public class NotificationAspect {
 		//지지서명한 서포터 저보조회
 		Map<String, String> supportInfo = memberservice.getMember(email);
 		
-		notHandler.sendNotToMaker(makerInfo.get("email"), project_code, notHandler.IS_RECV_MY, notHandler.NOT_MYPROJECT_CODE,
-				supportInfo.get("nickname") + " 님이 회원님의 프로젝트 <a href='FundBoardStory?project_code=" + project_code + "'>"
-						+ projectInfo.get("project_title")
-						+ "</a>에 지지서명하였습니다.<span class='keyword'></span><input type='hidden' value='" + supportKeyword + "'>");
+		String contentMaker = supportInfo.get("nickname") + " 님이 회원님의 프로젝트 <a href='FundBoardStory?project_code=" + project_code + "'>"
+				+ projectInfo.get("project_title")
+				+ "</a>에 지지서명하였습니다.<span class='keyword'></span><input type='hidden' value='" + supportKeyword + "'>";
 		
-		if(notHandler.isReceiveThisNOT(email, notHandler.IS_RECV_SUPPORT)) {
-			notHandler.registNOTOnDB(email, project_code, notHandler.NOT_SUPPORT, " <a href='FundBoardStory?project_code=" + project_code + "'>"
-					+ projectInfo.get("project_title")
-					+ "</a>에 지지서명 꽝!!<span class='keyword'></span><input type='hidden' value='" + supportKeyword + "'>");
+		notHandler.sendNotToMaker(makerInfo.get("email"), project_code, notHandler.IS_RECV_MY, notHandler.NOT_MYPROJECT_CODE, contentMaker);
+		
+		// 알림 이메일 수신 여부판별후 이메일 전송
+		if(notHandler.isReceiveMail(email)) {
+			// 알림내용안의 <a>태그 주소 변경
+			String newContent = contentMaker.replace("<a href='", "<a href='http://c5d2409t1p2.itwillbs.com/");
+			
+			mailClient.sendMail(email, "Fundizzy 알림", newContent);
 		}
 		
-	}
-	
-	// 회원이 프로젝트 참가시 10% 달성시마다 알림보내고 100%달성시 펀딩 성공 알림을위해 이전 달성률조회
-	@Before("execution(* com.itwillbs.project_fundizzy.service.FundService.insertForPayment*(..))")
-	public void progressProjectBefore(JoinPoint joinPoint) {
-		// 파라미터
-		Object[] args = joinPoint.getArgs();
-		Map<String, String> map = (Map<String, String>)args[0];
-		String project_code = map.get("project_code");
+		String contentSupport = " <a href='FundBoardStory?project_code=" + project_code + "'>"
+				+ projectInfo.get("project_title")
+				+ "</a>에 지지서명 꽝!!<span class='keyword'></span><input type='hidden' value='" + supportKeyword + "'>";
 		
-		// 이전 달성률 조회
-		progressBefore = fundService.getProgressOfProject(project_code);
+		if(notHandler.isReceiveThisNOT(email, notHandler.IS_RECV_SUPPORT)) {
+			notHandler.registNOTOnDB(email, project_code, notHandler.NOT_SUPPORT, contentSupport);
+		}
+		
+		// 알림 이메일 수신 여부판별후 이메일 전송
+		if(notHandler.isReceiveMail(email)) {
+			// 알림내용안의 <a>태그 주소 변경
+			String newContent = contentSupport.replace("<a href='", "<a href='http://c5d2409t1p2.itwillbs.com/");
+			
+			mailClient.sendMail(email, "Fundizzy 알림", newContent);
+		}
+		
 	}
 	
 	// 프로젝트의 시작, 끝 알림
@@ -266,32 +292,24 @@ public class NotificationAspect {
         Date project_end_date = date.getProject_end_date();
         java.util.Date end_date = new java.util.Date(project_start_date.getTime());
         
-        System.err.println(project_start_date);
-        System.err.println(project_end_date);
-        
-        // 현재 시간 가져오기
-        Calendar calendar = Calendar.getInstance();
-
-        // 1분 추가
-        calendar.add(Calendar.MINUTE, 1);
-        
-        // 현재 시간 가져오기
-        Calendar calendar2 = Calendar.getInstance();
-        
-        // 1분 추가
-        calendar2.add(Calendar.MINUTE, 2);
-
-        // java.util.Date 객체로 변환
-        java.util.Date oneMinuteLater = calendar.getTime();
-        // java.util.Date 객체로 변환
-        java.util.Date oneMinuteLater2 = calendar2.getTime();
-        
         // 스케줄 시작 알림
-        notHandler.scheduleStartNotification(oneMinuteLater, project_code);
+        notHandler.scheduleStartNotification(start_date, project_code);
         
         // 스케줄 종료 알림
-        notHandler.scheduleEndNotification(oneMinuteLater2, project_code);
+        notHandler.scheduleEndNotification(end_date, project_code);
 
+	}
+	
+	// 회원이 프로젝트 참가시 10% 달성시마다 알림보내고 100%달성시 펀딩 성공 알림을위해 이전 달성률조회
+	@Before("execution(* com.itwillbs.project_fundizzy.service.FundService.insertForPayment*(..))")
+	public void progressProjectBefore(JoinPoint joinPoint) {
+		// 파라미터
+		Object[] args = joinPoint.getArgs();
+		Map<String, String> map = (Map<String, String>)args[0];
+		String project_code = map.get("project_code");
+		
+		// 이전 달성률 조회
+		progressBefore = fundService.getProgressOfProject(project_code);
 	}
 	
 	// 회원이 프로젝트 참가시 10% 달성시마다 알림보내고 100%달성시 펀딩 성공 알림
@@ -316,16 +334,32 @@ public class NotificationAspect {
 		// 10으로나눈 몫이 다를경우 10%단위 달성률이 변했다는 의미
 		if(progress / 10 != progressBefore / 10) {
 			if(progress > 100 && progress < 110) {
-				notHandler.sendNotToMaker(makerInfo.get("email"), project_code
-						, notHandler.IS_RECV_MY, notHandler.NOT_MYPROJECT_CODE,
-						"프로젝트 <a href='FundBoardStory?project_code=" + project_code + "'>"
-								+ projectInfo.get("project_title") + "</a>100% 달성!<br> 프로젝트 성공하였습니다.");
-			} else {
-				notHandler.sendNotToMaker(makerInfo.get("email"), project_code
-						, notHandler.IS_RECV_MY, notHandler.NOT_MYPROJECT_CODE,
-						"프로젝트 <a href='FundBoardStory?project_code=" + project_code + "'>"
-								+ projectInfo.get("project_title") + "</a>에" + supportInfo.get("nickname") + "님 참여!(달성률 - " + progress + "%)");
+				String content = "프로젝트 <a href='FundBoardStory?project_code=" + project_code + "'>"
+						+ projectInfo.get("project_title") + "</a>100% 달성!<br> 프로젝트 성공하였습니다.";
 				
+				notHandler.sendNotToMaker(makerInfo.get("email"), project_code, notHandler.IS_RECV_MY, notHandler.NOT_MYPROJECT_CODE, content);
+				
+				// 알림 이메일 수신 여부판별후 이메일 전송
+				if(notHandler.isReceiveMail(makerInfo.get("email"))) {
+					// 알림내용안의 <a>태그 주소 변경
+					String newContent = content.replace("<a href='", "<a href='http://c5d2409t1p2.itwillbs.com/");
+					
+					mailClient.sendMail(makerInfo.get("email"), "Fundizzy 알림", newContent);
+				}
+				
+			} else {
+				String content = "프로젝트 <a href='FundBoardStory?project_code=" + project_code + "'>"
+						+ projectInfo.get("project_title") + "</a>에" + supportInfo.get("nickname") + "님 참여!(달성률 - " + progress + "%)";
+				
+				notHandler.sendNotToMaker(makerInfo.get("email"), project_code, notHandler.IS_RECV_MY, notHandler.NOT_MYPROJECT_CODE, content);
+				
+				// 알림 이메일 수신 여부판별후 이메일 전송
+				if(notHandler.isReceiveMail(makerInfo.get("email"))) {
+					// 알림내용안의 <a>태그 주소 변경
+					String newContent = content.replace("<a href='", "<a href='http://c5d2409t1p2.itwillbs.com/");
+					
+					mailClient.sendMail(makerInfo.get("email"), "Fundizzy 알림", newContent);
+				}
 			}
 		}
 	}
@@ -353,13 +387,15 @@ public class NotificationAspect {
 		Object[] args = joinPoint.getArgs();
 		Map<String, String> map = (Map<String, String>)args[0];
 		String payment_code = map.get("payment_code");
-		
 		// 페이먼트 코드로 해당 회원 구매상품 조회
 		List<Map<String, String>> rewardList = notificationService.getRewardListFromPaymentCode(payment_code);
 		String project_code = rewardList.get(0).get("project_code");
 		
 		// 알림 전달할 리워드스트링
 		String rewardStr = "";
+		
+		// 알림 받을 이메일
+		String receiverEmail = rewardList.get(0).get("billing_email");
 		
 		int count = 1;
 		
@@ -372,9 +408,19 @@ public class NotificationAspect {
 			count++;
 		}
 		
-		// 구매한 상품 배송 시작됨 알림 
-		notHandler.sendNotToJoinMember(project_code, notHandler.IS_RECV_JOIN, notHandler.NOT_JOINPROJECT_CODE,
-				"회원님의 리워드가 배송시작 되었습니다.<br>배송조회가 가능합니다<a href='FundHistory'>"
-				+ "(이동하기)</a><br> - 리워드상품 - <br>" + rewardStr);
+		String content = "회원님의 리워드가 배송시작 되었습니다.<br>배송조회가 가능합니다<a href='FundHistory'>"
+				+ "(이동하기)</a><br> - 리워드상품 - <br>" + rewardStr;
+		
+		if(notHandler.isReceiveThisNOT(receiverEmail, notHandler.IS_RECV_JOIN)) {
+			notHandler.registNOTOnDB(receiverEmail, project_code, notHandler.NOT_JOINPROJECT_CODE, content);
+		}
+		
+		// 알림 이메일 수신 여부판별후 이메일 전송
+		if(notHandler.isReceiveMail(receiverEmail)) {
+			// 알림내용안의 <a>태그 주소 변경
+			String newContent = content.replace("<a href='", "<a href='http://c5d2409t1p2.itwillbs.com/");
+			
+			mailClient.sendMail(receiverEmail, "Fundizzy 알림", newContent);
+		}
 	}
 }
