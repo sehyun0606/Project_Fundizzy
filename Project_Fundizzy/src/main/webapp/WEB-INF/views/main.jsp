@@ -85,7 +85,7 @@
 		    <div class="sub-category-wrapper">
 		        <div class="sub-category">
 		        	<c:forEach var="cg" items="${category}">
-			            <span>${cg.code_name}</span>
+			            <span onclick="location.href='FundList?cat=${cg.code_name}'">${cg.code_name}</span>
 		        	</c:forEach>
 		        </div>
 		    </div>
@@ -114,7 +114,7 @@
 	                <div class="project-list">
 		                <c:forEach var="pRl" items="${projectRandomList }" begin="0" end="8">
 		                    <div class="project-item">
-		                        <img src="${pRl.representative_picture}" alt="프로젝트1">
+		                        <img src="${pRl.representative_picture}" alt="프로젝트1" onclick="location.href='FundBoardStory?project_code=${pRl.project_code}'">
 		                        <p class="rank-highlight">
 		                        	<fmt:formatNumber value="${pRl.progress}" type="number"/>% 달성!
 		                        </p>
