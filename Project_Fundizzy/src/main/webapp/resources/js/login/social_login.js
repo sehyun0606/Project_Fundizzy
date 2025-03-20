@@ -20,7 +20,7 @@ function loginWithKakao() {
 //	const kakaoClientId = window.config.kakaoClientId;
 //	const kakaoRedirectUrl = window.config.kakaoRedirectUrl;
 	const kakaoApiKey = "dac18f4f0b5faff6eae286e3e135c18f";
-	const kakaoRedirectUrl = "http://localhost:8081/kakaoCallback";
+	const kakaoRedirectUrl = "http://c5d2409t1p2.itwillbs.com/kakaoCallback";
     const width = 500;
     const height = 700;
     const left = (window.innerWidth / 2) - (width / 2);
