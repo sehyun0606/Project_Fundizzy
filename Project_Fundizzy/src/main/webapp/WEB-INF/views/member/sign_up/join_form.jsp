@@ -366,10 +366,10 @@
 	<h2 style="color: gray;">간편가입</h2>
     <!-- Social Login -->
     <div class="social-login">
-        <a href="YOUR_KAKAO_LOGIN_URL">
+        <a href="javascript:loginWithKakao()">
             <img src="${pageContext.request.contextPath}/resources/images/login/kakao_login_custom.png" alt="카카오 로그인 버튼">
         </a>
-        <a href="YOUR_NAVER_LOGIN_URL">
+        <a href="javascript:loginWithNaver()">
             <img src="${pageContext.request.contextPath}/resources/images/login/naver_login_custom.png" alt="네이버 로그인 버튼">
         </a>
 
@@ -398,7 +398,7 @@
 				  <button id="confirmButton" class="confirm-btn">확인</button>
 				</div>
 				<small id="resultMessage">인증번호 6자리를 입력하세요.</small>
-				<a href="#" class="resend-link">인증번호 다시 보내기</a>
+				<a href="#" class="resend-link" >인증번호 다시 보내기</a>
 			</div>
 			
 	        <h3 style="color: gray;">닉네임</h3>
@@ -470,6 +470,7 @@
 			} else {
 				// 인증 텍스트박스 display none 해제
 		    	$('#auth-section').css('display', 'block');
+				startTimer();
 			}
 			// AJAX 요청으로 이메일 전송
 		    $.ajax({
@@ -485,9 +486,11 @@
 			});
 		});
 		
+		
+		
+		
 		$("#confirmButton").click(function(){
 			event.preventDefault();  // 기본 폼 제출 동작 방지 (submit 방지)
-			
 			let code = $("#auth_code").val();
 			let email = $("#email").val();
 			if(code == ""){
@@ -526,8 +529,10 @@
 			});
 		});
 		
+		
+		
 		// 타이머 설정
-		let timeLeft = 180; // 3분(180초)
+		let timeLeft = 300; // 3분(180초)
 		let timerInterval;
 	
 		function startTimer() {
@@ -543,13 +548,13 @@
 		    } else {
 		        clearInterval(timerInterval);
 		        document.getElementById('timer').textContent = "시간초과";
+		        alert("시간 초과로 다시 인증해주십시요");
 		        $("#confirmButton").prop('disabled', true);  // 확인 버튼 비활성화
 		    }
 
 		  }, 1000); // 1초마다 업데이트
 		}
 		// 타이머 시작
-		startTimer();
 	//--------------------------------------------------------------------------------------------
 	
 	// 정규표현식
@@ -706,6 +711,6 @@
 	
 		
 	</script>
-	
+	<script src="${pageContext.request.contextPath}/resources/js/login/social_login.js"></script>
 </body>
 </html>
