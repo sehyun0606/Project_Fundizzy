@@ -144,6 +144,15 @@
 			<div class="order-summary">
 				<span>목록</span>
 				<span>총 <span>${orderCount}</span>건</span>
+				<span>
+					<select id="searchBox">
+						<option value="">전체선택</option>
+						<option value="SHI01">미발송</option>
+						<option value="SHI02">발송 완료</option>
+						<option value="SHI03">배송중</option>
+						<option value="SHI04">배송 완료</option>
+					</select>
+				</span>
 			</div>
 			<div class="table-container">
 				<table class="list">
@@ -163,6 +172,7 @@
 		            <tbody>
 			            <c:forEach var="order" items="${orderList}" varStatus="status">
 				            <tr>
+				            	<input type="hidden" class="isDisplay" value="${order.shipment_common_code }">
 				                <td width="95px">${status.index + 1}<input type="hidden" class="payment_code" value="${order.payment_code}"></td>
 				                <td width="160px">
 				                    ${order.name}<br>

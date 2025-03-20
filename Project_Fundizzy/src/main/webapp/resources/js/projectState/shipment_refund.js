@@ -101,7 +101,23 @@ function initModal() {
 	
 	
 	
-	
+	$("#searchBox").change(function() {
+		let status = $(this).val();
+		
+		if(status == "") {
+			$(".isDisplay").closest("tr").show();
+			return;
+		}
+		
+		
+		$(".isDisplay").each(function () {
+			if($(this).val() == status) {
+				$(this).closest("tr").show();
+			} else  {
+				$(this).closest("tr").hide();
+			}
+		})
+	});
 	
 	
 	
