@@ -182,7 +182,7 @@ public class NotificationHandler {
     		Map<String, String> projectInfo = notificationService.getProjectInfo(projectCode);
     		
     		// 메이커에게 알림 전송
-    		sendNotToJoinMember(projectCode, IS_RECV_MY, NOT_MYPROJECT_CODE,
+    		sendNotToMaker(projectInfo.get("member_email"), projectCode, IS_RECV_MY, NOT_MYPROJECT_CODE,
     				"프로젝트 <a href='FundBoardStory?projectject_code=" + projectCode + "'>"
 							+ projectInfo.get("project_title") + "</a>가 시작되었습니다.");
     		

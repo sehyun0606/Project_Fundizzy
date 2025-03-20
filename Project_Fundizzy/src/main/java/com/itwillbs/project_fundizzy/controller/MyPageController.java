@@ -274,17 +274,17 @@ public class MyPageController {
 		FundizzyPay fundizzy_pay = fundizzyService.getPayBalance(email);
 		System.out.println("fundizzy_pay 데이터 확인: " + fundizzy_pay);
 		
-		if(charge_result > 0) {
-			System.out.println("충전 성공");
-			System.out.println("bankToken의 이메일: " + bankToken.getEmail());
-			//충전 성공시 잔액과 충전금액 더한값 페이 잔액에 update
-			int pay_amt_result = bankService.registPayAmtResult(chargeResult, fundizzy_pay, email);
-			if(pay_amt_result > 0) {
-				System.out.println("잔액 업데이트 성공 ");
-			}else {
-				System.out.println("잔액 업데이트 실패ㅠ");
-			}
-		}
+//		if(charge_result > 0) {
+//			System.out.println("충전 성공");
+//			System.out.println("bankToken의 이메일: " + bankToken.getEmail());
+//			//충전 성공시 잔액과 충전금액 더한값 페이 잔액에 update
+//			int pay_amt_result = bankService.registPayAmtResult(chargeResult, fundizzy_pay, email);
+//			if(pay_amt_result > 0) {
+//				System.out.println("잔액 업데이트 성공 ");
+//			}else {
+//				System.out.println("잔액 업데이트 실패ㅠ");
+//			}
+//		}
 		model.addAttribute("bank_tran_id", chargeResult.get("bank_tran_id"));
 		
 		// pay 테이블 인설트를 위한 맵객체 생성
@@ -332,7 +332,7 @@ public class MyPageController {
 		// 세션에서 토큰 가져오기
 		String email = (String) session.getAttribute("sId");
 		BankToken bankToken = (BankToken) session.getAttribute("token");
-//		System.out.println("###### banktoken = " + bankToken);
+		System.err.println("###### banktoken = " + bankToken);
 		
 		//map 객체에 세션 아이디 추가 
 		map.put("email",email);
@@ -346,16 +346,16 @@ public class MyPageController {
 		
 		//requestTransfer() 요청해서 map의 transferResult에 저장 
 		Map<String, Object> transferResult = bankService.requestDeposit(map);
-//		System.out.println("@@@@@@@@@transfer result = " + transferResult);
+		System.out.println("@@@@@@@@@transfer result = " + transferResult);
 		
 		//@응답데이터가 map 객체로 저장되어있으며 객체내에 res_list값이 리스트 형태로 저장됨
 		//1. res_list값에 해당하는 list 객체 꺼내기
 		List<Object> res_list = (List<Object>)transferResult.get("res_list");
-//		System.out.println("*****res_list == " + res_list);
+		System.out.println("$$$$$$$$$$ res_list == " + res_list);
 		
 		//2. res_list내의 첫번째 이체 결과정보 객체 꺼내서 map으로 저장 
 		Map<String, Object> result = (Map<String, Object>)res_list.get(0);
-//		System.out.println("****result == " + result);
+		System.out.println("****result == " + result);
 		
 		//@api응답코드가 "A0000"가 아닌 경우엔 오류메시지 띄우기 - String msg 써서 하는거라 보고하기
 		if(!transferResult.get("rsp_code").equals("A0000")) {
