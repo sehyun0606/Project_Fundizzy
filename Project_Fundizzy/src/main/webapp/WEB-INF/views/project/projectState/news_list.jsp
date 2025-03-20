@@ -17,7 +17,14 @@
 		<jsp:include page="/WEB-INF/views/inc/project_maker_top.jsp" />
 		<div class="content">
 			<h1>새소식</h1>
-			<input type="button" value="새소식 작성하기" class="makeNewsBtn">
+			<c:choose>
+				<c:when test="${projectDate ne 10}">
+					<input type="button" value="새소식 작성하기" class="makeNewsBtn">
+				</c:when>
+				<c:otherwise>
+					<input type="button" value="새소식 작성하기" class="makeNewsBtn" disabled>
+				</c:otherwise>
+			</c:choose>
 			<div class="modal">
 				<div class="modal-content">
 					<div class="modal-close">x</div>

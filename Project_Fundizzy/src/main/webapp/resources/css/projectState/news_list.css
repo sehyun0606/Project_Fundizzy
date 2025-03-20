@@ -11,6 +11,18 @@
 	cursor: pointer;
 }
 
+.makeNewsBtn:disabled {
+	background-color: mediumpurple;
+	color: #fff;
+	border: none;
+	border-radius: 3px;
+	padding: 12px 100px;
+	font-size: 16px;
+	letter-spacing: -0.5px;
+	margin: 30px 0;
+	cursor: default;
+}
+
 .modal, .modal2 {
 	display: none;
 	position: fixed;
