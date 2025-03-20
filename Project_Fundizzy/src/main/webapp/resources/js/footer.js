@@ -70,6 +70,7 @@ function connect() {
 	ws.onmessage = onMessage;
 	ws.onclose = onClose;
 	ws.onerror = onError;
+	
 }
 
 function onOpen() {
