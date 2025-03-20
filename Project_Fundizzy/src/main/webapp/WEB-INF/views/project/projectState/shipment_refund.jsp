@@ -323,12 +323,12 @@
 							<h4>펀딩금 반환 신청 사유</h4>
 							<div></div>
 						</div>
+						<div id="refund-img"><a href="" download class="refund-a"><img src="" class="refund-img"></a></div>
 						<div class="reject-reason">
 <!-- 							<h4>반환 거절 사유</h4> -->
 <!-- 							<textarea rows="7" cols="15" ></textarea> -->
 <!-- 							<div>600자</div> -->
 						</div>
-						<div><a href="" download class="refund-a"><img src="" class="refund-img"></a></div>
 						<div class="refund-amount">
 							<h4>반환 금액</h4>
 							<div class="refund-info">

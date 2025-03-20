@@ -101,6 +101,8 @@ public interface ProjectStateMapper {
 
 	String selectProjectListSetStatus(String project_code);
 
+	List<RefundVO> selectSumRefundAmount(String project_code);
+
 	
 
 	

@@ -250,6 +250,29 @@
 		        }
 		    });
 			
+			$(".finalBtn").click(function(e) {
+				console.log("pc : " + $("input[name='project_code']").val());
+				e.preventDefault();
+				
+				$.ajax({
+					type : "GET",
+					url : "SumRefundAmount",
+					data : {
+						project_code : $("input[name='project_code']").val()
+					}
+				}).done(function(sumRefundAmount) {
+					if(sumRefundAmount > 0) {
+						alert("환불 처리를 완료 후 신청해주세요");
+						return;
+						
+					} else {
+						$("form").submit();
+					}
+				});
+				
+			});
+			
+			
 		});   
 	</script>
 </body>

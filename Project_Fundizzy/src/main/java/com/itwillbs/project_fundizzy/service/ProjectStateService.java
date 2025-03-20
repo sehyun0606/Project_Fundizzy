@@ -163,6 +163,10 @@ public class ProjectStateService {
 		return stateMapper.selectProjectListSetStatus(project_code);
 	}
 
+	public List<RefundVO> getSumRefundAmount(String project_code) {
+		return stateMapper.selectSumRefundAmount(project_code);
+	}
+
 	
 
 	

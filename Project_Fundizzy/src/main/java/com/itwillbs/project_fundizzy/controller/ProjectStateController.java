@@ -62,7 +62,7 @@ public class ProjectStateController {
 		
 		String requestInfo = projectMakerService.getRequestInfo(project_code);
 		
-		if (requestInfo.equals("accept")) {
+		if (!requestInfo.equals("before")) {
 		    if (dateMap == null || dateMap.isEmpty()) {
 		    	model.addAttribute("msg", "기간을 먼저 설정해주세요");
 		    	model.addAttribute("targetURL", "ProjectDate");
@@ -130,7 +130,7 @@ public class ProjectStateController {
 		
 		String requestInfo = projectMakerService.getRequestInfo(project_code);
 		
-		if (requestInfo.equals("accept")) {
+		if (!requestInfo.equals("before")) {
 		    if (dateMap == null || dateMap.isEmpty()) {
 		    	model.addAttribute("msg", "기간을 먼저 설정해주세요");
 		    	model.addAttribute("targetURL", "ProjectDate");
@@ -195,6 +195,14 @@ public class ProjectStateController {
 		
 		
 		return "project/projectState/settlement_detail";
+	}
+	
+	@ResponseBody
+	@GetMapping("SumRefundAmount")
+	public List<RefundVO> getRegundList(String project_code) {
+		List<RefundVO> sumRefundAmount = stateService.getSumRefundAmount(project_code);
+		
+		return sumRefundAmount;
 	}
 	
 	@PostMapping("PreSettlement")
@@ -421,7 +429,7 @@ public class ProjectStateController {
 		
 		String requestInfo = projectMakerService.getRequestInfo(project_code);
 		
-		if (requestInfo.equals("accept")) {
+		if (!requestInfo.equals("before")) {
 		    if (dateMap == null || dateMap.isEmpty()) {
 		    	model.addAttribute("msg", "기간을 먼저 설정해주세요");
 		    	model.addAttribute("targetURL", "ProjectDate");
@@ -615,7 +623,7 @@ public class ProjectStateController {
 		
 		String requestInfo = projectMakerService.getRequestInfo(project_code);
 		
-		if (requestInfo.equals("accept")) {
+		if (!requestInfo.equals("before")) {
 		    if (dateMap == null || dateMap.isEmpty()) {
 		    	model.addAttribute("msg", "기간을 먼저 설정해주세요");
 		    	model.addAttribute("targetURL", "ProjectDate");

@@ -346,6 +346,7 @@
 		SELECT IFNULL(SUM(refund_amound), 0) as refund_amount
 		FROM refund
 		WHERE project_code = #{project_code}
+		AND refund_status = 'REF02'
 	</select>
 	
 	<!-- 선정산 정보 등록 및 상태 업데이트 -->
@@ -455,6 +456,18 @@
 		SELECT settlement_status
 		FROM project_list
 		WHERE project_code = #{project_code}
+	</select>
+	
+	<select id="selectSumRefundAmount" resultType="int">
+		SELECT SUM(
+					CASE
+						WHEN refund_status = 'REF01' THEN 1
+						ELSE 0
+					END
+				) as sumRefund
+		FROM refund
+		WHERE project_code = #{project_code}
+					
 	</select>
 
 </mapper>
