@@ -137,31 +137,70 @@
 			    </table>
 			</div>
 		</div>
+		
+		<!-- 모달 창 -->
+		<div id="memberModal" class="modal">
+		    <div class="modal-content">
+		        <span class="close">&times;</span>
+		        <h3>회원 상세 정보</h3>
+		        <p><strong>이메일:</strong> <span id="modalEmail"></span></p>
+		        <p><strong>닉네임:</strong> <span id="modalNickname"></span></p>
+		        <p><strong>가입 날짜:</strong> <span id="modalRegDate"></span></p>
+		        <p><strong>로그인 방식:</strong> <span id="modalLoginType"></span></p>
+		        <p><strong>프로필 이미지:</strong> <span id="modalProfile"></span></p>
+		    </div>
+		</div>
+				
+		
+		
 	</article>
+	
+	
+	
+	
 	<script>
-		document.addEventListener("DOMContentLoaded", function () {
-		    document.getElementById("searchType").addEventListener("change", filterTable);
-		    document.querySelector(".search-btn").addEventListener("click", filterTable);
-		});
-	
-		function filterTable() {
-		    var selectedType = document.getElementById("searchType").value.trim().toLowerCase();
-		    var searchText = document.getElementById("searchMember").value.trim().toLowerCase();
-		    var rows = document.querySelectorAll(".member-row");
-	
-		    rows.forEach(function (row) {
-		        var category = row.getAttribute("data-category").trim().toLowerCase();
-		        var email = row.getAttribute("data-email").trim().toLowerCase();
-		        var nickname = row.getAttribute("data-nickname").trim().toLowerCase();
-	
-		        // 필터링 조건
-		        var categoryMatch = (selectedType === "전체" || category === selectedType);
-		        var textMatch = (searchText === "" || email.includes(searchText) || nickname.includes(searchText));
-	
-		        // 조건에 맞는 경우만 표시
-		        row.style.display = (categoryMatch && textMatch) ? "table-row" : "none";
+		
+		
+		
+		
+		// 모달 요소 참조
+		const modal = document.getElementById("memberModal");
+		const closeBtn = modal.querySelector(".close");
+
+		// 회원 행 클릭 이벤트 연결
+		document.querySelectorAll(".member-row").forEach(function(row) {
+		    row.addEventListener("click", function () {
+		        // 데이터 추출
+		        const email = row.children[0].innerText;
+		        const nickname = row.children[1].innerText;
+		        const regDate = row.children[2].innerText;
+		        const loginType = row.children[3].innerText;
+		        const profile = row.children[4].innerText;
+
+		        // 모달에 값 세팅
+		        document.getElementById("modalEmail").innerText = email;
+		        document.getElementById("modalNickname").innerText = nickname;
+		        document.getElementById("modalRegDate").innerText = regDate;
+		        document.getElementById("modalLoginType").innerText = loginType;
+		        document.getElementById("modalProfile").innerText = profile;
+
+		        // 모달 표시
+		        modal.style.display = "block";
 		    });
-		}
+		});
+
+		// 닫기 버튼
+		closeBtn.onclick = function () {
+		    modal.style.display = "none";
+		};
+
+		// 바깥 클릭 시 닫기
+		window.onclick = function (event) {
+		    if (event.target == modal) {
+		        modal.style.display = "none";
+		    }
+		};
+
 	</script>
 </body>
 </html>
